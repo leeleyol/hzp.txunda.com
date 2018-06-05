@@ -60,12 +60,11 @@ class MemberModel extends Model{
     function checkToken()
     {
         unset($w);
-        $token = $_SERVER['HTTP_TOKEN'];
-        if (empty($token)) {
+        $m_id = $_POST['m_id'];
+        if (empty($m_id)) {
             return 0;
         }
-        $w['token'] = $token;
-        $w['expired_time'] = array('egt', time());
+        $w['id'] = $m_id;
         $w['status'] = array('neq', 0);
         $m_id = $this->where($w)->getField('id');
         return $m_id ? $m_id : 0;

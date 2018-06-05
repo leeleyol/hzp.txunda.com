@@ -39,4 +39,18 @@ class BaseController extends Controller{
             apiResponse('0',$res['error']);
         }
     }
+
+
+    /**
+     * 增加账单明细
+     */
+    public function addPayLog($m_id,$type,$symbol,$money,$desc){
+        $l_data['m_id'] = $m_id;
+        $l_data['type'] = $type;
+        $l_data['symbol'] = $symbol;
+        $l_data['money'] = $money;
+        $l_data['desc'] = $desc;
+        $l_data['create_time'] = time();
+        M('PayLog')->data($l_data)->add();
+    }
 }
