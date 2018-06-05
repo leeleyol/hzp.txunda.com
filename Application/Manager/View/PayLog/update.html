@@ -1,0 +1,143 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <style type="text/css">
+        #edui1_iframeholder{
+            width: 100% !important;
+        }
+        select{
+            margin-left: 5px;
+        }
+        .radio{
+            padding-top: 5px;
+        }
+    </style>
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a href="#tab1">通用信息</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content tab-content nopadding">
+                    <form class="form-horizontal" method="post" action="{:U('IntegralGoods/update')}">
+                        <input type="hidden" name="model" value="IntegralGoods">
+                        <input type="hidden" name="id" value="{$row['id']}">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="control-group">
+                                    <label class="control-label">商品名称</label>
+                                    <div class="controls">
+                                        <input type="text" name="goods_name" value="{$row['goods_name']}" style="width: 600px">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">积分值</label>
+                                    <div class="controls">
+                                        <input type="text" name="integral" value="{$row['integral']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">商品简介</label>
+                                    <div class="controls">
+                                        <textarea type="text" name="goods_brief">{$row['goods_brief']}</textarea>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">上传商品图片</label>
+                                    <div class="controls">
+                                        {:hook('upload',array('is_first'=>1,'unique_sign'=>'goods_logo','field_name'=>'goods_logo','field_value'=>$row['goods_logo'],'save_path'=>'Goods'))}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">文章内容</label>
+                                    <div class="controls">
+                                        <textarea name="goods_detail">{$row['goods_detail']}</textarea>
+                                        {:hook('adminArticleEdit', array('name'=>'goods_detail','value'=>$row['goods_detail']))}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品相册</label>
+                                    <div class="controls">
+                                        {:hook('upload',array('queue_limit'=>10,'unique_sign'=>'goods_gallery','field_name'=>'goods_gallery','field_value'=>$row['goods_gallery'],'save_path'=>'Goods'))}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品排序</label>
+                                    <div class="controls">
+                                        <input type="text" name="sort" value="{$row['sort']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品库存</label>
+                                    <div class="controls">
+                                        <input type="text" name="number" value="{$row['number']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">单日兑换上限</label>
+                                    <div class="controls">
+                                        <input type="text" name="day_max" value="{$row['day_max']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>　
+                            <button class="btn btn-info ajax-post" target-form="form-horizontal" type="submit">保 存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            //选项卡切换
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+            //根据一级分类获取二级分类
+            $("#fir_g_t").change(function () {
+                var fir_g_t_id = $('#fir_g_t option:selected').val();
+                if(fir_g_t_id == 0){
+                    var html=  "<option value='0'>二级分类</option>";
+                    $("#sec_g_t").html(html);
+                }else {
+                    $.ajax({
+                        url: "{:U('Goods/ajaxGetGoodsType')}",
+                        type: 'post',
+                        data: {fir_g_t_id:fir_g_t_id},
+                        success: function (data) {
+                            var html =  "<option value='0'>二级分类</option>";
+                            for (var i = 0; i < data.length; i++) {
+                                html +="<option value='"+data[i]['id']+"'>"+data[i]['goods_type_name']+"</option>";
+                            }
+                            $('#sec_g_t').html(html);
+                        }
+                    })
+                }
+            });
+            $("#add_extension_type").click(function(){
+                $html = $("#select_html").val();
+                $('.extension_type_div').append($html);
+                return false;
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,65 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab1">基本信息</a></li>
+                        <!--<li><a data-toggle="" href="{:U('Member/rePass',array('id'=>$row['id']))}">修改密码</a></li>-->
+                    </ul>
+                </div>
+                <div class="widget-content tab-content nopadding">
+                    <div id="tab1" class="tab-pane active">
+                    <form class="form-horizontal" method="post" action="{:U('Member/update')}">
+                        <input type="hidden" name="model" value="Member"><input type="hidden" name="id" value="{$row['id']}">
+                        <div class="control-group">
+                            <label class="control-label">账号</label>
+                            <div class="controls">
+                                <input type="text" name="" value="{$row['account']}" disabled>
+                                <span class="help-block">账号必须是手机号</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">淘宝昵称</label>
+                            <div class="controls">
+                                <input type="text" name="tbnick" value="{$row['tbnick']}" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">她他币</label>
+                            <div class="controls">
+                                <input type="text" name="" value="{$row['platform_currency']}" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">积分</label>
+                            <div class="controls">
+                                <input type="text" name="integral" value="{$row['integral']}" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">注册时间</label>
+                            <div class="controls">
+                                <input type="text" name="" value="{$row['create_time']|date='Y-m-d H:i',###}" disabled>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>　
+                            <button class="btn btn-info ajax-post" target-form="form-horizontal" type="submit">保 存</button>
+                        </div>
+                    </form>
+                    </div>
+                    <div id="tab2" class="tab-pane"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

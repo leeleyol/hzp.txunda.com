@@ -1,0 +1,83 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+
+                <div class="widget-title widget-title-search">
+                    <button class="btn btn-success href" url="{:U('Goods/add')}" target-form="ids">新增</button>&nbsp;
+                    <button class="btn btn-danger confirm ajax-post" url="{:U('Goods/delete',array('model'=>'Goods','status'=>9))}" target-form="ids">删 除</button>&nbsp;
+                </div>
+                <!--// search start-->
+                <div class="search-main">
+                    <form action="{:U('Goods/index')}" method="post" class="form">
+                        <div class="search-frame-main">
+                            <input class="search-frame" type="text" name="title" value="{$_REQUEST['title']}" placeholder="商品名称">
+                            <select class="search-frame" type="text" name="goods_type_id" >
+                                <option value="0">选择分类</option>
+                                <volist name="select" id="fir">
+                                    <option value="{$fir['id']}" <if condition="$fir['id'] eq $_REQUEST['goods_type_id']">selected</if> >{$fir['type_name']}</option>
+                                </volist>
+                            </select>
+                        </div>
+
+                        <div class="search-btn">
+                            <button class="btn btn-inverse" style="margin:4px 10px;">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <!--// search end-->
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/></th>
+                            <th>ID</th>
+                            <th>商品名称</th>
+                            <th>主图</th>
+                            <th>商品分类</th>
+                            <th>原价</th>
+                            <th>券金额</th>
+                            <th>券后价</th>
+                            <th>销量</th>
+                            <th>优惠券总量</th>
+                            <th>佣金比例</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>{$row['short_title']}</td>
+                                <td><img src="{$row['goods_logo']}" width="50px" height="50px"/></td>
+                                <td>{$row['type_name']}</td>
+                                <td>￥{$row['coupon_price']}</td>
+                                <td>￥{$row['quan']}</td>
+                                <td>￥{$row['coupon_quan_price']}</td>
+                                <td class="single-edit" data-model="Goods" data-id="{$row['id']}" data-field="sale">{$row['volume']}</td>
+                                <td>{$row['quan_count']}</td>
+                                <td><?php echo $row['commission_rate']/100?>%</td>
+                                <td>
+                                    <a href="{:U('Goods/update',array('id'=>$row['id']))}" title="编辑" class="tip-bottom">
+                                        <span class="label label-success">编辑</span></a>&nbsp;
+                                    <a href="{:U('Goods/delete',array('model'=>'Goods','ids'=>$row['id'],'status'=>9))}" title="删除" class="tip-bottom confirm ajax-get">
+                                        <span class="label label-important">删除</span></a>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,112 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <style>
+        button{
+            position: fixed;
+            bottom: 0px;
+            margin-bottom: 10px;
+        }
+        .box2{
+            position:fixed;
+            z-index:5000;
+            width:100%;
+            bottom:-19%;
+            left:50%;
+            -webkit-transform:translate(-50%, -50%);
+            transform:translate(-50%, -50%);
+            background-color:#FFFFFF;
+            border-radius:3px;
+            overflow:hidden;
+        }
+        .weui-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .box3{
+            padding: 10px 20px;
+            border: 1px solid rgba(246, 246, 246, 1);
+        }
+        .logo{
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</block>
+<block name="main">
+<div class="bc3">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/myWalletIndex')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            提现
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="tixian headtop coarseLline">
+        <div class="tixian_item">
+            <span class="fontsize2 start">提现方式</span>
+            <img src="__ROOT__/Public/Home/img/h_more.png">
+        </div>
+        <div class="tixian_item tixian_wu">
+            <span class="fontsize2 padding_t">提现金额</span>
+        </div>
+        <div class="tixian_item">
+            <span class="fontsize2">¥</span>
+            <input class="fontsize2" type="text" placeholder="请出入提现金额">
+        </div>
+        <p class="fontsize2 padding_tb">当前余额50.00元</p>
+    </div>
+    <a href="#">
+        <button>提 现</button>
+    </a>
+
+    <div style="display: none;" class="box1">
+        <div class="weui-mask hidden"></div>
+        <div class="box2">
+            <div class="fontsize2 textcen box3">
+                选择提现方式
+            </div>
+            <div class="fontsize2 box3">
+                <img src="__ROOT__/Public/Home/img/bank.png" class="logo">
+                <span class="color3 fontsize3">中国建设银行储蓄卡（尾号9070）</span>
+            </div>
+            <div class="fontsize2 box3">
+                <img src="__ROOT__/Public/Home/img/bank.png" class="logo">
+                <span class="color3 fontsize3">中国建设银行储蓄卡（尾号9070）</span>
+            </div>
+            <div class="fontsize2 box3">
+                <img src="__ROOT__/Public/Home/img/add.png" class="logo">
+                <span class="color6">添加</span>
+            </div>
+            <div class="fontsize2 box3">
+
+            </div>
+        </div>
+    </div>
+    <!--弹框2 start -->
+    <script>
+        //    背景板
+        $('.weui-mask').click(function(){
+            var ref=$(this);
+            var target=ref.parent('.Bomb-box');
+            target.hide();
+        });
+        //    弹出框的显示隐藏事件
+        $('.start').click(function(){
+            $('.box1').show();
+        });
+        $('.hidden').click(function(){
+            $('.box1').hide();
+        })
+    </script>
+</div>
+</block>

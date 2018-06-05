@@ -1,0 +1,148 @@
+/*app*/
+@charset "utf-8";
+*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none;}
+img{vertical-align:middle;-ms-interpolation-mode:bicubic;max-width: 100%}
+p{margin: 0px;}
+input::-ms-clear{display:none}
+input::-ms-reveal{display:none}
+button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"microsoft yahei"}
+button,input[type=button],input[type=text],input[type=reset],input[type=submit]{-webkit-appearance:none;display:initial;cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
+input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+.btn.active, .btn:active,.btn.focus, .btn:focus, .btn:hover {background-image: none;-webkit-box-shadow:none; box-shadow: none;color: #FFFFff;
+}
+/*登录页面样式*/
+body{
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+/*头部*/
+header{
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    color: white;
+    background-color: #FF4C82;
+}
+.head{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+.headtop{
+    margin-top: 50px;
+}
+header .header_left{
+    float: left;
+    width: 20%;
+    text-align: left;
+}
+header .header_left img{
+   width: 30px;
+    height: 30px;
+}
+header .header_middle{
+    float: left;
+    width: 60%;
+    text-align: center;
+    font-size:18px;
+    color: white;
+}
+header .header_right{
+    float: right;
+    width: 16%;
+    font-size: 16px;
+
+}
+header .header_right a{
+    color: white;
+    margin-right:5%;
+}
+
+
+/*表单*/
+form{
+    padding: 0 15px;
+    font-size: 18px;
+}
+.borders{
+    border-bottom: 1px solid  #999999;
+}
+.username{
+    color: #999999;
+    height: 60px;
+    line-height: 60px;
+
+}
+.username label img{
+    width: 30px;
+    height: 30px;
+}
+/*.username a{*/
+    /*color: #999999;*/
+    /*float: right;*/
+/*}*/
+.username input{
+    font-size: 16px;
+}
+.wangji{
+    float: right;
+   position: relative;
+    top: 10px;
+    font-size: 16px;
+}
+.wangji a{
+    color: #999999;
+}
+.btn{
+    width: 90px;
+    height:30px;
+    position: absolute;
+    right: 20px;
+    top: 130px;
+    font-size: 16px;
+}
+button{
+    background-color: rgba(255, 76, 130, 1);
+    border-radius: 6px 6px 6px 6px;
+    color: white;
+    height:40px;
+    width:100%;
+}
+button a{
+    color: white;
+    text-decoration: none;
+}
+footer{
+    padding: 0 15px;
+    margin-top: 120px;
+}
+.footer_img{
+    margin: 0 auto;
+    text-align: center;
+    height : 50px;
+    width: 50px;
+}
+.buju  {
+    display: flex;
+}
+.buju .buju_item{
+   width: 33%;
+    text-align: center;
+}
+.buju .buju_item span{
+    color: #999999;
+    padding: 0 5px ;
+    text-align: center;
+    font-size:15px;
+}
+/*注册样式*/
+.juli{
+    margin:70px 0px;
+    text-align: center;
+    font-size:16px;
+}

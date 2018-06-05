@@ -1,0 +1,60 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <style>
+        header .header_right a{
+            color: #ff4c82;
+        }
+    </style>
+</block>
+<block name="main">
+<div class="bc3">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/myWalletIndex')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            我的银行卡
+        </div>
+        <div class="header_right">
+            <a href="{:U('Member/addBank')}" class="fontsize3  ">添加</a>
+        </div>
+    </header>
+    <div class="bank headtop coarseLline">
+        <div class="bank_flex">
+            <img src="__ROOT__/Public/Home/img/bank.png">
+            <div class="">
+                <p class="fontsize3">建设银行</p>
+                <p class="fontsize5 color3">储蓄卡</p>
+            </div>
+        </div>
+        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
+    </div>
+    <div class="bank">
+        <div class="bank_flex">
+            <img src="__ROOT__/Public/Home/img/bank.png">
+            <div class="">
+                <p class="fontsize3">建设银行</p>
+                <p class="fontsize5 color3">储蓄卡</p>
+            </div>
+        </div>
+        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
+    </div>
+    <div class="bank rela">
+        <div class="bank_flex">
+            <img src="__ROOT__/Public/Home/img/bank.png">
+            <div class="">
+                <p class="fontsize3">建设银行</p>
+                <p class="fontsize5 color3">储蓄卡</p>
+            </div>
+        </div>
+        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
+        <span class="abs">
+            <img src="__ROOT__/Public/Home/img/cancel.png" class="size1">
+            <span class="fontsize3 color2">取消关联</span>
+        </span>
+    </div>
+</div>
+</block>

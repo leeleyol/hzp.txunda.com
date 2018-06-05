@@ -1,0 +1,65 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+</block>
+<block name="main">
+    <header>
+        <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png" width="30px" height="30px" ></a>
+        <img src="__ROOT__/Public/Home/img/search.png" style="position:absolute;z-index: 1;width: 20px;height: 20px;
+         top: 19px;left: 60px;" />
+        <input type="search" placeholder="搜索" >
+        <span>
+             <a href=" " style="color: black;" >搜索</a>
+        </span>
+    </header>
+
+    <div class="tab">
+        <ul id="hear">
+            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">
+                供求信息
+            </li>
+            <li> 商家 </li>
+            <li> 帖子 </li>
+        </ul>
+        <ul id="contentop">
+            <li class="action">
+                <div style="text-align:center;padding-top: 100px">
+                    <img src="__ROOT__/Public/Home/img/emptyData.png" height="150" width="150"/>
+                    <br>
+                    <span style="color: #999999;font-size: 18px">没有搜索到～</span>
+                </div>
+
+            </li>
+            <li>
+
+            </li>
+
+        </ul>
+    </div>
+</block>
+
+<script>
+    <!--选项卡-->
+    $(function(){
+        $("#hear li").click(function(){
+            $(this).css({
+                borderBottom: "2px solid #FF4C82",
+                color : "#FF4C82"
+            }).siblings().css({
+                borderBottom: "none",
+                color : "#000000"
+            });
+        });
+
+        $("#hear li ").click(function(){
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+        });
+
+
+
+
+    });
+</script>
+</html>

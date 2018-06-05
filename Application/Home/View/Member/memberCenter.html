@@ -1,0 +1,216 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        header{
+            width: 100%;
+            height: 200px;
+        }
+        .my{
+            padding-bottom: 50px;
+        }
+        .my .my_left{
+            float: left;
+            width: 15%;
+            padding-left: 10px;
+            /*background-color: rebeccapurple;*/
+        }
+        .my .my_left img{
+            width: 60px;
+            height:50px;
+            border-radius: 50%;
+        }
+        .my .my_middle{
+            padding-left: 5px;
+            float: left;
+            width: 64%;
+        }
+        .my .my_right{
+            float: right;
+            width: 15%;
+            /*background-color: #40AFFE;*/
+            text-align: right;
+        }
+        .my .my_right img{
+            margin-right: 15px;
+            width: 27px;
+            height: 25px;
+        }
+        .mys{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .mys .my_item{
+            float: left;
+            width: 33%;
+            /*color: white;*/
+            font-size: 20px;
+            line-height: 1.8em;
+        }
+        .mys .my_item a{
+            color: white;
+        }
+    </style>
+</block>
+<block name="main">
+    <header style=" background: url(__ROOT__/Public/Home/img/bc.png);background-size: 100%">
+       <div class="my">
+           <div class="my_left">
+               &nbsp;
+           </div>
+           <div class="my_middle" style="text-align: center">
+               <span style="font-size: 18px;color: white">我 的</span>
+           </div>
+           <div class="my_right" linkto="{:U('Msg/msgIndex')}">
+               <img src="__ROOT__/Public/Home/img/w_information.png" />
+           </div>
+       </div>
+        <div class="my" linkto="{:U('Member/memberBaseData')}">
+            <div class="my_left">
+               <img id="head_pic" src="__ROOT__/Public/Home/img/remind.png" />
+
+            </div>
+            <div class="my_middle"  >
+                <div class="bussiness_renzheng">
+                    <label id="nickname">UII UII GAMES</label>
+                    <!--<input type="button" value="商家认证" style=" border: solid 2px rgba(255, 255, 255, 1);  "><br>-->
+                    <p id="intro">
+                        有点懒 什么都没留下
+                    </p>
+                </div>
+            </div>
+            <div class="my_right">
+                <img src="__ROOT__/Public/Home/img/w_more.png" style="padding-top: 20px" />
+            </div>
+        </div>
+
+        <div class="mys">
+             <div class="my_item">
+                 <a href="{:U('Follow/myFollow')}">
+                     关注
+                 </a>
+                 <br><span linkto="{:U('Follow/myFollow')}" id="follow_num">0</span>
+             </div>
+            <div class="my_item">
+                <hr style="width: 0.5px;height: 50px;margin: 10% 0px 0px 50%;background-color: #cacaca">
+            </div>
+            <div class="my_item">
+                <a href="{:U('Collect/myCollect')}">
+                    收藏
+                </a>
+                <br><span linkto="{:U('Collect/myCollect')}"  id="collect_num">0</span>
+            </div>
+        </div>
+    </header>
+
+<!--中间内容-->
+    <!--common样式-->
+    <div class="coarseLline"></div>
+    <a href="{:U('Member/myWalletIndex')}">
+       <div class="leftright">
+           <div class="left">
+               我的钱包
+           </div>
+           <div class="right">
+               <img src="__ROOT__/Public/Home/img/h_more.png" />
+           </div>
+       </div>
+    </a>
+    <div class="fineLine"></div>
+
+    <a href="my_card.html">
+        <div class="leftright">
+            <div class="left">
+                身份认证
+            </div>
+            <div class="right">
+                普通会员
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+    </a>
+    <div class="fineLine"></div>
+
+    <div class="coarseLline"></div>
+    <a href="#">
+        <div class="leftright">
+            <div class="left">
+                我的发布
+            </div>
+            <div class="right">
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+    </a>
+    <div class="fineLine"></div>
+    <a href="my_setUp_stockRecord1.html">
+        <div class="leftright">
+            <div class="left">
+                我的进货记录
+            </div>
+            <div class="right">
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+    </a>
+    <div class="fineLine"></div>
+
+    <div class="coarseLline"></div>
+    <a href="{:U('Set/setIndex')}">
+        <div class="leftright">
+            <div class="left">
+                设置
+            </div>
+            <div class="right">
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+    </a>
+    <div class="fineLine"></div>
+
+
+    <!--尾部-->
+    <footer>
+        <div class="footer_item">
+            <a href="{:U('Index/index')}">
+                <img src="__ROOT__/Public/Home/img/home_0.png"  />
+                <div >首页</div>
+            </a>
+        </div>
+        <div class="footer_item">
+            <a href="{:U('Interest/interestIndex')}">
+                <img src="__ROOT__/Public/Home/img/empty_0.png" />
+                <div>兴趣圈</div>
+            </a>
+        </div>
+        <div class="footer_item">
+            <a href="{:U('Member/memberCenter')}">
+                <img src="__ROOT__/Public/Home/img/my1.png"  />
+                <div class="active ">我的</div>
+            </a>
+        </div>
+    </footer>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            var m_id = localStorage.getItem('m_id');
+            m_id = m_id?m_id:0;
+            requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    alert(res.message);
+                }else {
+                    $('#nickname').text(res.data.nickname);
+                    $('#intro').text(res.data.intro);
+                    $('#head_pic').attr('src',res.data.head_pic);
+                    $('#follow_num').text(res.data.follow_num);
+                    $('#collect_num').text(res.data.collect_num);
+                }
+            });
+        })
+    </script>
+</block>

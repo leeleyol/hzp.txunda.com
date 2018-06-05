@@ -1,0 +1,60 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/></th>
+                            <th>ID</th>
+                            <th>用户手机号</th>
+                            <th>收款人真实姓名</th>
+                            <th>支付宝账号</th>
+                            <th>提取她他币</th>
+                            <th>对应人民币</th>
+                            <th>提现时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>{$row['account']}</td>
+                                <td>{$row['alipay_real_name']}</td>
+                                <td>{$row['alipay_number']}</td>
+                                <td>{$row['platform_currency']}</td>
+                                <td>{$row['money']}</td>
+                                <td>{$row['create_time']|date='Y-m-d H:i',###}</td>
+                                <td>
+                                    <eq name="row['status']" value="0">审核中</eq>
+                                    <eq name="row['status']" value="1">提现成功</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['status']" value="0">
+                                        <a href="{:U('Withdraw/doWithdraw',array('model'=>'Withdraw','ids'=>$row['id'],'status'=>1))}" title="提现成功" class="tip-bottom ajax-get">
+                                            <span class="label label-success">确认提现</span></a>&nbsp;
+                                        <else/>
+                                        /
+                                    </eq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>

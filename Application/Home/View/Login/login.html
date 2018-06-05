@@ -1,0 +1,73 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/loginpwd.css">
+</block>
+<block name="main">
+    <header>
+        <div class="header_left">
+            <a href="#"><img src="__ROOT__/Public/Home/img/w_back.png" /></a>
+        </div>
+        <div class="header_middle">
+            登 录
+        </div>
+        <div class="header_right">
+            <a href="{:U('Login/register')}">注册</a>
+        </div>
+    </header>
+
+    <form>
+        <div class="username  borders">
+            <label><img src="__ROOT__/Public/Home/img/number.png"  /></label>
+            <input type="number" placeholder="请输入手机号" id="account">
+        </div>
+        <div class="username borders">
+            <label><img src="__ROOT__/Public/Home/img/pwd.png"  /></label>
+            <input type="number" placeholder="请输入密码" id="password">
+        </div>
+        <div class="username wangji"><a href="{:U('Login/forgetPwd')}">忘记密码</a></div>
+        <button onclick="return false;" id="do_login" >登 录</button>
+    </form>
+    <!--<footer >-->
+        <!--<div class="buju">-->
+            <!--<div class="buju_item">-->
+                <!--<img src="__ROOT__/Public/Home/img/border.png" height="10px" width="100%"/>-->
+            <!--</div>-->
+            <!--<div class="buju_item">-->
+                <!--<span style="">第三方登录</span>-->
+            <!--</div>-->
+            <!--<div class="buju_item">-->
+                <!--<img src="__ROOT__/Public/Home/img/border.png" height="10px" width="100%" />-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="footer_img">-->
+            <!--<img src="__ROOT__/Public/Home/img/weixin.png"  />-->
+        <!--</div>-->
+    <!--</footer>-->
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            $('#do_login').click(function(){
+                var account = $("#account").val();
+                var password = $("#password").val();
+                if(account.length == 0){
+                    alert('请输入手机号');return false;
+                }
+                if(password.length == 0){
+                    alert('请输入密码');return false;
+                }
+                requestUrl("{:U('Login/ajaxLogin')}",{account:account,password:password},function(res){
+                    if(res.code == 0){
+                        alert(res.message);
+                    }else {
+                        alert(res.message);
+                        localStorage.setItem('m_id',res.data.m_id);
+                        window.location.href="{:U('Member/memberCenter')}"
+                    }
+                });
+            });
+        });
+    </script>
+</block>
+

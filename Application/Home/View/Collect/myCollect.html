@@ -1,0 +1,58 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+</block>
+<block name="main">
+    <header >
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle color1">
+            我的收藏
+        </div>
+        <div class="header_right">
+           编辑
+        </div>
+    </header>
+
+    <div class="tab">
+        <ul id="hear">
+            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">
+                供求信息
+            </li>
+            <li> 帖子 </li>
+
+        </ul>
+        <ul id="contentop">
+            <li class="action">
+            </li>
+            <li>
+                sa
+            </li>
+
+        </ul>
+    </div>
+</block>
+<block name="script">
+    <script>
+        <!--选项卡-->
+        $(function(){
+            $("#hear li").click(function(){
+                $(this).css({
+                    borderBottom: "2px solid #FF4C82",
+                    color : "#FF4C82"
+                }).siblings().css({
+                    borderBottom: "none",
+                    color : "#000000"
+                });
+            });
+
+            $("#hear li ").click(function(){
+                $(this).addClass("action").siblings().removeClass("action");
+                var index = $(this).index();
+                $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,62 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+</block>
+<block name="main">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            我的钱包
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="balance headtop">
+        <img src="__ROOT__/Public/Home/img/balance.png" />
+        <p class="color2 fontsize12 padding_tb"><span class="fontsize12">¥</span><span id="balance"></span></p>
+        <p class="color2 fontsize3">我的余额</p>
+    </div>
+    <div class="block block_b">
+        <div class="block_item block_h">
+            <a href="{:U('Member/payLog')}" >
+                <img src="__ROOT__/Public/Home/img/balance1.png"/>
+                <div class="fontsize3">账户明细</div>
+            </a>
+        </div>
+        <div class="block_item ">
+            <a href="{:U('Member/bankList')}" >
+                <img src="__ROOT__/Public/Home/img/balance2.png"/>
+                <div class="fontsize3">银行卡</div>
+            </a>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block_item block_h">
+            <a href="{:U('Member/withdraw')}" >
+                <img src="__ROOT__/Public/Home/img/balance3.png"/>
+                <div class="fontsize3">提现</div>
+            </a>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            var m_id = localStorage.getItem('m_id');
+            m_id = m_id?m_id:0;
+            requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    alert(res.message);
+                }else {
+                    $('#balance').text(res.data.balance);
+                }
+            });
+        })
+    </script>
+</block>

@@ -1,0 +1,489 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/swiper.min.css">
+</block>
+<block name="header_script">
+    <script src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+</block>
+<block name="main">
+    <div class="container">
+        <!--头部-->
+        <header style="background-color: rgba(57, 58, 63, 1);color: white">
+            <div class="header_left">
+                <img src="__ROOT__/Public/Home/img/w_back.png" />
+            </div>
+            <div class="header_middle" style="color: white">
+                优进
+            </div>
+            <div class="header_right"></div>
+        </header>
+
+        <div class="search">
+            <div class="search_a">
+                <a href="{:U('Index/search')}">
+                    <img src="__ROOT__/Public/Home/img/search.png" />
+                    <input type="search" placeholder="搜索">
+                </a>
+            </div>
+            <div class="search_b">
+                <a href="{:U('Msg/msgIndex')}"  >
+                    <img src="__ROOT__/Public/Home/img/h_information.png"/>
+                </a>
+            </div>
+        </div>
+        <!--轮播图-->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="__ROOT__/Public/Home/img/banner.png"></div>
+                <div class="swiper-slide"><img src="__ROOT__/Public/Home/img/banner.png"></div>
+                <div class="swiper-slide"><img src="__ROOT__/Public/Home/img/banner.png"></div>
+                <div class="swiper-slide"><img src="__ROOT__/Public/Home/img/banner.png"></div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="product">
+            <div class="item">
+                <a href="index_VIPbussiness.html">
+                    <img src="__ROOT__/Public/Home/img/CIP.png"  />
+                    <div> VIP商家</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="index_informations.html">
+                    <img src="__ROOT__/Public/Home/img/give.png"  />
+                    <div>供求信息</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="index_becomeBussiness.html">
+                    <img src="__ROOT__/Public/Home/img/become.png"  />
+                    <div>成为商家</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="index_myRelease.html">
+                    <img src="__ROOT__/Public/Home/img/fabu.png"  />
+                    <div>我的发布</div>
+                </a>
+            </div>
+        </div>
+        <!--主体内容-->
+        <article>
+            <!--推荐VIP商家-->
+            <div class="artcle_1">
+                <div class="top">
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span>推荐VIP商家</span>
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span class="more"><a href="#" style="   color: #999999;">更多</a></span>
+                </div>
+
+                <div class="mains">
+                    <div class="main">
+                        <div class="list">
+                            <img src="__ROOT__/Public/Home/img/remind.png"  />
+                            <p>valens科技...<br><span style="font-size: 10px;color: #999999">6666人关注</span></p>
+                        </div>
+                    </div>
+                    <div class="main">
+                        <div class="list">
+                            <img src="__ROOT__/Public/Home/img/remind.png"  />
+                            <p>valens科技...<br><span style="font-size: 10px;color: #999999">6666人关注</span></p>
+                        </div>
+                    </div>
+                    <div class="main">
+                        <div class="list">
+                            <img src="__ROOT__/Public/Home/img/remind.png" height="70" width="70"/>
+                            <p>valens科技...<br><span style="font-size: 10px;color: #999999">6666人关注</span></p>
+                        </div>
+                    </div>
+                    <div class="main">
+                        <div class="list">
+                            <img src="__ROOT__/Public/Home/img/remind.png"  />
+                            <p>valens科技...<br><span style="font-size: 10px;color: #999999">6666人关注</span></p>
+                        </div>
+                    </div>
+                    <div class="main">
+                        <div class="list">
+                            <img src="__ROOT__/Public/Home/img/remind.png"  />
+                            <p>valens科技...<br><span style="font-size: 10px;color: #999999">6666人关注</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--供求信息-->
+            <div class="sections" >
+                <div class="section_top "  >
+                    <button>供</button>
+                    小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                </div>
+                <div class="section">
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png"  /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section_buttom">
+                    <p>
+                        <span style="color: #999999; ">交易方式:</span>买家自提、商家配送、顺风快递<br>
+                        <span style="color: #0f90fe; ">位置:天津</span>
+                    </p>
+                </div>
+                <div style="padding-left: 10px">
+                    <img src="__ROOT__/Public/Home/img/name.png" height="25" width="25" />
+                    <label style="  font-size: 16px"> 飞机笔超级集团</label>
+                    <span style="font-size: 12px;color: #999999">2小时前</span>
+                </div>
+            </div>
+
+            <div class="sections" >
+                <div class="section_top "  >
+                    <button>供</button>
+                    小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                </div>
+                <div class="section">
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png"  /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section_buttom">
+                    <p>
+                        <span style="color: #999999; ">交易方式:</span>买家自提、商家配送、顺风快递<br>
+                        <span style="color: #0f90fe; ">位置:天津</span>
+                    </p>
+                </div>
+                <div style="padding-left: 10px">
+                    <img src="__ROOT__/Public/Home/img/name.png" height="25" width="25" />
+                    <label style="  font-size: 16px"> 飞机笔超级集团</label>
+                    <span style="font-size: 12px;color: #999999">2小时前</span>
+                </div>
+            </div>
+
+            <div class="sections" >
+                <div class="section_top "  >
+                    <button>供</button>
+                    小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                </div>
+                <div class="section">
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png"  /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section_item">
+                        <div class="rongqi" >
+                            <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                            <p>
+                                这是一段商品名称 <br>
+                                <span>这是...</span><span style="float: right;color: red">¥30.00</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section_buttom">
+                    <p>
+                        <span style="color: #999999; ">交易方式:</span>买家自提、商家配送、顺风快递<br>
+                        <span style="color: #0f90fe; ">位置:天津</span>
+                    </p>
+                </div>
+                <div style="padding-left: 10px">
+                    <img src="__ROOT__/Public/Home/img/name.png" height="25" width="25" />
+                    <label style="  font-size: 16px"> 飞机笔超级集团</label>
+                    <span style="font-size: 12px;color: #999999">2小时前</span>
+                </div>
+            </div>
+
+            <!--尽在咫尺-->
+            <div class="artcle_1">
+                <div class="top">
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span>尽在咫尺</span>
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                </div>
+
+                <div class="distance">
+                    <div class="distance_top">
+                        <img src="__ROOT__/Public/Home/img/name.png"  >
+                        innosoft<span > 8小时前</span>
+                    </div>
+                    <p>
+                        <span  class="biaoti">快看我美不美呀 各位大佬们～</span><br>
+                        啦啦啦 今天可高兴啦！因为今天又吃成长快乐啦O(_)O 哈哈 而且今天我还收到了新的礼物
+                    </p>
+                    <div class="" >
+                        <div class="section">
+                            <div class="section_item">
+                                <div class="rongqi2" >
+                                    <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                </div>
+                            </div>
+                            <div class="section_item">
+                                <div class="rongqi2" >
+                                    <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                </div>
+                            </div>
+                            <div class="section_item">
+                                <div class="rongqi2" >
+                                    <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                </div>
+                            </div>
+                            <div class="section_item">
+                                <div class="rongqi2" >
+                                    <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="distance_buttom">
+                        <div class="distance_buttom_1">
+                            <span  >
+                                来自 特色系列
+                            </span>
+                        </div>
+                        <div class="distance_buttom_2">
+                            <img src="__ROOT__/Public/Home/img/eye.png" />
+                            <span>11468</span>
+                            <img src="__ROOT__/Public/Home/img/z_information.png" />
+                            <span>99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 10px solid #F6F6F6;margin-top:20px">
+                    <div class="distance">
+                        <div class="distance_top">
+                            <img src="__ROOT__/Public/Home/img/name.png"  >
+                            innosoft<span > 8小时前</span>
+                        </div>
+                        <p>
+                            <span class="biaoti" >快看我美不美呀 各位大佬们～</span><br>
+                            啦啦啦 今天可高兴啦！因为今天又吃成长快乐啦O(_)O 哈哈 而且今天我还收到了新的礼物
+                        </p>
+                        <div class="" >
+                            <div class="section">
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="distance_buttom">
+                            <div class="distance_buttom_1">
+                            <span  >
+                                来自 特色系列
+                            </span>
+                            </div>
+                            <div class="distance_buttom_2">
+                                <img src="__ROOT__/Public/Home/img/eye.png" />
+                                <span>11468</span>
+                                <img src="__ROOT__/Public/Home/img/z_information.png" />
+                                <span>99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 10px solid #F6F6F6;margin-top:20px">
+                    <div class="distance">
+                        <div class="distance_top">
+                            <img src="__ROOT__/Public/Home/img/name.png"  >
+                            innosoft<span > 8小时前</span>
+                        </div>
+                        <p>
+                            <span  class="biaoti">快看我美不美呀 各位大佬们～</span><br>
+                            啦啦啦 今天可高兴啦！因为今天又吃成长快乐啦O(_)O 哈哈 而且今天我还收到了新的礼物
+                        </p>
+                        <div class="" >
+                            <div class="section">
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png" /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                    </div>
+                                </div>
+                                <div class="section_item">
+                                    <div class="rongqi2" >
+                                        <img src="__ROOT__/Public/Home/img/watch.png"  /><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="distance_buttom">
+                            <div class="distance_buttom_1">
+                            <span  >
+                                来自 特色系列
+                            </span>
+                            </div>
+                            <div class="distance_buttom_2">
+                                <img src="__ROOT__/Public/Home/img/eye.png" />
+                                <span>11468</span>
+                                <img src="__ROOT__/Public/Home/img/z_information.png" />
+                                <span>99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="border-top: 10px solid #F6F6F6;margin-top: 20px"></div>
+            </div>
+            <br>
+            <br>
+        </article>
+
+        <!--尾部-->
+        <footer>
+            <div class="footer_item">
+                <a href="{:U('Index/index')}">
+                    <img src="__ROOT__/Public/Home/img/home_1.png"  />
+                    <div class="active ">首页</div>
+                </a>
+            </div>
+            <div class="footer_item">
+                <a href="{:U('Interest/interestIndex')}">
+                    <img src="__ROOT__/Public/Home/img/empty_0.png" />
+                    <div>兴趣圈</div>
+                </a>
+            </div>
+            <div class="footer_item">
+                <a href="{:U('Member/memberCenter')}">
+                    <img src="__ROOT__/Public/Home/img/my0.png"  />
+                    <div>我的</div>
+                </a>
+            </div>
+        </footer>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(".tab_menu ul li").click(function() {
+            $(this).addClass("on").siblings().removeClass("on"); //切换选中的按钮高亮状态
+            var index = $(this).index(); //获取被按下按钮的索引值，需要注意index是从0开始的
+            $(".tab_box > div").eq(index).show().siblings().hide(); //在按钮选中时在下面显示相应的内容，同时隐藏不需要的框架内容
+        });
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+        });
+    </script>
+</block>

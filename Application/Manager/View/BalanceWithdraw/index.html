@@ -1,0 +1,80 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+
+                <!--<div class="widget-title widget-title-search">
+                    &lt;!&ndash;<button class="btn btn-danger confirm ajax-post" url="{:U('BalanceWithdraw/delete',array('model'=>'BalanceWithdraw','status'=>9))}" target-form="ids">删 除</button>&nbsp;&ndash;&gt;
+                </div>-->
+                <!--// search start-->
+                <div class="search-main">
+                <form action="{:U('BalanceWithdraw/index')}" method="post" class="form">
+                    <div class="search-frame-main">
+                        <input class="search-frame" type="text" name="bank_real_name" value="{$_REQUEST['bank_real_name']}" placeholder="用户真实姓名">
+                        <input class="search-frame" type="text" name="bank_name" value="{$_REQUEST['bank_name']}" placeholder="银行名称">
+                        <input class="search-frame" type="text" name="bank_mobile" value="{$_REQUEST['bank_mobile']}" placeholder="绑定手机号">
+                        <input class="search-frame" type="text" name="bank_number" value="{$_REQUEST['bank_number']}" placeholder="银行卡号">
+                    </div>
+                    <div class="search-btn">
+                        <button class="btn btn-inverse" style="margin:4px 10px;">查询</button>
+                    </div>
+                </form>
+            </div>
+                <!--// search end-->
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/></th>
+                            <th>ID</th>
+                            <th>真实姓名</th>
+                            <th>银行名称</th>
+                            <th>银行卡号</th>
+                            <th>绑定手机号</th>
+                            <th>金额</th>
+                            <th>提现时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>{$row['bank_real_name']}</td>
+                                <td>{$row['bank_name']}</td>
+                                <td>{$row['bank_number']}</td>
+                                <td>{$row['bank_mobile']}</td>
+                                <td>{$row['money']}</td>
+                                <td>{$row['create_time']|date='Y-m-d H:i',###}</td>
+                                <td>
+                                    <eq name="row['status']" value="0">审核中</eq>
+                                    <eq name="row['status']" value="2">未提现成功</eq>
+                                    <eq name="row['status']" value="1">提现成功</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['status']" value="0">
+                                        <a href="{:U('BalanceWithdraw/resume',array('model'=>'BalanceWithdraw','ids'=>$row['id'],'status'=>1))}" title="提现成功" class="tip-bottom ajax-get">
+                                            <span class="label label-success">点击提现成功</span></a>&nbsp;
+                                        <a href="{:U('BalanceWithdraw/resume',array('model'=>'BalanceWithdraw','ids'=>$row['id'],'status'=>2))}" title="提现失败" class="tip-bottom ajax-get">
+                                            <span class="label label-info">点击提现失败</span></a>&nbsp;
+                                    </eq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>

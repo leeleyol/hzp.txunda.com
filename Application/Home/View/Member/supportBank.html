@@ -1,0 +1,30 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+</block>
+<block name="main">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/addBank')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            选择银行卡类型
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="changxian headtop"></div>
+    <div class="banks">
+        <img src="__ROOT__/Public/Home/img/bank.png"/>
+        <label class="fontsize2">建设银行</label>
+    </div>
+    <div class="banks">
+        <img src="__ROOT__/Public/Home/img/bank.png"/>
+        <label class="fontsize2">中国银行</label>
+    </div>
+    <div class="banks">
+        <img src="__ROOT__/Public/Home/img/bank.png"/>
+        <label class="fontsize2">农业银行</label>
+    </div>
+</block>

@@ -1,0 +1,102 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <style type="text/css">
+        #edui1_iframeholder{
+            width: 100% !important;
+        }
+        select{
+            margin-left: 5px;
+        }
+        .radio{
+            padding-top: 5px;
+        }
+    </style>
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a href="#tab1">基本信息</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content tab-content nopadding">
+                    <form class="form-horizontal" method="post" action="{:U('Goods/update')}">
+                        <input type="hidden" name="model" value="Goods">
+                        <input type="hidden" name="id" value="{$row['id']}">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="control-group">
+                                    <label class="control-label">商品名称</label>
+                                    <div class="controls">
+                                        <input type="text" name="goods_name" value="{$row['goods_name']}" >
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品分类：</label>
+                                    <div class="controls">
+                                        <select id="fir_g_t" name="goods_type_id" class="form-control input-sm">
+                                            <option value="">商品分类</option>
+                                            <volist name="fir_g_t_list" id="fir_g_t">
+                                                <option value="{$fir_g_t['id']}" <eq name="row['goods_type_id']" value="$fir_g_t['id']">selected</eq> >{$fir_g_t['type_name']}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">条形码</label>
+                                    <div class="controls">
+                                        <input type="text" name="bar_code" value="{$row['bar_code']}" >
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">产地</label>
+                                    <div class="controls">
+                                        <input type="text" name="product_from" value="{$row['product_from']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品状态</label>
+                                    <div class="controls">
+                                        <input type="text" name="goods_status" value="{$row['goods_status']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">库存</label>
+                                    <div class="controls">
+                                        <input type="text" name="stock" value="{$row['stock']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">库存单位</label>
+                                    <div class="controls">
+                                        <input type="text" name="stock_unit" value="{$row['stock_unit']}">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">商品图片</label>
+                                    <div class="controls">
+                                        {:hook('upload',array('is_first'=>1,'unique_sign'=>'goods_pic','field_name'=>'goods_pic','field_value'=>$row['goods_pic'],'save_path'=>'Goods'))}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>　
+                            <button class="btn btn-info ajax-post" target-form="form-horizontal" type="submit">保 存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
