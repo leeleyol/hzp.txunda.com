@@ -254,4 +254,20 @@ class MemberController extends BaseController{
         }
         apiResponse('1','请求成功',$list);
     }
+
+
+
+    /*
+     * 申请成为商家
+     * */
+    public function merchantApply(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'参数错误'),
+        );
+        $where['m_id'] = $m_id;
+        check_param($param);//检查参数
+    }
 }
