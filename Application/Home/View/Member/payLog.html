@@ -15,59 +15,55 @@
         <div class="header_right"></div>
     </header>
     <div class="coarseLline headtop"></div>
-    <div class="details padding_tb">
-        <div class="datails_item">
-            <div class="fontsize3 marginb1">获得-诚意金</div>
-            <div class="fontsize5 color3">2017/04/08 12.50</div>
-        </div>
-        <div class="datails_item">
-            <div class="color5 fontsize2">+5.00</div>
-        </div>
-    </div>
-    <div class="details padding_tb">
-        <div class="datails_item">
-            <div class="fontsize3 marginb1">获得-诚意金</div>
-            <div class="fontsize5 color3">2017/04/08 12.50</div>
-        </div>
-        <div class="datails_item">
-            <div class="color5 fontsize2">+5.00</div>
-        </div>
-    </div>
-    <div class="details padding_tb">
-        <div class="datails_item">
-            <div class="fontsize3 marginb1">支付-诚意金</div>
-            <div class="fontsize5 color3">2017/04/08 12.50</div>
-        </div>
-        <div class="datails_item">
-            <div class="color3 fontsize2">-5.00</div>
-        </div>
-    </div>
-    <div class="details padding_tb">
-        <div class="datails_item">
-            <div class="fontsize3 marginb1">支付-诚意金</div>
-            <div class="fontsize5 color3">2017/04/08 12.50</div>
-        </div>
-        <div class="datails_item">
-            <div class="color3 fontsize2">-5.00</div>
-        </div>
+    <div class="details-box">
+
     </div>
 </block>
 
 <block name="script">
     <script>
+        var page = 0, layderIndex
         $(function () {
+            getList();
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getList();
+            })
+        })
+
+        function getList() {
             var m_id = localStorage.getItem('m_id');
             m_id = m_id?m_id:0;
-            requestUrl("{:U('Home/Member/getPayLog')}",{m_id:m_id},function(res){
+            page += 1;
+            requestUrl("{:U('Home/Member/getPayLog')}",{m_id:m_id,p:page},function(res){
+                layer.close(layderIndex)
                 if(res.code == -1){
                     localStorage.removeItem('m_id');
                     window.location.href = "{:U('Login/login')}";
                 }else if(res.code == 0){
-                    alert(res.message);
+                    layderIndex = layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
                 }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".details-box").append('<div class="details padding_tb">' +
+                            '            <div class="datails_item">' +
+                            '                <div class="fontsize3 marginb1">'+item.desc+'</div>' +
+                            '                <div class="fontsize5 color3">'+getDate(item.create_time, "YY/MM/DD HH:MM")+'</div>' +
+                            '            </div>' +
+                            '            <div class="datails_item">' +
+                            '                <div class="fontsize2 '+(item.symbol == 1 ? "color3":"color5")+'">'+(item.symbol == 1 ? "-":"+")+item.money+'</div>' +
+                            '            </div>' +
+                            '        </div>')
 
+                    })
                 }
             });
-        })
+        }
+
+
     </script>
 </block>
