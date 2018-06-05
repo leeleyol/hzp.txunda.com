@@ -23,7 +23,7 @@ class MemberBankModel extends Model{
     }
 
     /**
-     * 获取地址列表
+     * 获取银行卡列表
      * @param array $param
      * @return array|mixed
      */
