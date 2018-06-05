@@ -2,6 +2,7 @@
  *ajax 请求封装
  *@name requestUrl
  **/
+
 function requestUrl(URL,DATA,CALLBACK,TYPE,DATATYPE){
     if (!URL) return;
     if (!TYPE) TYPE ="post";

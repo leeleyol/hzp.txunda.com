@@ -52,3 +52,22 @@
         </div>
     </div>
 </block>
+
+<block name="script">
+    <script>
+        $(function () {
+            var m_id = localStorage.getItem('m_id');
+            m_id = m_id?m_id:0;
+            requestUrl("{:U('Home/Member/getPayLog')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    alert(res.message);
+                }else {
+
+                }
+            });
+        })
+    </script>
+</block>
