@@ -613,3 +613,19 @@ function apiResponse($code = '0', $message = '',$data = array()){
     );
     die(json_encode($result,JSON_UNESCAPED_UNICODE));
 }
+
+function returnImage($image){
+    $imageArr = explode(',',$image);
+    if(count($imageArr)>1){
+        foreach($imageArr as $k=>$v){
+            $path = M('file')->where(['id'=>$v])->getField('path');
+            $imageUrl[] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+        }
+    }else{
+        $path = M('file')->where(['id'=>$image])->getField('path');
+        $imageUrl = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+    }
+    return $imageUrl;
+
+}
+
