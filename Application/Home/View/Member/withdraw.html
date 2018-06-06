@@ -13,10 +13,8 @@
             position:fixed;
             z-index:5000;
             width:100%;
-            bottom:-19%;
-            left:50%;
-            -webkit-transform:translate(-50%, -50%);
-            transform:translate(-50%, -50%);
+            bottom:0;
+            left:0;
             background-color:#FFFFFF;
             border-radius:3px;
             overflow:hidden;
@@ -38,10 +36,15 @@
             width: 25px;
             height: 25px;
         }
+
+        html,body{
+            height: 100%;
+            background-color: #f6f6f6;
+        }
     </style>
 </block>
 <block name="main">
-<div class="bc3">
+<div>
     <header class="head">
         <div class="header_left">
             <a href="{:U('Member/myWalletIndex')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
@@ -61,12 +64,12 @@
         </div>
         <div class="tixian_item">
             <span class="fontsize2">¥</span>
-            <input class="fontsize2" type="text" placeholder="请出入提现金额">
+            <input class="fontsize2 money" type="text" onkeyup="clearNoNum(this)"placeholder="请出入提现金额">
         </div>
-        <p class="fontsize2 padding_tb">当前余额50.00元</p>
+        <p class="fontsize2 padding_tb remain">当前余额00.00元</p>
     </div>
-    <a href="#">
-        <button>提 现</button>
+    <a>
+        <button class="tx">提 现</button>
     </a>
 
     <div style="display: none;" class="box1">
@@ -75,39 +78,152 @@
             <div class="fontsize2 textcen box3">
                 选择提现方式
             </div>
-            <div class="fontsize2 box3">
-                <img src="__ROOT__/Public/Home/img/bank.png" class="logo">
-                <span class="color3 fontsize3">中国建设银行储蓄卡（尾号9070）</span>
-            </div>
-            <div class="fontsize2 box3">
-                <img src="__ROOT__/Public/Home/img/bank.png" class="logo">
-                <span class="color3 fontsize3">中国建设银行储蓄卡（尾号9070）</span>
+            <div class="cart-list">
             </div>
             <div class="fontsize2 box3">
                 <img src="__ROOT__/Public/Home/img/add.png" class="logo">
-                <span class="color6">添加</span>
-            </div>
-            <div class="fontsize2 box3">
-
+                <span class="color6 add-cart">添加</span>
             </div>
         </div>
     </div>
-    <!--弹框2 start -->
-    <script>
-        //    背景板
-        $('.weui-mask').click(function(){
-            var ref=$(this);
-            var target=ref.parent('.Bomb-box');
-            target.hide();
-        });
-        //    弹出框的显示隐藏事件
-        $('.start').click(function(){
-            $('.box1').show();
-        });
-
-        $('.hidden').click(function(){
-            $('.box1').hide();
-        })
-    </script>
 </div>
+</block>
+
+<block name="script">
+    <script>
+        $(function () {
+            getList();
+            getBalance();
+            bindHandler();
+        })
+
+        function bindHandler() {
+            //    背景板
+            $('.weui-mask').click(function(){
+                var ref=$(this);
+                var target=ref.parent('.Bomb-box');
+                target.hide();
+            });
+            //    弹出框的显示隐藏事件
+            $('.start').click(function(){
+                $('.box1').show();
+            });
+
+            $('.hidden').click(function(){
+                $('.box1').hide();
+            })
+
+            $(".add-cart").click(function () {
+                window.location.href = "{:U('Member/addBank')}"
+            })
+
+            $(".cart-list").on("click", ".cart", function () {
+                $('.box1').hide();
+                $(".start span").text($(this).find("span").text()).attr({"bank_icon_id":$(this).attr("bank_icon_id")})
+            });
+
+            $(".tx").click(function () {
+                if(!$(".start span").attr("bank_icon_id")){
+                    layer.open({
+                        content: "请选择提现方式"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }else if(!$(".money").val()){
+                    layer.open({
+                        content: "请输入提现金额"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }
+                else if($(".money").val() / 1 > remain ){
+                    layer.open({
+                        content: "金额超出范围"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }
+
+                balanceWithdraw($(".money").val(), $(".start span").attr("bank_icon_id"))
+            })
+        }
+        
+        function balanceWithdraw(money,m_bank_id) {
+            requestUrl("{:U('Home/Member/balanceWithdraw')}",{m_id:m_id,money:money,m_bank_id:m_bank_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }
+            });
+        }
+        
+        
+        var remain
+        function getBalance() {
+            requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                     layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    $('.remain').text("当前余额"+res.data.balance+"元");
+                    remain = res.data.balance
+                }
+            });
+        }
+
+        function getList() {
+            requestUrl("{:U('Home/Member/memberBankList')}",{m_id:m_id},function(res){
+                $(".cart-list").empty();
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                     layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".cart-list").append('<div class="fontsize2 box3 cart" bank_icon_id="'+item.bank_icon_id+'">' +
+                            '<img src="'+item.bank_icon+'" class="logo">' +
+                            '<span class="color3 fontsize3">'+item.bank_name+'（'+(item.bank_number.substr(item.bank_number.length-4,4))+'）</span>' +
+                            '</div>')
+                    })
+                }
+            });
+        }
+
+        function clearNoNum(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+            if(obj.value.indexOf(".")< 0 && obj.value !=""){
+                obj.value= parseFloat(obj.value);
+            }
+        }
+    </script>
 </block>

@@ -15,16 +15,47 @@
         <div class="header_right"></div>
     </header>
     <div class="changxian headtop"></div>
-    <div class="banks">
-        <img src="__ROOT__/Public/Home/img/bank.png"/>
-        <label class="fontsize2">建设银行</label>
+    <div class="support-list">
+
     </div>
-    <div class="banks">
-        <img src="__ROOT__/Public/Home/img/bank.png"/>
-        <label class="fontsize2">中国银行</label>
-    </div>
-    <div class="banks">
-        <img src="__ROOT__/Public/Home/img/bank.png"/>
-        <label class="fontsize2">农业银行</label>
-    </div>
+</block>
+
+<block name="script">
+    <script>
+        $(function () {
+            getList();
+            bindHandler();
+        })
+            
+        function bindHandler() {
+            $(".support-list").on("click",".banks",function () {
+                localStorage.add_bank_ico_id = $(this).attr("bank_icon_id");
+                localStorage.add_bank_ico_name = $(this).find("label").text()
+                history.go(-1)
+            })
+        }
+        
+        function getList() {
+            requestUrl("{:U('Home/Member/supportBankList')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".support-list").append('<div class="banks" bank_icon_id="'+item.bank_icon_id+'">' +
+                            '        <img src="'+item.bank_icon+'"/>' +
+                            '        <label class="fontsize2">'+item.bank_name+'</label>' +
+                            '    </div>')
+                    })
+                }
+            });
+        }
+    </script>
 </block>
