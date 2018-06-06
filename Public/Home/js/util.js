@@ -1,7 +1,45 @@
 
 
 var m_id = localStorage.getItem('m_id');
-m_id = m_id?m_id:0;
+m_id = m_id?m_id:2;
+
+;(function($){
+    $.fn.extend({
+        "fileInit":function (options) {
+            var _targetthis =  this;
+            var options = options || {};
+
+            var parentPosition = this.parent().css("position");
+            if(parentPosition != "relative" || parentPosition != "absolute"){
+                this.parent().css({"position":"relative"});
+            }
+            this.append('<input type="file" accept="image/png, image/jpeg, image/gif, image/jpg" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+            this.on("change","input[type=file]",function(){
+                var file = this.files;
+                $.each(file,function(){
+                    if(window.FileReader) {
+                        var photoExt=this.name.substr(this.name.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+                        if (!/image\/\w+/.test(this.type)) {
+                            window.getId.toast("请确保文件为图像类型");
+                            return false;
+                        }
+                        var fr = new FileReader();
+                        fr.onloadend = function(e) {
+                            if((typeof options.onchange) == 'function'){
+                                options.onchange(e.target.result,file[0],_targetthis)
+                            }
+                        };
+                        _targetthis.find("input").remove();
+                        _targetthis.append('<input type="file" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+                        fr.readAsDataURL(this);
+                    }
+                })
+            });
+        }
+    });
+
+})(jQuery);
+
 
 function getDate(param, type) {
     var date = new window.Date(param * 1000);
@@ -160,5 +198,11 @@ function checkPhone(phone){
     }else {
         return true
     }
+}
+
+function getUrlParam (name){
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURIComponent(r[2]); return null;
 }
 

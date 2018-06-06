@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>身份认证</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        .allow{
+            width: 28px;
+            height: 28px;
+            background-size: 100%;
+            background-position: left top;
+            background-repeat: no-repeat;
+            margin-bottom: 2px;
+            display: inline-block;
+            background-image: url("__ROOT__/Public/Home/img/WechatIMG565.png");
+        }
+        .allow.checked{
+            background-image: url("__ROOT__/Public/Home/img/kongxuan.png");
+        }
+
+        body {
+            padding-top: 1px;
+            padding-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle color1">
+            身份认证
+        </div>
+    </header>
+    <div class="coarseLline headtop"></div>
+    <div class="cards">
+        <div class="cards_duanluo">
+            <span class="fontsize2">普通会员权益</span>
+            <p class="fontsize3 ">
+                这是一段普通会员的权益，这是一段普通会员的权益，这是一段普通
+                会员的权益，这是一段普通会员的权益这是一段普通会员的权益，这是一
+                段普通会员的权益，这是一段普通会员的权益。
+            </p>
+        </div>
+        <div class="cards_duanluo">
+            <span class="fontsize2">普通会员权益</span>
+            <p class="fontsize3 ">
+                这是一段普通会员的权益，这是一段普通会员的权益，这是一段普通
+                会员的权益，这是一段普通会员的权益这是一段普通会员的权益，这是一
+                段普通会员的权益，这是一段普通会员的权益。
+            </p>
+        </div>
+        <div class="cards_duanluo">
+            <span class="fontsize2">普通会员权益</span>
+            <p class="fontsize3 ">
+                这是一段普通会员的权益，这是一段普通会员的权益，这是一段普通
+                会员的权益，这是一段普通会员的权益这是一段普通会员的权益，这是一
+                段普通会员的权益，这是一段普通会员的权益。
+            </p>
+        </div>
+    </div>
+
+    <div class="juli">
+        <p class="allow checked"></p>
+        同意并阅读<font color="#ff4c82" >《化妆品注册协议》</font>
+    </div>
+    <a >
+        <button class="identify">成为认证商家</button>
+    </a>
+</body>
+</html>
+
+<script>
+    $(function () {
+        bindHandler();
+    });
+
+    function bindHandler() {
+        $(".allow").click(function () {
+            $(this).toggleClass("checked");
+        });
+
+        $(".identify").click(function () {
+            if($(".allow").hasClass("checked")){
+                window.location.href = "{:U('Member/my_cardwrite')}"
+            }else {
+                layer.open({
+                    content: "请同意协议"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }
+        })
+    }
+
+</script>
