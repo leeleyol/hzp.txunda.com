@@ -46,7 +46,7 @@ class InterestController extends BaseController{
         $param = array(
             array('check_type'=>'is_null','parameter' => $request['title'],'condition'=>'','error_msg'=>'标题参数错误'),
             array('check_type'=>'is_null','parameter' => $request['content'],'condition'=>'','error_msg'=>'内容参数错误'),
-            array('check_type'=>'is_null','parameter' => $request['ins_type'],'condition'=>'','error_msg'=>'内容参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['ins_type'],'condition'=>'','error_msg'=>'分类参数错误'),
         );
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
@@ -64,6 +64,22 @@ class InterestController extends BaseController{
         }else{
             apiResponse('0','发布失败');
         }
+    }
+
+
+    /**
+     * @param array $request
+     * 分类列表
+     * 传递参数的方式：post
+     * 需要传递的参数：
+     * m_id 用户id
+     */
+    public function typeList(){
+        $list = M('InterestType')->where(['status'=>1])->order('create_time desc')->field('id as ins_type,pic,type_name')->select();
+        foreach($list as $k=>$v){
+            $list[$k]['pic'] = returnImage($v['pic']);
+        }
+        apiResponse('1','请求成功',$list?$list:[]);
     }
 
 
