@@ -104,7 +104,7 @@
                 var target=ref.parent('.Bomb-box');
                 target.hide();
             });
-            //    弹出框的显示隐藏事件
+            //弹出框的显示隐藏事件
             $('.start').click(function(){
                 $('.box1').show();
             });
@@ -112,7 +112,7 @@
             $('.hidden').click(function(){
                 $('.box1').hide();
             })
-
+            //跳转到添加银行卡
             $(".add-cart").click(function () {
                 window.location.href = "{:U('Member/addBank')}"
             })
@@ -121,7 +121,7 @@
                 $('.box1').hide();
                 $(".start span").text($(this).find("span").text()).attr({"bank_icon_id":$(this).attr("bank_icon_id")})
             });
-
+            //点击按钮后的各种判断
             $(".tx").click(function () {
                 if(!$(".start span").attr("bank_icon_id")){
                     layer.open({
@@ -150,7 +150,7 @@
                 balanceWithdraw($(".money").val(), $(".start span").attr("bank_icon_id"))
             })
         }
-        
+        //提取现金
         function balanceWithdraw(money,m_bank_id) {
             requestUrl("{:U('Home/Member/balanceWithdraw')}",{m_id:m_id,money:money,m_bank_id:m_bank_id},function(res){
                 if(res.code == -1){
@@ -172,7 +172,7 @@
             });
         }
         
-        
+        //获取余额
         var remain
         function getBalance() {
             requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
@@ -191,7 +191,7 @@
                 }
             });
         }
-
+        //获取银行卡列表
         function getList() {
             requestUrl("{:U('Home/Member/memberBankList')}",{m_id:m_id},function(res){
                 $(".cart-list").empty();
@@ -215,7 +215,7 @@
                 }
             });
         }
-
+        //限制数字，并且保留两位小数
         function clearNoNum(obj){
             obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
             obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的

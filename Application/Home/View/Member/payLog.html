@@ -25,6 +25,7 @@
         var page = 0, layderIndex
         $(function () {
             getList();
+            //监听滑动到底部，然后加载分页
             handlerScrollBottom(function () {
                 layderIndex = layer.open({type: 2});
                 getList();

@@ -34,7 +34,7 @@
                 history.go(-1)
             })
         }
-        
+        //获取银行列表
         function getList() {
             requestUrl("{:U('Home/Member/supportBankList')}",{m_id:m_id},function(res){
                 if(res.code == -1){

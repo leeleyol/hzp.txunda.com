@@ -80,7 +80,9 @@
         function bindHandler() {
             $(".header_left").click(function () {
                 history.go(-1)
-            })
+            });
+
+            //添加银行卡
             $(".addCart").click(function () {
                 localStorage.add_bank_ico_id = "";
                 localStorage.add_bank_ico_name = "";
