@@ -41,7 +41,11 @@
                     localStorage.removeItem('m_id');
                     window.location.href = "{:U('Login/login')}";
                 }else if(res.code == 0){
-                    alert(res.message);
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
                 }else {
                     var list = res.data;
                     $(list).each(function (index, item) {

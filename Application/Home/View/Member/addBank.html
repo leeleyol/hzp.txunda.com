@@ -29,7 +29,7 @@
 <div class="bc3">
     <header class="head">
         <div class="header_left">
-            <a href="{:U('Member/bankList')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle"  >
             添加银行卡
@@ -78,6 +78,9 @@
         })
 
         function bindHandler() {
+            $(".header_left").click(function () {
+                history.go(-1)
+            })
             $(".addCart").click(function () {
                 localStorage.add_bank_ico_id = "";
                 localStorage.add_bank_ico_name = "";
@@ -163,13 +166,13 @@
                         ,time: 2 //2秒后自动关闭
                     });
                 }else {
+                    history.go(-1)
                     layer.open({
                         content: res.message
                         ,skin: 'msg'
                         ,time: 2 //2秒后自动关闭
                     });
-                    console.log(3333)
-                    history.go(-1)
+
                 }
             });
         }
