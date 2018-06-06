@@ -45,6 +45,7 @@
         })
 
         function bindHandler() {
+            //点击取消关联银行卡
             $(".list").on("click",".abs",function () {
                 var m_bank_id = $(this).parents(".bank").attr("m_bank_id")
                 layer.open({
@@ -58,7 +59,7 @@
             })
         }
         
-        
+
         function deleteCart(m_bank_id) {
             requestUrl("{:U('Home/Member/delBank')}",{m_id:m_id,m_bank_id:m_bank_id},function(res){
                 if(res.code == -1){
@@ -75,7 +76,7 @@
                 }
             });
         }
-        
+        //获取银行卡列表
         function getList() {
             requestUrl("{:U('Home/Member/memberBankList')}",{m_id:m_id},function(res){
                 $(".list").empty()
