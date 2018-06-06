@@ -7,10 +7,17 @@
         header .header_right a{
             color: #ff4c82;
         }
+        html, body{
+            height: 100%;
+            background-color: #f6f6f6;
+        }
+        .bank-list-box{
+            padding-top: 1px;
+        }
     </style>
 </block>
 <block name="main">
-<div class="bc3">
+<div class="bank-list-box">
     <header class="head">
         <div class="header_left">
             <a href="{:U('Member/myWalletIndex')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
@@ -22,39 +29,87 @@
             <a href="{:U('Member/addBank')}" class="fontsize3  ">添加</a>
         </div>
     </header>
-    <div class="bank headtop coarseLline">
-        <div class="bank_flex">
-            <img src="__ROOT__/Public/Home/img/bank.png">
-            <div class="">
-                <p class="fontsize3">建设银行</p>
-                <p class="fontsize5 color3">储蓄卡</p>
-            </div>
-        </div>
-        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
+    <div class="headtop coarseLline list">
+
     </div>
-    <div class="bank">
-        <div class="bank_flex">
-            <img src="__ROOT__/Public/Home/img/bank.png">
-            <div class="">
-                <p class="fontsize3">建设银行</p>
-                <p class="fontsize5 color3">储蓄卡</p>
-            </div>
-        </div>
-        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
-    </div>
-    <div class="bank rela">
-        <div class="bank_flex">
-            <img src="__ROOT__/Public/Home/img/bank.png">
-            <div class="">
-                <p class="fontsize3">建设银行</p>
-                <p class="fontsize5 color3">储蓄卡</p>
-            </div>
-        </div>
-        <p class="textrig fontsize3 color3">**** **** **** 9070</p>
-        <span class="abs">
-            <img src="__ROOT__/Public/Home/img/cancel.png" class="size1">
-            <span class="fontsize3 color2">取消关联</span>
-        </span>
-    </div>
+
 </div>
+</block>
+
+<block name="script">
+    <script>
+        var layderIndex
+        $(function () {
+            getList();
+            bindHandler()
+        })
+
+        function bindHandler() {
+            $(".list").on("click",".abs",function () {
+                var m_bank_id = $(this).parents(".bank").attr("m_bank_id")
+                layer.open({
+                    content: '确定要取消关联此卡吗？'
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        layer.close(index);
+                        deleteCart(m_bank_id)
+                    }
+                });
+            })
+        }
+        
+        
+        function deleteCart(m_bank_id) {
+            requestUrl("{:U('Home/Member/delBank')}",{m_id:m_id,m_bank_id:m_bank_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layderIndex = layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    getList()
+                }
+            });
+        }
+        
+        function getList() {
+            requestUrl("{:U('Home/Member/memberBankList')}",{m_id:m_id},function(res){
+                $(".list").empty()
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layderIndex = layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".list").append('<div class="bank rela" m_bank_id="'+item.m_bank_id+'">' +
+                            '            <div class="bank_flex">' +
+                            '                <img src="'+item.bank_icon+'">' +
+                            '                <div class="">' +
+                            '                    <p class="fontsize3">'+item.bank_name+'</p>' +
+                            '                    <p class="fontsize5 color3">储蓄卡</p>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '            <p class="textrig fontsize3 color3">**** **** **** '+item.bank_number.substr(item.bank_number.length-4,4)+'</p>' +
+                            '            <span class="abs">' +
+                            '            <img src="__ROOT__/Public/Home/img/cancel.png" class="size1">' +
+                            '            <span class="fontsize3 color2">取消关联</span>' +
+                            '            </span>' +
+                            '        </div>')
+                    })
+                }
+            });
+        }
+
+
+    </script>
 </block>

@@ -195,8 +195,9 @@
 <block name="script">
     <script>
         $(function () {
+            //获取登录信息
             var m_id = localStorage.getItem('m_id');
-            m_id = m_id?m_id:0;
+            m_id = m_id ? m_id : 0;
             requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
                 if(res.code == -1){
                     localStorage.removeItem('m_id');

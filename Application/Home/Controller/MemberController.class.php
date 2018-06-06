@@ -254,4 +254,68 @@ class MemberController extends BaseController{
         }
         apiResponse('1','请求成功',$list);
     }
+
+
+
+    /*
+     * 申请成为商家
+     * */
+    public function merchantApply(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['realname'],'condition'=>'','error_msg'=>'真实姓名参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['phone'],'condition'=>'','error_msg'=>'电话参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['id_card_number'],'condition'=>'','error_msg'=>'身份证号参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['company_address'],'condition'=>'','error_msg'=>'公司地址参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['business_license'],'condition'=>'','error_msg'=>'营业执照参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['front_id_card'],'condition'=>'','error_msg'=>'身份证正面参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['back_id_card'],'condition'=>'','error_msg'=>'身份证背面参数错误'),
+        );
+        $where['m_id'] = $m_id;
+        check_param($param);//检查参数
+        $data = [
+            'm_id'=>$m_id,
+            'realname'=>$request['realname'],
+            'id_card_number'=>$request['id_card_number'],
+            'phone'=>$request['phone'],
+            'company_address'=>$request['company_address'],
+            'business_license'=>$request['business_license'],
+            'front_id_card'=>$request['front_id_card'],
+            'back_id_card'=>$request['back_id_card'],
+            'merchant_approve'=>1
+        ];
+        $res = M('MemberInfo')->data($data)->add();
+        if($res){
+            apiResponse('1','提交成功');
+        }else{
+            apiResponse('0','提交失败');
+        }
+
+    }
+
+
+
+    /*
+     * 上传文件
+     * type 1用户
+     * */
+    public function uploadImage(){
+        if($_POST['type'] == 1){
+            $savePath = 'Member';
+        }else if($_POST['type'] == 2){
+            $savePath = 'Post';
+        }
+        $result_data = array();
+        if($_FILES['picture']['name']){
+            $res = api('UploadPic/upload', array(array('save_path' => $savePath)));
+            foreach($res as $k =>$v){
+                $result_data[$k]['picture_id'] = $v['id'];
+                $result_data[$k]['picture_path'] = C('API_URL').$v['path'];
+            }
+        }
+        apiResponse('200','',$result_data);
+    }
+
 }
