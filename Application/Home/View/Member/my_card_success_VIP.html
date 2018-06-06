@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>身份认证</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <style>
+        .box2{
+            position:fixed;
+            z-index:5000;
+            width:100%;
+            bottom:-20%;
+            left:50%;
+            -webkit-transform:translate(-50%, -50%);
+            transform:translate(-50%, -50%);
+            background-color:#FFFFFF;
+            padding: 10px;
+            overflow:hidden;
+        }
+        .weui-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .box2 p{
+            border-bottom: 10px solid #f6f6f6;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        .mouth{
+            line-height: 2.8em;
+            font-size: 15px;
+        }
+        .mouth img{
+            margin-left: 15px;
+            width: 20px;
+            height: 20px;
+        }
+        .button11{
+            background-color: #ffffff;
+            border: 1px solid #ff3f79;
+            width: 60px;
+            height: 25px;
+            color: #ff3f79;
+        }
+        .button22{
+            background-color: #ffffff;
+            border: 1px solid #666666;
+            width: 60px;
+            height: 25px;
+            color: #666666;
+
+        }
+        .xieyi{
+            color: rebeccapurple;
+            font-size: 14px;
+            text-align: center;
+        }
+        .but{
+            background-color: rgba(255, 76, 130, 1);
+            border-radius: 10px 10px 10px 10px;
+            color: white;
+            height:40px;
+            width:94%;
+            font-size: 16px;
+            margin-left: 3%;
+        }
+    </style>
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+</head>
+<body>
+
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle color1">
+            身份认证
+        </div>
+    </header>
+    <div class="coarseLline headtop"></div>
+    <div class="cards">
+        <div class="cards_duanluo">
+            <span class="fontsize2">VIP商家会员权益:</span>
+            <p class="fontsize3 ">
+                这是一段普通会员的权益，这是一段普通会员的权益，这是一段普通
+                会员的权益，这是一段普通会员的权益这是一段普通会员的权益，这是一
+                段普通会员的权益，这是一段普通会员的权益。
+            </p>
+        </div>
+    </div>
+
+   <div class="marginbottom">
+       <a  class="start">
+           <button >开通VIP商家</button>
+       </a>
+   </div>
+
+
+    <!--弹框2 start -->
+    <div style="display: none " class="box1">
+        <div class="weui-mask hidden"></div>
+        <div class="box2">
+            <p class="fontsize2">VIP商家会员</p>
+            <div class="mouth">
+                <img src="__ROOT__/Public/Home/img/time2.png"/>
+                <button class="button11 fontsize3">3个月</button>
+                <button class="button22 fontsize3">6个月</button>
+                <button class="button22 fontsize3">12个月</button>
+                <button class="button22 fontsize3">1个月</button>
+                <br>
+                <img src="__ROOT__/Public/Home/img/RMB.png"/>
+                <font color="red">60.00 </font> 元
+                <div class="xieyi">
+                    服务协议与开通缴费规则
+                </div>
+            </div>
+            <button class="but">立即开通</button>
+
+        </div>
+    </div>
+    <!--弹框2 start -->
+    <script>
+        //    背景板
+        $('.weui-mask').click(function(){
+            var ref=$(this);
+            var target=ref.parent('.Bomb-box');
+            target.hide();
+        });
+        //    弹出框的显示隐藏事件
+        $('.start').click(function(){
+            $('.box1').show();
+        });
+
+        $('.hidden').click(function(){
+            $('.box1').hide();
+        })
+    </script>
+</body>
+</html>

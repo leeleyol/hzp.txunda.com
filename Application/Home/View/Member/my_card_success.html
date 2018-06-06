@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <title>身份认证</title>
+</head>
+<body class="bc3">
+    <header class="head">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle color1">
+            身份认证
+        </div>
+    </header>
+    <div class="renzheng fontsize3 headtop">
+        <img src="__ROOT__/Public/Home/img/cardsuccess.png" /><br>
+        认证成功！<br>
+        您已经是商家用户了～
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    })
+</script>
