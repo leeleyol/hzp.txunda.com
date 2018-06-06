@@ -53,6 +53,10 @@ class MemberController extends BaseController{
         $member_info['follow_num'] = $this->getFollowNum($m_id);
         $member_info['collect_num']   = $this->getCollectNum($m_id);
         $member_info['head_pic'] = D('File')->getOnePath($member_info['head_pic'],C('API_URL').'/Uploads/Member/default.png');
+        $member_status = M('MemberInfo')->where(['id'=>$m_id])->field('merchant_approve,refuse_content')->find();
+        $member_info['merchant_approve'] = $member_status?$member_status['merchant_approve']:"0";
+        $member_info['refuse_content'] = $member_status?$member_status['refuse_content']:"";
+
         apiResponse('1','请求成功',$member_info);
 
     }
@@ -310,6 +314,7 @@ class MemberController extends BaseController{
         $result_data = array();
         if($_FILES['picture']['name']){
             $res = api('UploadPic/upload', array(array('save_path' => $savePath)));
+
             foreach($res as $k =>$v){
                 $result_data[$k]['picture_id'] = $v['id'];
                 $result_data[$k]['picture_path'] = C('API_URL').$v['path'];
