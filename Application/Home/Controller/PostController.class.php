@@ -33,7 +33,6 @@ class PostController extends BaseController{
 
 
     /**
-     * @param array $request
      * 分类列表
      * 传递参数的方式：post
      * 需要传递的参数：
@@ -52,7 +51,6 @@ class PostController extends BaseController{
 
 
     /**
-     * @param array $request
      * 用户发帖
      * 传递参数的方式：post
      * 需要传递的参数：
@@ -69,7 +67,7 @@ class PostController extends BaseController{
         $param = array(
             array('check_type'=>'is_null','parameter' => $request['title'],'condition'=>'','error_msg'=>'标题参数错误'),
             array('check_type'=>'is_null','parameter' => $request['content'],'condition'=>'','error_msg'=>'内容参数错误'),
-            array('check_type'=>'is_null','parameter' => $request['type_id'],'condition'=>'','error_msg'=>'分类参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['type_id'],'condition'=>'','error_msg'=>'分类参数错误')
         );
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
@@ -92,7 +90,6 @@ class PostController extends BaseController{
 
 
     /**
-     * @param array $request
      *  社区首页
      * 传递参数的方式：post
      * 需要传递的参数：
@@ -106,7 +103,6 @@ class PostController extends BaseController{
         $param = array(
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
         );
-        $where['m_id'] = $m_id;
         check_param($param);//检查参数
         $where['p.status'] = 1;
         $order = 'p.create_time desc';
@@ -117,7 +113,7 @@ class PostController extends BaseController{
             $message = '获取成功';
         }
         $result['msg_num'] = "0";
-        apiResponse('200',$message,$result);
+        apiResponse('1',$message,$result);
 
 
 
@@ -126,7 +122,6 @@ class PostController extends BaseController{
 
 
     /**
-     * @param array $request
      *  分类下的帖子
      * 传递参数的方式：post
      * 需要传递的参数：
@@ -134,7 +129,7 @@ class PostController extends BaseController{
      * 分类id type_id
      * p 分页
      */
-    public function selectTypePost($request = array()){
+    public function selectTypePost(){
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
         $request = I('post.');
@@ -149,13 +144,13 @@ class PostController extends BaseController{
         $where['p.status'] = 1;
         $order = 'p.create_time desc';
 
-        $result['post_list'] = $this->getData($where,$request['p'],$order);
-        if(!$result['post_list']){
+        $result = $this->getData($where,$request['p'],$order);
+        if(!$result){
             $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
         }else{
             $message = '获取成功';
         }
-        apiResponse('200',$message,$result);
+        apiResponse('1',$message,$result);
 
 
     }
@@ -170,7 +165,7 @@ class PostController extends BaseController{
             ->alias('p')
             ->where($where)
             ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = p.m_id')
-            ->join('LEFT JOIN'.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
+            ->join('LEFT JOIN '.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
             ->order($order)
             ->field('p.*,m.nickname,m.head_pic,pt.type_name')
             ->page($p.','.$page_size)
@@ -232,7 +227,7 @@ class PostController extends BaseController{
      * 内容：reply_content
      * 评论 comment_id
      * */
-    public function addReply($request = array()){
+    public function addReply(){
         empty($request['m_id'])&&apiResponse('110','用户id不能为空');
         empty($request['reply_content'])&&apiResponse('110','内容不能为空');
         empty($request['comment_id'])&&apiResponse('110','评论id不能为空');
@@ -270,14 +265,14 @@ class PostController extends BaseController{
      * m_id 用户id
      * post_id 帖子id
      * */
-    public function postInfo($request = array()){
-        empty($request['post_id'])&&apiResponse('110','帖子id不能为空');
-        $where['p.id'] = $request['post_id'];
+    public function postInfo(){
+        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
+        $where['p.id'] = $_POST['post_id'];
         $where['p.status'] = 1;
         $info = $this->getData($where,0,'p.create_time desc');
-        $data['info'] = $info[0];
-        M('Post')->where(['id'=>$request['post_id']])->setInc('view',1);
-        #
+        $data = $info[0];
+        M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
+
 
         apiResponse('200','成功',$data);
 
