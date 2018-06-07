@@ -1,7 +1,45 @@
 
 
 var m_id = localStorage.getItem('m_id');
-m_id = m_id?m_id:0;
+m_id = m_id?m_id:2;
+
+;(function($){
+    $.fn.extend({
+        "fileInit":function (options) {
+            var _targetthis =  this;
+            var options = options || {};
+
+            var parentPosition = this.parent().css("position");
+            if(parentPosition != "relative" || parentPosition != "absolute"){
+                this.parent().css({"position":"relative"});
+            }
+            this.append('<input type="file" accept="image/png, image/jpeg, image/gif, image/jpg" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+            this.on("change","input[type=file]",function(){
+                var file = this.files;
+                $.each(file,function(){
+                    if(window.FileReader) {
+                        var photoExt=this.name.substr(this.name.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+                        if (!/image\/\w+/.test(this.type)) {
+                            window.getId.toast("请确保文件为图像类型");
+                            return false;
+                        }
+                        var fr = new FileReader();
+                        fr.onloadend = function(e) {
+                            if((typeof options.onchange) == 'function'){
+                                options.onchange(e.target.result,file[0],_targetthis)
+                            }
+                        };
+                        _targetthis.find("input").remove();
+                        _targetthis.append('<input type="file" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+                        fr.readAsDataURL(this);
+                    }
+                })
+            });
+        }
+    });
+
+})(jQuery);
+
 
 function getDate(param, type) {
     var date = new window.Date(param * 1000);
@@ -162,3 +200,41 @@ function checkPhone(phone){
     }
 }
 
+function getUrlParam (name){
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURIComponent(r[2]); return null;
+}
+
+
+function timestampFormat( timestamp ) {
+    function zeroize( num ) {
+        return (String(num).length == 1 ? '0' : '') + num;
+    }
+
+    var curTimestamp = parseInt(new Date().getTime() / 1000); //当前时间戳
+    var timestampDiff = curTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
+
+    var curDate = new Date( curTimestamp * 1000 ); // 当前时间日期对象
+    var tmDate = new Date( timestamp * 1000 );  // 参数时间戳转换成的日期对象
+
+    var Y = tmDate.getFullYear(), m = tmDate.getMonth() + 1, d = tmDate.getDate();
+    var H = tmDate.getHours(), i = tmDate.getMinutes(), s = tmDate.getSeconds();
+
+    if ( timestampDiff < 60 ) { // 一分钟以内
+        return "刚刚";
+    } else if( timestampDiff < 3600 ) { // 一小时前之内
+        return Math.floor( timestampDiff / 60 ) + "分钟前";
+    } else if ( curDate.getFullYear() == Y && curDate.getMonth()+1 == m && curDate.getDate() == d ) { //今天之内
+        return '今天' + zeroize(H) + ':' + zeroize(i);
+    } else {
+        var newDate = new Date( (curTimestamp - 86400) * 1000 ); // 参数中的时间戳加一天转换成的日期对象
+        if ( newDate.getFullYear() == Y && newDate.getMonth()+1 == m && newDate.getDate() == d ) {
+            return '昨天' + zeroize(H) + ':' + zeroize(i);
+        } else if ( curDate.getFullYear() == Y ) {
+            return  zeroize(m) + '月' + zeroize(d) + '日 ' + zeroize(H) + ':' + zeroize(i);
+        } else {
+            return  Y + '年' + zeroize(m) + '-' + zeroize(d) + '  ' + zeroize(H) + ':' + zeroize(i);
+        }
+    }
+}
