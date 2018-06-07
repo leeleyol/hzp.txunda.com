@@ -172,7 +172,7 @@ class PostController extends BaseController{
             ->select();
         foreach($list as $k2=>$v2){
             $list[$k2]['head_pic'] = returnImage($v2['head_pic']);
-            $pic = returnImage($v2['pic']);
+            $pic = returnPostImage($v2['pic']);
             $list[$k2]['pic_list'] = $pic;
             unset($pic);
         }
