@@ -198,7 +198,7 @@ class PostController extends BaseController{
         empty($_POST['post_id'])&&apiResponse('0','帖子id不能为空');
         empty($_POST['comment'])&&apiResponse('0','内容不能为空');
         $data = [
-            'from_mid'=>$_POST['m_id'],
+            'from_mid'=>$m_id,
             'comment'=>$_POST['comment'],
             'post_id'=>$_POST['post_id'],
             'create_time'=>time(),
@@ -236,7 +236,7 @@ class PostController extends BaseController{
         empty($_POST['comment_id'])&&apiResponse('0','评论id不能为空');
         $to_mid = M('PostComment')->where(['id'=>$_POST['comment_id']])->getField('from_mid');
         $data = [
-            'from_mid'=>$_POST['m_id'],
+            'from_mid'=>$m_id,
             'reply_content'=>$_POST['reply_content'],
             'comment_id'=>$_POST['comment_id'],
             'create_time'=>time(),
