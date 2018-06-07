@@ -314,13 +314,17 @@ class MemberController extends BaseController{
         $result_data = array();
         if($_FILES['picture']['name']){
             $res = api('UploadPic/upload', array(array('save_path' => $savePath)));
-
-            foreach($res as $k =>$v){
-                $result_data[$k]['picture_id'] = $v['id'];
-                $result_data[$k]['picture_path'] = C('API_URL').$v['path'];
-            }
+                if(is_array($res)){
+                    foreach($res as $k =>$v){
+                        $result_data[$k]['picture_id'] = $v['id'];
+                        $result_data[$k]['picture_path'] = C('API_URL').$v['path'];
+                        $result_data[$k]['ext'] = $v['ext'];
+                    }
+                    apiResponse('200','',$result_data);
+                }else{
+                    apiResponse('110',$res);
+                }
         }
-        apiResponse('200','',$result_data);
     }
 
 }

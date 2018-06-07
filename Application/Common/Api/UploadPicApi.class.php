@@ -43,7 +43,6 @@ class UploadPicApi {
             C("UPLOAD_{$driver}_CONFIG"),   //上传驱动配置
             $request                            //其他信息  设置上传路径等其他信息
         ); //TODO:上传到远程服务器
-
         ///判断成功还是失败
         if(is_array($info)) {
             foreach ($info as $key => &$value) {
@@ -72,11 +71,7 @@ class UploadPicApi {
                     unset($info[$key]);
                 }
             }
-        } else {
-            $info['status'] = 0;
-            //错误信息
-            $info['info']   = $info;
-        }
+        } 
 
         return $info;
     }
