@@ -195,8 +195,8 @@ class PostController extends BaseController{
     public function addComment(){
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
-        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
-        empty($_POST['comment'])&&apiResponse('110','内容不能为空');
+        empty($_POST['post_id'])&&apiResponse('0','帖子id不能为空');
+        empty($_POST['comment'])&&apiResponse('0','内容不能为空');
         $data = [
             'from_mid'=>$_POST['m_id'],
             'comment'=>$_POST['comment'],
@@ -212,9 +212,9 @@ class PostController extends BaseController{
 
             M('Post')->where(['id'=>$_POST['post_id']])->setInc('comment_num',1);
             M('Post')->where(['id'=>$_POST['post_id']])->data(['update_time'=>time()])->save();
-            apiResponse('200','评论成功');
+            apiResponse('1','评论成功');
         }else{
-            apiResponse('110','评论失败');
+            apiResponse('0','评论失败');
         }
 
     }
@@ -231,9 +231,9 @@ class PostController extends BaseController{
     public function addReply(){
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
-        empty($_POST['m_id'])&&apiResponse('110','用户id不能为空');
-        empty($_POST['reply_content'])&&apiResponse('110','内容不能为空');
-        empty($_POST['comment_id'])&&apiResponse('110','评论id不能为空');
+        empty($_POST['m_id'])&&apiResponse('0','用户id不能为空');
+        empty($_POST['reply_content'])&&apiResponse('0','内容不能为空');
+        empty($_POST['comment_id'])&&apiResponse('0','评论id不能为空');
         $to_mid = M('PostComment')->where(['id'=>$_POST['comment_id']])->getField('from_mid');
         $data = [
             'from_mid'=>$_POST['m_id'],
@@ -244,9 +244,9 @@ class PostController extends BaseController{
         ];
         $add = M('PostReply')->data($data)->add();
         if($add){
-            apiResponse('200','添加回复成功');
+            apiResponse('1','添加回复成功');
         }else{
-            apiResponse('110','添加回复失败');
+            apiResponse('0','添加回复失败');
         }
 
     }
@@ -271,7 +271,7 @@ class PostController extends BaseController{
     public function postInfo(){
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
-        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
+        empty($_POST['post_id'])&&apiResponse('0','帖子id不能为空');
         $where['p.id'] = $_POST['post_id'];
         $where['p.status'] = 1;
         $info = $this->getData($where,0,'p.create_time desc');
@@ -279,7 +279,7 @@ class PostController extends BaseController{
         M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
         $data['is_collect'] = 0;
 
-        apiResponse('200','成功',$data);
+        apiResponse('1','成功',$data);
 
     }
 
@@ -297,8 +297,7 @@ class PostController extends BaseController{
     public function commentList(){
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
-        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
-        $m_id = $_POST['m_id'];
+        empty($_POST['post_id'])&&apiResponse('0','帖子id不能为空');
         $where['pc.post_id'] = $_POST['post_id'];
         $where['pc.status'] = 1;
         //评论信息
@@ -332,7 +331,7 @@ class PostController extends BaseController{
         }else{
             $message = '获取成功';
         }
-        apiResponse('200',$message,$list);
+        apiResponse('1',$message,$list);
     }
 
     /*
@@ -345,7 +344,7 @@ class PostController extends BaseController{
      * m_id
      * */
     public function commentInfo($request = array()){
-        empty($request['comment_id'])&&apiResponse('110','评论id不能为空');
+        empty($request['comment_id'])&&apiResponse('0','评论id不能为空');
         $m_id = $request['m_id'];
         $where['pc.id'] = $request['comment_id'];
         $where['pc.status'] = 1;
@@ -391,7 +390,7 @@ class PostController extends BaseController{
         }else{
             $message = '获取成功';
         }
-        apiResponse('200',$message,$info);
+        apiResponse('1',$message,$info);
     }
 
 
@@ -414,7 +413,7 @@ class PostController extends BaseController{
         }else{
             $message = '获取成功';
         }
-        apiResponse('200',$message,$result);
+        apiResponse('1',$message,$result);
 
     }
 
@@ -438,9 +437,9 @@ class PostController extends BaseController{
             }
             $data['video'] = substr($video,0,-1);
 
-            apiResponse('200','成功',$data);
+            apiResponse('1','成功',$data);
         }else{
-            apiResponse('110','失败');
+            apiResponse('1','失败');
         }
 
     }
