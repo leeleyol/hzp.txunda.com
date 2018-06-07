@@ -192,14 +192,15 @@ class PostController extends BaseController{
      * post_id 帖子id
      * comment 内容
      * */
-    public function addComment($request = array()){
-        empty($request['m_id'])&&apiResponse('110','用户id不能为空');
-        empty($request['post_id'])&&apiResponse('110','帖子id不能为空');
-        empty($request['comment'])&&apiResponse('110','内容不能为空');
+    public function addComment(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
+        empty($_POST['comment'])&&apiResponse('110','内容不能为空');
         $data = [
-            'from_mid'=>$request['m_id'],
-            'comment'=>$request['comment'],
-            'post_id'=>$request['post_id'],
+            'from_mid'=>$_POST['m_id'],
+            'comment'=>$_POST['comment'],
+            'post_id'=>$_POST['post_id'],
             'create_time'=>time(),
             'status'=>1,
         ];
@@ -209,8 +210,8 @@ class PostController extends BaseController{
             /*$memberModel = new \Api\Model\MemberModel();
             $memberModel->addExperience($request['m_id'],1);*/
 
-            M('Post')->where(['id'=>$request['post_id']])->setInc('comment_num',1);
-            M('Post')->where(['id'=>$request['post_id']])->data(['update_time'=>time()])->save();
+            M('Post')->where(['id'=>$_POST['post_id']])->setInc('comment_num',1);
+            M('Post')->where(['id'=>$_POST['post_id']])->data(['update_time'=>time()])->save();
             apiResponse('200','评论成功');
         }else{
             apiResponse('110','评论失败');
@@ -228,14 +229,16 @@ class PostController extends BaseController{
      * 评论 comment_id
      * */
     public function addReply(){
-        empty($request['m_id'])&&apiResponse('110','用户id不能为空');
-        empty($request['reply_content'])&&apiResponse('110','内容不能为空');
-        empty($request['comment_id'])&&apiResponse('110','评论id不能为空');
-        $to_mid = M('PostComment')->where(['id'=>$request['comment_id']])->getField('from_mid');
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        empty($_POST['m_id'])&&apiResponse('110','用户id不能为空');
+        empty($_POST['reply_content'])&&apiResponse('110','内容不能为空');
+        empty($_POST['comment_id'])&&apiResponse('110','评论id不能为空');
+        $to_mid = M('PostComment')->where(['id'=>$_POST['comment_id']])->getField('from_mid');
         $data = [
-            'from_mid'=>$request['m_id'],
-            'reply_content'=>$request['reply_content'],
-            'comment_id'=>$request['comment_id'],
+            'from_mid'=>$_POST['m_id'],
+            'reply_content'=>$_POST['reply_content'],
+            'comment_id'=>$_POST['comment_id'],
             'create_time'=>time(),
             'to_mid'=>$to_mid,
         ];
@@ -266,13 +269,15 @@ class PostController extends BaseController{
      * post_id 帖子id
      * */
     public function postInfo(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
         empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
         $where['p.id'] = $_POST['post_id'];
         $where['p.status'] = 1;
         $info = $this->getData($where,0,'p.create_time desc');
         $data = $info[0];
         M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
-
+        $data['is_collect'] = 0;
 
         apiResponse('200','成功',$data);
 
@@ -289,10 +294,12 @@ class PostController extends BaseController{
      * p 分页
      * m_id
      * */
-    public function commentList($request = array()){
-        empty($request['post_id'])&&apiResponse('110','帖子id不能为空');
-        $m_id = $request['m_id'];
-        $where['pc.post_id'] = $request['post_id'];
+    public function commentList(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        empty($_POST['post_id'])&&apiResponse('110','帖子id不能为空');
+        $m_id = $_POST['m_id'];
+        $where['pc.post_id'] = $_POST['post_id'];
         $where['pc.status'] = 1;
         //评论信息
         $list = M('PostComment')
@@ -300,21 +307,12 @@ class PostController extends BaseController{
             ->where($where)
             ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = pc.from_mid')
             ->order('pc.create_time desc')
-            ->field('pc.*,m.nickname,m.head_pic,m.age,m.sex,m.degree,m.city_id,m.province_id')
-            ->page($request['p'].',10')
+            ->field('pc.*,m.nickname,m.head_pic')
+            ->page($_POST['p'].',10')
             ->select();
         if($list){
             foreach($list as $k2=>$v2){
                 $list[$k2]['head_pic'] = returnImage($v2['head_pic']);
-                $list[$k2]['city_name'] = returnRegionName($v2['city_id']);
-                $list[$k2]['province_name'] = returnRegionName($v2['province_id']);
-                //判断用户是否点赞
-                if($m_id){
-                    $isLike = M('PostLike')->where(['m_id'=>$m_id,'comment_id'=>$v2['id']])->find();
-                }else{
-                    $isLike = 0;
-                }
-                $list[$k2]['is_like'] = $isLike?1:0;
                 unset($pic);
                 //查询子回复
                 $list[$k2]['reply_num'] = M('PostReply')->where(['comment_id'=>$v2['id']])->count();
@@ -330,7 +328,7 @@ class PostController extends BaseController{
             }
         }
         if(!$list){
-            $message = $request['p']==1?'暂无评论':'无更多评论';
+            $message = $_POST['p']==1?'暂无评论':'无更多评论';
         }else{
             $message = '获取成功';
         }
