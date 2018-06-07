@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js" ></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js?v=1"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <title>我要发帖</title>
+    <style>
+        .re{
+            position: relative;
+            top: -79px;
+            left: 0;
+        }
+        .button_t{
+            width: 94%;
+            left: 3%;
+            height: 40px;
+            line-height: 40px;
+            position: fixed;
+            bottom: 10px;
+        }
+        textarea{
+            height: 54px;
+        }
+
+        .weui-media-box__desc{
+            height: 82px;
+        }
+
+        .weui-media-box__desc p {
+            text-align: right;
+        }
+
+        .weui-media-box__info{
+            overflow: visible!important;
+        }
+
+        .weui-uploader__file{
+            position: relative;
+        }
+        .show-img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .weui-uploader__file .icon_del {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+        }
+    </style>
+</head>
+<body class="bc3">
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a href="interest_fenlei1.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" >
+            我要发帖
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="headtop coarseLline">
+        <div class="weui-panel">
+            <div class="weui-panel__hd">
+                <input class="weui-media-box__title color1" placeholder="标题4-25字符"/>
+            </div>
+            <div class="weui-panel__bd">
+                <div class="weui-media-box weui-media-box_text">
+                    <div class="weui-media-box__desc">
+                        <textarea class="color3" placeholder="帖子人工审核后会出现，违规内容一经发现，会被封号。10-700字"></textarea>
+                        <p><span>0</span><span>/100</span></p>
+                    </div>
+                    <ul class="weui-media-box__info">
+                        <div class="weui-uploader__input-box">
+
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="color2 bc5 button_t fontsize2 submit">提交</button>
+</body>
+<script>
+    $(function () {
+        getParam();
+        bindHandler();
+    });
+    
+    function bindHandler() {
+        $(".weui-uploader__input-box").fileInit({
+            "filetype":filetype,
+            "onchange": function (base64,file,_targetthis) {
+                uploadPic(file,_targetthis)
+            }
+        });
+
+        $('textarea').bind('input propertychange',function(){ //添加监听input值的改变事件
+            var tvalmum;
+            tvalmum = $(this).val().length;
+            $(".weui-media-box__desc p span:first-of-type").text(tvalmum)
+        });
+
+        $(".weui-media-box__info").on("click",".icon_del",function () {
+            $(this).parent().remove();
+        });
+
+        $(".submit").click(function () {
+            var title = $(".weui-media-box__title").val();
+            var content = $('textarea').val();
+            var fileIds = [];
+            $(".weui-uploader__file").each(function () {
+                fileIds.push($(this).find(".show-img").attr("file_id"))
+            })
+            var fileIdstr = fileIds.join(',');
+
+            if(title.length < 4){
+                layer.open({
+                    content: "标题长度不足4个字"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(title.length > 25){
+                layer.open({
+                    content: "标题长度超出限制"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(content.length < 10){
+                layer.open({
+                    content: "内容长度不足10个字"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(content.length > 100){
+                layer.open({
+                    content: "内容长度超出限制"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+            var data = {}
+            data["m_id"] = m_id;
+            data["title"] = title;
+            data["content"] = content;
+            data["pic"] = fileIdstr;
+            data["type_id"] = type_id;
+            uploaddata(data)
+        })
+    }
+    
+    function uploaddata(data) {
+        requestUrl("{:U('Home/Post/addPost')}", data, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                alert(res.message);
+            } else {
+                history.go(-1)
+            }
+        });
+    }
+    
+    function uploadPic(file,_targetthis) {
+        var formdata = new FormData();
+        formdata.append("picture", file);
+        formdata.append("type", "2");
+
+        if(file.type.indexOf("image") > -1){
+            uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    alert(res.message);
+                } else {
+                    $(_targetthis).parent().prepend('<li class="weui-uploader__file">' +
+                        '<img class="show-img" src="'+res.data.picture.picture_path+'" file_id="'+res.data.picture.picture_id+'" />' +
+                        '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
+                        '</li>')
+                }
+            });
+        }else if(file.type.indexOf("video") > -1){
+            uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    alert(res.message);
+                } else {
+                    $(_targetthis).parent().prepend('<li class="weui-uploader__file">' +
+                        '<video controls="controls" class="show-img" src="'+res.data.picture.picture_path+'" file_id="'+res.data.picture.picture_id+'" />' +
+                        '<img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del" id="click" />' +
+                        '</li>')
+                }
+            });
+        }
+    }
+
+    var filetype,type_id;
+    function getParam() {
+        filetype = getUrlParam("filetype");
+        type_id = getUrlParam("type_id")
+    }
+</script>
+</html>

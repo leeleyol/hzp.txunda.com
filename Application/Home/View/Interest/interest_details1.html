@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <title>帖子详情</title>
+    <style>
+        .footbut{
+            height: 40px;
+            line-height:17px;
+            width: 94%;
+            left: 3%;
+            padding: 5px 0px;
+            display: flex;
+            background-color: white;
+            z-index: 999;
+            border: none;
+        }
+        .button{
+            height: 40px;
+            line-height: 40px;
+            margin-left: 10px;
+            flex: 1;
+        }
+        .distance_top i{
+            font-style: normal;
+            margin: 0 0 0 5px;
+            width: 90px;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .distance_top > *{
+            vertical-align: middle;
+        }
+        .detail-box > p{
+            padding: 10px 10px;
+            line-height: 1.4em;
+            font-size: 15px;
+            color: #999999;
+        }
+
+        .show-img img, .show-img video{
+            max-width: 100%;
+        }
+    </style>
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <img src="__ROOT__/Public/Home/img/b_back.png" />
+        </div>
+        <div class="header_middle color1">
+            帖子详情
+        </div>
+    </header>
+    <div class="headtop coarseLline detail-box" >
+
+    </div>
+    <div class="coarseLline paddingl_1 padding_tb fineLine1 fontsize2 color3">评论 丨 99</div>
+    <div class="">
+        <img src="__ROOT__/Public/Home/img/xiaoxiao.png"  class="icon_name paddingl_1" >
+        <span class="  fontsize2">可爱的小小</span>
+        <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">看起来不错嘛，能不能便宜一点呀O(∩_∩)O哈哈~</p>
+        <p class="fontsize4 padding_b color3 fineLine2">2小时前</p>
+    </div>
+    <div class="paddingl_3  ">
+        <img src="__ROOT__/Public/Home/img/lili.png"  class="icon_name  " >
+        <span class="  fontsize2 color3">梅丽丽CaGii</span>
+        <p class="fontsize3 paddingl_4 padding_b paddingr_1">主人回复@可爱的小小：亲 如果你真的喜欢的话，我想送给你也不无关系。</p>
+        <p class="fontsize4 paddingl_4 padding_b color3 ">2小时前</p>
+    </div>
+    <div class="fineLine2"></div>
+    <div class="paddingl_3  ">
+        <img src="__ROOT__/Public/Home/img/xiaoxiao.png"  class="icon_name  " >
+        <span class="  fontsize2 color3">可爱的小小</span>
+        <p class="fontsize3 paddingl_4 padding_b paddingr_1">回复@梅丽丽CaGii：真的嘛！太谢谢了</p>
+        <p class="fontsize4 paddingl_4 padding_b color3 ">2小时前</p>
+    </div>
+    <div class="coarseLline"></div>
+    <br><br>
+    <div class="footbut bc2">
+        <div class="float_l">
+            <img src="__ROOT__/Public/Home/img/shoucang0.png" class="icon_del">
+            <p class="fontsize5">收藏</p>
+        </div>
+        <button class="color2 bc5 fontsize3 button ">我要评论</button>
+    </div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        getParam();
+        getDetail();
+        bindHandler()
+    });
+
+    function getDetail() {
+        requestUrl("{:U('Home/Post/postInfo')}",{m_id:m_id,post_id:post_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var detail = res.data;
+                $(".detail-box").append('<div class="distance_top">' +
+                    '            <img src="'+detail.head_pic+'" ><i>'+detail.nickname+'</i><span >'+timestampFormat(detail.create_time)+'</span>' +
+                    '        </div>' +
+                    '        <p class="fontsize2 padding_tb paddingr_1 paddingl_1">' +
+                    '            <span  class="biaoti">'+detail.title+'</span><br>' +
+                                    detail.content+
+                    '        </p>' +
+                    '        <div class="paddingl_1 paddingr_1 show-img">' +
+                                imgList(detail.pic_list)+
+                    '        </div>' +
+                    '        <div class="distance_buttom">' +
+                    '            <div class="distance_buttom_1">' +
+                    '                <span  >' +
+                    '                    来自' + detail.type_name+
+                    '                </span>' +
+                    '            </div>' +
+                    '            <div class="distance_buttom_2">' +
+                    '                <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                    '                <span>'+detail.view+'</span>' +
+                    '                <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                    '                <span>'+detail.comment_num+'</span>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '        <div style="clear: both"></div>')
+            }
+        });
+    }
+
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    }
+
+    var post_id;
+    function getParam() {
+        post_id = getUrlParam("post_id");
+    }
+
+    function imgList(pic_list) {
+        var str = "";
+        $(pic_list).each(function (index, item) {
+            var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
+            str +=  imgstr
+        })
+        return str
+    }
+</script>
