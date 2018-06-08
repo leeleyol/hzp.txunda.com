@@ -26,6 +26,8 @@
         }
         .tz-item{
             margin-top: 15px;
+            height: auto;
+            padding-bottom: 10px;
         }
         .distance_top i{
             font-style: normal;
@@ -37,6 +39,11 @@
         }
         .distance_top > *{
             vertical-align: middle;
+        }
+
+        .section_item .rongqi2 video {
+            height: 130px;
+            width: 147px;
         }
     </style>
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
@@ -67,14 +74,14 @@
         <div class="weui-mask weui-animate-fade-in"></div>
         <div class="weui-actionsheet weui-animate-slide-up">
             <div class="weui-actionsheet__menu">
-                <div class="weui-actionsheet__cell">
-                    <a href="interest_fenlei2.html">
-                        拍摄<p class="fontsize4 color3">照片与视频</p>
+                <div class="weui-actionsheet__cell image">
+                    <a>
+                        图片<p class="fontsize4 color3"></p>
                     </a>
                 </div>
-                <div class="weui-actionsheet__cell  ">
-                   <a href="interest_fenlei3.html">
-                       从相册选择
+                <div class="weui-actionsheet__cell video">
+                   <a>
+                       视屏
                    </a>
                 </div>
             </div> <div class="weui-actionsheet__action">
@@ -102,18 +109,33 @@
                 var ref=$(this);
                 var target=ref.parent('.Bomb-box');
                 target.hide();
+            });
+
+            $(".image").click(function () {
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=image&type_id="+type_id
             })
+
+            $(".video").click(function () {
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=video&type_id="+type_id
+            })
+
             $('.faitie').click(function(){
                 $('.custom-classname').show();
-            })
+                //window.location.href = "{:U('Interest/interest_fenlei2')}"
+            });
+
             $('.weui-actionsheet__cell').click(function(){
                 $('.custom-classname').hide();
-            })
+            });
 
             $(".header_left").click(function () {
                 history.go(-1)
+            });
+            
+            $(".tz-list").on("click",".tz-item",function () {
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
             })
-
+            
             //监听滑动到底部，然后加载分页
             handlerScrollBottom(function () {
                 layderIndex = layer.open({type: 2});
@@ -145,7 +167,7 @@
                             '            </div>' +
                             '            <p>' +
                             '                <span  class="biaoti">'+item.title+'</span><br>' +
-                            item.content+
+                                            item.content+
                             '            </p>' +
                             '            <div class="" >' +
                             '                <div class="section">' +
@@ -180,9 +202,11 @@
         function imgList(pic_list) {
             var str = "";
             $(pic_list).each(function (index, item) {
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
                 str +=  '<div class="section_item">' +
                     '<div class="rongqi2" >' +
-                    '<img src="'+item+'"  /><br>' +
+                    imgstr+
                     '</div>' +
                     '</div>'
             })

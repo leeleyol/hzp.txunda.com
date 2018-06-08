@@ -93,7 +93,9 @@
             $(".inter").on("click",".inter_item",function () {
                 window.location.href = "{:U('Interest/interest_fenlei1')}" + "&type_id=" + $(this).attr("type_id") +"&typeName=" + $(this).find("p").text();
             });
-
+            $(".tz-list").on("click",".tz-item",function () {
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+            })
             //监听滑动到底部，然后加载分页
             handlerScrollBottom(function () {
                 layderIndex = layer.open({type: 2});

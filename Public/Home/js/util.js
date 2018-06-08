@@ -1,4 +1,9 @@
 
+//判断客户端
+var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
 
 var m_id = localStorage.getItem('m_id');
 m_id = m_id?m_id:2;
@@ -8,21 +13,30 @@ m_id = m_id?m_id:2;
         "fileInit":function (options) {
             var _targetthis =  this;
             var options = options || {};
-
+            var filetype = options.filetype;
             var parentPosition = this.parent().css("position");
             if(parentPosition != "relative" || parentPosition != "absolute"){
                 this.parent().css({"position":"relative"});
             }
-            this.append('<input type="file" accept="image/png, image/jpeg, image/gif, image/jpg" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+            var accept,capture="";
+            if(filetype == "image"){
+                accept = "image/gif,image/jpeg,image/jpg,image/png,image/svg"
+                if(isAndroid){
+                    capture="capture=camera"
+                }
+
+            }else {
+                accept = "video/mp4";
+                if(isAndroid){
+                    capture ="capture=camcorder"
+                }
+            }
+
+            this.append('<input type="file" multiple="multiple" '+capture+' accept="'+accept+'" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
             this.on("change","input[type=file]",function(){
                 var file = this.files;
                 $.each(file,function(){
                     if(window.FileReader) {
-                        var photoExt=this.name.substr(this.name.lastIndexOf(".")).toLowerCase();//获得文件后缀名
-                        if (!/image\/\w+/.test(this.type)) {
-                            window.getId.toast("请确保文件为图像类型");
-                            return false;
-                        }
                         var fr = new FileReader();
                         fr.onloadend = function(e) {
                             if((typeof options.onchange) == 'function'){
@@ -30,7 +44,7 @@ m_id = m_id?m_id:2;
                             }
                         };
                         _targetthis.find("input").remove();
-                        _targetthis.append('<input type="file" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+                        _targetthis.append('<input type="file" multiple="multiple" accept="'+accept+'" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
                         fr.readAsDataURL(this);
                     }
                 })
