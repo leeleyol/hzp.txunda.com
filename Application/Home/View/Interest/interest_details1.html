@@ -214,7 +214,7 @@
         $(list).each(function (index, item) {
                 str += '          <div class="paddingl_3 reply-item ">' +
                     '                <p class="line"></p>' +
-                    '                <img src="__ROOT__/Public/Home/img/lili.png"  class="icon_name  " >' +
+                    '                <img src="'+item.head_pic+'"  class="icon_name  " >' +
                     '                <span class="  fontsize2 color3">'+item.nickname+'</span>' +
                     '                <p class="fontsize3 paddingl_4 padding_b paddingr_1">回复@'+comment.nickname+'：'+item.reply_content+'</p>' +
                     '                <p class="fontsize4 paddingl_4 padding_b color3 ">' + timestampFormat(item.create_time) + '</p>' +
