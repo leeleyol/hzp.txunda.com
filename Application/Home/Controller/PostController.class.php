@@ -320,9 +320,12 @@ class PostController extends BaseController{
                     ->where(['pr.comment_id'=>$v2['id']])
                     ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = pr.from_mid')
                     ->order('pr.create_time desc')
-                    ->field('pr.*,m.nickname')
+                    ->field('pr.*,m.nickname,m.head_pic')
                     ->limit(2)
                     ->select();
+                foreach ($reply_list as $k3=>$v3){
+                    $reply_list[$k3]['head_pic'] = returnImage($v3['head_pic']);
+                }
                 $list[$k2]['reply_list'] = $reply_list?$reply_list:[];
             }
         }
