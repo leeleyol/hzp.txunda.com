@@ -7,24 +7,49 @@
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
     <title>帖子详情</title>
     <style>
-        .footbut{
-            height: 40px;
-            line-height:17px;
-            width: 94%;
-            left: 3%;
-            padding: 5px 0px;
+        .footbut {
+            line-height: 17px;
+            left: 0;
+            padding: 5px 3%;
             display: flex;
             background-color: white;
             z-index: 999;
             border: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            align-items: center;
         }
-        .button{
+
+        .text-box {
+            padding: 5px 3%;
+            opacity: 0;
+            position: fixed;
+            width: 100%;
+            left: 100%;
+            bottom: 0;
+        }
+
+        .text-box p {
+            width: 80%;
+            background-color: #F6F6F6;
+            min-height: 40px;
+            font-size: 14px;
+            padding: 0 5px;
+            box-sizing: border-box;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: normal;
+        }
+
+        .button {
             height: 40px;
             line-height: 40px;
             margin-left: 10px;
             flex: 1;
         }
-        .distance_top i{
+
+        .distance_top i {
             font-style: normal;
             margin: 0 0 0 5px;
             width: 90px;
@@ -32,18 +57,73 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-        .distance_top > *{
+
+        .distance_top > * {
             vertical-align: middle;
         }
-        .detail-box > p{
+
+        .detail-box > p {
             padding: 10px 10px;
             line-height: 1.4em;
             font-size: 15px;
             color: #999999;
         }
 
-        .show-img img, .show-img video{
+        .show-img img, .show-img video {
             max-width: 100%;
+        }
+
+        .footbut {
+            background-color: white;
+        }
+
+        .leave-input > * {
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        .leave-input textarea {
+            background-color: #F6F6F6;
+            width: 80%;
+            border-radius: 3px;
+            box-sizing: border-box;
+            padding: 0 5px;
+            font-size: 14px;
+            height: 40px;
+        }
+
+        .send {
+            width: 18%;
+            box-sizing: border-box;
+            text-align: center;
+            margin-left: 2%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #ff4c82;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .commit-item {
+            border-top: 1px solid rgba(246, 246, 246, 1);
+            padding-top: 5px;
+        }
+
+        .reply {
+            float: right;
+        }
+
+        .fineLine2 {
+            border-bottom: none;
+        }
+
+        .line {
+            border-bottom: 1px solid rgba(246, 246, 246, 1);
+            margin-bottom: 5px;
+        }
+
+        .hide {
+            display: none;
         }
     </style>
     <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
@@ -53,91 +133,130 @@
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
 </head>
 <body>
-    <header class="head">
-        <div class="header_left">
-            <img src="__ROOT__/Public/Home/img/b_back.png" />
-        </div>
-        <div class="header_middle color1">
-            帖子详情
-        </div>
-    </header>
-    <div class="headtop coarseLline detail-box" >
+<header class="head">
+    <div class="header_left">
+        <img src="__ROOT__/Public/Home/img/b_back.png"/>
+    </div>
+    <div class="header_middle color1">
+        帖子详情
+    </div>
+</header>
+<div class="headtop coarseLline detail-box">
 
+</div>
+<div class="coarseLline paddingl_1 padding_tb fontsize2 color3 comment-count"></div>
+<div class="commit-list">
+
+</div>
+
+<div class="coarseLline"></div>
+<br><br>
+<div class="footbut bc2 operate">
+    <div class="float_l">
+        <img src="__ROOT__/Public/Home/img/shoucang0.png" class="icon_del">
+        <p class="fontsize5">收藏</p>
     </div>
-    <div class="coarseLline paddingl_1 padding_tb fineLine1 fontsize2 color3">评论 丨 99</div>
-    <div class="">
-        <img src="__ROOT__/Public/Home/img/xiaoxiao.png"  class="icon_name paddingl_1" >
-        <span class="  fontsize2">可爱的小小</span>
-        <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">看起来不错嘛，能不能便宜一点呀O(∩_∩)O哈哈~</p>
-        <p class="fontsize4 padding_b color3 fineLine2">2小时前</p>
-    </div>
-    <div class="paddingl_3  ">
-        <img src="__ROOT__/Public/Home/img/lili.png"  class="icon_name  " >
-        <span class="  fontsize2 color3">梅丽丽CaGii</span>
-        <p class="fontsize3 paddingl_4 padding_b paddingr_1">主人回复@可爱的小小：亲 如果你真的喜欢的话，我想送给你也不无关系。</p>
-        <p class="fontsize4 paddingl_4 padding_b color3 ">2小时前</p>
-    </div>
-    <div class="fineLine2"></div>
-    <div class="paddingl_3  ">
-        <img src="__ROOT__/Public/Home/img/xiaoxiao.png"  class="icon_name  " >
-        <span class="  fontsize2 color3">可爱的小小</span>
-        <p class="fontsize3 paddingl_4 padding_b paddingr_1">回复@梅丽丽CaGii：真的嘛！太谢谢了</p>
-        <p class="fontsize4 paddingl_4 padding_b color3 ">2小时前</p>
-    </div>
-    <div class="coarseLline"></div>
-    <br><br>
-    <div class="footbut bc2">
-        <div class="float_l">
-            <img src="__ROOT__/Public/Home/img/shoucang0.png" class="icon_del">
-            <p class="fontsize5">收藏</p>
-        </div>
-        <button class="color2 bc5 fontsize3 button ">我要评论</button>
-    </div>
+    <button class="color2 bc5 fontsize3 button something-say">我要评论</button>
+</div>
+
+<div class="footbut bc2 leave-input hide">
+    <textarea type="text" class="input" placeholder="看对了眼就留言,问问更多细节"></textarea>
+    <a class="send">发送</a>
+</div>
+
+<div class="text-box">
+    <p></p>
+</div>
 
 </body>
 </html>
-
 <script>
     $(function () {
         getParam();
         getDetail();
+        getCommenList();
         bindHandler()
     });
 
-    function getDetail() {
-        requestUrl("{:U('Home/Post/postInfo')}",{m_id:m_id,post_id:post_id},function(res){
-            if(res.code == -1){
+    function getCommenList() {
+        requestUrl("{:U('Home/Post/commentList')}", {m_id: m_id, post_id: post_id}, function (res) {
+            if (res.code == -1) {
                 localStorage.removeItem('m_id');
                 window.location.href = "{:U('Login/login')}";
-            }else if(res.code == 0){
+            } else if (res.code == 0) {
                 layer.open({
                     content: res.message
-                    ,skin: 'msg'
-                    ,time: 2 //2秒后自动关闭
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
                 });
-            }else {
+            } else {
+                var comment = res.data;
+                $('.comment-count').text("评论 | " + comment.length);
+                $(".commit-list").empty();
+                $(comment).each(function (index, item) {
+                    var replyList = item.reply_list
+                    $(".commit-list").append('<div class="commit-item" id="' + item.id + '" from_mid="' + item.from_mid + '">' +
+                        '            <div class="">' +
+                        '                <img src="' + item.head_pic + '"  class="icon_name paddingl_1" >' +
+                        '                <span class="reply-nickname fontsize2">' + item.nickname + '</span>' +
+                        '                <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">' + item.comment + '</p>' +
+                        '                <p class="fontsize4 padding_b color3 fineLine2">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +
+                        '            </div>' +
+                        getreplyList(replyList,item) +
+                        '        </div>')
+                })
+            }
+        });
+    }
+
+    function getreplyList(list, comment) {
+        var str = ""
+        $(list).each(function (index, item) {
+                str += '          <div class="paddingl_3 reply-item ">' +
+                    '                <p class="line"></p>' +
+                    '                <img src="__ROOT__/Public/Home/img/lili.png"  class="icon_name  " >' +
+                    '                <span class="  fontsize2 color3">'+item.nickname+'</span>' +
+                    '                <p class="fontsize3 paddingl_4 padding_b paddingr_1">回复@'+comment.nickname+'：'+item.reply_content+'</p>' +
+                    '                <p class="fontsize4 paddingl_4 padding_b color3 ">' + timestampFormat(item.create_time) + '</p>' +
+                    '                </div>';
+        });
+        return str
+    }
+
+    function getDetail() {
+        requestUrl("{:U('Home/Post/postInfo')}", {m_id: m_id, post_id: post_id}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
                 var detail = res.data;
                 $(".detail-box").append('<div class="distance_top">' +
-                    '            <img src="'+detail.head_pic+'" ><i>'+detail.nickname+'</i><span >'+timestampFormat(detail.create_time)+'</span>' +
+                    '            <img src="' + detail.head_pic + '" ><i>' + detail.nickname + '</i><span >' + timestampFormat(detail.create_time) + '</span>' +
                     '        </div>' +
                     '        <p class="fontsize2 padding_tb paddingr_1 paddingl_1">' +
-                    '            <span  class="biaoti">'+detail.title+'</span><br>' +
-                                    detail.content+
+                    '            <span  class="biaoti">' + detail.title + '</span><br>' +
+                    detail.content +
                     '        </p>' +
                     '        <div class="paddingl_1 paddingr_1 show-img">' +
-                                imgList(detail.pic_list)+
+                    imgList(detail.pic_list) +
                     '        </div>' +
                     '        <div class="distance_buttom">' +
                     '            <div class="distance_buttom_1">' +
                     '                <span  >' +
-                    '                    来自' + detail.type_name+
+                    '                    来自' + detail.type_name +
                     '                </span>' +
                     '            </div>' +
                     '            <div class="distance_buttom_2">' +
                     '                <img src="__ROOT__/Public/Home/img/eye.png" />' +
-                    '                <span>'+detail.view+'</span>' +
+                    '                <span>' + detail.view + '</span>' +
                     '                <img src="__ROOT__/Public/Home/img/z_information.png" />' +
-                    '                <span>'+detail.comment_num+'</span>' +
+                    '                <span>' + detail.comment_num + '</span>' +
                     '            </div>' +
                     '        </div>' +
                     '        <div style="clear: both"></div>')
@@ -146,23 +265,124 @@
     }
 
     function bindHandler() {
+        //我要发表评论
+        $(".something-say").click(function () {
+            shouwInput()
+            $("textarea").prop({"placeholder": "看对了眼就留言,问问更多细节"})
+            addType = "comment"
+        });
+        //发送
+        $(".send").click(function (event) {
+            event.stopPropagation();
+            addComment($("textarea").val())
+        });
+
+        //监听textarea值变化
+        $("textarea").bind('input porpertychange', function () {
+            $(".text-box p").html($(this).val())
+            var ph = $(".text-box p").height();
+            $(this).css({"height": ph + "px"})
+        });
+        //监听失去焦点
+        $(".input").blur(function () {
+            setTimeout(function () {
+                hideInput();
+            }, 300);
+        });
+
+        //点击回复
+        $('.commit-list').on("click", ".reply", function () {
+            addType = "reply"
+            if (commit_id != $(this).parents(".commit-item").prop("id")) {
+                nickname = $(this).parents(".commit-item").find(".reply-nickname").text();
+                commit_id = $(this).parents(".commit-item").prop("id");
+                $("textarea").prop({"placeholder": "@回复" + nickname + ":"})
+            }
+            shouwInput();
+        });
+
         $(".header_left").click(function () {
             history.go(-1)
-        })
+        });
+    }
+
+    var nickname, commit_id, addType = "comment";
+
+    function addComment(content) {
+        if (addType == "comment") {
+            requestUrl("{:U('Home/Post/addComment')}", {
+                m_id: m_id,
+                post_id: post_id,
+                comment: content
+            }, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    hideInput();
+                    resetInput();
+                    getCommenList()
+                }
+            });
+        } else {
+            requestUrl("{:U('Home/Post/addReply')}", {
+                m_id: m_id,
+                comment_id: commit_id,
+                reply_content: content
+            }, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    hideInput();
+                    resetInput();
+                    getCommenList();
+                }
+            });
+        }
+
     }
 
     var post_id;
+
     function getParam() {
         post_id = getUrlParam("post_id");
+    }
+
+    function shouwInput() {
+        $(".operate").hide();
+        $(".leave-input").css({"display": "flex"});
+        $(".input").focus();
+    }
+
+    function hideInput() {
+        $(".operate").css({"display": "flex"});
+        $(".leave-input").hide();
+    }
+
+    function resetInput() {
+        $("textarea").val("")
+        $(".text-box p").html("")
     }
 
     function imgList(pic_list) {
         var str = "";
         $(pic_list).each(function (index, item) {
-            var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
-
-            str +=  imgstr
-        })
+            var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
+            str += imgstr
+        });
         return str
     }
 </script>

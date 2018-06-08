@@ -64,7 +64,7 @@
 <body class="bc3">
     <header class="head" style="background-color: white;">
         <div class="header_left">
-            <a href="interest_fenlei1.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle" >
             我要发帖
@@ -106,6 +106,10 @@
                 uploadPic(file,_targetthis)
             }
         });
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
 
         $('textarea').bind('input propertychange',function(){ //添加监听input值的改变事件
             var tvalmum;
