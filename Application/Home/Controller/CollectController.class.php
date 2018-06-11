@@ -10,6 +10,18 @@ use Think\Controller;
  */
 class CollectController extends BaseController
 {
+    /**
+    * 初始化方法
+    */
+    public $member_obj = '';
+    public $file_obj   = '';
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->member_obj = D('Member');
+        $this->file_obj   = D('File');
+    }
+
 
     /**
      * 我的关注
