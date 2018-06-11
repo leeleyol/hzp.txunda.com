@@ -114,20 +114,23 @@
 <script>
     $(function () {
         bindHandler()
-    })
+    });
     
     function bindHandler() {
         $("#license").fileInit({
+            "filetype":"image",
             "onchange": function (base64,file,_targetthis) {
                 uploadPic(file,_targetthis)
             }
         });
         $("#positive").fileInit({
+            "filetype":"image",
             "onchange": function (base64,file,_targetthis) {
                 uploadPic(file,_targetthis)
             }
         });
         $("#negative").fileInit({
+            "filetype":"image",
             "onchange": function (base64,file,_targetthis) {
                 uploadPic(file,_targetthis)
             }

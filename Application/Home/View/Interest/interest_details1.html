@@ -109,6 +109,10 @@
             padding-top: 5px;
         }
 
+        .reply-time{
+            padding-right: 10px;
+        }
+
         .reply {
             float: right;
         }
@@ -153,7 +157,7 @@
 <br><br>
 <div class="footbut bc2 operate">
     <div class="float_l">
-        <img src="__ROOT__/Public/Home/img/shoucang0.png" class="icon_del">
+        <img src="__ROOT__/Public/Home/img/shoucang0.png" class="is_collect icon_del">
         <p class="fontsize5">收藏</p>
     </div>
     <button class="color2 bc5 fontsize3 button something-say">我要评论</button>
@@ -177,7 +181,83 @@
         getCommenList();
         bindHandler()
     });
+    function bindHandler() {
+        //我要发表评论
+        $(".something-say").click(function () {
+            shouwInput()
+            $("textarea").prop({"placeholder": "看对了眼就留言,问问更多细节"})
+            addType = "comment"
+        });
+        //发送
+        $(".send").click(function (event) {
+            event.stopPropagation();
+            addComment($("textarea").val())
+        });
 
+        //监听textarea值变化
+        $("textarea").bind('input porpertychange', function () {
+            $(".text-box p").html($(this).val())
+            var ph = $(".text-box p").height();
+            $(this).css({"height": ph + "px"})
+        });
+        //监听失去焦点
+        $(".input").blur(function () {
+            setTimeout(function () {
+                hideInput();
+            }, 300);
+        });
+        //点击回复
+        $('.commit-list').on("click", ".reply", function () {
+            addType = "reply"
+            if (commit_id != $(this).parents(".commit-item").prop("id")) {
+                nickname = $(this).parents(".commit-item").find(".reply-nickname").text();
+                commit_id = $(this).parents(".commit-item").prop("id");
+                $("textarea").prop({"placeholder": "@回复" + nickname + ":"})
+            }
+            shouwInput();
+        });
+
+        //收藏取消收藏
+        $(".is_collect").click(function () {
+            $(this).toggleClass("collected");
+            addOrdel($(this))
+        });
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        });
+    }
+    
+    function addOrdel(obj) {
+        var url = "";
+
+        if($(obj).hasClass("collected")){
+            url = "{:U('Home/Collect/addCollect')}"
+        }else {
+            url = "{:U('Home/Collect/delCollect')}"
+        }
+
+        requestUrl(url, {m_id: m_id, object_id: post_id,object_type:2}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                if($(obj).hasClass("collected")){
+                    $(".is_collect").prop({"src":"__ROOT__/Public/Home/img/shoucang.png"})
+                }else {
+                    $(".is_collect").prop({"src":"__ROOT__/Public/Home/img/shoucang0.png"})
+                }
+
+            }
+        });
+    }
+    
     function getCommenList() {
         requestUrl("{:U('Home/Post/commentList')}", {m_id: m_id, post_id: post_id}, function (res) {
             if (res.code == -1) {
@@ -200,7 +280,7 @@
                         '                <img src="' + item.head_pic + '"  class="icon_name paddingl_1" >' +
                         '                <span class="reply-nickname fontsize2">' + item.nickname + '</span>' +
                         '                <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">' + item.comment + '</p>' +
-                        '                <p class="fontsize4 padding_b color3 fineLine2">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +
+                        '                <p class="fontsize4 padding_b color3 fineLine2 reply-time">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +
                         '            </div>' +
                         getreplyList(replyList,item) +
                         '        </div>')
@@ -260,49 +340,11 @@
                     '            </div>' +
                     '        </div>' +
                     '        <div style="clear: both"></div>')
+
+                if(detail.is_collect == 1){
+                    $(".is_collect").prop({"src":"__ROOT__/Public/Home/img/shoucang.png"}).addClass("collected")
+                }
             }
-        });
-    }
-
-    function bindHandler() {
-        //我要发表评论
-        $(".something-say").click(function () {
-            shouwInput()
-            $("textarea").prop({"placeholder": "看对了眼就留言,问问更多细节"})
-            addType = "comment"
-        });
-        //发送
-        $(".send").click(function (event) {
-            event.stopPropagation();
-            addComment($("textarea").val())
-        });
-
-        //监听textarea值变化
-        $("textarea").bind('input porpertychange', function () {
-            $(".text-box p").html($(this).val())
-            var ph = $(".text-box p").height();
-            $(this).css({"height": ph + "px"})
-        });
-        //监听失去焦点
-        $(".input").blur(function () {
-            setTimeout(function () {
-                hideInput();
-            }, 300);
-        });
-
-        //点击回复
-        $('.commit-list').on("click", ".reply", function () {
-            addType = "reply"
-            if (commit_id != $(this).parents(".commit-item").prop("id")) {
-                nickname = $(this).parents(".commit-item").find(".reply-nickname").text();
-                commit_id = $(this).parents(".commit-item").prop("id");
-                $("textarea").prop({"placeholder": "@回复" + nickname + ":"})
-            }
-            shouwInput();
-        });
-
-        $(".header_left").click(function () {
-            history.go(-1)
         });
     }
 
