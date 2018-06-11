@@ -277,8 +277,11 @@ class PostController extends BaseController{
         $info = $this->getData($where,0,'p.create_time desc');
         $data = $info[0];
         M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
-        $data['is_collect'] = 0;
-
+        if($m_id){
+            $data['is_collect'] = M('Collect')->where(['object_type'=>2,'object_id'=>$_POST['post_id']])->find()?1:0;
+        }else{
+            $data['is_collect'] = 0;
+        }
         apiResponse('1','成功',$data);
 
     }
