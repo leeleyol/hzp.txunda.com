@@ -378,7 +378,7 @@ class MemberController extends BaseController{
         $info['goods_num'] = "0";
         $info['need_num'] = "0";
         if($m_id){
-            $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['m_id'],'m_id'=>$m_id])->find()?1:0;
+            $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['member_id'],'m_id'=>$m_id])->find()?1:0;
         }else{
             $info['is_attention'] = 0;
         }
