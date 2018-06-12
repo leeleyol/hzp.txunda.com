@@ -407,14 +407,14 @@ class PostController extends BaseController{
      * 需要传递的参数：
      * to_mid 浏览对象id
      */
-    public function memberPostList($request = array()){
-        $where['p.m_id'] = $request['to_mid'];
+    public function memberPostList(){
+        $where['p.m_id'] = $_POST['to_mid'];
         $where['p.status'] = 1;
         $order = 'p.create_time desc';
 
-        $result = $this->getData($where,$request['p'],$order);
+        $result = $this->getData($where,$_POST['p'],$order);
         if(!$result){
-            $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
+            $message = $_POST['p']==1?'暂无相关帖子':'无更多帖子';
         }else{
             $message = '获取成功';
         }
