@@ -278,7 +278,7 @@ class PostController extends BaseController{
         $data = $info[0];
         M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
         if($m_id){
-            $data['is_collect'] = M('Collect')->where(['object_type'=>2,'object_id'=>$_POST['post_id']])->find()?1:0;
+            $data['is_collect'] = M('Collect')->where(['object_type'=>2,'object_id'=>$_POST['post_id'],'m_id'=>$m_id])->find()?1:0;
         }else{
             $data['is_collect'] = 0;
         }
@@ -412,8 +412,7 @@ class PostController extends BaseController{
         $where['p.status'] = 1;
         $order = 'p.create_time desc';
 
-        $result = $this->getData($where,$request['p'],$order);/*
-        $result['top_list']=$this->getData($where,0,$order);*/
+        $result = $this->getData($where,$request['p'],$order);
         if(!$result){
             $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
         }else{
@@ -449,7 +448,6 @@ class PostController extends BaseController{
         }
 
     }
-
 
 
 
