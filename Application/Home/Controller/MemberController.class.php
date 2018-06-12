@@ -329,4 +329,60 @@ class MemberController extends BaseController{
         }
     }
 
+
+
+    /*
+     * 商家列表
+     * */
+    public function memberList(){
+        $m_id = $this->member_obj->checkToken();
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'参数错误'),
+        );
+        $where['status'] = 1;
+        $where['type'] = $request['type'] ?$request['type'] :0;
+        check_param($param);//检查参数
+        $list = M('Member')->where($where)
+            ->field('id as member_id,nickname,head_pic,attention_num,type')
+            ->order('create_time desc')
+            ->page($request['p'].',10')
+            ->select();
+        if(empty($list)){
+            $message =$request['p']==1?'暂无记录':'无更多记录';
+            apiResponse('0',$message);
+        }
+        foreach ($list as $k=>$v){
+            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['goods_num'] = "0";
+            $list[$k]['need_num'] = "0";
+        }
+        apiResponse('1','请求成功',$list);
+    }
+
+
+    /*
+     * 商家详情
+     * */
+    public function memberInfo(){
+        $m_id = $this->member_obj->checkToken();
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['member_id'],'condition'=>'','error_msg'=>'商家id参数错误'),
+        );
+        $where['status'] = 1;
+        $where['id'] = $request['member_id'];
+        check_param($param);//检查参数
+        $info = M('Member')->where($where)->field('id as m_id,nickname,head_pic,attention_num,intro,type')->find();
+        $info['head_pic_path'] = $this->file_obj->getOnePath($info['head_pic']);
+        $info['goods_num'] = "0";
+        $info['need_num'] = "0";
+        if($m_id){
+            $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['member_id'],'m_id'=>$m_id])->find()?1:0;
+        }else{
+            $info['is_attention'] = 0;
+        }
+        apiResponse('1','请求成功',$info);
+    }
+
 }
