@@ -61,7 +61,7 @@ class CollectController extends BaseController
 
 
     /*
-     * 添加收藏
+     * 取消收藏
      * */
     public function delCollect()
     {
@@ -81,4 +81,32 @@ class CollectController extends BaseController
             apiResponse('0', '删除失败');
         }
     }
+
+
+    /*
+     * 取消收藏
+     * */
+    public function delMoreCollect()
+    {
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type' => 'is_null', 'parameter' => $request['col_id'], 'condition' => '', 'error_msg' => '收藏id参数错误')
+           );
+        $where['m_id'] = $m_id;
+        check_param($param);//检查参数
+        $add = M('Collect')->where(['m_id' => $m_id, 'id' => array('in',$request['col_id'])])->delete();
+        if ($add) {
+            apiResponse('1', '删除成功');
+        } else {
+            apiResponse('0', '删除失败');
+        }
+    }
+
+
+    
+    
+    
+    
 }
