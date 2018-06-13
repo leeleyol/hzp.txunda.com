@@ -8,13 +8,23 @@ function requestUrl(URL,DATA,CALLBACK,TYPE,DATATYPE){
     if (!TYPE) TYPE ="post";
     if (!DATATYPE) DATATYPE ="json";
 
-    console.log(URL,DATA)
+    DATA["m_id"] = m_id
     $.ajax({
         "url":URL,
         "data" : DATA,
         "dataType" : DATATYPE,
         "type" : TYPE,
         "success" : function(res){
+            if(res.data.constructor  ===Array){
+                if(res.data.length == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }
+            }
+
             if (typeof CALLBACK == 'function') {
                 CALLBACK(res);
             }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>VIP商家</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="head">
+            <div class="header_left">
+                <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            </div>
+            <div class="header_middle"  >
+                VIP商家
+            </div>
+            <div class="header_right"></div>
+        </header>
+        <!--商家信息-->
+        <div class="headtop coarseLline list-container">
+
+        </div>
+
+    </div>
+</body>
+<script>
+    $(function () {
+        getVipList();
+
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            layderIndex = layer.open({type: 2});
+            getList();
+        })
+    })
+
+    var page = 0,layderIndex;
+    function getVipList() {
+        page += 1;
+        requestUrl("{:U('Home/Member/memberList')}",{p:page,type:2},function(res){
+            layer.close(layderIndex)
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data;
+
+                $(list).each(function (index, item) {
+                    $(".list-container").append('<a href="{:U(\'Index/index_VIPbussiness_guanzhu\')}&member_id='+item.member_id+'">' +
+                        '                <div class="VIPbusiness">' +
+                        '                    <div class="VIPbusiness_left">' +
+                        '                        <img src="'+item.head_pic_path+'" class="absolute" />' +
+                        '                        <img src="__ROOT__/Public/Home/img/VIP.png"  class="relation" />' +
+                        '                    </div>' +
+                        '                    <div class="VIPbusiness_middle">' +
+                                                 item.nickname +  '<input type="button" value="商家认证"><br>' +
+                        '                        <span>'+item.goods_num+'件商品 | '+item.need_num+'条供求</span>' +
+                        '                    </div>' +
+                        '                    <div class="VIPbusiness_right">' +
+                        '                        <span>'+item.attention_num+'人关注</span>' +
+                        '                    </div>' +
+                        '                </div>' +
+                        '                <div style="border-bottom: 1px solid #F6F6F6;margin-left: 10px"></div>' +
+                        '            </a>')
+                })
+            }
+        });
+    }
+</script>
+</html>

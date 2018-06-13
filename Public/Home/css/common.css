@@ -5,6 +5,9 @@ a{
     color: black;
     text-decoration: none;
 }
+i{
+    font-style: normal;
+}
 .head{
     position: fixed;
     top: 0;
@@ -139,7 +142,7 @@ a{
     border-radius: 40px 40px 40px 40px;
     color: #ffffff;
     font-size: 14px;
-    width: 50px;
+    padding: 0 10px;
     height: 25px;
 
 }

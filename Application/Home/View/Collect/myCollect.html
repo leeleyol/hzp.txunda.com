@@ -2,6 +2,87 @@
 <block name="style">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        #hear li{
+            width: 50% !important;
+            text-align: center;
+        }
+
+        #hear li p{
+            display: inline-block;
+            width: 75%;
+        }
+
+        #contentop{
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .edit{
+            position: relative;
+            left: 50px;
+        }
+
+        .edit .tz-item .check-box{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: -33px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        .edit .tz-item .checked{
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+
+        .tz-list{
+            background-color: rgba(246, 246, 246, 1);
+
+        }
+        .tz-item{
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .bottom-bar{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: white;
+            border-top: 10px solid rgba(246, 246, 246, 1);
+            display: none;
+        }
+
+        .bottom-bar p{
+            display: inline-block;
+            overflow: hidden;
+        }
+        .bottom-bar p:first-of-type{
+            font-size: 15px;
+            margin-left: 25px;
+            padding-left: 25px;
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-position: left center;
+            background-size: 20px;
+            background-repeat: no-repeat;
+        }
+        .bottom-bar p:first-of-type.checked{
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+        .bottom-bar p:last-of-type{
+            float: right;
+            background-color: red;
+            width: 130px;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
 </block>
 <block name="main">
     <header >
@@ -11,48 +92,244 @@
         <div class="header_middle color1">
             我的收藏
         </div>
-        <div class="header_right">
+        <div class="header_right" id="operate">
            编辑
         </div>
     </header>
 
     <div class="tab">
         <ul id="hear">
-            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">
-                供求信息
+            <li class="action">
+                <p style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">供求信息</p>
             </li>
-            <li> 帖子 </li>
-
+            <li><p>帖子</p></li>
         </ul>
         <ul id="contentop">
-            <li class="action">
+            <li class="action buss-list">
+
             </li>
-            <li>
-                sa
+            <li class="tz-list">
+
             </li>
 
         </ul>
+    </div>
+
+    <div class="bottom-bar">
+        <p class="checked-all">全选</p>
+        <p class="comfirm">确定删除</p>
     </div>
 </block>
 <block name="script">
     <script>
         <!--选项卡-->
         $(function(){
-            $("#hear li").click(function(){
-                $(this).css({
+            //绑定事件
+            bindHandler();
+            getTZList(pageIndex)
+        });
+
+        var page = 0, layderIndex;
+        function getTZList(type) {
+            page += 1;
+            var url = ""
+            if(type == 0) {
+
+            }else {
+                url = "{:U('Home/Collect/myCollectPost')}"
+            }
+
+            requestUrl(url, {p: page}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    var $listBox;
+                    if(pageIndex == 0){
+                        $listBox =  $(".buss-list")
+                    }else if(pageIndex == 1){
+                        $listBox =  $(".tz-list")
+                        $listBox.append(tzlIST(list))
+                    }
+
+
+                }
+            });
+        }
+
+        function tzlIST(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += '<div class="distance tz-item" id="'+item.post_id+'" col_id="'+item.col_id+'">' +
+                    '            <div class="distance_top">' +
+                    '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                    '            </div>' +
+                    '            <p>' +
+                    '                <span  class="biaoti">'+item.title+'</span><br>' +
+                    item.content+
+                    '            </p>' +
+                    '            <div class="" >' +
+                    '                <div class="section">' +
+                    imgList(item.pic_list)+
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="distance_buttom">' +
+                    '                <div class="distance_buttom_1">' +
+                    '                     <span>来自 '+item.type_name+'系列</span>' +
+                    '                </div>' +
+                    '                <div class="distance_buttom_2">' +
+                    '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                    '                    <span>'+item.view+'</span>' +
+                    '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                    '                    <span>'+item.comment_num+'</span>' +
+                    '                </div>' +
+                    '            </div>' +
+                        '<div class="check-box"></div>'+
+                    '        </div>'
+            })
+
+            return str
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
+                str +=  '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    imgstr+
+                    '</div>' +
+                    '</div>'
+            });
+            return str
+        }
+        
+        function delCollect(col_id) {
+            requestUrl("{:U('Home/Collect/delMoreCollect')}",{col_id:col_id},function(res){
+
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    reset()
+                }
+            });
+        }
+        
+        var pageIndex = 0, editing = false;
+        function bindHandler() {
+            $("#hear li ").click(function(){
+                $(this).find('p').css({
                     borderBottom: "2px solid #FF4C82",
                     color : "#FF4C82"
-                }).siblings().css({
+                }).parent().siblings().find("p").css({
                     borderBottom: "none",
                     color : "#000000"
                 });
-            });
 
-            $("#hear li ").click(function(){
                 $(this).addClass("action").siblings().removeClass("action");
                 var index = $(this).index();
+                pageIndex = $(this).index();
                 $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+
+                //重置
+                reset()
             });
-        });
+
+
+            //编辑\完成
+            $("#operate").click(function () {
+                if(pageIndex == 0){
+                    $(".buss-list").toggleClass("edit")
+                }else {
+                    $(".tz-list").toggleClass("edit")
+                }
+                $(".bottom-bar").toggle()
+
+                if($(".buss-list, .tz-list").hasClass("edit")){
+                   $(this).text("完成");
+                    editing = true
+                }else {
+                    $(this).text("编辑");
+                    editing = false
+                }
+            });
+            //操作单个选项
+            $(".tz-list").on("click",".tz-item",function () {
+                if(editing){
+                    $(this).find(".check-box").toggleClass("checked");
+                    countChecked()
+                }else {
+                    window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+                }
+            });
+
+            //全选\取消全选
+            $(".bottom-bar p:first-of-type").click(function () {
+                $(this).toggleClass("checked")
+                console.log($(this).hasClass('checked'))
+                if($(this).hasClass('checked')){
+                    $(".check-box").addClass("checked")
+                }else {
+                    $(".check-box").removeClass("checked")
+                }
+            });
+
+            $(".comfirm").click(function () {
+                var lenght = $(".check-box.checked").length
+                if(!lenght){
+                    layer.open({
+                        content: "请选择删除项"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var col_id = []
+                    $(".check-box.checked").each(function () {
+                        col_id.push($(this).parents(".tz-item").attr('col_id'))
+                    })
+                    delCollect(col_id.join(","))
+                }
+            })
+
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getTZList(pageIndex)
+            })
+        }
+
+        function reset() {
+            $(".buss-list , .tz-list").html("").removeClass("edit");
+            $("#operate").text('编辑');
+            $(".bottom-bar").hide().find("p:first-of-type").removeClass("checked")
+            page = 0;
+            editing = false;
+            getTZList(pageIndex)
+        }
+
+        function countChecked(){
+            var lenght = $(".check-box.checked").length
+            if(lenght == $(".check-box").length){
+                $(".bottom-bar p:first-of-type").addClass("checked")
+            }else {
+                $(".bottom-bar p:first-of-type").removeClass("checked")
+            }
+        }
     </script>
 </block>
