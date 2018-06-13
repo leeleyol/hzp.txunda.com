@@ -123,7 +123,7 @@ class CollectController extends BaseController
             ->join('db_post_type as pt on pt.id = p.type_id', 'left')
             ->join('db_member as m on m.id = p.m_id', 'left')
             ->where($where)
-            ->field('c.id col_id,p.title,p.type_id,p.content,p.pic,p.view,p.comment_num,p.create_time,p.m_id,m.nickname,m.head_pic,pt.type_name')
+            ->field('c.id col_id,p.id post_id,p.title,p.type_id,p.content,p.pic,p.view,p.comment_num,p.create_time,p.m_id,m.nickname,m.head_pic,pt.type_name')
             ->page($request['p'].',10')
             ->select();
         if(empty($list)){
