@@ -218,7 +218,7 @@ class GoodsController extends BaseController{
         $this->member_obj->errorTokenMsg($m_id);
         $list = M('GoodsType')->where(['status'=>1,'m_id'=>$_POST['member_id']])->order('create_time desc')->field('id,type_name')->select();
         foreach ($list as $k=>$v){
-            $goods_list = M('Goods')->where(['type_id'=>$v['id']])->field('id goods_id,goods_name,stock,stock_unit,goods_status,goods_pic')->select();
+            $goods_list = M('Goods')->where(['type_id'=>$v['id']])->field('id goods_id,goods_name,stock,stock_unit,goods_status,goods_pic,product_from,bar_code')->select();
             foreach ($goods_list as $k1=>$v1){
                 $goods_list[$k1]['goods_pic_path'] = returnImage($v1['goods_pic']);
             }
