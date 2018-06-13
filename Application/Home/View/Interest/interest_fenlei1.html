@@ -113,11 +113,11 @@
 
             $(".image").click(function () {
                 window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=image&type_id="+type_id
-            })
+            });
 
             $(".video").click(function () {
                 window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=video&type_id="+type_id
-            })
+            });
 
             $('.faitie').click(function(){
                 $('.custom-classname').show();
@@ -188,13 +188,6 @@
                             '        </div>');
                     })
 
-                    if(list.length == 0){
-                        layer.open({
-                            content: res.message
-                            ,skin: 'msg'
-                            ,time: 2 //2秒后自动关闭
-                        });
-                    }
                 }
             });
         }

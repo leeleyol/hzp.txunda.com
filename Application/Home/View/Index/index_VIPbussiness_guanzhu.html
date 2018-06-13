@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>商家详情</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        .jituan{
+            margin-top: 10px;
+        }
+        .distance {
+            background-color: white;
+            height: 270px;
+            padding-bottom: 10px;
+        }
+       .absolute{
+            position: absolute;
+            width:50px;
+            height:50px
+        }
+       .relation{
+            position: relative;
+            top: 21px;
+            left: 14px;
+            width: 35px;
+            height: 35px
+        }
+        .redborder{
+            height:35px;
+            width:5px;
+            position: absolute;
+            z-index: 1;
+            left: 0px;
+        }
+       #hear li:nth-of-type(1) {
+           width: 30%;
+           float: left;
+           margin-left: 50px;
+       }
+       #hear li:nth-of-type(2) {
+           width: 30%;
+           float: right;
+           margin-right: 50px;
+       }
+
+        .tz-list{
+            background-color: rgba(246, 246, 246, 1);
+            padding-bottom: 52px;
+        }
+
+        .tz-item{
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <header class="head">
+        <div class="header_left">
+            <a>
+                <img src="__ROOT__/Public/Home/img/b_back.png" />
+            </a>
+        </div>
+        <div class="header_middle color1">
+            商家详情
+        </div>
+    </header>
+   <div class="coarseLline headtop"></div>
+        <div class="businessDetails_header">
+            <img src="__ROOT__/Public/Home/img/name.png" class="absolute head_pic_path" />
+            <img src="__ROOT__/Public/Home/img/VIP.png"  class="relation" />
+            <input class="attentioned" type="button" value="关注" >
+            <div class="jituan">
+                <label class="nickname">飞机笔超级集团 </label>
+                <input type="button" value="商家认证"><br>
+                <span class="goods-info">--人关注 | --件商品 | --条供求</span>
+                <p class="intro">
+                    本公司成立于1988年，位于首都北京拥有各大公司
+                    的线下资源，真的是美滋滋！
+                </p>
+            </div>
+        </div>
+    <div class="coarseLline"></div>
+
+    <a href="index_VIPbussiness_good1.html"  >
+        <div style="padding: 5px 0px 10px 15px;height: 30px;line-height: 40px">
+            <span style="color: #ff4c82 ;float: left;font-size: 16px">他的商品</span>
+            <img src="__ROOT__/Public/Home/img/redborder.png" class="redborder"/>
+            <div style="float: right;">
+                <span style="font-size: 14px; color: #999999;">
+                查看商品
+                </span>
+                <img src="__ROOT__/Public/Home/img/h_more.png" height="25" width="27"/>
+            </div>
+        </div>
+    </a>
+
+    <div class="coarseLline"></div>
+
+    <div class="tab">
+        <ul id="hear">
+            <li class="action" style="border-bottom: 2px solid  #FF4C82;  height: 43px;color:	#FF4C82 ">
+                他的供求
+            </li>
+            <li>他的帖子</li>
+        </ul>
+        <ul id="contentop">
+            <li class="action">
+ <!--他的供求-->
+                <div class="sections" >
+                    <div class="section_top ">
+                        <button>供</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                                <p class="color1">
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="__ROOT__/Public/Home/img/yangtu.png"  /><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom">
+                        <p>
+                            <span class="color3">交易方式:</span><span class="color1">买家自提、商家配送、顺风快递</span><br>
+                            <span class="color8">位置:天津</span>
+                        </p>
+                    </div>
+                    <div class="paddingl_2">
+                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name"/>
+                        <label class="fontsize3"> 飞机笔超级集团</label>
+                        <span class="fontsize4 color3">2小时前</span>
+                    </div>
+                </div>
+                    <div class="coarseLline"></div>
+
+               <a href="index_VIPbussiness_good3.html">
+                   <div  class="btnfixed"   >
+                       <input type="button" value="对他留言">
+                   </div>
+               </a>
+                <br><br>
+            </li>
+            <li>
+                <!--他的帖子-->
+                 <div class="tz-list">
+                 </div>
+                <a href="index_VIPbussiness_good3.html">
+                    <div  class="btnfixed"   >
+                        <input type="button" value="对他留言">
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+</body>
+    <script>
+        <!--选项卡-->
+        $(function(){
+            //绑定事件
+            bindHandler();
+            //截取url参数
+            getParam();
+            //获取商家基本信息
+            getDetail()
+            //获取商家帖子
+            getTieZiList()
+        });
+
+        function getTieZiList() {
+            requestUrl("{:U('Home/Post/memberPostList')}",{to_mid:member_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".tz-list").append('<div class="distance tz-item" id="'+item.id+'">' +
+                            '            <div class="distance_top">' +
+                            '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                            '            </div>' +
+                            '            <p>' +
+                            '                <span  class="biaoti">'+item.title+'</span><br>' +
+                            item.content+
+                            '            </p>' +
+                            '            <div class="" >' +
+                            '                <div class="section">' +
+                            imgList(item.pic_list)+
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="distance_buttom">' +
+                            '                <div class="distance_buttom_1">' +
+                            '                     <span>来自 '+item.type_name+'系列</span>' +
+                            '                </div>' +
+                            '                <div class="distance_buttom_2">' +
+                            '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                            '                    <span>'+item.view+'</span>' +
+                            '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                            '                    <span>'+item.comment_num+'</span>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>');
+                    })
+                }
+            });
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
+                str +=  '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    imgstr+
+                    '</div>' +
+                    '</div>'
+            })
+            return str
+        }
+
+        function getDetail() {
+            requestUrl("{:U('Home/Member/memberInfo')}",{member_id:member_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var detail = res.data;
+                    $(".nickname").text( detail.nickname)
+                    $(".head_pic_path").prop({'src':detail.head_pic_path})
+                    $(".goods-info").text(detail.attention_num + "人关注 | " + detail.goods_num + "件商品 | " + detail.need_num +"件供求")
+                    $(".intro").text(detail.intro)
+                    detail.is_attention == 0 ? $(".attentioned").val("关注") :$(".attentioned").val("取消关注").addClass("has")
+                }
+            });
+        }
+
+        function addAttention(url) {
+            requestUrl(url,{m_id:m_id,object_id:member_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    getDetail()
+                }
+            });
+        }
+
+        var member_id;
+        function getParam() {
+            member_id = getUrlParam("member_id")
+        }
+
+        function bindHandler() {
+            //切换供求，帖子
+            $("#hear li ").click(function(){
+                $(this).css({
+                    borderBottom: "2px solid #FF4C82",
+                    color : "#FF4C82"
+                }).siblings().css({
+                    borderBottom: "none",
+                    color : "#000000"
+                });
+                var index = $(this).index();
+                $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+
+            });
+            //返回上一级
+            $(".header_left").click(function () {
+                history.go(-1)
+            });
+            //帖子详情
+            $(".tz-list").on("click",".tz-item",function () {
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+            })
+
+            //关注\取消关注
+            $(".attentioned").click(function () {
+                $(this).toggleClass("has");
+                if($(this).hasClass("has")){
+                    addAttention("{:U('Home/Attention/addAttention')}")
+                }else {
+                    addAttention("{:U('Home/Attention/delAttention')}")
+                }
+            })
+        }
+
+    </script>
+</html>
