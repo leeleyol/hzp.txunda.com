@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <title>选择分类</title>
+    <style>
+        .cuxian{
+            border-bottom:solid 5px #F6F6F6;
+        }
+        .weui-panel__hd{
+            font-size: 14px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header class="head cuxian" style="background-color: white;">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            选择分类
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="weui-panel__hd headtop">纪梵希</div>
+    <div class="weui-panel__hd">阿玛尼</div>
+    <div class="weui-panel__hd">娇兰</div>
+    <div class="weui-panel__hd">雅诗兰黛</div>
+    <div class="weui-panel__hd">科颜氏</div>
+    <div class="weui-panel__hd">香奈儿</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    })
+</script>

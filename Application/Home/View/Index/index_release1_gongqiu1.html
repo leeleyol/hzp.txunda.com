@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="css/others.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <!--选项卡-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <title>发布供求</title>
+    <style>
+        *{
+            overflow-x: hidden;
+        }
+        #hear{ border:0px;   height: 46px;  line-height: 45px;  position: absolute;  top: 10px;  left: 111px; }
+        #hear a{font-weight: normal;color: black; }
+        #hear li{text-align: center;width:35%;float: left;height: 45px; cursor:pointer;font-size: 16px}
+        #hear .li1{  border:1px solid 	#FF4C82; background-color: #ffedf2;    height: 31px;  line-height: 30px;;color:	#FF4C82 ;list-style-type:none;  }
+        #hear .li2{border: 2px solid 	#f6f6f6;    height: 31px;  line-height: 30px;list-style-type:none;color:#9c9c9c}
+        #hear li:nth-of-type(1){width: 18%;float: left;margin-left: 10px}
+        #hear li:nth-of-type(2){width: 18%;float: left;}
+        #contentop li{ display: none;  margin-top: 3px;}
+        #contentop .action{ display: block;}
+        #contentop .Buy div:nth-of-type(1){text-align: left; }
+        #contentop .Buy div:nth-of-type(2){float: right;}
+        .weui-cell{
+            padding: 10px 0px;
+        }
+        .padl{
+             padding-left: 15px;
+         }
+        .padr1{
+            padding-right: 30px;
+        }
+        .padr2{
+            padding-right:62px;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+        }
+
+        .footer{
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            background-color: white;
+            z-index: 10;
+        }
+        .footer input{
+            width: 90%;
+            height: 40px;
+            margin-left: 5%;
+            line-height: 40px;
+            z-index: 10;
+            margin-top: 5px;
+            margin-bottom:5px;
+        }
+       .weui-switch-cp__box {
+
+        }
+        .weui-switch:checked, .weui-switch-cp__input:checked ~ .weui-switch-cp__box {
+            border-color: #f53619;
+            background-color: #f53619;
+        }
+    </style>
+</head>
+<body class="bc3">
+    <header class="head"  >
+        <div class="header_left">
+            <a href="index_release1.html"><img src="img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" >
+            发布供求
+        </div>
+        <div class="header_right"></div>
+    </header>
+
+    <div class="weui-cell  headtop coarseLline  bc2" >
+        <div class="weui-cell__bd  ">
+            <span class="zuo fontsize11 padl" >选择分类 <br><br></span>
+            <span class="tab">
+                <ul id="hear">
+                    <li class="action li1" >供货</li>
+                    <li class="li2" >求购 </li>
+                </ul>
+                <ul id="contentop">
+                    <li class="action  coarseLline">
+                        <a class="weui-cell weui-cell_access " href="index_release1_gongqiu3.html">
+                            <div class="weui-cell__bd  ">
+                                <span class="zuo fontsize11 padl padr1 " >交易方式 </span>
+                                <span class="zhong color3 fontsize11">请设置交易方式</span>
+                            </div>
+                            <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
+                        </a>
+                         <a class="weui-cell weui-cell_access  " href="index_release1_gongqiu4.html">
+                            <div class="weui-cell__bd  ">
+                                <span class="zuo fontsize11 padl padr2">位置 </span>
+                                <span class="zhong color3 fontsize11">请设置所在位置</span>
+                            </div>
+                            <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
+                        </a>
+                         <a class="weui-cell weui-cell_access coarseLline " href="index_release1_gongqiu2.html">
+                            <div class="weui-cell__bd  ">
+                                <span class="zuo fontsize11 padl zuo">设置展示商品 </span>
+                                <span class="zhong color3 fontsize11">设置展示商品</span>
+                            </div>
+                            <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
+                        </a>
+
+                        <div class="weui-media-box weui-media-box_text">
+                            <textarea class="weui-media-box__desc">填写一段标题，或者对商品的细节描述~</textarea>
+                        </div>
+                        <a href="index_release1_gongqiu1.html" class="footer">
+                                <input type="button" value="发布" class="color2 bc5 fontsize2">
+                        </a>
+                    </li>
+                    <li class="coarseLline">
+                         <a class="weui-cell weui-cell_access " href="index_release1_gongqiu3.html">
+                            <div class="weui-cell__bd  ">
+                                <span class="zuo fontsize11 padl padr1 " >交易方式 </span>
+                                <span class="zhong color3 fontsize11">请设置交易方式</span>
+                            </div>
+                            <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
+                        </a>
+                         <div class="weui-cell weui-cell_access  " href="">
+                            <div class="weui-cell__bd  ">
+                                <span class="zuo fontsize11 padl padr2">位置 </span>
+                                <span class="zhong color3 fontsize11">请设置所在位置</span>
+                            </div>
+                            <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
+                        </div>
+
+                        <div class="weui-media-box weui-media-box_text coarseLline">
+                            <textarea class="weui-media-box__desc">填写一段标题，或者对商品的细节描述</textarea>
+                        </div>
+                        <div class="weui-cell__bd  ">
+                            <div class="weui-uploader">
+                                <div class="weui-uploader__bd padl">
+                                    <ul class="weui-uploader__files" id="uploaderFiles">
+                                        <li class="weui-uploader__file" >
+                                            <img src="img/cat.png">
+                                            <img src="img/jian.png" class="re icon_del">
+                                        </li>
+                                    </ul>
+                                    <div class="weui-uploader__input-box">
+                                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui-cell weui-cell_switch coarseLline">
+                            <div class="weui-cell__bd padl fontsize2">是否匿名发布</div>
+                            <div class="weui-cell__ft">
+                                <label for="switchCP" class="weui-switch-cp">
+                                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                                    <div class="weui-switch-cp__box"></div>
+                                </label>
+                            </div>
+                        </div>
+                         <a href="index_release1_gongqiu1.html" class="footer">
+                                <input type="button" value="发布" class="color2 bc5 fontsize2">
+                        </a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+
+    </div>
+
+    <script>
+        <!--选项卡-->
+        $(function(){
+            $("#hear li").click(function(){
+                $(this).css({
+                    border: "1px solid #FF4C82",
+                    color : "#FF4C82",
+                    'background-color':'#ffedf2'
+                }).siblings().css({
+                    'background-color':'white',
+                    border: "2px solid #f6f6f6",
+                    color:"#9c9c9c"
+                });
+            });
+            $("#hear li ").click(function(){
+                $(this).addClass("action").siblings().removeClass("action");
+                var index = $(this).index();
+                $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+            });
+        });
+    </script>
+</body>
+</html>

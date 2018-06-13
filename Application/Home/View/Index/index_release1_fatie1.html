@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="css/others.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!--选项卡-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <link rel="stylesheet" href="css/weui.css">
+    <title>我要发帖</title>
+    <style>
+        textarea{
+            width: 100%;
+            height: 50px;
+        }
+        .weui-cell__bd{
+            margin-left: 15px;
+        }
+        .footer{
+            position: fixed;
+            bottom: 0px;
+            width: 90%;
+            left:5%;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+        .footer input{
+            width: 90%;
+            height: 40px;
+            line-height: 40px;
+            -webkit-border-radius: 4px 4px 4px 4px;
+            -moz-border-radius: 4px 4px 4px 4px;
+            border-radius: 4px 4px 4px 4px;
+        }
+        .re{
+            position: relative;
+            top: -92px;
+            left: -1px;
+        }
+    </style>
+</head>
+<body class="bc3">
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a href="index_release1.html"><img src="img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            我要发帖
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <a class="weui-cell weui-cell_access cuxian headtop bc2 coarseLline" href="">
+        <div class="weui-cell__bd  ">
+            <span class="zuo fontsize11">选择分类 </span>
+            <span class="zhong color3 fontsize11">请选择分类</span>
+        </div>
+        <div class="weui-cell__ft"></div>
+    </a>
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd"><h4 class="weui-media-box__title fontsize4 color1">标题4-25个字符</h4></div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <textarea class="weui-media-box__desc" >帖子人工审核后会出现，违规内容一经发现，会被封号。10-700</textarea>
+            </div>
+            <div class="weui-cell__bd  ">
+                <div class="weui-uploader">
+                    <div class="weui-uploader__bd">
+                        <ul class="weui-uploader__files" id="uploaderFiles">
+                            <li class="weui-uploader__file" style=" ">
+                                <img src="img/cat.png"  >
+                                <img src="img/jian.png" class="re icon_del">
+                            </li>
+                            <li class="weui-uploader__file" style=" ">
+                                <img src="img/cat.png"  >
+                                <img src="img/jian.png" class="re icon_del">
+                            </li>
+                            <li class="weui-uploader__file" style=" ">
+                                <img src="img/cat.png"  >
+                                <img src="img/jian.png" class="re icon_del">
+                            </li>
+                            <li class="weui-uploader__file" style=" ">
+                                <img src="img/cat.png"  >
+                                <img src="img/jian.png" class="re icon_del">
+                            </li>
+                        </ul>
+                        <div class="weui-uploader__input-box">
+                            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="index_release1_gongqiu1.html" class="footer">
+        <input type="button" value="提交" class="color2 bc5 fontsize2">
+    </a>
+
+</body>
+</html>

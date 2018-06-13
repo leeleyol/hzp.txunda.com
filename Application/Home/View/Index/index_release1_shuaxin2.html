@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="css/others.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <!--选项卡-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <title>我的发布</title>
+    <style>
+        .lists {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            border-bottom: 1px solid #f6f6f6;
+        }
+        .lists::-webkit-scrollbar {
+            display: none;
+        }
+        .list_2,.list_3{
+            margin-right: 0px;
+            width: 90px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_1{
+            margin-right: 0px;
+            width: 60px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_2{
+            margin-right: 0px;
+            width: 160px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_21{
+            height: 40px;
+            float: left;
+            padding: 0px 5px
+        }
+        .list_22{
+            height: 100%;
+        }
+        .height{
+            height: 40px;
+            line-height: 40px
+        }
+        .martop{
+            margin-top: 15px;
+        }
+        .rongqi2{
+            height: 130px;
+        }
+
+
+        .footer{
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            background-color: white;
+            z-index: 10;
+        }
+        .footer input{
+            width: 90%;
+            height: 40px;
+            margin-left: 5%;
+            line-height: 40px;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+        .rt{
+            margin-bottom: 10px;
+            padding-right: 15px;
+        }
+        /*弹窗*/
+        .inter-box2{
+            text-align: center;
+        }
+        .weui-dialog{
+            position: fixed;
+            z-index: 5000;
+            width: 80%;
+            max-width: 300px;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+            height: 200px;
+        }
+        .fenlei{
+            border-bottom: 1px solid #F6F6F6;
+            padding: 5px 0px;
+
+        }
+        .text{
+            background-color: #f6f6f6;
+            margin: 10px 15px 5px 15px;
+            padding: 10px;
+            border-radius: 8px;
+            border: solid 1px #d2d2d2;
+            width: 75%;
+        }
+        .tianjia{
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            bottom: 0px;
+        }
+        .tianjia1,.tianjia2{
+            width: 49.5%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            border-top:solid 1px #d2d2d2;
+
+        }
+        .tianjia1{
+            border-right: 1px solid #d2d2d2;
+        }
+    </style>
+
+</head>
+<body class="bc3" >
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a href="my_0.html"><img src="img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            我的发布
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="tab headtop">
+        <ul id="hear" class="bc2">
+            <li >
+                我的商品
+            </li>
+            <li >我的帖子</li>
+            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">我的供求 </li>
+        </ul>
+        <ul id="contentop">
+            <li>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            操作
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2 text-center">
+                            商品名称
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center">
+                            库存
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center">
+                            货物状态
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                   <div class="weui-cell__bd fontsize3 color3">
+                       <p>纪梵希</p>
+                   </div>
+                   <div class="weui-cell__ft fontsize3">
+                       <img src="img/del.png" class="icon_del"/>删除
+                       <img src="img/write.png" class="icon_del" />编辑
+                   </div>
+                </div>
+
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd fontsize3 color3">
+                        <p>纪梵希</p>
+                    </div>
+                    <div class="weui-cell__ft fontsize3">
+                        <img src="img/del.png" class="icon_del"/>删除
+                        <img src="img/write.png" class="icon_del" />编辑
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+                <div class="lists bc2 fontsize3">
+                    <div class="list">
+                        <div class="list_1 text-center">
+                            <img src="img/del.png" class="icon_del"/>删除<br>
+                            <img src="img/write.png" class="icon_del" />编辑
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_2  ">
+                            <div class="list_21" >
+                                <img src="img/name2.png" class="list_22" />
+                            </div>
+                            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height">
+                            500件
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list_3 text-center height" >
+                            现金
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footbut bc2">
+                    <input type="button" class="but_1 bc4 color2 fontsize2" value="添加分类"/>
+                    <input type="button" class="but_1 bc5 color2 fontsize2" value="发布商品"/>
+                </div>
+
+            </li>
+            <li>
+                <!--我的帖子-->
+                <div class="bc2 " >
+                    <div class="weui-media-box weui-media-box_text">
+                        <h4 class="weui-media-box__title">快看我美不美呀 各位大佬们~</h4>
+                        <p class="weui-media-box__desc">啦啦啦 今天可高兴了！因为今天又吃成长快乐啦O(∩_∩)O哈哈~而
+                            且 今天我还收到了新的礼物(✧◡✧)。</p>
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom  ">
+                        <span class="fontsize3 color8">来自 Mac OS X</span>
+                        <span class="fontsize3 float_r color6">
+                              <img src="img/eye.png" class="icon_eye">
+                            <span class="color3 fontsize4">11468</span>
+                            <img src="img/z_information.png" class="icon_eye">
+                            <span class="color3 fontsize4">99</span>
+                        </span>
+                    </div>
+
+                    <div class="weui-cell__ft fontsize4 float_r rt color1">
+                        <img src="img/del.png" class="icon_del"/><span class="color1">删除</span>
+                        <img src="img/write.png" class="icon_del"/><span class="color1">编辑</span>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div class="bc2 martop" >
+                    <div class="weui-media-box weui-media-box_text">
+                        <h4 class="weui-media-box__title">快看我美不美呀 各位大佬们~</h4>
+                        <p class="weui-media-box__desc">啦啦啦 今天可高兴了！因为今天又吃成长快乐啦O(∩_∩)O哈哈~而
+                            且 今天我还收到了新的礼物(✧◡✧)。</p>
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom  ">
+                        <span class="fontsize3 color8">来自 Mac OS X</span>
+                        <span class="fontsize3 float_r color6">
+                              <img src="img/eye.png" class="icon_eye">
+                            <span class="color3 fontsize4">11468</span>
+                            <img src="img/z_information.png" class="icon_eye">
+                            <span class="color3 fontsize4">99</span>
+                        </span>
+                    </div>
+                    <div class="weui-cell__ft fontsize4 float_r rt color1">
+                        <img src="img/del.png" class="icon_del"/><span class="color1">删除</span>
+                        <img src="img/write.png" class="icon_del"/><span class="color1">编辑</span>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+
+                <br><br>
+                <a href="index_release1_fatie1.html" class="footer">
+                    <input type="button" value="我要发帖" class="color2 bc5 fontsize2">
+                </a>
+            </li>
+            <li class="action">
+                <!--我的供求-->
+                <div class="bc2" >
+                    <div class="section_top ">
+                        <button>供</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="img/yangtu.png" /><br>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="color4 float_r" >¥30.00</span>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="img/yangtu.png" /><br>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="color4 float_r">¥30.00</span>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="img/yangtu.png" /><br>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="color4 float_r">¥30.00</span>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi" >
+                                <img src="img/yangtu.png" /><br>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="color4 float_r">¥30.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom  ">
+                            <p class="color3">交易方式: <span class="color1">买家自提、商家配送、顺风包邮</span></p>
+                            <span class="fontsize3 color8">位置:天津</span>
+                            <!--<span class="float_r">fsa</span>-->
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="color3 fontsize3">2小时前</p>
+                        </div>
+                        <div class="weui-cell__ft fontsize3">
+                            <img src="img/look.png" class="icon_del"/>预览
+                            <img src="img/del.png" class="icon_del"/>删除
+                            <img src="img/write.png" class="icon_del"/>编辑
+                            <img src="img/shuaxin.png" class="icon_del"/>刷新
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bc2 " >
+                    <div class="section_top martop">
+                        <button style="background-color: #ffbf25">求</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom  ">
+                        <p class="color3">交易方式: <span class="color1">商家配送</span></p>
+                        <span class="fontsize3 color8">位置:天津</span>
+                        <span class="fontsize3 float_r color6">匿名发布</span>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="color3 fontsize4">2017年4月8日</p>
+                        </div>
+                        <div class="weui-cell__ft fontsize4">
+                            <img src="img/look.png" class="icon_del"/>预览
+                            <img src="img/del.png" class="icon_del"/>删除
+                            <img src="img/write.png" class="icon_del"/>编辑
+                            <img src="img/shuaxin.png" class="icon_del"/>刷新
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bc2 " >
+                    <div class="section_top martop">
+                        <button style="background-color: #ffbf25">求</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2" >
+                                <img src="img/watch.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom  ">
+                        <p class="color3">交易方式: <span class="color1">商家配送</span></p>
+                        <span class="fontsize3 color8">位置:天津</span>
+                        <span class="fontsize3 float_r color6">匿名发布</span>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="color3 fontsize4">2017年4月8日</p>
+                        </div>
+                        <div class="weui-cell__ft fontsize4">
+                            <img src="img/look.png" class="icon_del"/>预览
+                            <img src="img/del.png" class="icon_del"/>删除
+                            <img src="img/write.png" class="icon_del"/>编辑
+                            <img src="img/shuaxin.png" class="icon_del"/>刷新
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                 <a href="index_release1_gongqiu1.html" class="footer">
+                     <input type="button" value="发布供求" class="color2 bc5 fontsize2">
+                 </a>
+            </li>
+        </ul>
+    </div>
+
+
+<!--弹窗1-->
+    <div style="display: block" class="inter-box2 Bomb-box">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog inter-box2-dialog ">
+            <div class="inter-box2-cont  ">
+                <p class=" fenlei fontsize2">刷新供求信息</p>
+                <img src="img/refresh.png" class="icon_refresh padding1"/>
+                <p class="textcen fontsize2 ">
+                    您当前没有免费刷新机会了！
+                </p>
+                <p class="textcen fontsize2">
+                    支付<span class="color4">1元</span>可刷新一次。
+                </p>
+            </div>
+            <div class="tianjia">
+                <div class="tianjia1">
+                    <label class="fontsize2  inter-box2-cancel fontsize2">取消</label>
+                </div>
+                <div class="tianjia2">
+                    <label class="inter-box2-cancel show fontsize2">立即支付</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    <!--选项卡-->
+    $(function(){
+        $("#hear li").click(function(){
+            $(this).css({
+                borderBottom: "2px solid #FF4C82",
+                color : "#FF4C82"
+            }).siblings().css({
+                borderBottom: "none",
+                color : "#000000"
+            });
+        });
+        $("#hear li ").click(function(){
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+        });
+    });
+
+//弹框
+    <!--弹框1 start -->
+    $('.weui-mask').click(function(){
+        var ref=$(this);
+        var target=ref.parent('.Bomb-box');
+        target.hide();
+    })
+    $('.inter-box2-cancel').click(function(){
+        $('.inter-box2').hide();
+    })
+
+</script>
+</html>

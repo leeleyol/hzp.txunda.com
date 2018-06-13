@@ -18,7 +18,7 @@ m_id = m_id?m_id:2;
             }
             var accept,capture="";
             if(filetype == "image"){
-                accept = "image/gif,image/jpeg,image/jpg,image/png,image/svg"
+                accept = "image/jpeg,image/jpg,image/png"
                 if(isAndroid){
                     capture="capture=camera"
                 }
