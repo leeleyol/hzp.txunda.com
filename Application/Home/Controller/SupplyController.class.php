@@ -154,7 +154,21 @@ class SupplyController extends BaseController{
         }
         $supply_info['pic'] = $supply_info['pic']?returnImage($supply_info['pic']):[];
         $supply_info['head_pic_path'] = returnImage($supply_info['head_pic']);
-        $supply_info['supply_info'] = json_decode($supply_info['supply_info'],true);
+        $info  = json_decode($supply_info['supply_info'],true);
+        $index = [];
+        foreach ($info as $k=>$v){
+            $goods_info = M('Goods')->alias(g)->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+            $index[$k]['goods_id'] = $v['goods_id'];
+            $index[$k]['goods_type_name'] = $goods_info['type_name'];
+            $index[$k]['goods_type_id'] = $goods_info['goods_type_id'];
+            $index[$k]['goods_name'] = $goods_info['goods_name'];
+            $index[$k]['stock'] = $goods_info['stock'];
+            $index[$k]['stock_unit'] = $goods_info['stock_unit'];
+            $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+            $index[$k]['goods_status'] = $goods_info['goods_status'];
+            $index[$k]['goods_price'] = $v['goods_price'];
+        }
+        $supply_info['supply_info'] = $index;
         if($m_id){
             $supply_info['is_collect'] = M('Collect')->where(['object_type'=>2,'object_id'=>$_POST['post_id'],'m_id'=>$m_id])->find()?1:0;
         }else{
@@ -183,9 +197,24 @@ class SupplyController extends BaseController{
         $where['s.status'] = 1;
         $list = D('Supply')->getList($where,$_POST['p']);
         foreach ($list as $k=>$v){
-            $list[$k]['supply_info'] = $v['supply_info']?json_decode($v['supply_info'],true):[];
+            $info  = json_decode($v['supply_info'],true);
+            $index = [];
+            foreach ($info as $k1=>$v1){
+                $goods_info = M('Goods')->alias(g)->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v1['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+                $index[$k1]['goods_id'] = $v1['goods_id'];
+                $index[$k1]['goods_type_name'] = $goods_info['type_name'];
+                $index[$k1]['goods_type_id'] = $goods_info['goods_type_id'];
+                $index[$k1]['goods_name'] = $goods_info['goods_name'];
+                $index[$k1]['stock'] = $goods_info['stock'];
+                $index[$k1]['stock_unit'] = $goods_info['stock_unit'];
+                $index[$k1]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+                $index[$k1]['goods_status'] = $goods_info['goods_status'];
+                $index[$k1]['goods_price'] = $v1['goods_price'];
+                unset($goods_info);
+            }
+            $list[$k]['supply_info'] = $index;
             $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
-            $list[$k]['pic'] = returnImage($v['pic']);
+            unset($index);unset($info);
         }
         apiResponse('1','成功',$list);
         
@@ -193,13 +222,12 @@ class SupplyController extends BaseController{
 
 
     public function createJson(){
-        $data[0]['type_name'] = '纪梵希';
-        $data[0]['type_id'] = '1';
-        $data[0]['goods_list'][0] = ['goods_name'=>'纪梵希口红1','goods_id'=>1,'stock'=>500,'stock_unit'=>'件','goods_status'=>'现货','goods_pic_path'=>''];
-        $data[0]['goods_list'][1] = ['goods_name'=>'纪梵希口红2','goods_id'=>2,'stock'=>400,'stock_unit'=>'件','goods_status'=>'现货','goods_pic_path'=>''];
-        $data[1]['type_name'] = '迪奥';
-        $data[1]['type_id'] = '2';
-        $data[1]['goods_list'][0] = ['goods_name'=>'迪奥1','goods_id'=>3,'stock'=>520,'stock_unit'=>'支','goods_status'=>'现货','goods_pic_path'=>''];
+        $data[0]['goods_id'] = '1';
+        $data[0]['goods_name'] = '纪梵希口红';
+        $data[0]['goods_price'] = '500';
+        $data[1]['goods_id'] = '2';
+        $data[1]['goods_name'] = '迪奥口红';
+        $data[1]['goods_price'] = '500';
         apiResponse('1','成功',$data);
 
     }
@@ -210,4 +238,8 @@ class SupplyController extends BaseController{
         $list = M('Region')->where(['region_type'=>2])->page($_POST['p'].',20')->select();
         apiResponse('1','成功',$list);
     }
+
+
+
+
 }
