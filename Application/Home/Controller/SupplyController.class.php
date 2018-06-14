@@ -203,4 +203,11 @@ class SupplyController extends BaseController{
         apiResponse('1','成功',$data);
 
     }
+
+
+
+    public function getCity(){
+        $list = M('Region')->where(['region_type'=>2])->page($_POST['p'].',1')->select();
+        apiResponse('1','成功',$list);
+    }
 }
