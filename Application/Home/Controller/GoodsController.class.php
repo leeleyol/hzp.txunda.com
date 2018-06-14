@@ -161,7 +161,7 @@ class GoodsController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['goods_status'],'condition'=>'','error_msg'=>'货物状态参数错误'),
             array('check_type'=>'is_null','parameter' => $request['stock'],'condition'=>'','error_msg'=>'库存数量参数错误'),
             array('check_type'=>'is_null','parameter' => $request['stock_unit'],'condition'=>'','error_msg'=>'库存单位参数错误'),
-            array('check_type'=>'is_null','parameter' => $request['pic'],'condition'=>'','error_msg'=>'图片参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['goods_pic'],'condition'=>'','error_msg'=>'图片参数错误'),
         );
         $where['m_id'] = $m_id;
         $where['id'] = $request['goods_id'];
@@ -170,7 +170,7 @@ class GoodsController extends BaseController{
             'm_id'=>$m_id,
             'goods_name'=>$request['goods_name'],
             'goods_type_id'=>$request['goods_type_id'],
-            'pic'=>$request['pic'] ? $request['pic'] : '',
+            'goods_pic'=>$request['goods_pic'] ? $request['goods_pic'] : '',
             'create_time'=>time(),
             'bar_code'=>$request['bar_code'],
             'product_from'=>$request['product_from'],
