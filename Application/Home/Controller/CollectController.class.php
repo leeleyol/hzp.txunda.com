@@ -140,6 +140,56 @@ class CollectController extends BaseController
     }
 
 
+
+
+    /*
+     * 获取收藏的供求
+     * */
+    public function myCollectSupply(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type' => 'is_null', 'parameter' => $request['p'], 'condition' => '', 'error_msg' => '分页参数错误')
+        );
+        check_param($param);//检查参数
+        $where['c.m_id'] = $m_id;
+        $where['c.object_type'] = 1;
+        $list = M('Collect')->alias('c')
+            ->join('db_supply as s on s.id = c.object_id', 'left')
+            ->join('db_member as m on m.id = c.m_id', 'left')
+            ->where($where)
+            ->field('c.id col_id,s.id supply_id,s.description,s.type,s.m_id,s.supply_info,s.create_time,s.is_extract,s.create_time,s.is_md,s.is_sf,s.is_bp,s.is_hidename,m.nickname,m.head_pic')
+            ->page($request['p'].',10')
+            ->select();
+        if(empty($list)){
+            $message =$request['p']==1?'暂无记录':'无更多记录';
+            apiResponse('0',$message);
+        }
+        foreach ($list as $k=>$v){
+            $info  = json_decode($v['supply_info'],true);
+            $index = [];
+            foreach ($info as $k1=>$v1){
+                $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v1['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+                $index[$k1]['goods_id'] = $v1['goods_id'];
+                $index[$k1]['goods_type_name'] = $goods_info['type_name'];
+                $index[$k1]['goods_type_id'] = $goods_info['goods_type_id'];
+                $index[$k1]['goods_name'] = $goods_info['goods_name'];
+                $index[$k1]['stock'] = $goods_info['stock'];
+                $index[$k1]['stock_unit'] = $goods_info['stock_unit'];
+                $index[$k1]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+                $index[$k1]['goods_status'] = $goods_info['goods_status'];
+                $index[$k1]['goods_price'] = $v1['goods_price'];
+            }
+            $list[$k]['supply_info'] = $index;
+            $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            unset($index);unset($info);
+        }
+        apiResponse('1','请求成功',$list);
+
+    }
+
+
     
     
     
