@@ -18,6 +18,10 @@
         body,html{
             height: 100%;
         }
+
+        .type_name{
+            width: 100px;
+        }
         .lists {
             width: 100%;
             overflow-x: auto;
@@ -207,7 +211,85 @@
             top: -10px;
             right: -10px;
         }
+        #contentop > li:first-of-type{
+            padding-bottom: 65px;
+        }
 
+        .tz-item{
+            margin-top: 10px;
+        }
+
+        button.reply{
+            background-color: #ffcb3e
+        }
+            
+        .provide-item{
+            background-color: white;
+            margin-top: 10px;
+        }
+        .goods-name{
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .rongqi{
+            position: relative;
+        }
+        .rongqi span{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .rongqi img{
+            width: 135px;
+            height: 135px;
+        }
+        .reply-operate{
+            overflow: hidden;
+            padding-right: 10px;
+        }
+        .reply-operate > p{
+            float: right;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            color: #aaa;
+            margin-top: 4px;
+            margin-right: 6px;
+            padding-left: 20px;
+            background-size: 16px auto;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+        .reply-operate > p.reply-preview{
+            background-image: url("__ROOT__/Public/Home/img/eye.png");
+        }
+        .reply-operate > p.reply-del{
+            background-image: url("__ROOT__/Public/Home/img/del.png");
+        }
+        .reply-operate > p.reply-edit{
+            background-image: url("__ROOT__/Public/Home/img/write.png");
+        }
+        .reply-operate > p.reply-refresh{
+            background-image: url("__ROOT__/Public/Home/img/shuaxin.png");
+        }
+
+        .footer input {
+            width: 90%;
+            height: 40px;
+            margin-left: 5%;
+            line-height: 40px;
+            z-index: 10;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .gq-list{
+            padding-bottom: 50px;
+        }
     </style>
 
 </head>
@@ -215,7 +297,7 @@
     <div class="inxex-view">
         <header class="head"  >
             <div class="header_left back">
-                <a href="__ROOT__/Public/Home/my_0.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+                <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
             </div>
             <div class="header_middle"  >
                 我的发布
@@ -231,7 +313,7 @@
                 <li>我的供求 </li>
             </ul>
             <ul id="contentop">
-                <li class="action  ">
+                <li class="action ">
                     <div class="lists bc2">
                         <div class="list">
                             <div class="list_1 text-center fontsize2">
@@ -261,7 +343,7 @@
                     </div>
 
                     <div class="bc3" >
-                        <div style="text-align:center;padding-top: 100px" class="go">
+                        <div style="display:none;text-align:center;padding-top: 100px" class="go">
                             <img src="__ROOT__/Public/Home/img/emptyData.png" class="icon_empty"/>
                             <br>
                             <span class="color3 fontsize1">您还没有发布商品哦</span>
@@ -272,8 +354,14 @@
                         </div>
                     </div>
                 </li>
-                <li class="tz-list">3</li>
-                <li class="gq-list">2</li>
+                <li class="tz-list">
+
+                </li>
+                <li class="gq-list">
+                    <a class="footer add-reply">
+                        <input type="button" value="发布" class="color2 bc5 fontsize2">
+                    </a>
+                </li>
             </ul>
         </div>
         <!--弹框1 start -->
@@ -305,7 +393,8 @@
                     <a class="weui-cell weui-cell_access cuxian select-type">
                         <div class="weui-cell__bd  ">
                             <span class="zuo fontsize11">选择分类 </span>
-                            <span  class="zhong color3 fontsize11 goods_type_id">请选择分类</span>
+                            <input  class="zhong color3 fontsize11 type_name" type="text" placeholder="请选择分类" />
+                            <input type="hidden" class="goods_type_id">
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
@@ -314,6 +403,7 @@
                             <label class="weui-label zuo fontsize11">商品名称</label>
                         </div>
                         <div class="weui-cell__bd fontsize2">
+                            <input type="hidden" class="goods_id">
                             <input class="weui-input fontsize11 goods_name" type="text"  placeholder="请输入商品名称">
                         </div>
                     </div>
@@ -405,6 +495,10 @@
         getGoodsList();
         //分类列表
         getTypeList()
+        //供求列表
+        getSupplyList()
+        //帖子列表
+        getTieZiList()
     });
     
     function getGoodsList() {
@@ -427,16 +521,22 @@
                         '                            <p>'+item.type_name+'</p>' +
                         '                        </div>' +
                         '                    </div>' +
-                                            goodsList(item.goods_list)
+                                            goodsList(item.goods_list,item)
                         )
                 })
             }
         });
     }
 
-    function goodsList(list) {
+
+    var allGoods = [];
+    function goodsList(list, obj) {
         var str = ""
         $(list).each(function (index, item) {
+            item.type_name = obj.type_name;
+            item.goods_type_id = obj.id;
+
+            allGoods.push(item)
             str += '                    <div class="lists bc2 fontsize3 good-item" goods_id="'+item.goods_id+'">' +
                 '                        <div class="list">' +
                 '                            <div class="list_1 text-center operate">' +
@@ -454,7 +554,7 @@
                 '                        </div>' +
                 '                        <div class="list">' +
                 '                            <div class="list_3 text-center height">' +
-                                                  item.stock +  '件' +
+                                                  item.stock +  item.stock_unit +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
@@ -464,9 +564,146 @@
                 '                        </div>' +
                 '                    </div>'
         });
+
+        if(allGoods.length == 0){
+            $(".go").show()
+        }else {
+            $(".go").hide()
+        }
         return str
     }
 
+
+    function getTieZiList() {
+        requestUrl("{:U('Home/Post/memberPostList')}",{to_mid:m_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data;
+                $(list).each(function (index, item) {
+                    $(".tz-list").append('<div class="distance tz-item" id="'+item.id+'">' +
+                        '            <div class="distance_top">' +
+                        '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                        '            </div>' +
+                        '            <p>' +
+                        '                <span  class="biaoti">'+item.title+'</span><br>' +
+                                    item.content+
+                        '            </p>' +
+                        '            <div class="" >' +
+                        '                <div class="section">' +
+                                    imgList(item.pic_list)+
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="distance_buttom">' +
+                        '                <div class="distance_buttom_1">' +
+                        '                     <span>来自 '+item.type_name+'系列</span>' +
+                        '                </div>' +
+                        '                <div class="distance_buttom_2">' +
+                        '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                        '                    <span>'+item.view+'</span>' +
+                        '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                        '                    <span>'+item.comment_num+'</span>' +
+                        '                </div>' +
+                        '            </div>' +
+                        '        </div>');
+                })
+            }
+        });
+    }
+
+    function imgList(pic_list) {
+        var str = "";
+        $(pic_list).each(function (index, item) {
+            var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
+            str +=  '<div class="section_item">' +
+                '<div class="rongqi2" >' +
+                imgstr+
+                '</div>' +
+                '</div>'
+        })
+        return str
+    }
+
+    function getSupplyList() {
+        page += 1
+        requestUrl("{:U('Home/Supply/memberSupplyList')}",{member_id:m_id,p:page},function(res){
+            layer.close(layderIndex)
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data
+                $(list).each(function (index, item) {
+                    $(".gq-list").append(' <div class="provide-item" pb_id="'+item.id+'">' +
+                        '                    <div class="section_top ">' +
+                        '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                                                item.description +
+                        '                    </div>' +
+                        '                    <div class="section">' +
+                                                (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
+                        '                    </div>' +
+                        '                    <div class="section_buttom">' +
+                        '                        <p>' +
+                        '                            <span class="color3">交易方式:</span><span class="color1">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
+                        '                            <span class="color8">位置:'+item.area_name+'</span>' +
+                        '                        </p>' +
+                        '                    </div>' +
+                        '                    <div class="paddingl_2 reply-operate">' +
+                        // '                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name"/>' +
+                        // '                        <label class="fontsize11"> 飞机笔超级集团</label>' +
+                        '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
+                                                    '<p class="reply-refresh">刷新</p>'+
+                                                    '<p class="reply-edit">编辑</p>'+
+                                                    '<p class="reply-del">删除</p>'+
+                                                    '<p class="reply-preview">预览</p>'+
+                        '                    </div>' +
+                        '                </div>')
+                })
+            }
+        });
+    }
+
+    function sectionItme(list) {
+        var str = "";
+        $(list).each(function (index, item) {
+            str += '                        <div class="section_item">' +
+                '                            <div class="rongqi">' +
+                '                                <img src="'+item.goods_pic_path+'"/>'+
+                '                                <div class="goods-name">'+item.goods_name+'</div>' +
+                                                    '<span class="float_r color4">¥'+item.goods_price+'</span>'+
+                '                            </div>' +
+                '                        </div>'
+        });
+
+        return str;
+    }
+
+    function sectionItme2(list) {
+        var str = "";
+        $(list).each(function (index, item) {
+            str += '                        <div class="section_item">' +
+                '                            <div class="rongqi2">' +
+                '                                <img src="'+item+'"/>'+
+                '                            </div>' +
+                '                        </div>'
+        });
+
+        return str;
+    }
 
     function addType(type_name) {
         requestUrl("{:U('Home/Goods/addGoodsType')}",{type_name:type_name},function(res){
@@ -481,6 +718,7 @@
                 });
             }else {
                 getGoodsList()
+                getTypeList()
             }
         });
     }
@@ -498,7 +736,7 @@
                 });
             }else {
                 var list = res.data
-
+                $(".type-list").html('')
                 $(list).each(function (index, item) {
                     $(".type-list").append('<div class="weui-panel__hd" type_id="'+item.id+'">'+item.type_name+'</div>')
                 })
@@ -518,6 +756,7 @@
                     ,time: 2 //2秒后自动关闭
                 });
             }else {
+                resetForm()
                 getGoodsList()
             }
         });
@@ -539,8 +778,51 @@
             }
         });
     }
-    
+
+    function resetForm() {
+        var val = ["goods_type_id","type_name","goods_name","bar_code","product_from","goods_status","stock","stock_unit","goods_pic"];
+        $(val).each(function (index, item) {
+            $("." + item).val("").text("")
+        });
+
+        $(".show-img").parent().remove();
+        $(".weui-uploader__input-box").show()
+    }
+
+    function editGoods(target_goods) {
+        for(var key in target_goods){
+            $("." + key).val(target_goods[key]).text(target_goods[key])
+        }
+        $(".img").prepend('<li class="weui-uploader__file">' +
+            '<img class="show-img" src="'+target_goods.goods_pic_path+'" />' +
+            '<input type="hidden" class="goods_pic" value="'+target_goods.goods_pic+'">'+
+            '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
+            '</li>')
+    }
+
+    function uploadEdit(param) {
+        requestUrl("{:U('Home/Goods/updateGoods')}",param,function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                resetForm()
+                getGoodsList()
+            }
+        });
+    }
+
+    var  pageIndex = 0, page = 0,layderIndex;
     function bindHandler(){
+        $(".back").click(function () {
+            history.go(-1)
+        })
         //切换
         $("#hear li ").click(function(){
             $(this).css({
@@ -550,13 +832,26 @@
                 borderBottom: "none",
                 color : "#000000"
             });
-
             var index = $(this).index();
+            pageIndex = $(this).index();
             $("#contentop li").eq(index).show().siblings().hide()
         });
 
-        $(".go").click(function () {
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            if(pageIndex == 2){
+                layderIndex = layer.open({type: 2});
+                getSupplyList()
+            }
+        })
+
+        /*$(".go").click(function () {
             window.location.href = "{:U('Index/index_release1_gongqiu5')}"
+        })*/
+
+        //帖子详情
+        $(".tz-list").on("click",".tz-item",function () {
+            window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
         })
 
         //mask点击
@@ -564,6 +859,7 @@
             var ref=$(this);
             var target=ref.parent('.Bomb-box');
             target.hide();
+            resetForm()
         });
 
         //点击【添加分类】
@@ -601,43 +897,16 @@
         //取消添加商品
         $('.inter-box2-cancel').click(function(){
             $('.inter-box2').hide();
+            resetForm()
         });
 
         //确认添加商品
         $('.inter-box2-add').click(function(){
-            var val = ["goods_name","bar_code","product_from","goods_status","stock","stock_unit"];
-            var goods_type_id = $(".goods_type_id").attr("goods_type_id");
-
+            var val = ["goods_type_id","goods_name","bar_code","product_from","goods_status","stock","stock_unit","goods_pic"];
+            if($(".goods_id").val()){
+                val.push("goods_id")
+            }
             var param = {}
-            if(!goods_type_id){
-                layer.open({
-                    content: "请选择商品分类"
-                    ,skin: 'msg'
-                    ,time: 2 //2秒后自动关闭
-                });
-                return false
-            }
-            param["goods_type_id"] = goods_type_id;
-
-            var is_break = false
-            $(val).each(function (index, item) {
-                if(!$("." + item).val().trim()){
-                    layer.open({
-                        content: "请填写完整信息"
-                        ,skin: 'msg'
-                        ,time: 2 //2秒后自动关闭
-                    });
-                    is_break = true
-                    return false
-                }
-
-                param[item] = $("." + item).val().trim();
-            })
-
-            if(is_break){
-                return false
-            }
-
             if($(".show-img").length == 0){
                 layer.open({
                     content: "请填上传商品图片"
@@ -646,13 +915,33 @@
                 });
                 return false
             }
+            var is_break = false
+            $(val).each(function (index, item) {
+                if(!$("." + item).val()){
+                    layer.open({
+                        content: "请填写完整信息"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    is_break = true
+                    return false
+                }
+                param[item] = $("." + item).val().trim();
+            });
 
-            param["goods_pic"] = $(".show-img").attr("file_id");
+            if(is_break){
+                return false
+            }
 
-            addGoods(param)
+            if(param.goods_id){
+                uploadEdit(param)
+            }else {
+                addGoods(param)
+            }
             $('.inter-box2').hide();
-        });
 
+        });
+        //选择图片
         $(".weui-uploader__input-box").fileInit({
             "filetype":"image",
             "onchange": function (base64,file,_targetthis) {
@@ -672,7 +961,8 @@
 
         //点击某个分类
         $(".type-list").on("click",".weui-panel__hd",function () {
-            $(".goods_type_id").attr({"goods_type_id":$(this).attr("type_id")}).text($(this).text())
+            $(".goods_type_id").val($(this).attr("type_id"));
+            $(".type_name").val($(this).text());
             $(".type-view").hide()
         })
 
@@ -696,6 +986,98 @@
                 }
             });
         })
+        //编辑商品
+        $(".goods-list").on("click",".goods-edit",function () {
+            var goods_id = $(this).parents(".good-item").attr("goods_id")
+            $('.inter-box2').show();
+            var target_goods;
+            $(allGoods).each(function (index, item) {
+                if(item.goods_id == goods_id){
+                    target_goods = item
+                }
+            })
+            editGoods(target_goods)
+        })
+
+        //发布供求
+        $(".add-reply").click(function () {
+            window.location.href = "{:U('Index/index_release1_gongqiu1')}"
+        })
+        
+        //删除供求
+        $(".gq-list").on("click",".reply-del",function () {
+            var pb_id = $(this).parents(".provide-item").attr("pb_id")
+
+            layer.open({
+                content: '确定要删除本商品吗？'
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    layer.close(index);
+                    deleteSupply(pb_id)
+                }
+            });
+        })
+        //编辑供求
+        $(".gq-list").on("click",".reply-edit",function () {
+            var pb_id = $(this).parents(".provide-item").attr("pb_id")
+            editSupply(pb_id)
+        })
+        //查看详情
+        $(".gq-list").on("click",".reply-preview",function () {
+            var pb_id = $(this).parents(".provide-item").attr("pb_id")
+            window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
+        })
+    }
+
+    function editSupply(pb_id) {
+        requestUrl("{:U('Home/Supply/supplyInfo')}",{id:pb_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+
+                $(res.data.supply_info).each(function (index, item) {
+                    var timestamp1 = new Date().getTime();
+                    item.id = timestamp1
+                })
+
+                //编辑供货
+                if(res.data.type == 1){
+                    localStorage.provideData = JSON.stringify(res.data)
+                    localStorage.PageIndex = 0
+                    window.location.href = "{:U('Index/index_release1_gongqiu1')}&edit=edit_provide"
+                }else {
+                    localStorage.buyData =  JSON.stringify(res.data)
+                    localStorage.PageIndex = 1
+                    window.location.href = "{:U('Index/index_release1_gongqiu1')}&edit=edit_buy"
+                }
+            }
+        });
+    }
+
+    function deleteSupply(pb_id) {
+        requestUrl("{:U('Home/Supply/delSupply')}",{id:pb_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                page = 0;
+                $(".provide-item").remove();
+                getSupplyList()
+            }
+        });
     }
     
     function uploadPic(file,_targetthis) {
@@ -711,7 +1093,8 @@
             } else {
                 $(".weui-uploader__input-box").hide()
                 $(_targetthis).parent().prepend('<li class="weui-uploader__file">' +
-                    '<img class="show-img" src="'+res.data.picture.picture_path+'" file_id="'+res.data.picture.picture_id+'" />' +
+                    '<img class="show-img" src="'+res.data.picture.picture_path+'" />' +
+                    '<input type="hidden" class="goods_pic" value="'+res.data.picture.picture_id+'">'+
                     '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
                     '</li>')
             }

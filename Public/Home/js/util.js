@@ -30,7 +30,7 @@ m_id = m_id?m_id:2;
                 }
             }
 
-            this.append('<input type="file" multiple="multiple" '+capture+' accept="'+accept+'" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0"/>');
+            this.append('<input type="file" multiple="multiple" '+capture+' accept="'+accept+'" style="opacity: 0;width: 100%;height: 100%;position: absolute;top: 0;left: 0; z-index: 100"/>');
             this.on("change","input[type=file]",function(){
                 var file = this.files;
                 $.each(file,function(){
@@ -79,6 +79,8 @@ function getDate(param, type) {
 
     if(type == "YY/MM/DD HH:MM"){
         return year +"/" + month + "/" + Date + " " + hour +":" +minute
+    }else if(type == "年月日"){
+        return year +"年" + month + "月" + Date + "日"
     }
 }
 

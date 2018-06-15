@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>供求信息</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        #hear li:nth-of-type(1) {
+            margin-left: 50px;
+        }
+
+        #hear li:nth-of-type(2) {
+            margin-right: 50px;
+        }
+
+        .distance {
+            height: 320px;
+        }
+
+        .weui-dialog {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            right: 0px;
+            -webkit-transform: translate(-30%, -9%);
+            transform: translate(-30%, -9%);
+            background-color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .box_2 {
+            width: 80%;
+            height: 100%;
+        }
+
+        .tianjia {
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            bottom: 0px;
+        }
+
+        .tianjia1 {
+            width: 30%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+
+            background-color: #feebe8;
+
+        }
+
+        .tianjia2 {
+            width: 50%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            background-color: #f53619;
+
+        }
+
+        .weui-cell:before {
+            border-top: 0px solid #e5e5e5;
+
+        }
+
+        .hezi {
+            margin: 10px 10px 20px 10px;
+            background-color: #f6f6f6;
+            height: 36px;
+            line-height: 14px;
+            border-radius: 8px 8px 8px 8px;
+        }
+        .de-tips{
+            padding: 0 15px;
+        }
+        .fl{
+            border-bottom: 1px solid  rgba(246, 246, 246, 1) ;
+        }
+
+        button.reply{
+            background-color: #ffcb3e
+        }
+
+
+    </style>
+</head>
+<body>
+<!--头部-->
+<header>
+    <div class="header_left">
+        <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+    </div>
+    <div class="header_middle" style="color: black">
+        供求信息
+    </div>
+    <div class="header_right"></div>
+</header>
+
+<a class="tab">
+    <ul id="hear">
+        <li class="action" style="border-bottom: 2px solid  #FF4C82;  height: 43px;color:	#FF4C82 ;left: 20px">
+            供货信息
+        </li>
+        <li>求购信息</li>
+    </ul>
+
+    <ul id="contentop">
+        <li class="action">
+            <!--他的供求-->
+            <div class="zongheshaixuan">
+                <div class="zongheshaixuan_item">
+                    <font color="black">综合</font>
+                </div>
+                <div class="zongheshaixuan_item">
+                    <font color="#999999" class="shaixuan">筛选</font>
+                    <img src="__ROOT__/Public/Home/img/shaixuan.png" class="icon_del"/>
+                </div>
+            </div>
+
+            <div class="provide-list">
+                <div class="provide-item">
+                    <div class="section_top ">
+                        <button>供</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi">
+                                <img src="__ROOT__/Public/Home/img/yangtu.png"/><br>
+                                <p class="color1">
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4">¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi">
+                                <img src="__ROOT__/Public/Home/img/yangtu.png"/><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4">¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi">
+                                <img src="__ROOT__/Public/Home/img/yangtu.png"/><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4">¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi">
+                                <img src="__ROOT__/Public/Home/img/yangtu.png"/><br>
+                                <p>
+                                    这是一段商品名称 <br>
+                                    <span>这是...</span><span class="float_r color4">¥30.00</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section_buttom">
+                        <p>
+                            <span class="color3">交易方式:</span><span class="color1">买家自提、商家配送、顺风快递</span><br>
+                            <span class="color8">位置:天津</span>
+                        </p>
+                    </div>
+                    <div class="paddingl_2">
+                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name"/>
+                        <label class="fontsize11"> 飞机笔超级集团</label>
+                        <span class="fontsize3 color3">2小时前</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </li>
+        <li>
+            <!--求购信息-->
+            <div class="zongheshaixuan">
+                <div class="zongheshaixuan_item">
+                    <font color="black">综合</font>
+                </div>
+                <div class="zongheshaixuan_item">
+                    <font color="#999999" class="shaixuan">筛选</font>
+                    <img src="__ROOT__/Public/Home/img/shaixuan.png" class="icon_del"/>
+                </div>
+            </div>
+            <div class="demand-list">
+
+                <a class="distance demand-item" href="index_informations_good2.html">
+                    <div class="section_top ">
+                        <button class="reply">求</button>
+                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
+                    </div>
+                    <div class="section">
+                        <div class="section_item">
+                            <div class="rongqi2">
+                                <img src="__ROOT__/Public/Home/img/watch.png"/><br>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2">
+                                <img src="__ROOT__/Public/Home/img/watch.png"/><br>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2">
+                                <img src="__ROOT__/Public/Home/img/watch.png"/><br>
+                            </div>
+                        </div>
+                        <div class="section_item">
+                            <div class="rongqi2">
+                                <img src="__ROOT__/Public/Home/img/watch.png"/><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="de-tips">
+                        <span class="color3">交易方式:</span>商家配送<br>
+                        <span class="color8">位置:天津</span>
+                        <div class="fl"></div>
+                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name paddingl_2"/>
+                        <label class="fontsize2">匿名</label>
+                        <span class="fontsize3 color3">2小时前</span>
+                    </div>
+                </a>
+            </div>
+        </li>
+    </ul>
+</a>
+
+<!-- 弹框1 start -->
+<div style="display:none " class="inter-box2 Bomb-box">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog inter-box2-dialog ">
+        <div class="box_2" style="">
+            <div class="inter-box2-cont  ">
+                <p class="fontsize2 color3 text-left paddingl_1 padding_tb">时间段搜索</p>
+                <div class="hezi">
+                    <a class="weui-cell weui-cell_access" href="index_informations_time.html">
+                        <div class="weui-cell__bd">
+                            <p class="text-left fontsize3">设置开始搜索时间</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                        </div>
+                    </a>
+                </div>
+                <div class="hezi">
+                    <a class="weui-cell weui-cell_access" href="index_informations_time.html">
+                        <div class="weui-cell__bd">
+                            <p class="text-left fontsize3">设置结束搜索时间</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                        </div>
+                    </a>
+                </div>
+                <div class="fineLine"></div>
+                <div class="weui-cell weui-cell_switch text-left">
+                    <div class="weui-cell__bd color3 fontsize3">不显示匿名用户信息</div>
+                    <div class="weui-cell__ft">
+                        <label for="switchCP" class="weui-switch-cp">
+                            <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                            <div class="weui-switch-cp__box"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="tianjia">
+                <div class="tianjia1">
+                    <label class="fontsize2  hidden inter-box2-cancel fontsize2 color6">重置</label>
+                </div>
+                <div class="tianjia2">
+                    <label class="inter-box2-cancel show fontsize2 color2">搜索</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+
+    $(function () {
+        $("#hear li").click(function () {
+            $(this).css({
+                borderBottom: "2px solid #FF4C82",
+                color: "#FF4C82"
+            }).siblings().css({
+                borderBottom: "none",
+                color: "#000000"
+            });
+        });
+        $("#hear li ").click(function () {
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            $("#contentop li").eq(index).css("display", "block").siblings().css("display", "none");
+        });
+    });
+
+    <!--弹框1 start -->
+    $('.weui-mask').click(function () {
+        var ref = $(this);
+        var target = ref.parent('.Bomb-box');
+        target.hide();
+    })
+    $('.shaixuan').click(function () {
+        $('.inter-box2').show();
+    })
+</script>
+
+
+</html>
