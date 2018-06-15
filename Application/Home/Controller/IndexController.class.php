@@ -94,7 +94,7 @@ class IndexController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
         );
         check_param($param);//检查参数
-        $where['s.description'] = $request['keyword'];
+        $where['s.description'] = ['like','%'.$request['keyword'].'%'];
         $where['s.status'] = 1;
         $supply_list = D('Supply')->getList($where,$request['p']);
         foreach ($supply_list as $k=>$v){
@@ -135,7 +135,7 @@ class IndexController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
         );
         check_param($param);//检查参数
-        $where_post['p.title'] = $request['keyword'];
+        $where_post['p.title'] = ['like','%'.$request['keyword'].'%'];
         $where_post['p.status'] = 1;
         $post_list = M('Post')
             ->alias('p')
@@ -172,11 +172,13 @@ class IndexController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
         );
         check_param($param);//检查参数
-        $where['nickname'] = $request['keyword'];
-        $where['status'] = 1;
-        $where['type'] = ['in','1,2'];
-        $list = M('Member')->where($where)
-            ->field('id as member_id,nickname,head_pic,attention_num,type')
+        $where['m.nickname'] = ['like','%'.$request['keyword'].'%'];
+        $where['m.status'] = 1;
+        $where['m.type'] = ['in','1,2'];
+        $list = M('Member')->alias('m')
+            ->join('db_member_info mi on mi.m_id=m.id')
+            ->where($where)
+            ->field('id as member_id,nickname,head_pic,attention_num,type,company_address,tel')
             ->order('create_time desc')
             ->page($request['p'].',10')
             ->select();
