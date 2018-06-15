@@ -646,3 +646,21 @@ function returnPostImage($image){
 
 }
 
+
+function returnSupplyImage($image){
+    $imageArr = explode(',',$image);
+    if(count($imageArr)>1){
+        foreach($imageArr as $k=>$v){
+            $path = M('file')->where(['id'=>$v])->getField('path');
+            $imageUrl[$k]['picture_path'] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+            $imageUrl[$k]['picture_id'] = $v;
+        }
+    }elseif($image){
+        $path = M('file')->where(['id'=>$image])->getField('path');
+        $imageUrl[0]['picture_path'] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+        $imageUrl[0]['picture_id'] = $image;
+    }
+    return $imageUrl?$imageUrl:[];
+
+}
+

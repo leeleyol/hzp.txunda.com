@@ -152,7 +152,7 @@ class SupplyController extends BaseController{
         if(!$supply_info){
             apiResponse('0','未查询到或已被删除');
         }
-        $supply_info['pic'] = $supply_info['pic']?returnImage($supply_info['pic']):[];
+        $supply_info['pic_obj'] = $supply_info['pic']?returnSupplyImage($supply_info['pic']):[];
         $supply_info['head_pic_path'] = returnImage($supply_info['head_pic']);
         $info  = json_decode($supply_info['supply_info'],true);
         $index = [];
