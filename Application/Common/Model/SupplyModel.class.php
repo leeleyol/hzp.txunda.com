@@ -45,7 +45,12 @@ class SupplyModel extends Model{
 
 
     public function getList($where,$page){
-        $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->page($page.',10')->select();
+        if($page){
+            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->page($page.',10')->select();
+        }else{
+            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->limit(3)->select();
+
+        }
         return $data?$data:[];
 
     }

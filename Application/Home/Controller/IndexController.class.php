@@ -21,4 +21,180 @@ class IndexController extends BaseController{
     public function search(){
         $this->display('search');
     }
+
+
+    /*
+     * 获取首页数据
+     * */
+    public function getIndexData(){
+        #首页轮播
+        $advert = M('Advert')->where(['status'=>1])->field('id,ad_position,ad_desc,ad_pic')->order('sort asc')->select();
+        foreach ($advert as &$col){
+            $col['ad_pic_path'] = returnImage($col['ad_pic']);
+        }
+        $data['advert'] = $advert ? $advert : [];
+        #首页推荐商家
+        $merchant_list = M('Member')->where(['status'=>1,'is_recommend'=>1,'type'=>['neq',0]])->field('id m_id,head_pic,attention_num,nickname')->order('create_time asc')->limit('5')->select();
+        foreach ($merchant_list as &$value){
+            $value['head_pic_path'] = returnImage($value['head_pic']);
+        }
+        $data['merchant_list'] = $merchant_list ? $merchant_list : [];
+        #获取供求
+        $where['s.status'] = 1;
+        $supply_list = D('Supply')->getList($where,'');
+        foreach ($supply_list as $k=>$v){
+            $info  = json_decode($v['supply_info'],true);
+            $index = [];
+            foreach ($info as $k1=>$v1){
+                $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v1['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+                $index[$k1]['goods_id'] = $v1['goods_id'];
+                $index[$k1]['goods_type_name'] = $goods_info['type_name'];
+                $index[$k1]['goods_type_id'] = $goods_info['goods_type_id'];
+                $index[$k1]['goods_name'] = $goods_info['goods_name'];
+                $index[$k1]['stock'] = $goods_info['stock'];
+                $index[$k1]['stock_unit'] = $goods_info['stock_unit'];
+                $index[$k1]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+                $index[$k1]['goods_status'] = $goods_info['goods_status'];
+                $index[$k1]['goods_price'] = $v1['goods_price'];
+            }
+            $supply_list[$k]['supply_info'] = $index;
+            $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            unset($index);unset($info);
+        }
+        $data['supply_list'] = $supply_list;
+        #获取帖子
+        $where_post['p.status'] = 1;
+        $post_list = M('Post')
+            ->alias('p')
+            ->where($where_post)
+            ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = p.m_id')
+            ->join('LEFT JOIN '.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
+            ->order('p.create_time desc')
+            ->field('p.*,m.nickname,m.head_pic,pt.type_name')
+            ->limit(3)
+            ->select();
+        foreach($post_list as $k2=>$v2){
+            $post_list[$k2]['head_pic'] = returnImage($v2['head_pic']);
+            $pic = returnPostImage($v2['pic']);
+            $post_list[$k2]['pic_list'] = $pic;
+            unset($pic);
+        }
+        $data['post_list'] = $post_list ? $post_list : [];
+        $data['msg_num'] = "0";
+        apiResponse('1','获取数据成功',$data);
+    }
+
+    /*
+     *搜索供求
+     * */
+    public function searchSupply(){
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
+        );
+        check_param($param);//检查参数
+        $where['s.description'] = $request['keyword'];
+        $where['s.status'] = 1;
+        $supply_list = D('Supply')->getList($where,$request['p']);
+        foreach ($supply_list as $k=>$v){
+            $info  = json_decode($v['supply_info'],true);
+            $index = [];
+            foreach ($info as $k1=>$v1){
+                $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v1['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+                $index[$k1]['goods_id'] = $v1['goods_id'];
+                $index[$k1]['goods_type_name'] = $goods_info['type_name'];
+                $index[$k1]['goods_type_id'] = $goods_info['goods_type_id'];
+                $index[$k1]['goods_name'] = $goods_info['goods_name'];
+                $index[$k1]['stock'] = $goods_info['stock'];
+                $index[$k1]['stock_unit'] = $goods_info['stock_unit'];
+                $index[$k1]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+                $index[$k1]['goods_status'] = $goods_info['goods_status'];
+                $index[$k1]['goods_price'] = $v1['goods_price'];
+            }
+            $supply_list[$k]['supply_info'] = $index;
+            $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            unset($index);unset($info);
+        }
+        if(!$supply_list){
+            $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
+        }else{
+            $message = '获取成功';
+        }
+        apiResponse('1',$message,$supply_list?$supply_list:[]);
+    }
+
+
+    /*
+     *搜索帖子
+     * */
+    public function searchPost(){
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
+        );
+        check_param($param);//检查参数
+        $where_post['p.title'] = $request['keyword'];
+        $where_post['p.status'] = 1;
+        $post_list = M('Post')
+            ->alias('p')
+            ->where($where_post)
+            ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = p.m_id')
+            ->join('LEFT JOIN '.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
+            ->order('p.create_time desc')
+            ->field('p.*,m.nickname,m.head_pic,pt.type_name')
+            ->limit($request['p'].',10')
+            ->select();
+        foreach($post_list as $k2=>$v2){
+            $post_list[$k2]['head_pic'] = returnImage($v2['head_pic']);
+            $pic = returnPostImage($v2['pic']);
+            $post_list[$k2]['pic_list'] = $pic;
+            unset($pic);
+        }
+
+        if(!$post_list){
+            $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
+        }else{
+            $message = '获取成功';
+        }
+        apiResponse('1',$message,$post_list?$post_list:[]);
+    }
+
+
+    /*
+     *搜索商家
+     * */
+    public function searchMerchant(){
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
+        );
+        check_param($param);//检查参数
+        $where['nickname'] = $request['keyword'];
+        $where['status'] = 1;
+        $where['type'] = ['in','1,2'];
+        $list = M('Member')->where($where)
+            ->field('id as member_id,nickname,head_pic,attention_num,type')
+            ->order('create_time desc')
+            ->page($request['p'].',10')
+            ->select();
+        if(empty($list)){
+            $message =$request['p']==1?'暂无记录':'无更多记录';
+            apiResponse('0',$message);
+        }
+        foreach ($list as $k=>$v){
+            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['goods_num'] = "0";
+            $list[$k]['need_num'] = "0";
+        }
+        apiResponse('1','请求成功',$list);
+
+    }
+
+
+
+
+
 }
