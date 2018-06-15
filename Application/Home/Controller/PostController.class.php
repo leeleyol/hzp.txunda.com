@@ -401,7 +401,6 @@ class PostController extends BaseController{
 
 
     /**
-     * @param array $request
      *  查询某人的发帖纪录
      * 传递参数的方式：post
      * 需要传递的参数：

@@ -213,6 +213,7 @@ class SupplyController extends BaseController{
             }
             $list[$k]['supply_info'] = $index;
             $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            $list[$k]['pic_list'] = $v['pic']?returnImage($v['pic'],''):[];
             unset($index);unset($info);
         }
         apiResponse('1','成功',$list);
@@ -239,6 +240,24 @@ class SupplyController extends BaseController{
     }
 
 
-
+    /*
+     * 删除供求
+     * */
+    public function delSupply()
+    {
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type' => 'is_null', 'parameter' => $request['id'], 'condition' => '', 'error_msg' => '供求id参数错误'),
+        );
+        check_param($param);//检查参数
+        $add = M('Supply')->where(['m_id' => $m_id, 'id' => $request['id']])->data(['status'=>9])->save();
+        if ($add) {
+            apiResponse('1', '删除成功');
+        } else {
+            apiResponse('0', '删除失败');
+        }
+    }
 
 }
