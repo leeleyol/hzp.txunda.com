@@ -213,7 +213,7 @@ class SupplyController extends BaseController{
             }
             $list[$k]['supply_info'] = $index;
             $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
-            $list[$k]['pic_list'] = $v['pic']?returnImage($v['pic'],''):[];
+            $list[$k]['pic'] = $v['pic']?returnImage($v['pic'],''):[];
             unset($index);unset($info);
         }
         apiResponse('1','成功',$list);
