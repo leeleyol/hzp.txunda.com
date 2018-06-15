@@ -624,9 +624,9 @@ function returnImage($image){
     }elseif($image){
 
         $path = M('file')->where(['id'=>$image])->getField('path');
-        $imageUrl = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+        $imageUrl[] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
     }
-    return $imageUrl?$imageUrl:"";
+    return $imageUrl?$imageUrl:[];
 
 }
 
