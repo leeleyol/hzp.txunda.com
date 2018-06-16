@@ -52,7 +52,7 @@ class MemberController extends BaseController{
         }
         $member_info['follow_num'] = $this->getFollowNum($m_id);
         $member_info['collect_num']   = $this->getCollectNum($m_id);
-        $member_info['head_pic'] = D('File')->getOnePath($member_info['head_pic'],C('API_URL').'/Uploads/Member/default.png');
+        $member_info['head_pic_path'] = returnImage($member_info['head_pic']);
         $member_status = M('MemberInfo')->where(['id'=>$m_id])->field('merchant_approve,refuse_content')->find();
         $member_info['merchant_approve'] = $member_status?$member_status['merchant_approve']:"0";
         $member_info['refuse_content'] = $member_status?$member_status['refuse_content']:"";
@@ -387,4 +387,31 @@ class MemberController extends BaseController{
         apiResponse('1','请求成功',$info);
     }
 
+
+
+    /**
+     * 修改个人资料
+     * head_pic nickname  head_pic_id
+     */
+    public function modBaseData(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        if($request['head_pic']){
+            $data['head_pic'] = $request['head_pic'];
+        }
+        if($request['intro']){
+            $data['intro'] = $request['intro'];
+        }
+        if($request['nickname']){
+            $data['nickname'] = $request['nickname'];
+        }
+        $where['id'] = $m_id;
+        $res = $this->member_obj->updateRow($where,$data);
+        if($res){
+            apiResponse('1','修改个人资料成功');
+        }else{
+            apiResponse('0','修改个人资料失败');
+        }
+    }
 }
