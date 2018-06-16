@@ -170,7 +170,7 @@ class SupplyController extends BaseController{
         }
         $supply_info['supply_info'] = $index;
         if($m_id){
-            $supply_info['is_collect'] = M('Collect')->where(['object_type'=>2,'object_id'=>$_POST['post_id'],'m_id'=>$m_id])->find()?1:0;
+            $supply_info['is_collect'] = M('Collect')->where(['object_type'=>1, 'object_id'=>$_POST['id'],'m_id'=>$m_id])->find()?1:0;
         }else{
             $supply_info['is_collect'] = 0;
         }
