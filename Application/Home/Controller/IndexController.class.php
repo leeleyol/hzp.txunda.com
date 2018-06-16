@@ -115,6 +115,7 @@ class IndexController extends BaseController{
             }
             $supply_list[$k]['supply_info'] = $index;
             $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            $supply_list[$k]['pic'] = $v['pic']?returnImage($v['pic']):[];
             unset($index);unset($info);
         }
         if(!$supply_list){
@@ -166,7 +167,7 @@ class IndexController extends BaseController{
     /*
      *搜索商家
      * */
-    public function searchMerchant(){
+    public function searchMember(){
         $request = I('post.');
         $param = array(
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
@@ -188,7 +189,7 @@ class IndexController extends BaseController{
             apiResponse('0',$message);
         }
         foreach ($list as $k=>$v){
-            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
             $list[$k]['goods_num'] = "0";
             $list[$k]['need_num'] = "0";
         }
