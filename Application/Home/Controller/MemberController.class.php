@@ -355,7 +355,7 @@ class MemberController extends BaseController{
             apiResponse('0',$message);
         }
         foreach ($list as $k=>$v){
-            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
             $list[$k]['goods_num'] = "0";
             $list[$k]['need_num'] = "0";
         }
@@ -376,7 +376,7 @@ class MemberController extends BaseController{
         $where['id'] = $request['member_id'];
         check_param($param);//检查参数
         $info = M('Member')->where($where)->field('id as m_id,nickname,head_pic,attention_num,intro,type')->find();
-        $info['head_pic_path'] = $this->file_obj->getOnePath($info['head_pic']);
+        $info['head_pic_path'] = returnImage($info['head_pic']);
         $info['goods_num'] = "0";
         $info['need_num'] = "0";
         if($m_id){
