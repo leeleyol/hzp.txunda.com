@@ -34,6 +34,10 @@
             width: 90%;
             margin: 30px 5% 0px 5%;
         }
+        #nickname{
+            height: 100%;
+            text-align: right;
+        }
     </style>
 </block>
 <block name="main">
@@ -54,18 +58,14 @@
         <div class="left">
             头像
         </div>
-        <div class="right">
+        <div class="right head_pic_box">
             <img id="head_pic" src="__ROOT__/Public/Home/img/my0.png" style="width: 60px;height: 60px"/>
         </div>
     </div>
     <div class="fineLine"></div>
     <div class="leftright">
-        <div class="left">
-            昵称
-        </div>
-        <div class="right"  id="nickname">
-
-        </div>
+        <div class="left">昵称</div>
+        <input class="right"  id="nickname">
     </div>
     <div class="fineLine"></div>
 
@@ -73,15 +73,48 @@
         <div class="textarea_top">
             我的介绍 （将显示在详情介绍的页面）
         </div>
-        <textarea id="intro" >有点懒，什么都没有留下</textarea>
-        <button>保 存</button>
+        <textarea id="intro" placeholder="有点懒，什么都没有留下"></textarea>
+        <button class="save">保 存</button>
     </div>
 </block>
 <block name="script">
     <script>
         $(function () {
-            var m_id = localStorage.getItem('m_id');
-            m_id = m_id?m_id:0;
+            getInfo()
+            bindHandler()
+        })
+
+
+        function bindHandler() {
+            //选择图片
+            $(".head_pic_box").fileInit({
+                "filetype":"image",
+                "onchange": function (base64,file,_targetthis) {
+                    uploadPic(file,_targetthis)
+                }
+            });
+
+            $(".save").click(function () {
+                if(!$('#nickname').val().trim()){
+                    layer.open({
+                        content: "请输入昵称"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }
+
+                var param = {}
+
+                param["nickname"] = $('#nickname').val();
+                param["intro"] = $('#intro').val();
+                param["head_pic"] = $('#head_pic').attr("picture_id");
+
+                modBaseData(param)
+            })
+        }
+
+        function getInfo() {
             requestUrl("{:U('Member/ajaxMemberCenter')}",{m_id:m_id},function(res){
                 if(res.code == -1){
                     localStorage.removeItem('m_id');
@@ -89,11 +122,42 @@
                 }else if(res.code == 0){
                     alert(res.message);
                 }else {
-                    $('#nickname').text(res.data.nickname);
-                    $('#intro').text(res.data.intro);
-                    $('#head_pic').attr('src',res.data.head_pic);
+                    $('#nickname').val(res.data.nickname);
+                    $('#intro').val(res.data.intro);
+                    $('#head_pic').prop('src',res.data.head_pic_path);
                 }
             });
-        })
+        }
+
+        function modBaseData(param) {
+            requestUrl("{:U('Home/Member/modBaseData')}",param,function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    alert(res.message);
+                }else {
+
+                }
+            });
+        }
+
+        function uploadPic(file,_targetthis) {
+            var formdata = new FormData();
+            formdata.append("picture", file);
+            formdata.append("type", "1");
+            uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    alert(res.message);
+                } else {
+                    $(".weui-uploader__input-box").hide()
+                    $(_targetthis).find("img").prop({"src":res.data.picture.picture_path}).attr({"picture_id":res.data.picture.picture_id})
+
+                }
+            });
+        }
     </script>
 </block>
