@@ -189,11 +189,15 @@ class SupplyController extends BaseController{
         $m_id = $this->member_obj->checkToken();
         $request = I('post.');
         $param = array(
-            array('check_type'=>'is_null','parameter' => $request['member_id'],'condition'=>'','error_msg'=>'浏览对象参数错误'),
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
         );
         check_param($param);//检查参数
-        $where['s.m_id'] = $request['member_id'];
+        if($request['member_id']){
+            $where['s.m_id'] = $request['member_id'];
+        }
+        if($request['type']){
+            $where['s.type'] = $request['type'];
+        }
         $where['s.status'] = 1;
         $list = D('Supply')->getList($where,$_POST['p']);
         foreach ($list as $k=>$v){
