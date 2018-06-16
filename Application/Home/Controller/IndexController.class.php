@@ -178,9 +178,9 @@ class IndexController extends BaseController{
         $where['m.status'] = 1;
         $where['m.type'] = ['in','1,2'];
         $list = M('Member')->alias('m')
-            ->join('db_member_info mi on mi.m_id=m.id')
+            ->join('db_member_info mi on mi.m_id=m.id','left')
             ->where($where)
-            ->field('id as member_id,nickname,head_pic,attention_num,type,company_address,tel')
+            ->field('m.id as member_id,m.nickname,m.head_pic,m.attention_num,m.type,mi.company_address,mi.phone')
             ->order('create_time desc')
             ->page($request['p'].',10')
             ->select();
