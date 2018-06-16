@@ -97,7 +97,7 @@ class AttentionController extends BaseController
             apiResponse('0',$message);
         }
         foreach ($list as $k=>$v){
-            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
             $list[$k]['goods_num'] = "0";
             $list[$k]['need_num'] = "0";
         }
