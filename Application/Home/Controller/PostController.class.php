@@ -43,6 +43,7 @@ class PostController extends BaseController{
         $list = M('PostType')->where(['status'=>1])->order('create_time desc')->field('id as type_id,pic,type_name')->select();
         foreach($list as $k=>$v){
             $list[$k]['pic'] = returnImage($v['pic']);
+            $list[$k]['num'] = "0";
         }
         apiResponse('1','请求成功',$list?$list:[]);
     }
