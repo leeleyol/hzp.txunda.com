@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
@@ -13,86 +13,176 @@
     <script src="__ROOT__/Public/Home/js/network.js"></script>
     <script src="__ROOT__/Public/Home/js/util.js"></script>
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+
+        .checked > img:first-of-type {
+            display: inline-block;
+        }
+
+        .checked > img:last-of-type {
+            display: none;
+        }
+
+        .hide {
+            display: none;
+        }
+        .save{
+            margin-top: 5px;
+        }
+    </style>
     <title>设置交易方式</title>
 </head>
 <body class="bc3">
-    <header class="head" >
-        <div class="header_left">
-            <a href="index_release1_gongqiu1.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
-        </div>
-        <div class="header_middle" >
-            设置交易方式
-        </div>
-        <div class="header_right"></div>
-    </header>
-<br>
-    <div class=" weui-cells weui-cells_checkbox  coarseLline">
-        <label class="weui-cell weui-check__label" for="s11">
-            <div class="weui-cell__hd">
-                <div class="list_1 text-center" id="click1">
-                    <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del" />
-                    <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" style="display: none"/>
-                </div>
-            </div>
-            <div class="weui-cell__bd">
-                <p class="fontsize2">买家自提</p>
-                <p class="fontsize3 color3">支付附近买家上门参观提货</p>
-            </div>
-        </label>
-        <label class="weui-cell weui-check__label" for="s12">
-            <div class="weui-cell__hd">
-                <div class="list_1 text-center" id="click2">
-                    <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del" style="display: none"/>
-                    <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del"  />
-                </div>
-            </div>
-            <div class="weui-cell__bd">
-                <p class="fontsize2">商家配送</p>
-                <p class="fontsize3 color3">拥有自己的配送车队，支持附近城镇配送</p>
-            </div>
-        </label>
-        <label class="weui-cell weui-check__label" for="s12">
-            <div class="weui-cell__hd">
-                <div class="list_1 text-center" id="click3">
-                    <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del" />
-                    <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" style="display: none"/>
-                </div>
-            </div>
-            <div class="weui-cell__bd">
-                <p class="fontsize2">顺丰包邮</p>
-                <p class="fontsize3 color3">支持顺丰包邮</p>
-            </div>
-        </label>
-        <label class="weui-cell weui-check__label" for="s12">
-            <div class="weui-cell__hd">
-                <div class="list_1 text-center" id="click4">
-                    <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del" />
-                    <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" style="display: none"/>
-                </div>
-            </div>
-            <div class="weui-cell__bd">
-                <p class="fontsize2">买家支付邮费</p>
-                <p class="fontsize3 color3">不支持包邮，买家支付邮费</p>
-            </div>
-        </label>
-        <a href="index_release1_gongqiu1.html" class="footer">
-            <input type="button" value="发布" class="color2 bc5 fontsize2">
-        </a>
+<header class="head">
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
     </div>
+    <div class="header_middle">
+        设置交易方式
+    </div>
+    <div class="header_right"></div>
+</header>
+<br>
+<div class=" weui-cells weui-cells_checkbox  coarseLline">
+    <label class="weui-cell weui-check__label" for="s11">
+        <div class="weui-cell__hd">
+            <div class="list_1 text-center is_extract" id="click1">
+                <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del hide"/>
+                <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del"/>
+            </div>
+        </div>
+        <div class="weui-cell__bd">
+            <p class="fontsize2">买家自提</p>
+            <p class="fontsize3 color3">支付附近买家上门参观提货</p>
+        </div>
+    </label>
+
+    <label class="weui-cell weui-check__label" for="s12">
+        <div class="weui-cell__hd">
+            <div class="list_1 text-center is_md" id="click2">
+                <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del hide"/>
+                <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del"/>
+            </div>
+        </div>
+        <div class="weui-cell__bd">
+            <p class="fontsize2">商家配送</p>
+            <p class="fontsize3 color3">拥有自己的配送车队，支持附近城镇配送</p>
+        </div>
+    </label>
+
+    <label class="weui-cell weui-check__label" for="s12">
+        <div class="weui-cell__hd">
+            <div class="list_1 text-center is_sf" id="click3">
+                <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del hide"/>
+                <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del"/>
+            </div>
+        </div>
+        <div class="weui-cell__bd">
+            <p class="fontsize2">顺丰包邮</p>
+            <p class="fontsize3 color3">支持顺丰包邮</p>
+        </div>
+    </label>
+
+    <label class="weui-cell weui-check__label" for="s12">
+        <div class="weui-cell__hd">
+            <div class="list_1 text-center is_bp" id="click4">
+                <img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del hide"/>
+                <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del"/>
+            </div>
+        </div>
+        <div class="weui-cell__bd">
+            <p class="fontsize2">买家支付邮费</p>
+            <p class="fontsize3 color3">不支持包邮，买家支付邮费</p>
+        </div>
+    </label>
+
+    <a class="footer">
+        <input type="button" value="保存" class="save color2 bc5 fontsize2">
+    </a>
+</div>
 
 <script>
-    $("#click1").click(function () {
-        $("#click1>img").toggle();
-    })
-    $("#click2").click(function () {
-        $("#click2>img").toggle();
-    })
-    $("#click3").click(function () {
-        $("#click3>img").toggle();
-    })
-    $("#click4").click(function () {
-        $("#click4>img").toggle();
-    })
+
+    $(function () {
+        bindHandler();
+        initData();
+
+    });
+
+    var provideData, buyData,type;
+    type = getUrlParam("type")
+    function initData() {
+
+        if(type == 2){
+            buyData = JSON.parse(localStorage.buyData);
+        }else {
+            provideData = JSON.parse(localStorage.provideData);
+        }
+
+        var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
+        $(checked_item).each(function (index, item) {
+            if(type == 2){
+                if(buyData[item] == 1){
+                    $("." + item).addClass("checked");
+                }
+            }else {
+                if(provideData[item] == 1){
+                    $("." + item).addClass("checked");
+                }
+            }
+        });
+    }
+
+    function bindHandler() {
+        $(".list_1").click(function () {
+            $(this).toggleClass("checked")
+        });
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        });
+
+        $(".save").click(function () {
+            var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
+            var count = 0
+            $(checked_item).each(function (index, item) {
+                var boo = $("." + item).hasClass("checked");
+                if(type == 2){
+                    if (!boo) {
+                        buyData[item] = 2
+                        count += 1;
+                    }else {
+                        buyData[item] = 1
+                    }
+                }else {
+                    if (!boo) {
+                        provideData[item] = 2
+                        count += 1;
+                    }else {
+                        provideData[item] = 1
+                    }
+                }
+
+            });
+
+            if (count == 4) {
+                layer.open({
+                    content: "请至少选择一种交易方式"
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+
+            if(type == 2){
+                localStorage.buyData = JSON.stringify(buyData);
+            }else {
+                localStorage.provideData = JSON.stringify(provideData);
+            }
+
+            history.go(-1)
+        })
+    }
 </script>
 
 </body>

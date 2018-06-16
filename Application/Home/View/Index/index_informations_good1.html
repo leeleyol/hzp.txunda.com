@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>商品展示</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <!--选项卡-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <style>
+        .lists {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            border-bottom: 1px solid #f6f6f6;
+        }
+        .lists::-webkit-scrollbar {
+            display: none;
+        }
+        .list_2,.list_3{
+            margin-right: 0px;
+            width: 90px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_1{
+            margin-right: 0px;
+            width: 60px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_2{
+            margin-right: 0px;
+            width: 160px;
+            padding: 5px;
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_21{
+            height: 40px;
+            float: left;
+            padding: 0px 5px
+        }
+        .list_22{
+            height: 100%;
+        }
+        .height{
+            height: 40px;
+            line-height: 40px
+        }
+    </style>
+</head>
+<body class="bc3">
+<!--头部-->
+<header class="head" >
+    <div class="header_left">
+        <a href=""><img src="img/b_back.png" /></a>
+    </div>
+    <div class="header_middle">
+        商品展示
+    </div>
+    <div class="header_right"></div>
+</header>
+
+    <div class="lists bc2 fontsize3 headtop coarseLline">
+        <div class="list">
+            <div class="list_1 text-center">
+                操作
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2 text-center">
+                商品名称
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center">
+                库存
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center">
+                货物状态
+            </div>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd fontsize3 color3">
+            <p>纪梵希</p>
+        </div>
+    </div>
+
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center height" id="click1">
+                <img src="img/empty1.png" class="icon_del"/>
+                <img src="img/empty0.png" class="icon_del" style="display: none"/>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div >纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center height" id="click2">
+                <img src="img/empty1.png" class="icon_del"  />
+                <img src="img/empty0.png" class="icon_del" style="display: none"/>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div >纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center" id="click3">
+                <img src="img/empty1.png" class="icon_del" style="display: none"/>
+                <img src="img/empty0.png" class="icon_del" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div class="color4">纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+
+    <!---->
+    <div class="weui-cell">
+        <div class="weui-cell__bd fontsize3 color3">
+            <p>雅诗兰黛</p>
+        </div>
+    </div>
+
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center height" id="click4">
+                <img src="img/empty1.png" class="icon_del"/>
+                <img src="img/empty0.png" class="icon_del" style="display: none"/>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div class="color4">纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center height" id="click5">
+                <img src="img/empty1.png" class="icon_del" />
+                <img src="img/empty0.png" class="icon_del" style="display: none"/>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div >纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center" id="click6">
+                <img src="img/empty1.png" class="icon_del" style="display: none"/>
+                <img src="img/empty0.png" class="icon_del" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div >纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center height" id="click7">
+                <img src="img/empty1.png" class="icon_del" style="display: none"/>
+                <img src="img/empty0.png" class="icon_del" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div >纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+    <div class="lists bc2 fontsize3">
+        <div class="list">
+            <div class="list_1 text-center" id="click8">
+                <img src="img/empty1.png" class="icon_del" style="display: none"/>
+                <img src="img/empty0.png" class="icon_del" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2  ">
+                <div class="list_21" >
+                    <img src="img/name2.png" class="list_22" />
+                </div>
+                <div class="color4">纪梵希口红禁忌之吻3.3g 05#</div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height">
+                500件
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center height" >
+                现金
+            </div>
+        </div>
+    </div>
+<div class="lists bc2 fontsize3">
+    <div class="list">
+        <div class="list_1 text-center" id="click9">
+            <img src="img/empty1.png" class="icon_del" />
+            <img src="img/empty0.png" class="icon_del" style="display: none"/>
+        </div>
+    </div>
+    <div class="list">
+        <div class="list_2  ">
+            <div class="list_21" >
+                <img src="img/name2.png" class="list_22" />
+            </div>
+            <div >纪梵希口红禁忌之吻3.3g 05#</div>
+        </div>
+    </div>
+    <div class="list">
+        <div class="list_3 text-center height">
+            500件
+        </div>
+    </div>
+    <div class="list">
+        <div class="list_3 text-center height" >
+            现金
+        </div>
+    </div>
+</div>
+    <br><br>
+    <div class="bussiness_bottom">
+        <div class="bottom_num ">
+            <span class="color1 fontsize2">选择商品款式 :</span>
+            <span class="color4 fontsize2">5</span>
+
+        </div>
+        <div class="bottom_submit">
+            <button >
+                <a href="index_VIPbussiness_good2.html" class="color2 fontsize2">
+                    前往报价
+                </a>
+            </button>
+        </div>
+    </div>
+<script>
+    $("#click1").click(function () {
+        $("#click1>img").toggle();
+    })
+    $("#click2").click(function () {
+        $("#click2>img").toggle();
+    })
+    $("#click3").click(function () {
+        $("#click3>img").toggle();
+    })
+    $("#click4").click(function () {
+        $("#click4>img").toggle();
+    })
+    $("#click5").click(function () {
+        $("#click5>img").toggle();
+    })
+    $("#click6").click(function () {
+        $("#click6>img").toggle();
+    })
+    $("#click7").click(function () {
+        $("#click7>img").toggle();
+    })
+    $("#click8").click(function () {
+        $("#click8>img").toggle();
+    })
+    $("#click9").click(function () {
+        $("#click9>img").toggle();
+    })
+</script>
+
+
+
+</body>
+</html>

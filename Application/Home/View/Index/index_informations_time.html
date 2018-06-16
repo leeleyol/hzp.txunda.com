@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置时间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="css/others.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <script src="js/weui.min.js"></script>
+    <style>
+        button{
+            position: fixed;
+            bottom: 0px;
+            margin-bottom: 10px;
+            height: 40px;
+            width: 94%;
+            left: 3%;
+            line-height: 40px;
+            border-radius: 6px 6px 6px 6px;
+        }
+       .weui-picker {
+           top: 65px;
+       }
+       .weui-mask{
+           display:none;
+       }
+       .weui-picker {
+           font-size: 16px;
+           font-weight: 550;
+           top: 4.875rem;
+           bottom:auto;
+           -webkit-transform: translate(0, 0);
+           transform: translate(0, 0);
+           -webkit-transition: -webkit-transform .3s;
+           transition: -webkit-transform .3s;
+           /*transition: none 0;*/
+       }
+       .weui-picker .weui-animate-slide-up{
+           top:20px
+       }
+       .weui-picker__bd {
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: flex;
+           position: relative;
+           background-color: #fff;
+           height: 238px;
+           overflow: hidden;
+           margin-top: -60px;
+       }
+       .weui-animate-slide-up{
+           animation: 	none ease 1 normal;
+       }
+       .weui-picker__hd {
+           display:none;
+       }
+    </style>
+</head>
+<body class="bc3">
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a href="index_informations.html"><img src="img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            设置时间
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <button class="color2 fontsize2 bc5" onclick="">确定</button>
+
+</body>
+
+    <script>
+    $(function(){
+        var arr=[];
+        weui.datePicker({
+            start: new Date(), // 从今天开始
+            end: 2030,
+            // cron: '* * 0,6',  // 每逢周日、周六
+            onChange: function(result){
+                // console.log(result);
+                arr=result;
+            },
+            onConfirm: function(result){
+                // console.log(result);
+            },
+            id: 'datePicker'
+        });
+
+        $('.set-time-sure').click(function(){
+            var time=arr[0].label+'-'+arr[1].label+'-'+arr[2].label;
+            console.log(time);
+        })
+    })
+
+
+</script>
+</html>

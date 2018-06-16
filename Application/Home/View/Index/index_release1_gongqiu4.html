@@ -3,104 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
-    <link rel="stylesheet" href="css/others.css">
-    <link rel="stylesheet" href="css/my.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/weui.css">
-    <!--选项卡-->
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js" ></script>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
     <title>设置所在位置</title>
+    <style>
+        .area-list{
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
     <header class="head" style="background-color: white;">
         <div class="header_left">
-            <a href="index_release1_gongqiu1.html"><img src="img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle" style="color: black">
             设置交易方式
         </div>
         <div class="header_right"></div>
     </header>
-    <div class="weui-cell headtop coarseLline">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">北京</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">上海</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">天津</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">南京</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">深圳</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">广州</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">上海</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">天津</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">南京</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">深圳</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">广州</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">上海</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">天津</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">南京</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">深圳</label>
-        </div>
-    </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd">
-            <label class="weui-label fontsize2">广州</label>
-        </div>
+    <div class="area-list">
+
     </div>
 </body>
 </html>
+<script>
+    $(function () {
+        bindHandler()
+        getList()
+        initData()
+    })
+    var provideData, buyData, type = getUrlParam("type");
+    function initData() {
+        if(type == 2){
+            buyData = JSON.parse(localStorage.buyData);
+        }else {
+            provideData = JSON.parse(localStorage.provideData);
+        }
+
+    }
+
+    var page = 0
+    function getList() {
+        page += 1;
+        requestUrl("{:U('Home/Supply/getCity')}",{p:page},function(res){
+            layer.close(layderIndex)
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data;
+                $(list).each(function (index, item) {
+                    $(".area-list").append('<div class="weui-cell coarseLline area-item" id="'+item.id+'">' +
+                        '            <div class="weui-cell__hd">' +
+                        '                <label class="weui-label fontsize2 region_name">'+item.region_name+'</label>' +
+                        '            </div>' +
+                        '        </div>')
+                })
+            }
+        });
+    }
+    var layderIndex;
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            layderIndex = layer.open({type: 2});
+            getList()
+        })
+
+        $(".area-list").on("click",".area-item", function () {
+            if(type == 2){
+                buyData.area_name = $(this).find(".region_name").text()
+                localStorage.buyData = JSON.stringify(buyData);
+            }else {
+                provideData.area_name = $(this).find(".region_name").text()
+                localStorage.provideData = JSON.stringify(provideData);
+            }
+            history.go(-1)
+        })
+    }
+</script>
