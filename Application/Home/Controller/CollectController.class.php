@@ -159,7 +159,7 @@ class CollectController extends BaseController
             ->join('db_supply as s on s.id = c.object_id', 'left')
             ->join('db_member as m on m.id = c.m_id', 'left')
             ->where($where)
-            ->field('c.id col_id,s.id supply_id,s.description,s.type,s.m_id,s.supply_info,s.create_time,s.is_extract,s.create_time,s.is_md,s.is_sf,s.is_bp,s.is_hidename,m.nickname,m.head_pic')
+            ->field('c.id col_id,s.id supply_id,s.area_name,s.pic,s.description,s.type,s.m_id,s.supply_info,s.create_time,s.is_extract,s.create_time,s.is_md,s.is_sf,s.is_bp,s.is_hidename,m.nickname,m.head_pic')
             ->page($request['p'].',10')
             ->select();
         if(empty($list)){
@@ -183,6 +183,7 @@ class CollectController extends BaseController
             }
             $list[$k]['supply_info'] = $index;
             $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            $list[$k]['pic'] = $v['pic']?returnImage($v['pic']):[];
             unset($index);unset($info);
         }
         apiResponse('1','请求成功',$list);
