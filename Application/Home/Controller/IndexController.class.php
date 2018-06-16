@@ -59,6 +59,7 @@ class IndexController extends BaseController{
             }
             $supply_list[$k]['supply_info'] = $index;
             $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
+            $supply_list[$k]['pic'] = $v['pic']?returnImage($v['pic'],''):[];
             unset($index);unset($info);
         }
         $data['supply_list'] = $supply_list;
@@ -76,7 +77,7 @@ class IndexController extends BaseController{
         foreach($post_list as $k2=>$v2){
             $post_list[$k2]['head_pic'] = returnImage($v2['head_pic']);
             $pic = returnPostImage($v2['pic']);
-            $post_list[$k2]['pic_list'] = $pic;
+            $post_list[$k2]['pic_list'] = $pic?$pic:[];
             unset($pic);
         }
         $data['post_list'] = $post_list ? $post_list : [];
