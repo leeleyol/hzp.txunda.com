@@ -145,10 +145,13 @@ article{
 .artcle_1{
     background-color: #f6f6f6;
     height: 185px;
+    padding-top: 1px;
 }
 .artcle_1 .top{
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
+    overflow: hidden;
+    margin: 5px 0;
+    padding-top: 1px;
 }
 .mains {
     width: 100%;
@@ -185,10 +188,8 @@ article{
 }
 /*供求信息*/
 .more{
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #F6F6F6;
-    padding-bottom: 5px;
+    float: right;
+    margin-right: 5px;
 }
 .sections{
     /*border-top: 10px solid #F6F6F6;*/
