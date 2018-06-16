@@ -7,6 +7,9 @@
             width: 50% !important;
             text-align: center;
         }
+        #hear{
+            background-color: #fff;
+        }
 
         #hear li p{
             display: inline-block;
@@ -35,6 +38,21 @@
             background-repeat: no-repeat;
         }
         .edit .tz-item .checked{
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+
+        .edit .provide-item .check-box{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: -33px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        .edit .provide-item .checked{
             background-image: url("__ROOT__/Public/Home/img/empty1.png");
         }
 
@@ -82,6 +100,70 @@
             text-align: center;
             color: #fff;
         }
+
+        button.reply{
+            background-color: #ffcb3e
+        }
+
+        .provide-item{
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+        .goods-name{
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .rongqi{
+            position: relative;
+        }
+        .rongqi span{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .rongqi img{
+            width: 135px;
+            height: 135px;
+        }
+        .reply-operate{
+            overflow: hidden;
+            padding-right: 10px;
+        }
+        .reply-operate > p{
+            float: right;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            color: #aaa;
+            margin-top: 4px;
+            margin-right: 6px;
+            padding-left: 20px;
+            background-size: 16px auto;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+        .reply-operate > p.reply-preview{
+            background-image: url("__ROOT__/Public/Home/img/eye.png");
+        }
+        .reply-operate > p.reply-del{
+            background-image: url("__ROOT__/Public/Home/img/del.png");
+        }
+        .reply-operate > p.reply-edit{
+            background-image: url("__ROOT__/Public/Home/img/write.png");
+        }
+        .reply-operate > p.reply-refresh{
+            background-image: url("__ROOT__/Public/Home/img/shuaxin.png");
+        }
+        .provide-item{
+            margin-top: 10px;
+        }
+
     </style>
 </block>
 <block name="main">
@@ -134,11 +216,11 @@
             page += 1;
             var url = ""
             if(type == 0) {
-
+                url = "{:U('Home/Collect/myCollectSupply')}"
             }else {
                 url = "{:U('Home/Collect/myCollectPost')}"
             }
-
+            
             requestUrl(url, {p: page}, function (res) {
                 layer.close(layderIndex)
                 if (res.code == -1) {
@@ -154,7 +236,8 @@
                     var list = res.data;
                     var $listBox;
                     if(pageIndex == 0){
-                        $listBox =  $(".buss-list")
+                        $listBox =  $(".buss-list");
+                        $listBox.append(supplyList(list))
                     }else if(pageIndex == 1){
                         $listBox =  $(".tz-list")
                         $listBox.append(tzlIST(list))
@@ -163,6 +246,62 @@
 
                 }
             });
+        }
+        
+        function supplyList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += ' <div class="provide-item" col_id="'+item.col_id+'" supply_id="'+item.supply_id+'">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section">' +
+                    (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
+                    '                    </div>' +
+                    '                    <div class="section_buttom">' +
+                    '                        <p>' +
+                    '                            <span class="color3">交易方式:</span><span class="color1">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
+                    '                            <span class="color8">位置:'+item.area_name+'</span>' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
+                    '                        <label class="fontsize11"> '+item.nickname+'</label>' +
+                    '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
+                    '                    </div>' +
+                    '<div class="check-box"></div>'+
+                    '                </div>'
+            })
+            return str
+        }
+
+        function sectionItme(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi">' +
+                    '                                <img src="'+item.goods_pic_path+'"/>'+
+                    '                                <div class="goods-name">'+item.goods_name+'</div>' +
+                    '<span class="float_r color4">¥'+item.goods_price+'</span>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function sectionItme2(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi2">' +
+                    '                                <img src="'+item+'"/>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
         }
 
         function tzlIST(list) {
@@ -279,6 +418,18 @@
                 }
             });
 
+
+            //操作单个选项
+            $(".buss-list").on("click",".provide-item",function () {
+                if(editing){
+                    $(this).find(".check-box").toggleClass("checked");
+                    countChecked()
+                }else {
+                    var pb_id = $(this).attr("supply_id")
+                    window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
+                }
+            });
+
             //全选\取消全选
             $(".bottom-bar p:first-of-type").click(function () {
                 $(this).toggleClass("checked")
@@ -301,7 +452,7 @@
                 }else {
                     var col_id = []
                     $(".check-box.checked").each(function () {
-                        col_id.push($(this).parents(".tz-item").attr('col_id'))
+                        col_id.push($(this).parents(".tz-item, .provide-item").attr('col_id'))
                     })
                     delCollect(col_id.join(","))
                 }

@@ -127,7 +127,7 @@
                 $(".area").text("位置:" + detail.area_name)
 
                 if(detail.is_hidename != 1){
-                    // TODO 头像
+                    $(".head_pic").prop({"src":detail.head_pic_path})
                     $(".nickname").text(detail.nickname)
                 }
                 $(".create-time").text(getDate(detail.create_time,"年月日"))
@@ -148,7 +148,7 @@
                     $(".tupian").append(' <img src="'+item+'" class="tu">')
                 })
 
-                $(".is_collect").prop({"src":detail.is_collect ? "__ROOT__/Public/Home/img/shoucang1.png":"__ROOT__/Public/Home/img/shoucang0.png"}).attr({"is_collect":detail.is_collect})
+                $(".is_collect").prop({"src":detail.is_collect ? "__ROOT__/Public/Home/img/shoucang.png":"__ROOT__/Public/Home/img/shoucang0.png"}).attr({"is_collect":detail.is_collect})
             }
         });
     }

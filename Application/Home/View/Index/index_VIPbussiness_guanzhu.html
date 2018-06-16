@@ -52,10 +52,47 @@
 
         .tz-list{
             background-color: rgba(246, 246, 246, 1);
-            padding-bottom: 52px;
+            margin-bottom: 52px;
         }
 
         .tz-item{
+            margin-top: 10px;
+        }
+        button.reply{
+            background-color: #ffcb3e
+        }
+
+        .provide-item{
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+        .goods-name{
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .rongqi{
+            position: relative;
+        }
+        .rongqi span{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .rongqi img{
+            width: 135px;
+            height: 135px;
+        }
+        .provide-list{
+            background-color: rgba(246, 246, 246, 1);
+            margin-bottom: 30px;
+        }
+        .provide-item{
             margin-top: 10px;
         }
     </style>
@@ -115,62 +152,9 @@
         <ul id="contentop">
             <li class="action">
  <!--他的供求-->
-                <div class="sections" >
-                    <div class="section_top ">
-                        <button>供</button>
-                        小可爱专用Possession占有那瓶属于你的美丽瓶子哦，行动不如行动！赶紧联系我吧
-                    </div>
-                    <div class="section">
-                        <div class="section_item">
-                            <div class="rongqi" >
-                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
-                                <p class="color1">
-                                    这是一段商品名称 <br>
-                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="section_item">
-                            <div class="rongqi" >
-                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
-                                <p>
-                                    这是一段商品名称 <br>
-                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="section_item">
-                            <div class="rongqi" >
-                                <img src="__ROOT__/Public/Home/img/yangtu.png"  /><br>
-                                <p>
-                                    这是一段商品名称 <br>
-                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="section_item">
-                            <div class="rongqi" >
-                                <img src="__ROOT__/Public/Home/img/yangtu.png" /><br>
-                                <p>
-                                    这是一段商品名称 <br>
-                                    <span>这是...</span><span class="float_r color4" >¥30.00</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section_buttom">
-                        <p>
-                            <span class="color3">交易方式:</span><span class="color1">买家自提、商家配送、顺风快递</span><br>
-                            <span class="color8">位置:天津</span>
-                        </p>
-                    </div>
-                    <div class="paddingl_2">
-                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name"/>
-                        <label class="fontsize3"> 飞机笔超级集团</label>
-                        <span class="fontsize4 color3">2小时前</span>
-                    </div>
+                <div class="provide-list">
+
                 </div>
-                    <div class="coarseLline"></div>
 
                <a href="index_VIPbussiness_good3.html">
                    <div  class="btnfixed"   >
@@ -205,9 +189,91 @@
             getParam();
             //获取商家基本信息
             getDetail()
+            //获取商家的供求
+            getSupplyList()
             //获取商家帖子
             getTieZiList()
         });
+
+        var page = 0, layderIndex;
+        function getSupplyList(type) {
+            page += 1;
+            requestUrl("{:U('Home/Supply/memberSupplyList')}", {p: page,member_id:member_id}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    var $listBox;
+                    $listBox =  $(".provide-list");
+                    $listBox.append(supplyList(list))
+                }
+            });
+        }
+
+
+        function supplyList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += ' <div class="provide-item" col_id="'+item.col_id+'" supply_id="'+item.supply_id+'">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section">' +
+                    (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
+                    '                    </div>' +
+                    '                    <div class="section_buttom">' +
+                    '                        <p>' +
+                    '                            <span class="color3">交易方式:</span><span class="color1">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
+                    '                            <span class="color8">位置:'+item.area_name+'</span>' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
+                    '                        <label class="fontsize11"> '+item.nickname+'</label>' +
+                    '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
+                    '                    </div>' +
+                    '<div class="check-box"></div>'+
+                    '                </div>'
+            })
+            return str
+        }
+
+        function sectionItme(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi">' +
+                    '                                <img src="'+item.goods_pic_path+'"/>'+
+                    '                                <div class="goods-name">'+item.goods_name+'</div>' +
+                    '<span class="float_r color4">¥'+item.goods_price+'</span>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function sectionItme2(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi2">' +
+                    '                                <img src="'+item+'"/>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
 
         function getTieZiList() {
             requestUrl("{:U('Home/Post/memberPostList')}",{to_mid:member_id},function(res){
@@ -311,6 +377,7 @@
             member_id = getUrlParam("member_id")
         }
 
+        var pageIndex = 0
         function bindHandler() {
             //切换供求，帖子
             $("#hear li ").click(function(){
@@ -322,9 +389,10 @@
                     color : "#000000"
                 });
                 var index = $(this).index();
+                pageIndex = index
                 $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
-
             });
+
             //返回上一级
             $(".header_left").click(function () {
                 history.go(-1)
@@ -342,6 +410,16 @@
                 }else {
                     addAttention("{:U('Home/Attention/delAttention')}")
                 }
+            })
+
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+
+                if(pageIndex == 0){
+                    layderIndex = layer.open({type: 2});
+                    getSupplyList()
+                }
+
             })
         }
 
