@@ -15,7 +15,8 @@ class BaseController extends Controller{
      * @return string
      */
     public function getFollowNum($m_id){
-        return '0';
+        $num = M('Attention')->where(['m_id'=>$m_id])->count('id');
+        return $num?$num:"0";
     }
 
     /**
@@ -24,7 +25,8 @@ class BaseController extends Controller{
      * @return string
      */
     public function getCollectNum($m_id){
-        return '0';
+        $num = M('Collect')->where(['m_id'=>$m_id])->count('id');
+        return $num?$num:"0";
     }
 
     /**
