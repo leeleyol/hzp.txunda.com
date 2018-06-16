@@ -77,7 +77,7 @@
         var page = 0,layderIndex;
         function getList(type) {
             page += 1;
-            requestUrl("{:U('Home/Member/memberList')}", {p: page, type: type}, function (res) {
+            requestUrl("{:U('Home/Attention/myAttention')}", {p: page, type: (2- type)}, function (res) {
                 layer.close(layderIndex)
                 if (res.code == -1) {
                     localStorage.removeItem('m_id');
@@ -130,7 +130,7 @@
             })
 
             $(".normal-buss").on("click","a", function () {
-                window.location.href = "{:U('Index/index_VIPbussiness_guanzhu')}&member_id=" + $(this).attr("member_id")
+                window.location.href = "{:U('Interest/interest_details3')}&member_id=" + $(this).attr("member_id")
             })
 
             $(".normal-user").on("click","a", function () {
