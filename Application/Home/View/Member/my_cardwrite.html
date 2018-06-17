@@ -45,7 +45,7 @@
 <body>
     <header class="head">
         <div class="header_left">
-            <a href="{:U('Member/my_card')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle color1">
             填写商家认证
@@ -117,6 +117,10 @@
     });
     
     function bindHandler() {
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
         $("#license").fileInit({
             "filetype":"image",
             "onchange": function (base64,file,_targetthis) {

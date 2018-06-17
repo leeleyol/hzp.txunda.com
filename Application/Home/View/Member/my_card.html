@@ -37,7 +37,7 @@
 <body>
     <header class="head">
         <div class="header_left">
-            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle color1">
             身份认证
@@ -101,6 +101,10 @@
                     ,time: 2 //2秒后自动关闭
                 });
             }
+        })
+
+        $(".header_left").click(function () {
+            history.go(-1)
         })
     }
 
