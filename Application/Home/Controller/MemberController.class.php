@@ -314,6 +314,8 @@ class MemberController extends BaseController{
             $savePath = 'Goods';
         }else if($_POST['type'] == 4){
             $savePath = 'Supply';
+        }else if($_POST['type'] == 5){
+            $savePath = 'Advert';
         }
         $result_data = array();
         if($_FILES['picture']['name']){
