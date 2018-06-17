@@ -30,6 +30,9 @@
         .distance_top > *{
             vertical-align: middle;
         }
+        .mengban{
+            text-align: center;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -122,7 +125,7 @@
                             '<img src="'+item.pic+'">' +
                             '<p class="color3 fontsize3">'+item.type_name+'</p>' +
                             '<div class="mengban">' +
-                            '666人参与&nbsp;' +
+                            item.num + '人参与&nbsp;' +
                             '</div>' +
                             '</div>' +
                             '</div>')
