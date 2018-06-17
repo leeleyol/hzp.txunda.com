@@ -660,6 +660,15 @@ function returnSupplyImage($image){
         $imageUrl[0]['picture_id'] = $image;
     }
     return $imageUrl?$imageUrl:[];
+}
 
+function getMemberGoodsNum($m_id){
+    $goods_num = M('Goods')->where(['m_id'=>$m_id,'status'=>1])->count('id');
+    return $goods_num?$goods_num:"0";
+}
+
+function getMemberSupplyNum($m_id){
+    $goods_num = M('Supply')->where(['m_id'=>$m_id,'status'=>1])->count('id');
+    return $goods_num?$goods_num:"0";
 }
 

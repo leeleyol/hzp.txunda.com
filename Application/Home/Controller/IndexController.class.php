@@ -190,8 +190,8 @@ class IndexController extends BaseController{
         }
         foreach ($list as $k=>$v){
             $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
-            $list[$k]['goods_num'] = "0";
-            $list[$k]['need_num'] = "0";
+            $list[$k]['goods_num'] = getMemberGoodsNum($v['member_id']);
+            $list[$k]['need_num'] = getMemberSupplyNum($v['member_id']);
         }
         apiResponse('1','请求成功',$list);
 

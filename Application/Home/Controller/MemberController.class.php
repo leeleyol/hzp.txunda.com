@@ -356,8 +356,8 @@ class MemberController extends BaseController{
         }
         foreach ($list as $k=>$v){
             $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
-            $list[$k]['goods_num'] = "0";
-            $list[$k]['need_num'] = "0";
+            $list[$k]['goods_num'] = getMemberGoodsNum($v['member_id']);
+            $list[$k]['need_num'] = getMemberSupplyNum($v['member_id']);
         }
         apiResponse('1','请求成功',$list);
     }
@@ -377,8 +377,8 @@ class MemberController extends BaseController{
         check_param($param);//检查参数
         $info = M('Member')->where($where)->field('id as m_id,nickname,head_pic,attention_num,intro,type')->find();
         $info['head_pic_path'] = returnImage($info['head_pic']);
-        $info['goods_num'] = "0";
-        $info['need_num'] = "0";
+        $info['goods_num'] = getMemberGoodsNum($info['m_id']);;
+        $info['need_num'] = getMemberSupplyNum($info['m_id']);;
         if($m_id){
             $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['member_id'],'m_id'=>$m_id])->find()?1:0;
         }else{
