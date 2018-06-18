@@ -217,12 +217,11 @@
                 }
             });
         }
-
-
+        
         function supplyList(list) {
             var str = ""
             $(list).each(function (index, item) {
-                str += ' <div class="provide-item" col_id="'+item.col_id+'" supply_id="'+item.supply_id+'">' +
+                str += ' <div class="provide-item" supply_id="'+item.id+'" userId="'+item.m_id+'" type="'+item.type+'">' +
                     '                    <div class="section_top ">' +
                     '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
                     item.description +
@@ -397,6 +396,17 @@
             $(".header_left").click(function () {
                 history.go(-1)
             });
+
+            $(".provide-list").on("click",".provide-item", function () {
+                var supply_id = $(this).attr("supply_id");
+                var type = $(this).attr("type")
+                var userId = $(this).attr("userid")
+                if(type  == 1){
+                    window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId" + userId
+                }else {
+                    window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                }
+            })
             //帖子详情
             $(".tz-list").on("click",".tz-item",function () {
                 window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
