@@ -36,17 +36,26 @@ class MsgController extends BaseController{
         }
         $sys_msg_info = M('Msg')->where(array('type'=>2,'m_id'=>$m_id))->order('create_time desc')->find();
         if($sys_msg_info){
-            $result_data['order_msg_content'] = $sys_msg_info['order_msg_content'];
-            $result_data['order_msg_time'] = date('Y-m-d',$sys_msg_info['create_time']);
+            $result_data['post_msg_content'] = $sys_msg_info['sys_msg_title'];;
+            $result_data['post_msg_time'] = date('Y-m-d',$sys_msg_info['create_time']);
         }else{
-            $result_data['order_msg_content'] = '';
-            $result_data['order_msg_time'] = '';
+            $result_data['post_msg_content'] = '';
+            $result_data['post_msg_time'] = '';
         }
+        $chat = [];
+        $chat[0]['from_mid'] =2;
+        $chat[0]['from_m_type'] = "0";
+        $chat[0]['from_head_pic'] = "";
+        $chat[0]['create_time'] = "";
+        $chat[0]['nickname'] = "";
+        $chat[0]['content'] = "";
+        $chat[0]['is_read'] = "0";
+        $result_data['chat_list'] = $chat;
         apiResponse('1','请求成功',$result_data);
     }
 
     /**
-     * 系统消息列表
+     * 消息列表
      * 分页参数：p
      */
     public function systemMsgList(){
@@ -57,7 +66,14 @@ class MsgController extends BaseController{
             array('check_type'=>'is_null','parameter' =>$request['p'],'error_msg'=>'参数错误'),
         );
         check_param($param);//检查参数
-        $list = M('Msg')->where(array('type'=>1,'status'=>array('neq',9)))->order('create_time desc')
+        $where = [
+            'type'=>$request['type'],
+            'status'=>1
+        ];
+        if($request['type']==2){
+            $where['m_id'] = $m_id;
+        }
+        $list = M('Msg')->where($where)->order('create_time desc')
             ->field('id as sys_msg_id,sys_msg_title,sys_msg_content,create_time')
             ->page($request['p'].',15')
             ->select();
@@ -125,5 +141,16 @@ class MsgController extends BaseController{
             }
         }
         apiResponse('1','请求成功',$list);
+    }
+
+
+    function setAbsoluteUrl($content){
+        preg_match_all('/src=\"\/?(.*?)\"/',$content,$match);
+        foreach($match[1] as $key => $src){
+            if(!strpos($src,'://')){
+                $content = str_replace('/'.$src,C('API_URL')."/".$src."\" width=100%",$content);
+            }
+        }
+        return $content;
     }
 }
