@@ -271,7 +271,7 @@
         function supplyList(list) {
             var str = ""
             $(list).each(function (index, item) {
-                str += ' <div class="provide-item" supply_id="'+item.id+'">' +
+                str += ' <div class="provide-item" supply_id="'+item.id+'" type="'+item.type+'" userId="'+item.m_id+'">' +
                     '                    <div class="section_top ">' +
                     '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
                     item.description +
@@ -405,7 +405,13 @@
 
             $(".provide-list").on("click",".provide-item", function () {
                 var supply_id = $(this).attr("supply_id");
-                window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                var type = $(this).attr("type")
+                var userId = $(this).attr("userid")
+                if(type  == 1){
+                    window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId" + userId
+                }else {
+                    window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                }
             })
 
             $(".tz-list").on("click",".tz-item", function () {

@@ -648,7 +648,7 @@
             }else {
                 var list = res.data
                 $(list).each(function (index, item) {
-                    $(".gq-list").append(' <div class="provide-item" pb_id="'+item.id+'">' +
+                    $(".gq-list").append(' <div class="provide-item"  userId="'+item.m_id+'" type="'+item.type+'" pb_id="'+item.id+'">' +
                         '                    <div class="section_top ">' +
                         '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
                                                 item.description +
@@ -1025,7 +1025,13 @@
         //查看详情
         $(".gq-list").on("click",".reply-preview",function () {
             var pb_id = $(this).parents(".provide-item").attr("pb_id")
-            window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
+            var type = $(this).parents(".provide-item").attr("type")
+            var userId = $(this).parents(".provide-item").attr("userid")
+            if(type  == 1){
+                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + pb_id +"&userId" + userId
+            }else {
+                window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
+            }
         })
     }
 

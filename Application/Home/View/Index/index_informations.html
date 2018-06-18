@@ -12,6 +12,7 @@
     <script src="__ROOT__/Public/Home/js/network.js"></script>
     <script src="__ROOT__/Public/Home/js/util.js"></script>
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
     <style>
         #hear li:nth-of-type(1) {
             margin-left: 50px;
@@ -139,25 +140,36 @@
             background-repeat: no-repeat;
             background-position: left center;
         }
-
-        .reply-operate > p.reply-preview {
-            background-image: url("__ROOT__/Public/Home/img/eye.png");
+        .time input{
+            width: 100%;
+            background-color: transparent;
+        }
+        .ma_expect_date_picker > .weui-mask{
+            z-index: 5100;
         }
 
-        .reply-operate > p.reply-del {
-            background-image: url("__ROOT__/Public/Home/img/del.png");
+        .ma_expect_date_picker .weui-picker{
+            z-index: 5101;
         }
 
-        .reply-operate > p.reply-edit {
-            background-image: url("__ROOT__/Public/Home/img/write.png");
+        .ma_expect_date_picker1 > .weui-mask{
+            z-index: 5100;
         }
 
-        .reply-operate > p.reply-refresh {
-            background-image: url("__ROOT__/Public/Home/img/shuaxin.png");
+        .ma_expect_date_picker1 .weui-picker{
+            z-index: 5101;
         }
 
-
-
+        .zongheshaixuan_item1 {
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+        .zongheshaixuan_item2 {
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -182,7 +194,7 @@
 <ul id="contentop">
     <li class="action">
         <div class="zongheshaixuan">
-            <div class="zongheshaixuan_item">
+            <div class="zongheshaixuan_item1">
                 <font color="black">综合</font>
             </div>
             <div class="zongheshaixuan_item">
@@ -199,7 +211,7 @@
     <li>
         <!--求购信息-->
         <div class="zongheshaixuan">
-            <div class="zongheshaixuan_item">
+            <div class="zongheshaixuan_item2">
                 <font color="black">综合</font>
             </div>
             <div class="zongheshaixuan_item">
@@ -221,18 +233,18 @@
             <div class="inter-box2-cont  ">
                 <p class="fontsize2 color3 text-left paddingl_1 padding_tb">时间段搜索</p>
                 <div class="hezi">
-                    <a class="weui-cell weui-cell_access" href="index_informations_time.html">
+                    <a class="weui-cell weui-cell_access start-time time" >
                         <div class="weui-cell__bd">
-                            <p class="text-left fontsize3">设置开始搜索时间</p>
+                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置开始搜索时间"/>
                         </div>
                         <div class="weui-cell__ft">
                         </div>
                     </a>
                 </div>
                 <div class="hezi">
-                    <a class="weui-cell weui-cell_access" href="index_informations_time.html">
+                    <a class="weui-cell weui-cell_access end-time time">
                         <div class="weui-cell__bd">
-                            <p class="text-left fontsize3">设置结束搜索时间</p>
+                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置结束搜索时间"/>
                         </div>
                         <div class="weui-cell__ft">
                         </div>
@@ -240,7 +252,7 @@
                 </div>
                 <div class="fineLine"></div>
                 <div class="weui-cell weui-cell_switch text-left">
-                    <div class="weui-cell__bd color3 fontsize3">不显示匿名用户信息</div>
+                    <div class="weui-cell__bd color3 fontsize3">显示匿名用户信息</div>
                     <div class="weui-cell__ft">
                         <label for="switchCP" class="weui-switch-cp">
                             <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
@@ -250,10 +262,10 @@
                 </div>
             </div>
             <div class="tianjia">
-                <div class="tianjia1">
+                <div class="tianjia1 reset-time">
                     <label class="fontsize2  hidden inter-box2-cancel fontsize2 color6">重置</label>
                 </div>
-                <div class="tianjia2">
+                <div class="tianjia2 search">
                     <label class="inter-box2-cancel show fontsize2 color2">搜索</label>
                 </div>
             </div>
@@ -290,30 +302,140 @@
             pageIndex = index;
             $("#contentop > li").eq(index).css("display", "block").siblings().css("display", "none");
         });
-        <!--弹框1 start -->
+
+        $(".zongheshaixuan_item1").click(function () {
+            page0 = 0;
+            $(".g-list .provide-item").remove();
+            //供
+            getTZList(1)
+        });
+        $(".zongheshaixuan_item2").click(function () {
+            page1 = 0;
+            $(".q-list .provide-item").remove();
+            //供
+            getTZList(2)
+        });
+
+        $(".provide-list").on("click",".provide-item", function () {
+            var supply_id = $(this).attr("supply_id");
+            var type = $(this).attr("type")
+            var userId = $(this).attr("userid")
+            if(type  == 1){
+                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId" + userId
+            }else {
+                window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+            }
+        })
+
         $('.weui-mask').click(function () {
             var ref = $(this);
             var target = ref.parent('.Bomb-box');
             target.hide();
-        })
+        });
+
         $('.shaixuan').click(function () {
             $('.inter-box2').show();
+        });
+
+        $(".start-time").click(function () {
+            var dt = new Date();
+            var df= [dt.getFullYear(), (dt.getMonth() + 1), dt.getDate()];
+
+            var value=$.trim($(".start-time input").val());
+            if(value!="")
+            {
+                var arrays = value.split("-");
+                df= [parseInt(arrays[0]), parseInt(arrays[1]), parseInt(arrays[2])];
+            }
+
+            weui.datePicker({
+                id:(new Date()).valueOf(),
+                className: 'ma_expect_date_picker',
+                start: 2000,
+                end: dt.getFullYear()+20,
+                defaultValue:df,
+                onConfirm: function (result) {
+                    $(".start-time input").val(result[0].value + "-" + result[1].value + "-" + result[2].value)
+                }
+            });
         })
+
+        $(".end-time").click(function () {
+            var dt = new Date();
+            var df = [dt.getFullYear(), (dt.getMonth() + 1), dt.getDate()];
+
+            var value = $.trim($(".end-time input").val());
+            if (value != "") {
+                var arrays = value.split("-");
+                df = [parseInt(arrays[0]), parseInt(arrays[1]), parseInt(arrays[2])];
+            }
+
+            weui.datePicker({
+                id:(new Date()).valueOf(),
+                className: 'ma_expect_date_picker1',
+                start: 2000,
+                end: dt.getFullYear() + 2,
+                defaultValue: df,
+                onConfirm: function (result) {
+                    $(".end-time input").val(result[0].value + "-" + result[1].value + "-" + result[2].value)
+                }
+            });
+        })
+        //重置
+        $(".reset-time").click(function () {
+            $(".start-time input").val('')
+            $(".end-time input").val('')
+        })
+
+
+        var start_time1, end_time1, is_hidename1,
+            start_time2, end_time2, is_hidename2;
+        $(".search").click(function () {
+            if($(".end-time input").val() >= $(".start-time input").val() && ($(".end-time input").val() && $(".start-time input").val())){
+                var start_time = parseInt(new Date($(".start-time input").val()).getTime()) / 1000
+                var end_time = parseInt(new Date($(".end-time input").val()).getTime()) /1000
+
+
+                if(start_time == end_time && start_time && end_time){
+                    end_time += 86300
+                }
+
+                var is_hidename = $("#switchCP").prop("checked") ? "1":"2";
+                layderIndex = layer.open({type: 2});
+                if(pageIndex == 0){
+                    page0 = 0;
+                    $(".g-list .provide-item").remove();
+                    start_time1 = start_time; end_time1 = end_time; is_hidename1 = is_hidename
+                    getTZList(1, start_time, end_time, is_hidename)
+                }else {
+                    page1 = 0;
+                    $(".q-list .provide-item").remove();
+                    start_time2 = start_time; end_time2 = end_time; is_hidename2 = is_hidename
+                    getTZList(2, start_time, end_time, is_hidename)
+                }
+                $('.inter-box2').hide();
+            }else {
+                layer.open({
+                    content: "结束时间不能小于起始时间"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }
+        })
+
 
         //监听滑动到底部，然后加载分页
         handlerScrollBottom(function () {
             layderIndex = layer.open({type: 2});
-
             if(pageIndex == 0){
-                getTZList(1)
+                getTZList(1, start_time1, end_time1, is_hidename1)
             }else {
-                getTZList(2)
+                getTZList(2, start_time2, end_time2, is_hidename2)
             }
-
         })
     }
 
-    function getTZList(type) {
+    function getTZList(type, start_time, end_time, is_hidename) {
         var page ;
         if(type == 1){
             page0 += 1
@@ -323,9 +445,7 @@
             page = page1
         }
 
-
-
-        requestUrl("{:U('Home/Supply/memberSupplyList')}", {p: page,type}, function (res) {
+        requestUrl("{:U('Home/Supply/memberSupplyList')}", {p: page,type,start_time,end_time,is_hidename}, function (res) {
             layer.close(layderIndex)
             if (res.code == -1) {
                 localStorage.removeItem('m_id');
@@ -353,7 +473,7 @@
     function supplyList(list) {
         var str = ""
         $(list).each(function (index, item) {
-            str += ' <div class="provide-item" col_id="' + item.col_id + '" supply_id="' + item.supply_id + '">' +
+            str += ' <div class="provide-item" supply_id="' + item.id + '" type="'+item.type+'" userId="'+item.m_id+'">' +
                 '                    <div class="section_top ">' +
                 '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
                 item.description +
@@ -369,12 +489,12 @@
                 '                    </div>' +
                 '                    <div class="paddingl_2 reply-operate">' +
                 '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
-                '                        <label class="fontsize11"> ' + item.nickname + '</label>' +
+                '                        <label class="fontsize11"> ' + (item.is_hidename == 1 ? "匿名" : item.nickname) + '</label>' +
                 '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
                 '                    </div>' +
                 '<div class="check-box"></div>' +
                 '                </div>'
-        })
+        });
         return str
     }
 
