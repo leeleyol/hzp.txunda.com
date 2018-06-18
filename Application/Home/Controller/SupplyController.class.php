@@ -198,6 +198,19 @@ class SupplyController extends BaseController{
         if($request['type']){
             $where['s.type'] = $request['type'];
         }
+        if($request['start_time']){
+            $where['s.create_time'] = ['egt',$request['start_time']];
+        }
+        if($request['end_time']){
+            $where['s.create_time'] = ['elt',$request['end_time']];
+        }
+        if($request['start_time'] && $request['end_time']){
+            $where['s.create_time'] = [['egt',$request['start_time']],['elt',$request['end_time']],'AND'];
+        }
+
+        if($request['is_hidename']){
+            $where['s.is_hidename'] = ['elt',$request['is_hidename']];
+        }
         $where['s.status'] = 1;
         $list = D('Supply')->getList($where,$_POST['p']);
         foreach ($list as $k=>$v){
