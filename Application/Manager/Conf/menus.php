@@ -43,6 +43,11 @@
                 )
             ),
             array(
+                'group' => array('title'=>'消息管理','icon'=>'fa fa-sliders','class'=>'','url'=>'Msg/index','is_developer'=>0),
+                '_child' => array(
+                )
+            ),
+            array(
                 'group' => array('title'=>'信息管理','icon'=>'fa fa-bars','class'=>'','url'=>'javascript:void(0);','is_developer'=>0),
                 '_child' => array(
                     array('title'=>'短信模板设置','url'=>'SendTemplate/index','class'=>'','is_developer'=>0),
