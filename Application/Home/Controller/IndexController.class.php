@@ -95,6 +95,19 @@ class IndexController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['keyword'],'condition'=>'','error_msg'=>'关键字参数错误'),
         );
         check_param($param);//检查参数
+        if($request['start_time']){
+            $where['s.create_time'] = ['egt',$request['start_time']];
+        }
+        if($request['end_time']){
+            $where['s.create_time'] = ['elt',$request['end_time']];
+        }
+        if($request['start_time'] && $request['end_time']){
+            $where['s.create_time'] = [['egt',$request['start_time']],['elt',$request['end_time']],'AND'];
+        }
+
+        if($request['is_hidename']){
+            $where['s.is_hidename'] = ['elt',$request['is_hidename']];
+        }
         $where['s.description'] = ['like','%'.$request['keyword'].'%'];
         $where['s.status'] = 1;
         $supply_list = D('Supply')->getList($where,$request['p']);
