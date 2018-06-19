@@ -92,7 +92,6 @@ class ChatController extends BaseController{
      * 传递参数的方式：post
      * 需要传递的参数：
      * m_id 用户id
-     * post_id 帖子id
      * */
     public function chatInfo(){
         $m_id = $this->member_obj->checkToken();
@@ -100,9 +99,10 @@ class ChatController extends BaseController{
         empty($_POST['chat_id'])&&apiResponse('0','聊天id不能为空');
         $where['id'] = $_POST['chat_id'];
         $info = M('Chat')->where($where)->find();
+        $buy_info = [];
         if($info['type']==2){
-            $buy_info = M('Buy')->where(['id'=>$info['buy_id']])->getField('buy_info');
-            $buy_info_after = json_decode($buy_info,true);
+            $buy_info = M('Buy')->where(['id'=>$info['buy_id']])->field('buy_info,status')->find();
+            $buy_info_after = json_decode($buy_info['buy_info'],true);
             $index = [];
             foreach ($buy_info_after as $k=>$v){
                 $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
@@ -114,10 +114,11 @@ class ChatController extends BaseController{
                 $index[$k]['stock_unit'] = $goods_info['stock_unit'];
                 $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
                 $index[$k]['goods_status'] = $goods_info['goods_status'];
-                $index[$k]['goods_price'] = $v['goods_price'];
+                $index[$k]['buy_price'] = $v['buy_price'];
             }
             $info['content'] = $index;
         }
+        $info['buy_status'] = $buy_info?$buy_info['status']:"0";
         apiResponse('1','成功',$info);
 
     }
@@ -143,6 +144,47 @@ class ChatController extends BaseController{
         apiResponse('1','成功',$result);
     }
 
+
+
+    /*
+     *
+     * 更新报价单
+     * */
+    public function checkBuy(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['chat_id'],'condition'=>'','error_msg'=>'留言id参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['status'],'condition'=>'','error_msg'=>'审核状态参数错误'),
+        );
+        check_param($param);//检查参数
+        $where['id'] = $_POST['chat_id'];
+        $info = M('Chat')->where($where)->find();
+        $chat_data = [
+            'm_id'=>$m_id,
+            'from_mid'=>$info['m_id'],
+            'content'=>$request['status']==1?"已同意报价":"已拒绝报价",
+            'create_time'=>time(),
+            'remark'=>$request['status']==1?"已同意报价":"已拒绝报价",
+            'buy_id'=>$info['buy_id'],
+            'type'=>2
+        ];
+        $res = M('Chat')->data($chat_data)->add();
+        if($res){
+            $member_info = M('MemberInfo')->where(['id'=>$m_id])->field('company_address,phone')->find();
+            if($request['status']==1){
+                $save_data = ['address'=>$member_info['address'],'mobile'=>$member_info['phone']];
+            }
+            $save_data['status'] = $request['status'];
+            M('Buy')->where(['id'=>$info['buy_id']])->data($save_data)->save();
+            apiResponse('1','审核成功');
+        }else{
+            apiResponse('0','审核失败');
+        }
+    }
+
+    
 
 
 

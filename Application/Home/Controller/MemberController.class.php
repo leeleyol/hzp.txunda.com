@@ -416,4 +416,37 @@ class MemberController extends BaseController{
             apiResponse('0','修改个人资料失败');
         }
     }
+
+
+
+    /*
+     * 我的进货记录
+     *
+     * */
+    public function myBuy(){
+        $m_id = $this->member_obj->checkToken();
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'参数错误'),
+        );
+        $where['b.m_id'] = $m_id;
+        check_param($param);//检查参数
+        $list = M('Buy')->alias('b')
+            ->join('db_member m on m.id=b.from_mid')
+            ->where($where)
+            ->field('b.*,m.nickname,m.head_pic')
+            ->order('create_time desc')
+            ->page($request['p'].',10')
+            ->select();
+        if(empty($list)){
+            $message =$request['p']==1?'暂无记录':'无更多记录';
+            apiResponse('0',$message);
+        }
+        foreach ($list as $k=>$v){
+            $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
+            $info = json_decode($v['content'],true);
+            $list[$k]['goods_num'] = $info?count($info):"0";
+        }
+        apiResponse('1','请求成功',$list);
+    }
 }
