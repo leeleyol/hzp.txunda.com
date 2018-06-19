@@ -408,11 +408,11 @@ i{
      color:#666666;
 
  }
-.welcome p{
+.welcome > div{
     color: #666666;
     font-size: 15px;
     line-height: 1.5em;
-    padding: 10px 15px;
+    margin: 10px 15px;
 }
 
 .welcome .system_weibu img{
