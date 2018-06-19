@@ -49,11 +49,6 @@ class ChatController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['content'],'condition'=>'','error_msg'=>'内容参数错误'),
             array('check_type'=>'is_null','parameter' => $request['from_mid'],'condition'=>'','error_msg'=>'对话用户id参数错误'),
         );
-        $member_info = [];
-        if($request['type']==2){
-            #如果是报价类型
-            $member_info = M('MemberInfo')->where(['id'=>$request['from_mid']])->field('company_address,mobile')->find();
-        }
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
         $data = [
@@ -61,7 +56,7 @@ class ChatController extends BaseController{
             'type'=>$request['type'],
             'content'=>$request['type']==1?$_POST['content']:'报价单',
             'create_time'=>time(),
-            'from_id'=>$request['from_id']
+            'from_mid'=>$request['from_mid']
         ];
         $res = M('Chat')->data($data)->add();
         if($res){
@@ -72,7 +67,7 @@ class ChatController extends BaseController{
                     'buy_info'=>$_POST['content'],
                     'create_time'=>time(),
                     'supply_id'=>$request['supply_id'] ? $request['supply_id'] :0,
-                    'from_id'=>$request['from_id'],
+                    'from_mid'=>$request['from_mid'],
                 ];
                 $res1 = M('Buy')->data($data1)->add();
                 M('Chat')->where(['id'=>$res])->data(['buy_id'=>$res1])->save();
@@ -115,6 +110,7 @@ class ChatController extends BaseController{
                 $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
                 $index[$k]['goods_status'] = $goods_info['goods_status'];
                 $index[$k]['buy_price'] = $v['buy_price'];
+                $index[$k]['number'] = $v['number'];
             }
             $info['content'] = $index;
         }
@@ -177,6 +173,7 @@ class ChatController extends BaseController{
                 $save_data = ['address'=>$member_info['address'],'mobile'=>$member_info['phone']];
             }
             $save_data['status'] = $request['status'];
+            $save_data['update_time'] = time();
             M('Buy')->where(['id'=>$info['buy_id']])->data($save_data)->save();
             apiResponse('1','审核成功');
         }else{

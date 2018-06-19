@@ -430,11 +430,12 @@ class MemberController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'参数错误'),
         );
         $where['b.m_id'] = $m_id;
+        $where['b.status'] = 1;
         check_param($param);//检查参数
         $list = M('Buy')->alias('b')
             ->join('db_member m on m.id=b.from_mid')
             ->where($where)
-            ->field('b.*,m.nickname,m.head_pic')
+            ->field('b.*,m.nickname,m.head_pic,type member_type')
             ->order('create_time desc')
             ->page($request['p'].',10')
             ->select();
@@ -444,9 +445,41 @@ class MemberController extends BaseController{
         }
         foreach ($list as $k=>$v){
             $list[$k]['head_pic_path'] = returnImage($v['head_pic']);
-            $info = json_decode($v['content'],true);
+            $info = json_decode($v['buy_info'],true);
             $list[$k]['goods_num'] = $info?count($info):"0";
         }
         apiResponse('1','请求成功',$list);
+    }
+
+
+    /*
+     * 报价详情
+     *
+     * */
+    public function buyInfo(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['buy_id'],'condition'=>'','error_msg'=>'报价id参数错误'),
+        );
+        check_param($param);//检查参数
+        $buy_info = M('Buy')->where(['id'=>$request['buy_id']])->find();
+        $buy_info_after = json_decode($buy_info['buy_info'],true);
+        $index = [];
+        foreach ($buy_info_after as $k=>$v){
+            $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+            $index[$k]['goods_id'] = $v['goods_id'];
+            $index[$k]['goods_type_name'] = $goods_info['type_name'];
+            $index[$k]['goods_type_id'] = $goods_info['goods_type_id'];
+            $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+            $index[$k]['goods_status'] = $goods_info['goods_status'];
+            $index[$k]['buy_price'] = $v['buy_price'];
+            $index[$k]['number'] = $v['number'];
+        }
+        $buy_info['buy_info'] = $index;
+        $result['buy'] = $buy_info;
+        $result['from_member'] = getMemberInfo($buy_info['from_mid']);
+        apiResponse('1','成功',$result);
     }
 }
