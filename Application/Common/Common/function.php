@@ -672,3 +672,10 @@ function getMemberSupplyNum($m_id){
     return $goods_num?$goods_num:"0";
 }
 
+
+function getMemberInfo($m_id){
+    $member_info = M('Member')->where(['id'=>$m_id])->field('nickname,head_pic,type')->find();
+    $member_info['head_pic_path'] = returnImage($member_info['head_pic']);
+    return $member_info?$member_info:[];
+}
+

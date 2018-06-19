@@ -78,4 +78,6 @@ class MemberModel extends Model{
             apiResponse('-1','登录失效，请重新登录');
         }
     }
+
+    
 }

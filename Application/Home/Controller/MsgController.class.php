@@ -43,13 +43,17 @@ class MsgController extends BaseController{
             $result_data['post_msg_time'] = '';
         }
         $chat = [];
-        $chat[0]['from_mid'] =2;
+        /*$chat[0]['from_mid'] =2;
         $chat[0]['from_m_type'] = "0";
         $chat[0]['from_head_pic'] = "";
         $chat[0]['create_time'] = "";
         $chat[0]['nickname'] = "";
         $chat[0]['content'] = "";
-        $chat[0]['is_read'] = "0";
+        $chat[0]['is_read'] = "0";*/
+        $chat = M('Chat')->alias('c')->join('db_member m on m.id=c.from_mid','LEFT')->where(['c.m_id'=>$m_id])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('from_mid')->select();
+        foreach ($chat as $k=>$v){
+            $chat[$k]['from_head_pic'] = returnImage($v['head_pic']);
+        }
         $result_data['chat_list'] = $chat;
         apiResponse('1','请求成功',$result_data);
     }
