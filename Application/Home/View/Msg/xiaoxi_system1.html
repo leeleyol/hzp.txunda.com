@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>详情</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        .welcome p{
+            padding: 10px 0px 0px 0px;
+        }
+    </style>
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            详情
+        </div>
+        <div class="header_right"></div>
+    </header>
+
+   <div class="welcome headtop coarseLline paddingl_1 paddingr_1 padding_tb content-box">
+       <img src="__ROOT__/Public/Home/img/xcjs.png"/>
+       <p>尊敬的用户：感谢您对我们的信任与支持！在新的一年里，我们
+           会更加努力，让您买的放心，赚的舒心，用的安心。让您买的放
+           心，赚的舒心，用的安心。
+       </p>
+   </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        getParam()
+        getDetail()
+        bindHandler()
+    })
+
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    }
+
+    function getDetail() {
+        requestUrl("{:U('Home/Msg/systemMsgInfo')}",{sys_msg_id:sys_msg_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var DATA = res.data;
+                $(".content-box").html(DATA.sys_msg_content)
+            }
+        });
+    }
+    var sys_msg_id;
+    function getParam() {
+        sys_msg_id = getUrlParam("sys_msg_id")
+    }
+</script>

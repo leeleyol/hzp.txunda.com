@@ -1,26 +1,46 @@
-<extend name="Public/base" />
-<block name="style">
-    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
-    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
-</block>
-<block name="main">
-    <!--头部-->
-    <header >
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>消息中心</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
+<style>
+    .ab{
+        position: absolute;
+    }
+    .vip{
+        position: relative;
+        top: 24px;
+        left: 14px;
+        width: 27px;
+        height: 27px;
+    }
+    .dot{
+        position: relative;
+        top: -10px;
+        left: 6px;
+    }
+</style>
+</head>
+<body>
+<!--头部-->
+    <header class="head">
         <div class="header_left">
-            <a href="javascript:history.go(-1);"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a href="index.html"><img src="img/b_back.png" /></a>
         </div>
-        <div class="header_middle" style="color: black">
+        <div class="header_middle"  >
             消息中心
         </div>
         <div class="header_right"></div>
     </header>
-    <div class="coarseLline"></div>
-
+    <div class="headtop coarseLline"></div>
     <!--消息列表-->
-    <a href="index_xiaoxi_system.html">
+    <a href="xiaoxi_system.html">
         <div class="system">
             <div class="system_left">
-                <img src="__ROOT__/Public/Home/img/system.png"  />
+                <img src="img/system.png" class="icon_stytem ab">
             </div>
             <div class="system_right">
                 <font>系统通知<span>2017-04-08</span></font>
@@ -31,7 +51,7 @@
 
     <div class="system">
         <div class="system_left">
-            <img src="__ROOT__/Public/Home/img/quanzi.png"  />
+            <img src="img/quanzi.png" class="icon_stytem ab">
         </div>
         <div class="system_right">
             <font>圈子信息<span>2017-04-08</span></font>
@@ -43,7 +63,9 @@
 
     <div class="system">
         <div class="system_left">
-            <img src="__ROOT__/Public/Home/img/system.png"  />
+            <img src="img/name.png" class="icon_stytem ab">
+            <img src="img/VIP.png" class="vip">
+            <img src="img/dot.png" class="dot icon_dot" >
         </div>
         <div class="system_right">
             <font>UII UII GAMES<span>2017-04-08</span></font>
@@ -51,23 +73,25 @@
         </div>
     </div>
 
-    <div class="system">
+   <div class="system">
         <div class="system_left">
-            <img src="__ROOT__/Public/Home/img/system.png"  />
+            <img src="img/system.png" class="icon_stytem ab">
         </div>
         <div class="system_right">
             <font>飞机笔<span>2017-04-08</span></font>
             <p>600</p>
         </div>
-    </div>
+   </div>
 
     <div class="system">
         <div class="system_left">
-            <img src="__ROOT__/Public/Home/img/system.png"  />
+            <img src="img/system.png" class="icon_stytem ab">
         </div>
         <div class="system_right">
             <font>资深顾问 王大锤<span>2017-04-08</span></font>
             <p>你到底买不买 不买我就卖别人了</p>
         </div>
     </div>
-</block>
+
+</body>
+</html>
