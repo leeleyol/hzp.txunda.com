@@ -135,7 +135,7 @@ class ChatController extends BaseController{
         $result['self'] = getMemberInfo($m_id);
         $result['from_member'] = getMemberInfo($request['from_mid']);
         $where['_string'] = '(m_id = '.$m_id.' AND from_mid='.$request['from_mid'].') OR ( m_id = '.$request['from_mid'].' AND from_mid = '.$m_id.')';
-        $list = M('Chat')->where($where)->page($request['p'].',15')->order('create_time asc')->select();
+        $list = M('Chat')->where($where)->page($request['p'].',15')->order('create_time desc')->select();
         $result['list'] = $list;
         apiResponse('1','成功',$result);
     }
