@@ -44,6 +44,11 @@
         button.reply{
             background-color: #ffcb3e
         }
+
+        .disable-color{
+            pointer-events: none;
+            background-color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +89,7 @@
             <img src="__ROOT__/Public/Home/img/shoucang0.png" class="is_collect icon_del">
             <p class="fontsize5">收藏</p>
         </div>
-        <button class="color2 bc5 fontsize3 button ">对他留言</button>
+        <button class="color2 bc5 fontsize3 button chat">对他留言</button>
     </div>
 </body>
 </html>
@@ -96,6 +101,7 @@
     })
 
     var pb_id = getUrlParam("pb_id");
+    var member_id;
     function getDetail() {
         requestUrl("{:U('Home/Supply/supplyInfo')}",{id:pb_id},function(res){
             if(res.code == -1){
@@ -109,6 +115,12 @@
                 });
             }else {
                 var detail = res.data;
+                member_id = res.data.m_id;
+
+                if(member_id == m_id){
+                    $(".chat").addClass("disable-color")
+                }
+
                 if(detail.type == 1){
                     $(".description button").text("供")
                 }else {
@@ -165,6 +177,10 @@
             }else {
                 delCollect()
             }
+        })
+
+        $(".chat").click(function () {
+            window.location.href = "{:U('Index/index_VIPbussiness_good7')}&from_mid=" + member_id
         })
     }
     function addCollect() {

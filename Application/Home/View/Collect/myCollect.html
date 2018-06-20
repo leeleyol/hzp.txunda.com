@@ -270,7 +270,7 @@
         function supplyList(list) {
             var str = ""
             $(list).each(function (index, item) {
-                str += ' <div class="provide-item" col_id="' + item.col_id + '" supply_id="' + item.supply_id + '">' +
+                str += ' <div class="provide-item" col_id="' + item.col_id + '" supply_id="' + item.supply_id + '" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
                     '                    <div class="section_top ">' +
                     '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
                     item.description +
@@ -410,7 +410,6 @@
                 reset()
             });
 
-
             //编辑\完成
             $("#operate").click(function () {
                 if (pageIndex == 0) {
@@ -438,15 +437,42 @@
                 }
             });
 
-
             //操作单个选项
             $(".buss-list").on("click", ".provide-item", function () {
                 if (editing) {
                     $(this).find(".check-box").toggleClass("checked");
                     countChecked()
                 } else {
-                    var pb_id = $(this).attr("supply_id")
-                    window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
+                    var supply_id = $(this).attr("supply_id");
+                    var type = $(this).attr("type")
+                    var userId = $(this).attr("userid")
+                    var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+                    var typeName = []
+                    var goods_list = []
+                    $(supply_info).each(function (index, item) {
+                        if(typeName.indexOf(item.goods_type_name) == -1){
+                            typeName.push(item.goods_type_name)
+                        }
+                    });
+                    $(typeName).each(function (index, item) {
+                        var type_item = {
+                            type_name:item,
+                            goods_list:[]
+                        }
+                        goods_list.push(type_item)
+                    })
+                    $(supply_info).each(function (index, item) {
+                        $(goods_list).each(function (index, item1) {
+                            if(item1.type_name == item.goods_type_name){
+                                item1.goods_list.push(item)
+                            }
+                        })
+                    })
+                    if(type  == 1){
+                        window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
+                    }else {
+                        window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                    }
                 }
             });
 

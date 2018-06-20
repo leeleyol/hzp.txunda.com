@@ -309,6 +309,7 @@
             //供
             getTZList(1)
         });
+
         $(".zongheshaixuan_item2").click(function () {
             page1 = 0;
             $(".q-list .provide-item").remove();
@@ -320,8 +321,30 @@
             var supply_id = $(this).attr("supply_id");
             var type = $(this).attr("type")
             var userId = $(this).attr("userid")
+            var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+            var typeName = []
+            var goods_list = []
+            $(supply_info).each(function (index, item) {
+                if(typeName.indexOf(item.goods_type_name) == -1){
+                    typeName.push(item.goods_type_name)
+                }
+            });
+            $(typeName).each(function (index, item) {
+                var type_item = {
+                    type_name:item,
+                    goods_list:[]
+                }
+                goods_list.push(type_item)
+            })
+            $(supply_info).each(function (index, item) {
+                $(goods_list).each(function (index, item1) {
+                    if(item1.type_name == item.goods_type_name){
+                        item1.goods_list.push(item)
+                    }
+                })
+            })
             if(type  == 1){
-                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId" + userId
+                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
             }else {
                 window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
             }
@@ -473,7 +496,7 @@
     function supplyList(list) {
         var str = ""
         $(list).each(function (index, item) {
-            str += ' <div class="provide-item" supply_id="' + item.id + '" type="'+item.type+'" userId="'+item.m_id+'">' +
+            str += ' <div class="provide-item" supply_id="' + item.id + '" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
                 '                    <div class="section_top ">' +
                 '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
                 item.description +

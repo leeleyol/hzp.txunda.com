@@ -1028,7 +1028,7 @@
             var type = $(this).parents(".provide-item").attr("type")
             var userId = $(this).parents(".provide-item").attr("userid")
             if(type  == 1){
-                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + pb_id +"&userId" + userId
+                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + pb_id +"&userId=" + userId
             }else {
                 window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
             }
