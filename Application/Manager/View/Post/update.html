@@ -1,0 +1,120 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab1">帖子详情</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal" method="post" action="{:U('Post/update')}" id="form">
+                        <input type="hidden" name="model" value="Post">
+                        <input type="hidden" name="id" value="{$row['id']}" class = 'id'>
+
+                        <div class="control-group">
+                            <label class="control-label">发布人</label>
+                            <div class="controls">
+                                <input type="text" name="account" value="{$row['account']}"  disabled>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">帖子分类</label>
+                            <div class="controls">
+                                <select name="type_id">
+                                    <volist name="post_type" id="vo">
+                                        <option value="{$vo['id']}" <if condition="$row['type_id'] eq $vo['id']">selected</if>>{$vo['name']}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">标题</label>
+                            <div class="controls">
+                                <input type="text" name="title" value="{$row['title']}"  >
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">图片</label>
+                            <div class="controls">
+                                {:hook('upload',array('is_first'=>1,'queue_limit'=>50,'unique_sign'=>'pic','field_name'=>'pic','field_value'=>$row['pic'],'save_path'=>'Post'))}
+                                <span class="help-block">图片长600px，宽300px</span>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="control-group">
+                            <label class="control-label">早餐简介</label>
+                            <div class="controls">
+                                <textarea name="bre_brief" id="" style="width: 60%;">{$row['bre_brief']}</textarea>
+                            </div>
+                        </div>-->
+                        <div class="control-group">
+                            <label class="control-label">帖子内容</label>
+                            <div class="controls">
+                                <textarea name="content">{$row['content']}</textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">打赏人数</label>
+                            <div class="controls">
+                                <input type="text" name="send_num" value="{$row['send_num']}"  disabled>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">是否置顶</label>
+                            <div class="controls">
+                                <label class="radio">
+                                    <input type="radio" name="is_top" value="0" <eq name="row['is_top']" value="0">checked</eq>>不置顶
+                                </label>&nbsp;&nbsp;&nbsp;
+                                <label class="radio">
+                                    <input type="radio" name="is_top" value="1" <eq name="row['is_top']" value="1">checked</eq>>置顶
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">是否设置精华</label>
+                            <div class="controls">
+                                <label class="radio">
+                                    <input type="radio" name="is_recommend" value="0" <eq name="row['is_recommend']" value="0">checked</eq>>不设置
+                                </label>&nbsp;&nbsp;&nbsp;
+                                <label class="radio">
+                                    <input type="radio" name="is_recommend" value="1" <eq name="row['is_recommend']" value="1">checked</eq>>设置
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">发布时间</label>
+                            <div class="controls">
+                                <input type="text" name="create_time"  class="form_date_time_picker" value="{$row['create_time']|date='Y-m-d H:i:s',###}"  >
+                            </div>
+                        </div>
+
+                        <if condition="$row['view']">
+                            <div class="control-group">
+                                <label class="control-label">浏览数</label>
+                                <div class="controls">
+                                    <input type="text" name="view" value="{$row['view']}"   disabled="disabled">
+                                </div>
+                            </div>
+                        </if>
+                        <div class="form-actions">
+                            <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>
+                                <button class="btn btn-info ajax-post no-refresh" type="submit" id="submit" target-form="form-horizontal">保 存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <block name="script">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".control-group1").hide();
+            });
+        </script>
+    </block>
+</block>
