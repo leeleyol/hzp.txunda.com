@@ -136,6 +136,13 @@ class ChatController extends BaseController{
         $result['from_member'] = getMemberInfo($request['from_mid']);
         $where['_string'] = '(m_id = '.$m_id.' AND from_mid='.$request['from_mid'].') OR ( m_id = '.$request['from_mid'].' AND from_mid = '.$m_id.')';
         $list = M('Chat')->where($where)->page($request['p'].',15')->order('create_time desc')->select();
+        foreach ($list as $k=>$v){
+            if($v['buy_id']){
+                $list[$k]['buy_status'] = M('Buy')->where(['id'=>$v['buy_id']])->getField('status');
+            }else{
+                $list[$k]['buy_status'] = "0";
+            }
+        }
         $result['list'] = $list;
         apiResponse('1','成功',$result);
     }
