@@ -96,13 +96,13 @@ class AdministratorLogic extends BaseLogic {
         if(empty($request['password'])) {
             $this->setLogicError('请输入登录密码！'); return false;
         }
-        if(empty($request['verify'])) {
+        /*if(empty($request['verify'])) {
             $this->setLogicError('请输入验证码！'); return false;
         }
         //检测验证码
         if(!check_verify($request['verify'])){
             $this->setLogicError('验证码输入错误！'); return false;
-        }
+        }*/
 
         $param['where']['admin.account'] = $request['account'];
         $param['where']['admin.password'] = MD5($request['password']);

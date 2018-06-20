@@ -20,6 +20,19 @@
                 '_child' => array(
                 )
             ),
+
+            array(
+                'group' => array('title'=>'供求管理','icon'=>'fa fa-bullhorn','class'=>'','url'=>'Supply/index','is_developer'=>0),
+                '_child' => array(
+                )
+            ),
+            array(
+                'group' => array('title'=>'帖子管理','icon'=>'fa fa-bullhorn','class'=>'','url'=>'Post/index','is_developer'=>0),
+                '_child' => array(
+                    array('title'=>'帖子分类','url'=>'PostType/index','class'=>'','is_developer'=>0),
+                    array('title'=>'帖子列表','url'=>'Post/index','class'=>'','is_developer'=>0),
+                )
+            ),
             array(
                 'group' => array('title'=>'商品管理','icon'=>'fa fa-navicon','class'=>'','url'=>'javascript:void(0);','is_developer'=>0),
                 '_child' => array(
