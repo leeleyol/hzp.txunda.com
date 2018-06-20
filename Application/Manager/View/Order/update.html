@@ -1,0 +1,131 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th colspan="4" style="text-align: center">商品详情</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <tr>
+                                <th width="25%">商品名称</th>
+                                <th>属性</th>
+                                <th>货号</th>
+                                <th>商品单价</th>
+                                <th>购买数量</th>
+                                <th>合计</th>
+                            </tr>
+                            <volist name="row['goods_list']" id="goods">
+                                <tr>
+                                    <td><a href="{:U('Goods/update',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></td>
+                                    <td>{$goods['goods_attr_name_str']}</td>
+                                    <td>{$goods['goods_sn']}</td>
+                                    <td>{$goods['goods_price']} 元</td>
+                                    <td>{$goods['number']}</td>
+                                    <td><?php echo $goods['goods_price']*$goods['number'];?>元</td>
+                                </tr>
+                            </volist>
+                            <eq name="row['type']" value="1">
+                                <tr>
+                                    <td style="color: red">商品总价：{$row['goods_price']}元</td>
+                                    <td style="color: red">优惠：红包：{$row['red_bag_value']}元&nbsp;&nbsp;优惠券金额：{$row['coupon_value']}元</td>
+                                    <td style="color: red">运费：{$row['delivery_fee']}</td>
+                                    <td style="color: red">订单总价：{$row['order_price']}元</td>
+                                    <td></td>
+                                </tr>
+                            </eq>
+                            <eq name="row['type']" value="2">
+                                <tr>
+                                    <td style="color: red">团购ID：{$row['from_id']}</td>
+                                    <td style="color: red">团购价格{$row['goods_price']}元</td>
+                                    <td style="color: red">运费：{$row['delivery_fee']}</td>
+                                    <td style="color: red">订单总价：{$row['order_price']}元</td>
+                                    <td></td>
+                                </tr>
+                            </eq>
+                            <eq name="row['type']" value="3">
+                                <tr>
+                                    <td style="color: red">优惠组合ID：{$row['from_id']}元</td>
+                                    <td style="color: red">优惠组合价格{$row['goods_price']}元</td>
+                                    <td style="color: red">运费：{$row['delivery_fee']}</td>
+                                    <td style="color: red">订单总价：{$row['order_price']}元</td>
+                                    <td></td>
+                                </tr>
+                            </eq>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="widget-box">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th colspan="4" style="text-align: center">物流信息</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <tr>
+                                <td style="width: 33%;">收货人姓名：{$row['name']}</td>
+                                <td style="width: 33%;">手机号：{$row['phone']}</td>
+                                <td style="width: 33%;">收货地址：{$row['address']}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 33%;">物流公司：{$row['delivery_compay_name']}</td>
+                                <td style="width: 33%;">物流编号：{$row['delivery_sn']}</td>
+                                <td style="width: 33%;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th colspan="4" style="text-align: center">订单信息</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    <tr>
+                        <td style="width: 33%;">订单id：{$row['id']}</td>
+                        <td style="width: 33%;">订单编号：{$row['order_sn']}</td>
+                        <td style="width: 33%;">下单时间：{$row['create_time']|date='Y-m-d',###}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 33%;">支付方式：
+                            <eq name="row['pay_type']" value="0">待支付</eq>
+                            <eq name="row['pay_type']" value="1">支付宝</eq>
+                            <eq name="row['pay_type']" value="2">微信</eq>
+                        </td>
+                        <td style="width: 33%;">订单状态：
+                            <eq name="row['status']" value="0">待付款</eq>
+                            <eq name="row['status']" value="1">待发货</eq>
+                            <eq name="row['status']" value="2">待收货</eq>
+                            <eq name="row['status']" value="3">待评价</eq>
+                            <eq name="row['status']" value="4">已完成</eq>
+                            <eq name="row['status']" value="5">已取消</eq>
+                            <eq name="row['status']" value="6">后台审核</eq>
+                        </td>
+                        <td style="width: 33%;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-actions">
+                    <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>　
+                    <a href="{:U('Order/printOrder',array('id'=>$row['id']))}" target="_blank" class="btn">打印</a>　
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>

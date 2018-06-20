@@ -1,0 +1,167 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+
+                <div class="widget-title widget-title-search">
+                    <button class="btn btn-danger confirm ajax-post" url="{:U('Order/delete',array('model'=>'Order','status'=>9))}" target-form="ids">删 除</button>&nbsp;
+                </div>
+                <!--// search start-->
+                <div class="search-main">
+                    <form action="{:U('Order/index',array('type'=>$_GET['type']))}" method="post" class="form">
+                        <div class="search-frame-main">
+                            <input class="search-frame" type="text" name="order_sn" value="{$_REQUEST['order_sn']}" placeholder="订单编号">
+                            <input class="search-frame form_date_picker" type="text" name="start_time" value="{$_REQUEST['start_time']}" placeholder="开始时间">
+                            <input class="search-frame form_date_picker" type="text" name="end_time" value="{$_REQUEST['end_time']}" placeholder="截止时间">
+                            <input type="hidden"/>
+                        </div>
+
+                        <div class="search-btn">
+                            <button class="btn btn-inverse" style="margin:4px 10px;">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <!--// search end-->
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/></th>
+                            <th>ID</th>
+                            <th>订单编号</th>
+                            <th>下单时间</th>
+                            <th>收货人</th>
+                            <th>商品金额</th>
+                            <th>运费</th>
+                            <th>红包</th>
+                            <th>优惠券</th>
+                            <th>订单金额</th>
+                            <th>支付方式</th>
+                            <th>订单状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>{$row['order_sn']}</td>
+                                <td>{$row['create_time']|date='Y-m-d H:i',###}</td>
+                                <td>{$row['name']}</td>
+                                <td>{$row['goods_price']}</td>
+                                <td>{$row['delivery_fee']}</td>
+                                <td>{$row['red_bag_value']}</td>
+                                <td>{$row['coupon_value']}</td>
+                                <td>{$row['order_price']}</td>
+                                <td>
+                                    <eq name="row['pay_type']" value="0">未支付</eq>
+                                    <eq name="row['pay_type']" value="1">支付宝</eq>
+                                    <eq name="row['pay_type']" value="2">微信</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['status']" value="0">待付款</eq>
+                                    <eq name="row['status']" value="1"><span style="color: red;">待发货</span></eq>
+                                    <eq name="row['status']" value="2">待收货</eq>
+                                    <eq name="row['status']" value="3">待评价</eq>
+                                    <eq name="row['status']" value="4">已完成</eq>
+                                    <eq name="row['status']" value="5">已取消</eq>
+                                    <eq name="row['status']" value="6">后台审核</eq>
+                                </td>
+                                <td>
+                                    <a href="{:U('Order/update',array('id'=>$row['id']))}" title="编辑" class="tip-bottom">
+                                        <span class="label label-success">订单详情</span></a>&nbsp;
+                                    <a href="{:U('Order/delete',array('model'=>'Order','ids'=>$row['id'],'status'=>9))}" title="删除" class="tip-bottom confirm ajax-get">
+                                        <span class="label label-important">删除</span></a>
+                                    <eq name="row['status']" value="1">
+                                        <button title="确认发货" class="tip-bottom delivery" attr-order-id="{$row['id']}">确认发货</button>&nbsp;
+                                    </eq>
+                                    <eq name="row['status']" value="6">
+                                        <a href="{:U('Order/resume',array('model'=>'Order','ids'=>$row['id'],'status'=>5))}" title="{$row['status']|show_status_name}" class="tip-bottom ajax-get">
+                                            <span class="label label-info">同意取消</span></a>&nbsp;
+                                        <a href="{:U('Order/refuseOrder',array('model'=>'Order','order_id'=>$row['id']))}" title="{$row['status']|show_status_name}" class="tip-bottom ajax-get">
+                                            <span class="label label-inverse">拒绝取消</span></a>&nbsp;
+                                    </eq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="delivery-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">填写物流信息</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label">选择物流公司：</label>
+                <div class="controls">
+                    <select class="delivery_compay_id">
+                        <option value="0">请选择物流公司</option>
+                        <volist name="company_list" id="company">
+                            <option value="{$company['id']}">{$company['company_name']}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">物流订单号：</label>
+                <div class="controls">
+                    <input type="text" class="delivery_sn" name="delivery_sn">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" class="order_id"/>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary confirm-delivery">确认发货</button>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            $('.delivery').click(function(){
+                var order_id = $(this).attr('attr-order-id');
+                $('.order_id').val(order_id);
+                $('#delivery-model').modal('show');
+            });
+
+            $('.confirm-delivery').click(function () {
+                var order_id           = $('.order_id').val();
+                var delivery_sn        = $('.delivery_sn').val();
+                var delivery_compay_id = $('.delivery_compay_id').val();
+                $.ajax({
+                    type: "post",
+                    url: "{:U('Order/delivery')}",
+                    data: {
+                        order_id:order_id,
+                        delivery_sn:delivery_sn,
+                        delivery_compay_id:delivery_compay_id
+                    },
+                    dataType: "json",
+                    success: function(msg){
+                        if(msg['error']){
+                            alert(data['message']);return false;
+                        }else{
+                            window.location.reload();
+                        }
+                    }
+                })
+
+            })
+        });
+    </script>
+</block>
