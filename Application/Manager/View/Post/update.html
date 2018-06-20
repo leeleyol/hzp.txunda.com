@@ -27,7 +27,7 @@
                             <div class="controls">
                                 <select name="type_id">
                                     <volist name="post_type" id="vo">
-                                        <option value="{$vo['id']}" <if condition="$row['type_id'] eq $vo['id']">selected</if>>{$vo['name']}</option>
+                                        <option value="{$vo['id']}" <if condition="$row['type_id'] eq $vo['id']">selected</if>>{$vo['type_name']}</option>
                                     </volist>
                                 </select>
                             </div>
@@ -45,45 +45,10 @@
                                 <span class="help-block">图片长600px，宽300px</span>
                             </div>
                         </div>
-                        <!--
-                        <div class="control-group">
-                            <label class="control-label">早餐简介</label>
-                            <div class="controls">
-                                <textarea name="bre_brief" id="" style="width: 60%;">{$row['bre_brief']}</textarea>
-                            </div>
-                        </div>-->
                         <div class="control-group">
                             <label class="control-label">帖子内容</label>
                             <div class="controls">
                                 <textarea name="content">{$row['content']}</textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">打赏人数</label>
-                            <div class="controls">
-                                <input type="text" name="send_num" value="{$row['send_num']}"  disabled>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">是否置顶</label>
-                            <div class="controls">
-                                <label class="radio">
-                                    <input type="radio" name="is_top" value="0" <eq name="row['is_top']" value="0">checked</eq>>不置顶
-                                </label>&nbsp;&nbsp;&nbsp;
-                                <label class="radio">
-                                    <input type="radio" name="is_top" value="1" <eq name="row['is_top']" value="1">checked</eq>>置顶
-                                </label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">是否设置精华</label>
-                            <div class="controls">
-                                <label class="radio">
-                                    <input type="radio" name="is_recommend" value="0" <eq name="row['is_recommend']" value="0">checked</eq>>不设置
-                                </label>&nbsp;&nbsp;&nbsp;
-                                <label class="radio">
-                                    <input type="radio" name="is_recommend" value="1" <eq name="row['is_recommend']" value="1">checked</eq>>设置
-                                </label>
                             </div>
                         </div>
                         <div class="control-group">

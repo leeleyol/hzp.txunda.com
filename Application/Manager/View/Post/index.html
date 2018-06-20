@@ -28,9 +28,6 @@
                             <th>发布人</th>
                             <th>类型</th>
                             <th>标题</th>
-                            <th>是否置顶</th>
-                            <th>是否精华</th>
-                            <th>打赏人数</th>
                             <th>浏览人数</th>
                             <th>发布时间</th>
                             <th>操作</th>
@@ -44,22 +41,11 @@
                                 <td>{$row['account']}</td>
                                 <td>{$row['type_name']}</td>
                                 <td>{$row['title']}</td>
-                                <td>
-                                    <eq name="row['is_top']" value="1" >是</eq>
-                                    <eq name="row['is_top']" value="0" >否</eq>
-                                </td>
-                                <td>
-                                    <eq name="row['is_recommend']" value="1" >是</eq>
-                                    <eq name="row['is_recommend']" value="0" >否</eq>
-                                </td>
-                                <td>{$row['send_num']}</td>
                                 <td>{$row['view']}</td>
                                 <td>{$row['create_time']|date='Y-m-d H:i',###}</td> <!--創建時間-->
                                 <td>
                                     <a href="{:U('Post/update',array('id'=>$row['id']))}" title="详情" class="tip-bottom">
                                         <span class="label label-success">详情</span></a>&nbsp;
-                                    <a href="{:U('PostGift/index',array('id'=>$row['id']))}" title="查看打赏记录" class="tip-bottom">
-                                    <span class="label label-warning">查看打赏记录</span></a>&nbsp;
                                     <a href="{:U('PostComment/index',array('post_id'=>$row['id']))}" title="查看回帖" class="tip-bottom">
                                         <span class="label label-inverse">查看回帖</span></a>&nbsp;
                                     <eq name="row['status']" value="1">

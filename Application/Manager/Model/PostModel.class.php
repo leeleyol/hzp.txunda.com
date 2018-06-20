@@ -37,7 +37,7 @@ class PostModel extends BaseModel {
                         ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = p.m_id')
                         ->join('LEFT JOIN '.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
                         ->order($param['order'])
-                        ->field('p.*,m.account,pt.name type_name');
+                        ->field('p.*,m.account,pt.type_name');
 
         //是否分页
         !empty($param['page_size'])  ? $model = $model->limit($Page->firstRow,$Page->listRows) : '';
@@ -57,7 +57,7 @@ class PostModel extends BaseModel {
             ->join( 'LEFT JOIN '.C('DB_PREFIX').'member m ON m.id = p.m_id')
             ->join('LEFT JOIN '.C('DB_PREFIX').'post_type pt ON pt.id=p.type_id')
             ->order($param['order'])
-            ->field('p.*,m.account,pt.name type_name')->find();
+            ->field('p.*,m.account,pt.type_name')->find();
         return $row;
     }
 }
