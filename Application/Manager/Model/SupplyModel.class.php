@@ -42,7 +42,9 @@ class SupplyModel extends BaseModel {
         !empty($param['page_size'])  ? $model = $model->limit($Page->firstRow,$Page->listRows) : '';
 
         $list = $model->select();
-
+        foreach ($list as &$col){
+            $col['account'] = M('Member')->where(['id'=>$col['m_id']])->getField('nickname');
+        }
         return array('list'=>$list,'page'=>!empty($page_show) ? $page_show : '');
     }
 
@@ -52,10 +54,23 @@ class SupplyModel extends BaseModel {
      */
     function findRow($param = array()) {
         $row = $this->where($param['where'])->find();
-        $row['goods_list'] = unserialize($row['goods_list']);
-        foreach($row['goods_list'] as $k => $v){
-            $row['goods_list'][$k]['goods_sn'] = M('Goods')->where(array('id'=>$v['goods_id']))->getField('goods_sn');
+
+        $info  = json_decode($row['supply_info'],true);
+        $index = [];
+        foreach ($info as $k=>$v){
+            $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+            $index[$k]['goods_id'] = $v['goods_id'];
+            $index[$k]['goods_type_name'] = $goods_info['type_name'];
+            $index[$k]['goods_type_id'] = $goods_info['goods_type_id'];
+            $index[$k]['goods_name'] = $goods_info['goods_name'];
+            $index[$k]['stock'] = $goods_info['stock'];
+            $index[$k]['stock_unit'] = $goods_info['stock_unit'];
+            $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+            $index[$k]['goods_status'] = $goods_info['goods_status'];
+            $index[$k]['goods_price'] = $v['goods_price'];
         }
+        $row['supply_info'] = $index;
+        $row['account'] = M('Member')->where(['id'=>$row['m_id']])->getField('nickname');
         return $row;
     }
 }
