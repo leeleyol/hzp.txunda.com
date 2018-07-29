@@ -501,6 +501,7 @@ class MemberController extends BaseController{
         $data['m_id']        = session('m_id');
         $data['order_sn']    = date('YmdHi').rand(100,999);
         $data['money']       = $_POST['money'];
+        $data['month'] = $_POST['month'];
         $data['create_time'] = time();
         $result = M('Recharge') -> add($data);
         //查询新增状态
@@ -553,6 +554,7 @@ class MemberController extends BaseController{
             unset($where);
             $where['id'] = $recharge_info['m_id'];
             M('Member')->where($where)->setInc('balance',$recharge_info['money']);
+            M('Member')->where($where)->data(['type'=>'2'])->save();
 
             //添加账单明细
             unset($data);
@@ -564,6 +566,8 @@ class MemberController extends BaseController{
             $data['money']       = $recharge_info['money'];
             $data['create_time'] = time();
             M('PayLog')->data($data)->add();
+            //修改用户会员结束时间
+
         }
     }
     public function xmlToArray($xml)

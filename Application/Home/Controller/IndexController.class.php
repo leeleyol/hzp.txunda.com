@@ -6,15 +6,55 @@ class IndexController extends BaseController{
     public function _initialize()
     {
         parent::_initialize();
+
     }
 
     /**
      * 首页
      */
-    public function index(){
+    public function index(){/*
+        if(!session('openid') && empty($_GET['code'])){
+            $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=http://hzp.txunda.com/index.php/Home/Index/index&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            Header("Location: $url");
+            exit();
+        }else{
+            if(!session('openid')){
+                //①、获取用户openid
+                $tools = new \jsApiPay();
+                $openId = $tools->GetOpenidFromMp($_GET['code']);
+                session('openid',$openId);
+            }
+        }*/
+
+        if($this->is_weixin())
+        {
+            $this->getCodes();
+        }
         $this->display('index');
     }
 
+
+    /**
+     * 获取微信授权信息并注册
+     */
+    public function getCodes() {
+        $openid = session('openid');
+        if(!$openid || empty($openid)) {
+            Vendor('WxpayApi.lib.WxPay#Api');
+            Vendor('WxpayApi.WxPay#JsApiPay');
+            $tools = new \JsApiPay();
+            $openid = $tools->GetOpenid();
+            session('openid', $openid);
+
+            //  $this->ajaxReturn(json_encode(array('openId'=>$openId)));
+        }
+    }
+    function is_weixin(){
+        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+            return true;
+        }
+        return false;
+    }
     /**
      * 搜索
      */
