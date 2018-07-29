@@ -3,10 +3,8 @@
 var u = navigator.userAgent;
 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-
-
-
 var m_id = localStorage.getItem('m_id');
+
 
 ;(function($){
     $.fn.extend({
@@ -83,6 +81,8 @@ function getDate(param, type) {
         return year +"/" + month + "/" + Date + " " + hour +":" +minute
     }else if(type == "年月日"){
         return year +"年" + month + "月" + Date + "日"
+    }else if(type == "YY-MM-DD"){
+        return year +"-" + month + "-" + Date
     }
 }
 
@@ -97,6 +97,21 @@ function handlerScrollBottom(callBack) {
         var windowHeight = $(this).height();
         //滚动到底步了
         if (scrollTop + windowHeight === (scrollHeight)) {
+            if (typeof callBack == 'function') {
+                callBack()
+            }
+        }
+    });
+}
+
+
+function handlerScrollTop(callBack) {
+    //页面滚动到底部,继续加载
+    $(window).scroll(function () {
+        //滚动条滚动距离
+        var scrollTop = $(this).scrollTop();
+
+        if (scrollTop === 0) {
             if (typeof callBack == 'function') {
                 callBack()
             }

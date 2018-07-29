@@ -127,7 +127,7 @@
         </div>
     <div class="coarseLline"></div>
 
-    <a href="index_VIPbussiness_good1.html"  >
+    <a class="check-goods">
         <div style="padding: 5px 0px 10px 15px;height: 30px;line-height: 40px">
             <span style="color: #ff4c82 ;float: left;font-size: 16px">他的商品</span>
             <img src="__ROOT__/Public/Home/img/redborder.png" class="redborder"/>
@@ -156,7 +156,7 @@
 
                 </div>
 
-               <a href="index_VIPbussiness_good3.html">
+               <a class="chat hide">
                    <div  class="btnfixed"   >
                        <input type="button" value="对他留言">
                    </div>
@@ -167,7 +167,7 @@
                 <!--他的帖子-->
                  <div class="tz-list">
                  </div>
-                <a href="index_VIPbussiness_good3.html">
+                <a class="chat hide">
                     <div  class="btnfixed"   >
                         <input type="button" value="对他留言">
                     </div>
@@ -221,7 +221,7 @@
         function supplyList(list) {
             var str = ""
             $(list).each(function (index, item) {
-                str += ' <div class="provide-item" supply_id="'+item.id+'" userId="'+item.m_id+'" type="'+item.type+'">' +
+                str += ' <div class="provide-item" supply_id="'+item.id+'" userId="'+item.m_id+'" type="'+item.type+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
                     '                    <div class="section_top ">' +
                     '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
                     item.description +
@@ -374,6 +374,9 @@
         var member_id;
         function getParam() {
             member_id = getUrlParam("member_id")
+            if(member_id != m_id){
+                $(".chat").show()
+            }
         }
 
         var pageIndex = 0
@@ -401,16 +404,44 @@
                 var supply_id = $(this).attr("supply_id");
                 var type = $(this).attr("type")
                 var userId = $(this).attr("userid")
+                var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+                var typeName = []
+                var goods_list = []
+                $(supply_info).each(function (index, item) {
+                    if(typeName.indexOf(item.goods_type_name) == -1){
+                        typeName.push(item.goods_type_name)
+                    }
+                });
+                $(typeName).each(function (index, item) {
+                    var type_item = {
+                        type_name:item,
+                        goods_list:[]
+                    }
+                    goods_list.push(type_item)
+                })
+                $(supply_info).each(function (index, item) {
+                    $(goods_list).each(function (index, item1) {
+                        if(item1.type_name == item.goods_type_name){
+                            item1.goods_list.push(item)
+                        }
+                    })
+                })
                 if(type  == 1){
-                    window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId" + userId
+                    window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
                 }else {
                     window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
                 }
+            });
+
+            $(".check-goods").click(function (index, item) {
+                window.location.href = "{:U('Index/index_informations_good1')}&userId=" + member_id
             })
+
             //帖子详情
             $(".tz-list").on("click",".tz-item",function () {
                 window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
-            })
+            });
+
 
             //关注\取消关注
             $(".attentioned").click(function () {
@@ -430,6 +461,10 @@
                     getSupplyList()
                 }
 
+            })
+
+            $(".chat").click(function () {
+                window.location.href = "{:U('Index/index_VIPbussiness_good7')}&from_mid=" + member_id
             })
         }
 

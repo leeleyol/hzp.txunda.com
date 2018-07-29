@@ -482,6 +482,13 @@ footer .footer_item a{
     display: flex;
     margin-right: 40px;
     margin-bottom: 10px;
+    float: left;
+}
+.chat-right{
+    margin-left: 40px;
+}
+.hide{
+    display: none;
 }
 .imgs{
     margin-right: 5px;
@@ -493,7 +500,7 @@ footer .footer_item a{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    width: 20%;
+    margin-left: 20px;
 }
 .c_1{
     padding: 5px;

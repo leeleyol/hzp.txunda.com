@@ -1,0 +1,48 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab1">帖子详情</a></li>
+                    </ul>
+                </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal" method="post" action="{:U('PostReply/update')}" id="form">
+                        <input type="hidden" name="model" value="PostReply">
+                        <input type="hidden" name="id" value="{$row['id']}" class = 'id'>
+
+                        <div class="control-group">
+                            <label class="control-label">评论内容</label>
+                            <div class="controls">
+                                <textarea name="content">{$row['reply_content']}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">发布时间</label>
+                            <div class="controls">
+                                <input type="text" name="create_time"  class="form_date_time_picker" value="{$row['create_time']|date='Y-m-d H:i:s',###}"  >
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>
+                                <button class="btn btn-info ajax-post no-refresh" type="submit" id="submit" target-form="form-horizontal">保 存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <block name="script">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".control-group1").hide();
+            });
+        </script>
+    </block>
+</block>

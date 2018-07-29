@@ -50,6 +50,9 @@ class MemberLogic extends BaseLogic {
         if(!$row) {
             $this->setLogicError('未查到此记录！'); return false;
         }
+
+        $approve_status = M('MemberInfo')->where(['m_id'=>$request['id']])->getField('approve_status');
+        $row['approve_status'] = $approve_status?$approve_status:"0";
         return $row;
     }
 
@@ -89,5 +92,60 @@ class MemberLogic extends BaseLogic {
             $data['status']   = 1;
         }
         return $data;
+    }
+
+
+
+    /**
+     * @param array $request
+     * @return bool|mixed
+     * 新增 或 修改
+     */
+    function update($request = array()) {
+        //执行前操作
+        if(!$this->beforeUpdate($request)) { return false; }
+        $model = $request['model'];
+        unset($request['model']);
+        //获取数据对象
+        $data = D($model)->create($request);
+        if(!$data) {
+            $this->setLogicError(D($model)->getError()); return false;
+        }
+        //处理数据
+        $data = $this->processData($data);
+        //判断增加还是修改
+        if(empty($data['id'])) {
+            //新增数据
+            $result = D($model)->data($data)->add();
+            if(!$result) {
+                $this->setLogicError('新增时出错！'); return false;
+            }
+            //行为日志
+            api('Manager/ActionLog/actionLog', array('add',$model,$result,AID));
+        } else {
+            $is_edit = false;
+            //创建修改参数
+            $where['id'] = $request['id'];
+
+            if($request['approve_status']){
+                if($request['approve_status']==2){
+                    $data['type'] = 1;
+                }
+                $is_edit = true;
+            }
+            $result = D($model)->where($where)->data($data)->save();
+            if(!$result) {
+                $this->setLogicError('您未修改任何值！'); return false;
+            }
+            if($is_edit){
+                M('MemberInfo')->where(['m_id'=>$request['id']])->data(['approve_status'=>$request['approve_status']])->save();
+            }
+            //行为日志
+            api('Manager/ActionLog/actionLog', array('edit',$model,$data['id'],AID));
+        }
+        //执行后操作
+        if(!$this->afterUpdate($result,$request)) { return false; }
+
+        $this->setLogicSuccess($data['id'] ? '更新成功！' : '新增成功！'); return true;
     }
 }

@@ -59,6 +59,19 @@
                                 <span class="help-block"></span>
                             </div>
                         </div>
+                        <eq name="row['approve_status']" value="1">
+                            <div class="control-group">
+                                <label class="control-label">审核成为商家：</label>
+                                <div class="controls">
+                                    <select id="approve_status" name="approve_status" class="form-control input-sm">
+                                        <option value="0">选择状态</option>
+                                        <option value="2">审核通过</option>
+                                        <option value="3">审核拒绝</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </eq>
                         <div class="form-actions">
                             <button class="btn" onclick="javascript:history.back(-1);return false;">返 回</button>　
                             <button class="btn btn-info ajax-post" target-form="form-horizontal" type="submit">保 存</button>

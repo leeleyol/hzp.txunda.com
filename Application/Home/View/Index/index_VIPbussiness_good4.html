@@ -2,91 +2,256 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>预购报价单</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
     <style>
-        *{
+        * {
             overflow: hidden;
         }
-        .input{
+
+        .input {
             width: 86px;
+        }
+
+        .bottom_submit button{
+            width: auto;
+        }
+
+        .reject-price button{
+            background-color: #FF7E83!important;
+        }
+        .hide{
+            display: none;
+        }
+        .disable-color button{
+            background-color: #ddd;
+
+        }
+        .disable-color{
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 <!--头部-->
 
-    <header class="head">
-        <div class="header_left">
-            <a href="index_VIPbussiness_good1.html"><img src="img/b_back.png" /></a>
-        </div>
-        <div class="header_middle"  >
-            预购报价单
-        </div>
-        <div class="header_right"></div>
-    </header>
-    <table class="table headtop">
-        <tr>
-            <th colspan="2" style=" border-right:0px">商品名称</th>
-            <th width="25%" >库存</th>
-            <th width="25%">预购数量</th>
-        </tr>
-        <tr>
-            <td style="padding-left: 10px; border-right:0px">
-                <img src="img/name2.png" />
-            </td>
-            <td style="text-align: left">纪梵希口红禁忌之吻3.3g 05#</td>
-            <td>500件</td>
-            <td><input type="number" placeholder="输入预购数量" class="input"></td>
-        </tr>
-        <tr>
-            <td style="padding-left: 10px; border-right:0px">
-                <img src="img/name2.png" />
-            </td>
-            <td style="text-align: left">纪梵希口红禁忌之吻3.3g 05#</td>
-            <td>500件</td>
-            <td><input type="number" placeholder="输入预购数量" class="input"></td>
-        </tr>
-        <tr>
-            <td style="padding-left: 10px; border-right:0px">
-                <img src="img/name2.png" />
-            </td>
-            <td style="text-align: left">纪梵希口红禁忌之吻3.3g 05#</td>
-            <td>500件</td>
-            <td><input type="number" placeholder="输入预购数量" class="input"></td>
-        </tr>
-        <tr>
-            <td style="padding-left: 10px; border-right:0px">
-                <img src="img/name2.png" />
-            </td>
-            <td style="text-align: left">纪梵希口红禁忌之吻3.3g 05#</td>
-            <td>500件</td>
-            <td><input type="number" placeholder="输入预购数量" class="input"></td>
-        </tr>
-        <tr>
-            <td style="padding-left: 10px; border-right:0px">
-                <img src="img/name2.png" />
-            </td>
-            <td style="text-align: left">纪梵希口红禁忌之吻3.3g 05#</td>
-            <td>500件</td>
-            <td><input type="number" placeholder="输入预购数量" class="input"></td>
-        </tr>
-    </table>
-    <div class="bussiness_bottom">
-        <div class="bottom_num ">
-            <span class="color1 fontsize2">商品款式 :</span>
-            <span class="color4 fontsize2">5</span>
-
-        </div>
-        <div class="bottom_submit">
-            <button >
-                <a href="index_VIPbussiness_good5.html" class="color2 fontsize2">
-                    &nbsp;提 交&nbsp;
-                </a>
-            </button>
-        </div>
+<header class="head">
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
     </div>
+    <div class="header_middle">
+        预购报价单
+    </div>
+    <div class="header_right"></div>
+</header>
+<table class="table headtop">
+    <tr>
+        <th colspan="2" style=" border-right:0px">商品名称</th>
+        <th width="25%">预购数量</th>
+        <th width="25%">报价/￥</th>
+    </tr>
+
+</table>
+
+
+<div class="bussiness_bottom">
+    <div class="bottom_num ">
+        <span class="color1 fontsize2">商品款式 :</span>
+        <span class="color4 fontsize2">5</span>
+    </div>
+
+    <div class="bottom_submit add-price hide">
+        <button>
+            <a class="color2 fontsize2">
+                &nbsp;提 交&nbsp;
+            </a>
+        </button>
+    </div>
+
+    <div class="bottom_submit agree-price hide">
+        <button>
+            <a class="color2 fontsize2">
+                &nbsp;同意报价
+            </a>
+        </button>
+    </div>
+    <div class="bottom_submit reject-price hide">
+        <button>
+            <a class="color2 fontsize2">
+                &nbsp;拒绝报价
+            </a>
+        </button>
+    </div>
+</div>
 </body>
 </html>
+
+<script>
+    $(function () {
+        getParam();
+        bindHandler()
+    });
+
+    function renderHtml(selected_arr) {
+        $(".goods-item").remove()
+        $(selected_arr).each(function (index, item) {
+            $(".table").append('<tr class="goods-item" goods_id="' + item.goods_id + '" goods_name="' + item.goods_name + '" number="' + item.number + '">' +
+                '            <td style="padding-left: 10px; border-right:0px">' +
+                '                <img src="' + item.goods_pic_path + '" />' +
+                '            </td>' +
+                '            <td style="text-align: left" class="">' + item.goods_name + '</td>' +
+                '            <td >' + item.number + item.stock_unit + '</td>' +
+                '            <td ><input type="number" placeholder="输入报价金额" class="input" onkeyup="clearNoNum(this)" value="' + item.buy_price + '"></td>' +
+                '        </tr>')
+
+            if (item.buy_price) {
+                $("input").attr("disabled", "disabled");
+            }
+        });
+
+        $(".bottom_num span:last-of-type").text(selected_arr.length)
+    }
+
+    var member_id, selected_arr, chat_id;
+    function getParam() {
+        member_id = getUrlParam("member_id");
+        chat_id = getUrlParam("chat_id");
+        if (chat_id) {
+            getchatInfo()
+        } else {
+            $(".add-price").show()
+            selected_arr = JSON.parse(decodeURIComponent(getUrlParam("selected_arr")));
+            renderHtml(selected_arr)
+        }
+    }
+
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        });
+
+        $(".add-price").click(function () {
+            var is_break = false;
+            var content = [];
+            $(".goods-item").each(function (index, item) {
+                if ($(this).find("input").val()) {
+                    var obj = {};
+                    obj["goods_id"] = $(this).attr("goods_id");
+                    obj["goods_name"] = $(this).attr("goods_name");
+                    obj["buy_price"] = $(this).find("input").val() / 1;
+                    obj["number"] = $(this).attr("number");
+                    content.push(obj)
+                } else {
+                    is_break = true
+                }
+            });
+
+            if (is_break) {
+                layer.open({
+                    content: "请填写完整报价金额"
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+            uploadChat(JSON.stringify(content))
+        })
+
+        $(".agree-price").click(function () {
+            checkBuy(1)
+        })
+
+        $(".reject-price").click(function () {
+            checkBuy(2)
+        })
+    }
+
+    function checkBuy(status) {
+        requestUrl("{:U('Home/Chat/checkBuy')}", {chat_id: chat_id,status:status}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                history.go(-1)
+            }
+        });
+    }
+
+    function getchatInfo() {
+        requestUrl("{:U('Home/Chat/chatInfo')}", {chat_id: chat_id}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                renderHtml(res.data.content)
+                var status = res.data.buy_status;
+
+
+                if(status == 0){
+                    if(res.data.from_mid == m_id){
+                        $(".reject-price,.agree-price").show();
+                    }else {
+                        $(".reject-price").show().addClass('disable-color').find("a").text("等待卖家同意").end();
+                    }
+                }else if(status == 1){
+                    $(".reject-price").show().addClass('disable-color').find("a").text("卖家已同意报价").end();
+                }else if(status == 2){
+                    $(".reject-price").show().addClass('disable-color').find("a").text("卖家已拒绝报价").end();
+                }
+            }
+        });
+    }
+
+    function uploadChat(content) {
+        requestUrl("{:U('Home/Chat/addChat')}", {from_mid: member_id, type: 2, content: content}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+
+                history.go(-3)
+            }
+        });
+    }
+
+    function clearNoNum(obj) {
+        obj.value = obj.value.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
+        if (obj.value.indexOf(".") < 0 && obj.value != "") {
+            obj.value = parseFloat(obj.value);
+        }
+    }
+</script>

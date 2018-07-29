@@ -1,0 +1,79 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+
+                <div class="widget-title widget-title-search">
+                    <!--<button class="btn btn-success href" url="{:U('Post/add')}" target-form="ids">新增</button>&nbsp;-->
+                    <!--<button class="btn btn-inverse ajax-post" url="{:U('Post/forbid',array('model'=>'Post','status'=>0))}" target-form="ids">禁用帖子</button>&nbsp;
+                    <button class="btn btn-info ajax-post" url="{:U('Post/resume',array('model'=>'Post','status'=>1))}" target-form="ids">通过审核</button>&nbsp;
+                    --><!--<button class="btn btn-danger confirm ajax-post" url="{:U('Goods/delete',array('model'=>'Goods','status'=>9))}" target-form="ids">删除</button>&nbsp;-->
+                    <form action="{:U('PostReply/index')}" method="post" class="form">
+                        <input type="text" name="reply_content" value="{$_REQUEST['reply_content']}" placeholder="标题">
+                        {$select}
+                        <button class="btn btn-inverse">查询</button>
+                    </form>
+                </div>
+
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/><!--<i class="icon-resize-vertical"></i>--></th>
+                            <th>ID</th>
+                            <th>发布人</th>
+                            <th>回复内容</th>
+                            <th>发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>{$row['account']}</td>
+                                <td>{$row['reply_content']}</td>
+                                <td>{$row['create_time']|date='Y-m-d H:i',###}</td> <!--創建時間-->
+                                <td>
+                                    <a href="{:U('PostReply/update',array('id'=>$row['id']))}" title="详情" class="tip-bottom">
+                                        <span class="label label-success">详情</span></a>&nbsp;
+                                    <!--<a href="{:U('PostGift/index',array('id'=>$row['id']))}" title="查看打赏记录" class="tip-bottom">
+                                    <span class="label label-warning">查看打赏记录</span></a>&nbsp;
+                                    <a href="{:U('PostComment/index',array('post_id'=>$row['id']))}" title="查看回帖" class="tip-bottom">
+                                        <span class="label label-inverse">查看回帖</span></a>&nbsp;
+                                    <eq name="row['status']" value="1">
+                                    </eq>
+                                    <eq name="row['status']" value="0">
+                                    <a href="{:U('Post/resume',array('model'=>'Post','ids'=>$row['id'],'status'=>abs(1-$row['status'])))}" title="通过审核" class="tip-bottom ajax-get">
+                                    <span class="label label-info">通过审核</span></a>&nbsp;
+                                    <else/>
+                                    <a href="{:U('Post/forbid',array('model'=>'Post','ids'=>$row['id'],'status'=>abs(1-$row['status'])))}" title="禁用帖子" class="tip-bottom ajax-get">
+                                    <span class="label label-inverse">禁用帖子</span></a>&nbsp;
+                                    </eq>-->
+                                    <neq name="row['status']" value="9">
+                                        <a href="{:U('PostReply/setStatus',array('model'=>'PostReply','ids'=>$row['id'],'status'=>9))}" title="删除" class="tip-bottom confirm ajax-get">
+                                        <span class="label label-important">删除</span></a>
+                                    </neq>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+
+</block>

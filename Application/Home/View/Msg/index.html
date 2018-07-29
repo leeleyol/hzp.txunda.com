@@ -61,6 +61,7 @@
     <script>
         $(function () {
             getMsg()
+            bindHandler()
         })
 
         function getMsg() {
@@ -84,10 +85,10 @@
                     $(chatList).each(function (index, item) {
                         $(".chatList").append('<div class="system" from_mid="'+item.from_mid+'">' +
                             '        <div class="system_left">' +
-                            '            <img src="__ROOT__/Public/Home/img/system.png"/>' +
+                            '            <img src="'+item.from_head_pic+'"/>' +
                             '        </div>' +
                             '        <div class="system_right">' +
-                            '            <font>'+item.nickname+'<span>'+item.create_time+'</span></font>' +
+                            '            <font>'+item.nickname+'<span>'+ getDate(item.create_time,"YY-MM-DD") +'</span></font>' +
                             '            <p>'+item.content+'</p>' +
                             '        </div>' +
                             '    </div>')
@@ -96,5 +97,10 @@
             });
         }
 
+        function bindHandler() {
+            $(".chatList").on("click",".system", function () {
+                window.location.href = "{:U('Index/index_VIPbussiness_good7')}&from_mid=" + $(this).attr("from_mid")
+            })
+        }
     </script>
 </block>

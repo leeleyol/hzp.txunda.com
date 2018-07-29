@@ -1,0 +1,157 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="row-fluid">
+
+        <div class="span12">
+            <div class="widget-box">
+
+                <div class="widget-title widget-title-search">
+                    <button class="btn btn-danger confirm ajax-post" url="{:U('Supply/delete',array('model'=>'Supply','status'=>9))}" target-form="ids">删 除</button>&nbsp;
+                </div>
+                <!--// search start-->
+                <!--<div class="search-main">
+                    <form action="{:U('Supply/index',array('type'=>$_GET['type']))}" method="post" class="form">
+                        <div class="search-frame-main">
+                            <input class="search-frame" type="text" name="Supply_sn" value="{$_REQUEST['Supply_sn']}" placeholder="订单编号">
+                            <input class="search-frame form_date_picker" type="text" name="start_time" value="{$_REQUEST['start_time']}" placeholder="开始时间">
+                            <input class="search-frame form_date_picker" type="text" name="end_time" value="{$_REQUEST['end_time']}" placeholder="截止时间">
+                            <input type="hidden"/>
+                        </div>
+
+                        <div class="search-btn">
+                            <button class="btn btn-inverse" style="margin:4px 10px;">查询</button>
+                        </div>
+                    </form>
+                </div>-->
+                <!--// search end-->
+                <div class="widget-content nopadding">
+                    <table class="table table-bSupplyed table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-checkbox" name="title-checkbox" class="check-all"/></th>
+                            <th>ID</th>
+                            <th>供求分类</th>
+                            <th>发布人</th>
+                            <th>买家自提</th>
+                            <th>商家配送</th>
+                            <th>顺丰</th>
+                            <th>买家支付邮费</th>
+                            <th>发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        <volist name="list" id="row">
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" value="{$row['id']}" class="ids"/></td>
+                                <td>{$row['id']}</td>
+                                <td>
+                                    <eq name="row['type']" value="1">供</eq>
+                                    <eq name="row['type']" value="2">求</eq>
+                                </td>
+                                <td>{$row['account']}</td>
+                                <td>
+                                    <eq name="row['is_extract']" value="1">是</eq>
+                                    <eq name="row['is_extract']" value="2">否</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['is_md']" value="1">是</eq>
+                                    <eq name="row['is_md']" value="2">否</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['is_sf']" value="1">是</eq>
+                                    <eq name="row['is_sf']" value="2">否</eq>
+                                </td>
+                                <td>
+                                    <eq name="row['is_bp']" value="1">是</eq>
+                                    <eq name="row['is_bp']" value="2">否</eq>
+                                </td>
+
+                                <td>{$row['create_time']|date='Y-m-d H:i',###}</td>
+                                <td>
+                                    <a href="{:U('Supply/update',array('id'=>$row['id']))}" title="编辑" class="tip-bottom">
+                                        <span class="label label-success">供求详情</span></a>&nbsp;
+                                    <a href="{:U('Supply/delete',array('model'=>'Supply','ids'=>$row['id'],'status'=>9))}" title="删除" class="tip-bottom confirm ajax-get">
+                                        <span class="label label-important">删除</span></a>
+
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination alternate">
+                    {$page}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="delivery-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">填写物流信息</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label">选择物流公司：</label>
+                <div class="controls">
+                    <select class="delivery_compay_id">
+                        <option value="0">请选择物流公司</option>
+                        <volist name="company_list" id="company">
+                            <option value="{$company['id']}">{$company['company_name']}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">物流订单号：</label>
+                <div class="controls">
+                    <input type="text" class="delivery_sn" name="delivery_sn">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" class="Supply_id"/>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary confirm-delivery">确认发货</button>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            $('.delivery').click(function(){
+                var Supply_id = $(this).attr('attr-Supply-id');
+                $('.Supply_id').val(Supply_id);
+                $('#delivery-model').modal('show');
+            });
+
+            $('.confirm-delivery').click(function () {
+                var Supply_id           = $('.Supply_id').val();
+                var delivery_sn        = $('.delivery_sn').val();
+                var delivery_compay_id = $('.delivery_compay_id').val();
+                $.ajax({
+                    type: "post",
+                    url: "{:U('Supply/delivery')}",
+                    data: {
+                        Supply_id:Supply_id,
+                        delivery_sn:delivery_sn,
+                        delivery_compay_id:delivery_compay_id
+                    },
+                    dataType: "json",
+                    success: function(msg){
+                        if(msg['error']){
+                            alert(data['message']);return false;
+                        }else{
+                            window.location.reload();
+                        }
+                    }
+                })
+
+            })
+        });
+    </script>
+</block>
