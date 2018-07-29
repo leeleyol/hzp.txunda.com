@@ -497,8 +497,10 @@ class MemberController extends BaseController{
             apiResponse('error','登录已过期，请重新登录');
         }*/
 
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
         //将用户ID  订单编号  转入金额  转账形式  创建时间新增到Recharge表
-        $data['m_id']        = session('m_id');
+        $data['m_id']        = $_POST['m_id'];
         $data['order_sn']    = date('YmdHi').rand(100,999);
         $data['money']       = $_POST['money'];
         $data['month'] = $_POST['month'];

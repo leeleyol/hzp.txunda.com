@@ -131,7 +131,7 @@ class CollectController extends BaseController
             apiResponse('0',$message);
         }
         foreach ($list as $k=>$v){
-            $list[$k]['head_pic_path'] = $this->file_obj->getOnePath($v['head_pic']);
+            $list[$k]['head_pic'] = returnImage($v['head_pic'],'');
             $pic = returnPostImage($v['pic']);
             $list[$k]['pic_list'] = $pic;
         }
