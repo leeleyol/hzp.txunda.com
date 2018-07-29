@@ -26,9 +26,6 @@ class MemberController extends BaseController{
         $this->file_obj   = D('File');
         $this->bank_icon_obj = M('BankIcon');
         $this->member_bank_obj = D('MemberBank');
-
-        Vendor('WxPay.lib.WxPay#Api');
-        Vendor('WxPay.WxPay#JsApiPay');
     }
 
     /**
@@ -492,13 +489,13 @@ class MemberController extends BaseController{
      * 新增充值订单
      */
     public function addRechargeOrder(){
-        if(!session('openid')){
-            $this->wXResponse('error','请前往首页获取授权code');
+        /*if(!session('openid')){
+            apiResponse('error','请前往首页获取授权code');
         }
 
         if(!session('m_id')){
-            $this->wXResponse('error','登录已过期，请重新登录');
-        }
+            apiResponse('error','登录已过期，请重新登录');
+        }*/
 
         //将用户ID  订单编号  转入金额  转账形式  创建时间新增到Recharge表
         $data['m_id']        = session('m_id');
@@ -525,13 +522,13 @@ class MemberController extends BaseController{
             $input->SetGoods_tag("test");
             $input->SetNotify_url("http://hzp.txunda.com/index.php/Home/Member/weiXinNotify");
             $input->SetTrade_type("JSAPI");
-            $input->SetOpenid($openId);
+            $input->SetOpenid(session('openid'));
             $order = \WxPayApi::unifiedOrder($input);
             $jsApiParameters = $tools->GetJsApiParameters($order);
             $jsApiParameters = stripslashes($jsApiParameters);
-            $this->wXResponse('success','充值下单成功',array('jsApiParameters'=>$jsApiParameters));
+            apiResponse('success','充值下单成功',array('jsApiParameters'=>$jsApiParameters));
         }else{
-            $this->wXResponse('error','充值下单失败');
+            apiResponse('error','充值下单失败');
         }
     }
 

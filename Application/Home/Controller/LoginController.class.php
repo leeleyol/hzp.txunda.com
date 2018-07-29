@@ -20,6 +20,7 @@ class LoginController extends BaseController{
      * 执行登录方法
      */
     public function ajaxLogin(){
+
         $account  = $_POST['account'];
         $password = $_POST['password'];
         $where['account'] = $account;
@@ -31,6 +32,9 @@ class LoginController extends BaseController{
         if($member_info['password'] != md5($password)){
             apiResponse('0','密码错误');
         }
+        //将openid更新到用户的表里面去
+        M('Member')->where(array('id'=>$member_info['id']))->data(array('openid'=>session('openid'),'update_time'=>time()))->save();
+
         apiResponse('1','登录成功',array('m_id'=>$member_info['id']));
     }
 
