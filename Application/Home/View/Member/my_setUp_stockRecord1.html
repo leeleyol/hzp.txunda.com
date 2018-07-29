@@ -11,7 +11,7 @@
 <body>
     <header class="head">
         <div class="header_left">
-            <a href="my_0.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle"  >
             我的进货记录
@@ -47,6 +47,10 @@
 
         $(".order-list").on('click', '> a', function () {
             window.location.href="{:U('Member/my_setUp_stockRecord2')}&orderId=" + $(this).attr('orderId')
+        })
+
+        $(".header_left").click(function () {
+            history.go(-1)
         })
     }
 

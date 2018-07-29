@@ -54,8 +54,14 @@ function uploadfile(URL,DATA,CALLBACK,TYPE,DATATYPE) {
     });
 }
 
-window.onpageshow = function(event){
-    if (event.persisted) {
-        window.location.reload();
-    }
-}
+$(function () {
+    var isPageHide = false;
+    window.addEventListener('pageshow', function () {
+        if (isPageHide) {
+            window.location.reload();
+        }
+    });
+    window.addEventListener('pagehide', function () {
+        isPageHide = true;
+    });
+})

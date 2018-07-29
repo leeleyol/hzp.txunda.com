@@ -11,7 +11,7 @@
 <body>
     <header class="head">
         <div class="header_left">
-            <a href="my_setUp_stockRecord1.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle"  >
             详情记录
@@ -80,7 +80,9 @@
     })
 
     function bindHandler() {
-        
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
     }
     
     function buyInfo() {
