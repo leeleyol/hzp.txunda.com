@@ -435,7 +435,7 @@ class MemberController extends BaseController{
         $list = M('Buy')->alias('b')
             ->join('db_member m on m.id=b.from_mid')
             ->where($where)
-            ->field('b.*,m.nickname,m.head_pic,type member_type')
+            ->field('b.*,m.nickname,m.head_pic,m.type member_type')
             ->order('create_time desc')
             ->page($request['p'].',10')
             ->select();
@@ -508,6 +508,8 @@ class MemberController extends BaseController{
         $result = M('Recharge') -> add($data);
         //查询新增状态
         if($result){
+            Vendor('WxpayApi.lib.WxPay#Api');
+            Vendor('WxpayApi.WxPay#JsApiPay');
 
             //①、获取用户openid
             $tools = new \JsApiPay();
@@ -525,8 +527,9 @@ class MemberController extends BaseController{
             $input->SetGoods_tag("test");
             $input->SetNotify_url("http://hzp.txunda.com/index.php/Home/Member/weiXinNotify");
             $input->SetTrade_type("JSAPI");
-            $input->SetOpenid(session('openid'));
+            $input->SetOpenid($openId);
             $order = \WxPayApi::unifiedOrder($input);
+            var_dump($order);
             $jsApiParameters = $tools->GetJsApiParameters($order);
             $jsApiParameters = stripslashes($jsApiParameters);
             apiResponse('success','充值下单成功',array('jsApiParameters'=>$jsApiParameters));
