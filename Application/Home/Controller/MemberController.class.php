@@ -53,7 +53,7 @@ class MemberController extends BaseController{
         $member_info['follow_num'] = $this->getFollowNum($m_id);
         $member_info['collect_num']   = $this->getCollectNum($m_id);
         $member_info['head_pic_path'] = returnImage($member_info['head_pic']);
-        $member_status = M('MemberInfo')->where(['id'=>$m_id])->field('merchant_approve,refuse_content')->find();
+        $member_status = M('MemberInfo')->where(['m_id'=>$m_id])->field('merchant_approve,refuse_content')->find();
         $member_info['merchant_approve'] = $member_status?$member_status['merchant_approve']:"0";
         $member_info['refuse_content'] = $member_status?$member_status['refuse_content']:"";
 
