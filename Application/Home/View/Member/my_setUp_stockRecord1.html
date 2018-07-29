@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>我的进货记录</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <a href="my_0.html"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            我的进货记录
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="coarseLline headtop"></div>
+
+    <div class="order-list">
+        <!--进货记录-->
+    </div>
+
+</body>
+
+<script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+<script src="__ROOT__/Public/Home/js/linkto.js"></script>
+<script src="__ROOT__/Public/Home/js/network.js"></script>
+<script src="__ROOT__/Public/Home/js/util.js"></script>
+<script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+<script>
+    $(function () {
+        getList()
+        bindHandler()
+    })
+
+    var layderIndex
+    function bindHandler() {
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            layderIndex = layer.open({type: 2});
+            getList();
+        })
+
+        $(".order-list").on('click', '> a', function () {
+            window.location.href="{:U('Member/my_setUp_stockRecord2')}&orderId=" + $(this).attr('orderId')
+        })
+    }
+
+    var p = 0
+    function getList() {
+        p += 1
+        var url = '/Home/Member/myBuy'
+        requestUrl(url, {p:p}, function (res) {
+            layer.close(layderIndex)
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                var list = res.data;
+                $(list).each(function (index, item) {
+                    $(".order-list").append(' <a orderId="'+item.id+'">' +
+                        '            <div class="leftright" style="">' +
+                        '                <div class="left">' +
+                        '                    <span style="color: #999999;">卖家信息:</span><img src="'+item.head_pic_path+'"><span>'+item.nickname+'</span>' +
+                        '                </div>' +
+                        '                <div class="right">' +
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="leftright">' +
+                        '                <div class="left">' +
+                        '                    <span style="color: #999999;">交易时间: </span>' + getDate(item.update_time, 'YY/MM/DD HH:MM') +
+                        '                </div>' +
+                        '                <div class="right">' +
+                        '                    查看更多<img src="__ROOT__/Public/Home/img/h_more.png" />' +
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="leftright">' +
+                        '                <div class="left">' +
+                        '                    <span style="color: #999999;">交易款式: </span>'+item.goods_num+'款' +
+                        '                </div>' +
+                        '                <div class="right">' +
+                        '                    <!--fasd-->' +
+                        '                </div>' +
+                        '            </div>' +
+                        '        </a>' +
+                        '        <div class="fineLine"></div>')
+                })
+            }
+        });
+    }
+</script>
+</html>

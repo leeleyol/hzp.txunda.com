@@ -53,3 +53,9 @@ function uploadfile(URL,DATA,CALLBACK,TYPE,DATATYPE) {
         }
     });
 }
+
+window.onpageshow = function(event){
+    if (event.persisted) {
+        window.location.reload();
+    }
+}

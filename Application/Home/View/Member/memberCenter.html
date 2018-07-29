@@ -153,7 +153,7 @@
         </div>
     </a>
     <div class="fineLine"></div>
-    <a href="my_setUp_stockRecord1.html">
+    <a href="{:U('Member/my_setUp_stockRecord1')}">
         <div class="leftright">
             <div class="left">
                 我的进货记录
@@ -177,7 +177,6 @@
         </div>
     </a>
     <div class="fineLine"></div>
-
 
     <!--尾部-->
     <footer>
@@ -210,6 +209,7 @@
 
         function bindHandler() {
             $(".identify").click(function () {
+
                 //普通会员
                 if (indenType == 0) {
                     //未审核
@@ -225,6 +225,7 @@
                     } else if (approveType == 3) {
                         window.location.href = "{:U('Member/my_card_fail')}"
                     }
+
                     //普通商家或vip商家
                 } else {
                     window.location.href = "{:U('Member/my_card_success_VIP')}"

@@ -75,7 +75,10 @@
         }
     </style>
     <script src="__JS__/jquery-2.1.4.min.js"></script>
-
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
 </head>
 <body>
 
@@ -113,13 +116,13 @@
             <p class="fontsize2">VIP商家会员</p>
             <div class="mouth">
                 <img src="__ROOT__/Public/Home/img/time2.png"/>
-                <button class="button11 fontsize3">3个月</button>
-                <button class="button22 fontsize3">6个月</button>
-                <button class="button22 fontsize3">12个月</button>
-                <button class="button22 fontsize3">1个月</button>
+                <button class="button11 fontsize3" month="3">3个月</button>
+                <button class="button22 fontsize3" month="6">6个月</button>
+                <button class="button22 fontsize3" month="12">12个月</button>
+                <button class="button22 fontsize3" month="1">1个月</button>
                 <br>
                 <img src="__ROOT__/Public/Home/img/RMB.png"/>
-                <font color="red">60.00 </font> 元
+                <font color="red" class="total-monye" totalMonye="60">60.00 </font> 元
                 <div class="xieyi">
                     服务协议与开通缴费规则
                 </div>
@@ -181,11 +184,10 @@
     <script>
         $(function(){
 
-            $("#select").addClass("on")
-
-            $(".contenter").on("click",".select",function(){
-                $(".sel-box").removeClass("on");
-                $(this).addClass("on");
+            $(".mouth").on('click','button',function () {
+                $(this).siblings('button').removeClass('button11').addClass('button22')
+                $(this).removeClass('button22').addClass('button11')
+                $(".total-monye").text((60 * $(this).attr('month')).toFixed(2)).attr({totalMonye:(60 * $(this).attr('month'))})
             })
 
             $(".but").click(function(){
@@ -194,14 +196,19 @@
                         dataType:"json",
                         url:"Home/Member/addRechargeOrder",
                         data:{
-                            id:$(".select.on+div").find("input").val()
+                            month:$('.button11').attr('month'),
+                            money:$(".total-monye").attr('totalMonye'),
+                            m_id: m_id
                         },success:function(data){
                             if(data.flag == "success"){
                                 jsApiParameters = JSON.parse(data['data']['jsApiParameters']);
-
                                 callpay();
                             }else {
-                                alert("网络异常")
+                                layer.open({
+                                    content: '网络异常'
+                                    , skin: 'msg'
+                                    , time: 2 //2秒后自动关闭
+                                });
                             }
                         },error: function (xhr, status, error) {
                             console.log("ajax请求失败---status:" + status + "    error:" + error);
