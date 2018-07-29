@@ -529,7 +529,8 @@ class MemberController extends BaseController{
             $input->SetTrade_type("JSAPI");
             $input->SetOpenid($openId);
             $order = \WxPayApi::unifiedOrder($input);
-            var_dump($order);
+            /*var_dump($input);
+            var_dump($order);*/
             $jsApiParameters = $tools->GetJsApiParameters($order);
             $jsApiParameters = stripslashes($jsApiParameters);
             apiResponse('success','充值下单成功',array('jsApiParameters'=>$jsApiParameters));
@@ -558,15 +559,19 @@ class MemberController extends BaseController{
             //添加用户余额
             unset($where);
             $where['id'] = $recharge_info['m_id'];
-            M('Member')->where($where)->setInc('balance',$recharge_info['money']);
-            M('Member')->where($where)->data(['type'=>'2'])->save();
+            $member_info = M('Member')->where($where)->field('vip_end_time')->find();
+            if($member_info['vip_end_time']){
+                M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>$member_info['vip_end_time']+$recharge_info['month']*30*86400])->save();
+            }else{
+                M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>time()+$recharge_info['month']*30*86400])->save();
+            }
 
             //添加账单明细
             unset($data);
-            $data['object_type'] = 1;
-            $data['object_id']   = $recharge_info['m_id'];
+            $data['type'] = 1;
+            $data['m_id']   = $recharge_info['m_id'];
             $data['title']       = '微信';
-            $data['content']     = '充值';
+            $data['content']     = '充值会员';
             $data['symbol']      = 0;
             $data['money']       = $recharge_info['money'];
             $data['create_time'] = time();

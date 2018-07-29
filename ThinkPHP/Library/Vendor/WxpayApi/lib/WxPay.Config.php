@@ -24,7 +24,7 @@ class WxPayConfig
 	 */
 	 //const APPID ='wxaed69e76fe603aa8'; //'wxaed69e76fe603aa8';
     const APPID = 'wxcc14df2cb856bd3f';
-    const MCHID = '1315444501';
+    const MCHID = '1509177651';
     const KEY = '853e402abd279e046a9871cb80d0c8bb';
     const APPSECRET = '853e402abd279e046a9871cb80d0c8bb';
 
