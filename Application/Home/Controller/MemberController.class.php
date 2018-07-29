@@ -26,6 +26,9 @@ class MemberController extends BaseController{
         $this->file_obj   = D('File');
         $this->bank_icon_obj = M('BankIcon');
         $this->member_bank_obj = D('MemberBank');
+
+        Vendor('WxPay.lib.WxPay#Api');
+        Vendor('WxPay.WxPay#JsApiPay');
     }
 
     /**
@@ -481,5 +484,95 @@ class MemberController extends BaseController{
         $result['buy'] = $buy_info;
         $result['from_member'] = getMemberInfo($buy_info['from_mid']);
         apiResponse('1','成功',$result);
+    }
+
+
+
+    /**
+     * 新增充值订单
+     */
+    public function addRechargeOrder(){
+        if(!session('openid')){
+            $this->wXResponse('error','请前往首页获取授权code');
+        }
+
+        if(!session('m_id')){
+            $this->wXResponse('error','登录已过期，请重新登录');
+        }
+
+        //将用户ID  订单编号  转入金额  转账形式  创建时间新增到Recharge表
+        $data['m_id']        = session('m_id');
+        $data['order_sn']    = date('YmdHi').rand(100,999);
+        $data['money']       = $_POST['money'];
+        $data['create_time'] = time();
+        $result = M('Recharge') -> add($data);
+        //查询新增状态
+        if($result){
+
+            //①、获取用户openid
+            $tools = new \JsApiPay();
+//            $openId = $tools->GetOpenidFromMp(session('wx_code'));
+            $openId = session('openid');
+
+            //②、统一下单
+            $input = new \WxPayUnifiedOrder();
+            $input->SetBody("美妆支付");
+            $input->SetAttach("美妆支付");
+            $input->SetOut_trade_no($data['order_sn']);
+            $input->SetTotal_fee($_POST['money']*100);
+            $input->SetTime_start(date("YmdHis"));
+            $input->SetTime_expire(date("YmdHis", time() + 600));
+            $input->SetGoods_tag("test");
+            $input->SetNotify_url("http://hzp.txunda.com/index.php/Home/Member/weiXinNotify");
+            $input->SetTrade_type("JSAPI");
+            $input->SetOpenid($openId);
+            $order = \WxPayApi::unifiedOrder($input);
+            $jsApiParameters = $tools->GetJsApiParameters($order);
+            $jsApiParameters = stripslashes($jsApiParameters);
+            $this->wXResponse('success','充值下单成功',array('jsApiParameters'=>$jsApiParameters));
+        }else{
+            $this->wXResponse('error','充值下单失败');
+        }
+    }
+
+    /**
+     * 充值下单-微信回调
+     */
+    public function weiXinNotify(){
+        $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+        $xml_res = $this->xmlToArray($xml);
+        $where['order_sn'] =$xml_res["out_trade_no"];
+        $where['status'] = array('eq',0);
+        $recharge_info =M('Recharge')->where($where)->find();
+        if($recharge_info){
+            //修改充值订单状态
+            unset($where);
+            $where['id'] = $recharge_info['id'];
+            $data['update_time'] = time();
+            $data['status']      = 1;
+            M('Recharge')->where($where)->data($data)->save();
+
+            //添加用户余额
+            unset($where);
+            $where['id'] = $recharge_info['m_id'];
+            M('Member')->where($where)->setInc('balance',$recharge_info['money']);
+
+            //添加账单明细
+            unset($data);
+            $data['object_type'] = 1;
+            $data['object_id']   = $recharge_info['m_id'];
+            $data['title']       = '微信';
+            $data['content']     = '充值';
+            $data['symbol']      = 0;
+            $data['money']       = $recharge_info['money'];
+            $data['create_time'] = time();
+            M('PayLog')->data($data)->add();
+        }
+    }
+    public function xmlToArray($xml)
+    {
+        //将XML转为array
+        $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        return $array_data;
     }
 }
