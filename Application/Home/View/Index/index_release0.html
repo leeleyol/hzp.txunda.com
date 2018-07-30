@@ -1047,10 +1047,11 @@
                     ,time: 2 //2秒后自动关闭
                 });
             }else {
-
+                console.log(77777777777)
                 $(res.data.supply_info).each(function (index, item) {
                     var timestamp1 = new Date().getTime();
                     item.id = timestamp1
+                    console.log(item.id)
                 })
 
                 //编辑供货
