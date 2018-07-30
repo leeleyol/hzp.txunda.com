@@ -432,7 +432,7 @@ i{
 #hear li{text-align: center;width:35%;float: left;height: 45px;list-style: none;font-size: 16px}
 #hear li:nth-of-type(1){width: 30%;float: left; }
 #hear li:nth-of-type(2){width: 30%;float: right; }
-#contentop li{ width:100%; display: none;  margin-top: 3px;}
+#contentop li{ width:100%; display: none;  margin-top: 3px; padding-bottom: 60px; box-sizing: border-box;}
 #contentop .action{ display: block;}
 #contentop .Buy div:nth-of-type(1){text-align: left; }
 #contentop .Buy div:nth-of-type(2){float: right;}
