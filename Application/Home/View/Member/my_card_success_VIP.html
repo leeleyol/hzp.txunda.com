@@ -122,7 +122,7 @@
                 <button class="button22 fontsize3" month="1">1个月</button>
                 <br>
                 <img src="__ROOT__/Public/Home/img/RMB.png"/>
-                <font color="red" class="total-monye" totalMonye="60">60.00 </font> 元
+                <font color="red" class="total-monye" totalMonye="0.01">0.01 </font> 元
                 <div class="xieyi">
                     服务协议与开通缴费规则
                 </div>
@@ -159,7 +159,7 @@
                     function(res){
                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                             alert("支付成功");
-                            window.location.href="{:U('Member/self')}";;
+                            window.location.href="{:U('Member/memberCenter')}";;
 
                         }else {
                             alert("支付失败");
@@ -195,7 +195,7 @@
             $(".mouth").on('click','button',function () {
                 $(this).siblings('button').removeClass('button11').addClass('button22')
                 $(this).removeClass('button22').addClass('button11')
-                $(".total-monye").text((60 * $(this).attr('month')).toFixed(2)).attr({totalMonye:(60 * $(this).attr('month'))})
+                $(".total-monye").text((0.01 * $(this).attr('month')).toFixed(2)).attr({totalMonye:(0.01 * $(this).attr('month'))})
             })
 
             $(".but").click(function(){
@@ -208,7 +208,7 @@
                             money:$(".total-monye").attr('totalMonye'),
                             m_id: m_id
                         },success:function(data){
-                            if(data.flag == "success"){
+                            if(data.code == "success"){
                                 jsApiParameters = JSON.parse(data['data']['jsApiParameters']);
                                 callpay();
                             }else {
