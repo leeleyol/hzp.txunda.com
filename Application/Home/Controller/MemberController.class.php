@@ -45,7 +45,7 @@ class MemberController extends BaseController{
         }
         $member_info = M('Member')
             ->where(array('id'=>$m_id,'status'=>array('neq',9)))
-            ->field('id as m_id,type,account,head_pic,nickname,intro,balance')
+            ->field('id as m_id,type,account,head_pic,nickname,intro,balance,vip_end_time')
             ->find();
         if(empty($member_info)){
             apiResponse('-1','登录失效，请重新登录');
@@ -560,7 +560,7 @@ class MemberController extends BaseController{
             unset($where);
             $where['id'] = $recharge_info['m_id'];
             $member_info = M('Member')->where($where)->field('vip_end_time')->find();
-            if($member_info['vip_end_time']){
+            if($member_info['vip_end_time'] > time()){
                 M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>$member_info['vip_end_time']+$recharge_info['month']*30*86400])->save();
             }else{
                 M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>time()+$recharge_info['month']*30*86400])->save();
