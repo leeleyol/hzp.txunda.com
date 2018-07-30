@@ -184,6 +184,14 @@
     <script>
         $(function(){
 
+            var viptype = getUrlParam('type')
+            if(viptype == 2){
+                $(".start button").text('VIP续费')
+                $(".but").text('立即续费')
+            }else {
+
+            }
+
             $(".mouth").on('click','button',function () {
                 $(this).siblings('button').removeClass('button11').addClass('button22')
                 $(this).removeClass('button22').addClass('button11')
