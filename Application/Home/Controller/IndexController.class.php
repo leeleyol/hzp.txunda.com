@@ -161,7 +161,7 @@ class IndexController extends BaseController{
             unset($index);unset($info);
         }
         if(!$supply_list){
-            $message = $request['p']==1?'暂无相关帖子':'无更多帖子';
+            $message = $request['p']==1?'暂无相关供求':'无更多供求';
         }else{
             $message = '获取成功';
         }

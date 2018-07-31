@@ -679,3 +679,30 @@ function getMemberInfo($m_id){
     return $member_info?$member_info:[];
 }
 
+
+function isCanPost($m_id){
+    $todayStart = strtotime(date('Y-m-d',time()));
+    $member_info = M('Member')->where(['id'=>$m_id])->field('type,vip_end_time')->find();
+    $todayPostNum = M('Post')->where(['id'=>$m_id,'create_time'=>['between',[$todayStart,$todayStart+86399]]])->count('id');
+    $level_one = 5;
+    $level_two = 10;
+    $level_three = 20;
+    if($member_info['type'] == 0){
+        if($todayPostNum >= $level_one){
+            return false;
+        }
+    }elseif ($member_info['type'] == 1){
+        if($todayPostNum >= $level_two){
+            return false;
+        }
+    } elseif ($member_info['type'] == 2){
+        if($member_info['vip_end_time'] < time()){
+            $level_three = $level_two;
+        }
+        if($todayPostNum >= $level_three){
+            return false;
+        }
+    }
+    return true;
+}
+

@@ -73,6 +73,10 @@ class PostController extends BaseController{
         );
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
+        $isCanPost = isCanPost($m_id);
+        if(!$isCanPost){
+            apiResponse('0','已达到今日发布上限');
+        }
         $data = [
             'm_id'=>$m_id,
             'title'=>$request['title'],
