@@ -18,8 +18,6 @@
         button.reply{
             background-color: #ffcb3e
         }
-
-
         .provide-list{
             background-color: #f6f6f6;
         }
@@ -59,11 +57,12 @@
             height: 30px;
             border-radius: 50%;
         }
-
         .provide-item{
             margin-top: 10px;
         }
-
+.distance{
+    height: 280px;
+}
     </style>
 </block>
 <block name="header_script">
@@ -85,7 +84,7 @@
         <div class="search">
             <div class="search_a">
                 <a href="{:U('Index/search')}">
-                    <img src="__ROOT__/Public/Home/img/search.png" />
+                    <img src="__ROOT__/Public/Home/img/search.png" style="margin-top: 7px;"/>
                     <input type="search" placeholder="搜索">
                 </a>
             </div>
@@ -131,40 +130,36 @@
             </div>
         </div>
         <!--主体内容-->
-        <article>
+        <article >
             <!--推荐VIP商家-->
             <div class="artcle_1">
                 <div class="top">
-                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
                     <span>推荐VIP商家</span>
-                    <img src="__ROOT__/Public/Home/img/double.png" />
-                    <span class="more"><a href="{:U('Index/index_VIPbussiness')}" style="   color: #999999;">更多</a></span>
+                    <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
+                    <span class="more"><a href="{:U('Index/index_VIPbussiness')}" style="color: #999999;font-size: 15px">更多</a></span>
                 </div>
-
                 <div class="mains">
-
                 </div>
-
             </div>
-
             <!--供求信息-->
-            <div class="provide-list">
-
+            <div class="gongqiu" >
+                <span>供求信息</span>
+                <span><a href="" class="color3">更多</a></span>
             </div>
-
+            <div class="provide-list">
+            </div>
             <!--尽在咫尺 （帖子）-->
             <div class="artcle_1">
                 <div class="top">
-                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
                     <span>尽在咫尺</span>
-                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
                 </div>
                 <div class="tz-list">
 
                 </div>
             </div>
-            <br>
-            <br>
         </article>
 
         <!--尾部-->
@@ -250,12 +245,12 @@
                             disableOnInteraction: false,
                         },
                     });
-
+                    //推荐VIP商家
                     $(merchant_list).each(function (index, item) {
-                        $(".mains").append(' <div class="main" member_id="'+item.m_id+'">' +
-                            '                        <div class="list">' +
-                            '                            <img src="'+item.head_pic_path+'"  />' +
-                            '                            <p>'+item.nickname+'<br><span style="font-size: 10px;color: #999999">'+item.attention_num+'人关注</span></p>' +
+                        $(".mains").append(' <div class="main"  member_id="'+item.m_id+'">' +
+                            '                        <div class="list" >' +
+                            '                            <img style="margin-bottom: 10px" src="'+item.head_pic_path+'"  />' +
+                            '                            <p style="font-size: 15px">'+item.nickname+'<br><span style="font-size: 14px;color: #999999;">'+item.attention_num+'人关注</span></p>' +
                             '                        </div>' +
                             '                    </div>')
                     })
@@ -267,7 +262,7 @@
             });
         }
 
-
+        //供求信息
         function supplyList(list) {
             var str = ""
             $(list).each(function (index, item) {
@@ -324,13 +319,13 @@
             return str;
         }
 
-
+        //尽在咫尺
         function getTzList(list) {
             var str = ""
             $(list).each(function (index, item) {
                 str += '<div class="distance tz-item" id="'+item.id+'">' +
                     '            <div class="distance_top">' +
-                    '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                    '                <img style="margin-right: 10px" class="b-b" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 14px">'+timestampFormat(item.create_time)+'</span>' +
                     '            </div>' +
                     '            <p>' +
                     '                <span  class="biaoti">'+item.title+'</span><br>' +
@@ -341,7 +336,7 @@
                     imgList(item.pic_list)+
                     '                </div>' +
                     '            </div>' +
-                    '            <div class="distance_buttom">' +
+                    '            <div class="distance_buttom" style="margin-top: 10px">' +
                     '                <div class="distance_buttom_1">' +
                     '                     <span>来自 '+item.type_name+'系列</span>' +
                     '                </div>' +
@@ -352,7 +347,8 @@
                     '                    <span>'+item.comment_num+'</span>' +
                     '                </div>' +
                     '            </div>' +
-                    '        </div>'
+                    '        </div>' +
+                    '<div style="border: 5px solid #F6F6F6"></div>'
             })
             return str
         }

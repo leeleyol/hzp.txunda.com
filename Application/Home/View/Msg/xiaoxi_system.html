@@ -12,6 +12,9 @@
     <script src="__ROOT__/Public/Home/js/util.js"></script>
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
     <style>
+        .system_biaoti{
+            margin-left: 10px;
+        }
         .sys_msg_content {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -74,13 +77,13 @@
                 var DATA = res.data;
                 $(DATA).each(function (index, item) {
                     $(".msg-list").append(' <a class="msg-item" href="{:U(\'Msg/xiaoxi_system1\')}&sys_msg_id='+item.sys_msg_id+'">' +
-                        '            <div class="buju   ">' +
+                        '            <div class="buju" style="height: 35px;line-height: 35px;padding-top:3px">' +
                         '                <div class="buju_item">' +
                         '                    <img src="__ROOT__/Public/Home/img/bd.png" />' +
                         '                </div>' +
                         '                <div class="buju_item" style="width: 40%">' +
                         '            <span >' +
-                        '                 <img src="__ROOT__/Public/Home/img/time.png" />' +
+                        '                 <img src="__ROOT__/Public/Home/img/time.png" style="font-size:15px;margin-right: 5px; "/>' +
                         getDate(item.create_time,"YY-MM-DD") +
                         '            </span>' +
                         '                </div>' +
@@ -89,10 +92,10 @@
                         '                </div>' +
                         '            </div>' +
                         '            <div class="welcome">' +
-                        '                <div class="system_biaoti">' + item.sys_msg_title + '</div>' +
+                        '                <div class="system_biaoti" style="font-weight: 600">' + item.sys_msg_title + '</div>' +
                         '                <div class="fineLine"></div>' +
                         '                <div>' +
-                        '                    <div class="sys_msg_content">' + item.sys_msg_content + '</div>' +
+                        '                    <div class="sys_msg_content" style="margin-left: 20px">' + item.sys_msg_content + '</div>' +
                         '                    <div class="system_weibu">' +
                         '                        查看详情<img src="__ROOT__/Public/Home/img/h_more.png" />' +
                         '                    </div>' +

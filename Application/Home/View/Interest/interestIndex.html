@@ -137,7 +137,7 @@
                             '<div class="inter_list">' +
                             '<img src="'+item.pic+'">' +
                             '<p class="color3 fontsize3">'+item.type_name+'</p>' +
-                            '<div class="mengban">' +
+                            '<div class="mengban" style="text-align: right">' +
                             item.num + '人参与&nbsp;' +
                             '</div>' +
                             '</div>' +
@@ -164,9 +164,9 @@
                 }else {
                     var list = res.data.post_list;
                     $(list).each(function (index, item) {
-                        $(".tz-list").append('<div class="distance tz-item" id="'+item.id+'">' +
+                        $(".tz-list").append('<div class="distance tz-item" style="min-height: 280px" id="'+item.id+'">' +
                             '            <div class="distance_top">' +
-                            '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                            '                <img style="border-radius: 50%" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 14px">'+timestampFormat(item.create_time)+'</span>' +
                             '            </div>' +
                             '            <p>' +
                             '                <span  class="biaoti">'+item.title+'</span><br>' +
@@ -177,7 +177,7 @@
                                                     imgList(item.pic_list)+
                             '                </div>' +
                             '            </div>' +
-                            '            <div class="distance_buttom">' +
+                            '            <div class="distance_buttom" >' +
                             '                <div class="distance_buttom_1">' +
                             '                     <span>来自 '+item.type_name+'系列</span>' +
                             '                </div>' +

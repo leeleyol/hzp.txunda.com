@@ -115,7 +115,10 @@ header .header_right a{
     left: 19px;
 
 }
-
+.icon-logo{
+    width: 18px;
+    height: 18px;
+}
 /*产品*/
 .product{
     width: 100%;
@@ -125,7 +128,7 @@ header .header_right a{
 .product .item{
     width: 25%;
     text-align: center;
-    height: 100px;
+    height:85px;
 }
 
 .product .item img{
@@ -144,14 +147,15 @@ article{
 /*推荐VIP商家*/
 .artcle_1{
     background-color: #f6f6f6;
-    height: 185px;
-    padding-top: 1px;
+    height: 200px;
 }
 .artcle_1 .top{
     text-align: center;
     overflow: hidden;
     margin: 5px 0;
     padding-top: 1px;
+    height: 40px;
+    line-height: 40px;
 }
 .mains {
     width: 100%;
@@ -187,6 +191,15 @@ article{
     white-space: nowrap;
 }
 /*供求信息*/
+.gongqiu{
+    height: 40px;line-height:40px;width: 100%;padding: 0px 10px;box-sizing: border-box;border-bottom: 1px solid #dedede
+}
+.gongqiu span:first-child{
+    float: left;color: #333
+}
+.gongqiu span:last-child{
+    float: right;color: #999;font-size: 15px
+}
 .more{
     float: right;
     margin-right: 5px;
@@ -203,15 +216,20 @@ article{
 }
 .section_top{
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 5px 15px;
 }
 .section_top button{
     background-color:#ff4c82;
     color:white;
-    height: 22px;
-    width: 21px;
+    height: 20px;
+    width:20px;
     font-size: 16px;
-    border-radius: 8px 8px 8px 8px;
+    border-radius:4px;
+    margin-right: 5px;
+}
+.paddingl_2{
+    height: 40px;
+    line-height: 40px;
 }
 .section_buttom{
     padding: 5px 15px 5px 0px;
@@ -265,6 +283,7 @@ article{
 .distance_top img{
     width: 25px;
     height: 25px;
+    border-radius: 50%;
 }
 .distance_top p{
     color: black;
@@ -272,7 +291,7 @@ article{
 }
 .distance_top span{
     color: #999999;
-    font-size: 12px;
+    font-size: 14px;
     padding-left: 5px;
 }
 .section_item .rongqi2{
@@ -287,6 +306,7 @@ article{
 .distance_buttom{
     padding:0px 10px;
     display: flex;
+    margin-top: 10px;
     justify-content:space-between;
     background-color: white;
 }
@@ -346,44 +366,52 @@ footer .footer_item a{
 .VIPbusiness{
     padding: 10px;
     height: 50px;
-}
-.VIPbusiness_left{
-    width: 45px;
-    float: left;
-    height: 50px;
 
 }
+.VIPbusiness_left{
+    width: 60px;
+    float: left;
+    height: 60px;
+}
 .VIPbusiness_left .absolute{
-   position: absolute;
-    width:45px;
-    height:45px
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 .VIPbusiness_left .relation{
     position: relative;
-    top: 18px;
-    left: 14px;
-    width: 28px;
-    height: 27px;
+    top: 25px;
+    left: 18px;
+    width: 35px;
+    height: 32px;
 }
 
 .VIPbusiness_middle{
-    width: 60%;
+    width: 50%;
     float: left;
     color: black;
-   line-height: 1.6em;
+    line-height: 1.6em;
     font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 5px;
 }
 .VIPbusiness_middle span{
     color: #999999;
-    font-size: 13px;
+    font-size: 14px;
 }
 .VIPbusiness_middle input{
+    margin-left: 5px;
+    margin-top: -5px;
     background-color:white;
     border: 1px solid #ff4c82;
     color:#ff4c82;
     height: 20px;
     width: 60px;
-    font-size: 13px;
+    font-size: 14px;
     border-radius: 8px 8px 8px 8px;
 }
 .VIPbusiness_right{

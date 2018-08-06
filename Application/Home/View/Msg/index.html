@@ -8,6 +8,12 @@
             white-space: nowrap;
             text-overflow: ellipsis;
         }
+        .system_left{
+            margin-top: 5px;
+        }
+        .system_right{
+            margin-right: 15px;
+        }
     </style>
 </block>
 <block name="main">
@@ -85,7 +91,7 @@
                     $(chatList).each(function (index, item) {
                         $(".chatList").append('<div class="system" from_mid="'+item.from_mid+'">' +
                             '        <div class="system_left">' +
-                            '            <img src="'+item.from_head_pic+'"/>' +
+                            '            <img style="border-radius: 50%;width: 45px;height: 45px;" src="'+item.from_head_pic+'"/>' +
                             '        </div>' +
                             '        <div class="system_right">' +
                             '            <font>'+item.nickname+'<span>'+ getDate(item.create_time,"YY-MM-DD") +'</span></font>' +

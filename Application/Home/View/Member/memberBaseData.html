@@ -6,6 +6,9 @@
         *{
             overflow: hidden;
         }
+        header{
+            background: white;
+        }
         .textarea{
             width: 100%;
             background-color: rgba(246, 246, 246, 1);
@@ -38,13 +41,14 @@
             height: 100%;
             text-align: right;
         }
+
     </style>
 </block>
 <block name="main">
 <!--头部引用common样式-->
     <header>
         <div class="header_left">
-            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/w_back.png" /></a>
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
         <div class="header_middle">
             个人资料
@@ -54,12 +58,12 @@
 
 
     <div class="coarseLline"></div>
-    <div class="leftright" style="height: 60px;line-height: 60px;">
+    <div class="leftright" style="height:70px;line-height: 70px;">
         <div class="left">
             头像
         </div>
         <div class="right head_pic_box">
-            <img id="head_pic" src="__ROOT__/Public/Home/img/my0.png" style="width: 60px;height: 60px"/>
+            <img id="head_pic" src="__ROOT__/Public/Home/img/my0.png" style="width: 60px;height: 60px;border-radius: 50%" />
         </div>
     </div>
     <div class="fineLine"></div>
