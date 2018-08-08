@@ -1,26 +1,6 @@
 <extend name="Public/base" />
 <block name="style">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/loginpwd.css">
-    <style>
-        .allow{
-            width: 28px;
-            height: 28px;
-
-            vertical-align: middle;
-            background-size: 100%;
-            background-position: left top;
-            background-repeat: no-repeat;
-            margin-bottom: 2px;
-            display: inline-block;
-            background-image: url("__ROOT__/Public/Home/img/WechatIMG565.png");
-        }
-        .allow.checked{
-            background-image: url("__ROOT__/Public/Home/img/kongxuan.png");
-        }
-        .juli{
-            margin: 70px 0px 30px 0px;
-        }
-    </style>
 </block>
 <block name="main">
 <header>
@@ -54,8 +34,6 @@
    <div class="juli">
        <!--<img src="__ROOT__/Public/Home/img/kongxuan.png" height="30px" width="30px" />-->
        <!--同意并阅读<font color="#ff4c82" >《化妆品注册协议》</font>-->
-       <p class="allow checked"></p>
-       同意并阅读<font color="#ff4c82" >《化妆品注册协议》</font>
    </div>
     <button type="button" id="do_register">注 册</button>
 </form>
@@ -115,32 +93,5 @@
             });
         })
 
-
-        //是否同意协议
-        $(function () {
-            bindHandler();
-        });
-
-        function bindHandler() {
-            $(".allow").click(function () {
-                $(this).toggleClass("checked");
-            });
-
-            $(".identify").click(function () {
-                if($(".allow").hasClass("checked")){
-                    window.location.href = "{:U('Member/my_cardwrite')}"
-                }else {
-                    layer.open({
-                        content: "请同意协议"
-                        ,skin: 'msg'
-                        ,time: 2 //2秒后自动关闭
-                    });
-                }
-            })
-
-            $(".header_left").click(function () {
-                history.go(-1)
-            })
-        }
     </script>
 </block>

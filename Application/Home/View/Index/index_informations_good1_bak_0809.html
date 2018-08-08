@@ -51,7 +51,8 @@
             height: 100%;
         }
         .height{
-
+            height: 40px;
+            line-height: 40px
         }
         .operate > img:first-of-type{
             display: none;
@@ -71,9 +72,6 @@
         }
         .disable-color{
             pointer-events: none;
-        }
-        .list_2 div:last-child{
-
         }
     </style>
 </head>
@@ -189,17 +187,17 @@
 
             str += '                    <div class="lists bc2 fontsize3 goods-item" goods_id="'+item.goods_id+'">' +
                 '                        <div class="list">' +
-                '                            <div class="list_1 text-center operate " style="height: 40px;line-height: 40px">' +
+                '                            <div class="list_1 text-center operate">' +
                                                     '<img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del"/>' +
                 '                                   <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" />'+
                 '                            </div>' +
                 '                        </div>' +
-                '                        <div class="list" style="height:40px;text-overflow: ellipsis">' +
-                '                            <div class="list_2" style="height: 40px">' +
+                '                        <div class="list">' +
+                '                            <div class="list_2  ">' +
                 '                                <div class="list_21" >' +
                 '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
-                '                                <div style="height:40px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden">'+item.goods_name+'</div>' +
+                '                                <div >'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +

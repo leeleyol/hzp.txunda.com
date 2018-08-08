@@ -241,6 +241,11 @@ class IndexController extends BaseController{
 
 
 
+    public function love(){
+        header("Content-type: text/html; charset=utf-8");
+        echo 'name：my girl❤ 爱好：羽毛球、游泳、运动、吃好吃的！！！喜欢吃的：辣的 最爱五花肉 还有各种肉 冰的  喜欢的颜色：绿色 最爱墨绿色 蓝色哇 不喜欢吃的：香蕉 芝麻 花生。。。 搜集中 其他：小懒头。';
+    }
+
 
 
 }

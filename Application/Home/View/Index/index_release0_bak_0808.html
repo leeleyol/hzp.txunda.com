@@ -42,9 +42,8 @@
         }
         .list_1{
             margin-right: 0px;
-            width: 55px;
-            padding: 2px;
-            box-sizing: border-box;
+            width: 60px;
+            padding: 5px;
         }
         .list_2{
             margin-right: 0px;
@@ -58,7 +57,6 @@
         }
         .list_22{
             height: 100%;
-            width: 40px;
         }
         .height{
             height: 40px;
@@ -292,14 +290,6 @@
         .gq-list{
             padding-bottom: 50px;
         }
-        .goodsName{
-            height:40px;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden
-        }
-
     </style>
 
 </head>
@@ -381,7 +371,7 @@
                 <div class="inter-box2-cont  ">
                     <p class=" fenlei fontsize2">添加分类</p>
                     <input type="text" class="text fontsize3 type-content" placeholder="输入要添加分类的名称">
-                    <p class="color6 fontsize3 duanluo">添加商品分类的名称，对商品进行描述</p>
+                    <p class="color6 fontsize3 duanluo"></p>
                 </div>
                 <div class="tianjia">
                     <div class="tianjia1">
@@ -403,7 +393,7 @@
                     <a class="weui-cell weui-cell_access cuxian select-type">
                         <div class="weui-cell__bd  ">
                             <span class="zuo fontsize11">选择分类 </span>
-                            <input  class="zhong fontsize11 type_name" type="text" placeholder="请选择分类" />
+                            <input  class="zhong color3 fontsize11 type_name" type="text" placeholder="请选择分类" />
                             <input type="hidden" class="goods_type_id">
                         </div>
                         <div class="weui-cell__ft"></div>
@@ -464,7 +454,7 @@
                         </div>
                     </div>
                     <div class="img">
-                        <div class="weui-uploader__input-box">
+                        <div class="weui-uploader__input-box" style="margin-left: 15px">
 
                         </div>
                     </div>
@@ -555,11 +545,11 @@
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
-                '                            <div class="list_2" style="height: 40px">' +
+                '                            <div class="list_2  ">' +
                 '                                <div class="list_21" >' +
                 '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
-                '                                <div class="goodsName">'+item.goods_name+'</div>' +
+                '                                <div >'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +

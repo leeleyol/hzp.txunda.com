@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>系统通知</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        .sys_msg_content {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 63px;
+        }
+    </style>
+</head>
+<body class="bc3">
+<header class="head">
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+    </div>
+    <div class="header_middle">
+        系统通知
+    </div>
+    <div class="header_right"></div>
+</header>
+<div class="headtop"></div>
+
+<div class="msg-list">
+</div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        getParam();
+        getList();
+        bindHandler()
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            layderIndex = layer.open({type: 2});
+            getList()
+        })
+    })
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    }
+
+    var page = 0,layderIndex;
+    function getList() {
+        page += 1
+        requestUrl("{:U('Home/Msg/systemMsgList')}", {type: type, p: page}, function (res) {
+            layer.close(layderIndex)
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                var DATA = res.data;
+                $(DATA).each(function (index, item) {
+                    $(".msg-list").append(' <a class="msg-item" href="{:U(\'Msg/xiaoxi_system1\')}&sys_msg_id='+item.sys_msg_id+'">' +
+                        '            <div class="buju   ">' +
+                        '                <div class="buju_item">' +
+                        '                    <img src="__ROOT__/Public/Home/img/bd.png" />' +
+                        '                </div>' +
+                        '                <div class="buju_item" style="width: 40%">' +
+                        '            <span >' +
+                        '                 <img src="__ROOT__/Public/Home/img/time.png" />' +
+                        getDate(item.create_time,"YY-MM-DD") +
+                        '            </span>' +
+                        '                </div>' +
+                        '                <div class="buju_item">' +
+                        '                    <img src="__ROOT__/Public/Home/img/bd.png" />' +
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="welcome">' +
+                        '                <div class="system_biaoti">' + item.sys_msg_title + '</div>' +
+                        '                <div class="fineLine"></div>' +
+                        '                <div>' +
+                        '                    <div class="sys_msg_content">' + item.sys_msg_content + '</div>' +
+                        '                    <div class="system_weibu">' +
+                        '                        查看详情<img src="__ROOT__/Public/Home/img/h_more.png" />' +
+                        '                    </div>' +
+                        '                </div>' +
+                        '            </div>' +
+                        '        </a>')
+                })
+            }
+        });
+    }
+
+    var type;
+
+    function getParam() {
+        type = getUrlParam("type")
+    }
+</script>

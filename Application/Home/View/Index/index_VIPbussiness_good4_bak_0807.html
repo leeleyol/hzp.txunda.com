@@ -103,11 +103,11 @@
     function renderHtml(selected_arr) {
         $(".goods-item").remove()
         $(selected_arr).each(function (index, item) {
-            $(".table").append('<tr class="goods-item"  " goods_id="' + item.goods_id + '" goods_name="' + item.goods_name + '" number="' + item.number + '">' +
-                '            <td style="padding-left: 10px; border-right:0px;width: 50px">' +
-                '                <img  src="' + item.goods_pic_path + '" />' +
+            $(".table").append('<tr class="goods-item" goods_id="' + item.goods_id + '" goods_name="' + item.goods_name + '" number="' + item.number + '">' +
+                '            <td style="padding-left: 10px; border-right:0px">' +
+                '                <img src="' + item.goods_pic_path + '" />' +
                 '            </td>' +
-                '            <td style="text-align: left;height:38px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;" class="">' + item.goods_name + '</td>' +
+                '            <td style="text-align: left" class="">' + item.goods_name + '</td>' +
                 '            <td >' + item.number + item.stock_unit + '</td>' +
                 '            <td ><input type="number" placeholder="输入报价金额" class="input" onkeyup="clearNoNum(this)" value="' + item.buy_price + '"></td>' +
                 '        </tr>')

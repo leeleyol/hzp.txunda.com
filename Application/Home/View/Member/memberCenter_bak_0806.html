@@ -20,8 +20,8 @@
         }
 
         .my .my_left img {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 50px;
             border-radius: 50%;
         }
 
@@ -62,7 +62,7 @@
         }
     </style>
 </block>
-<block name="main" >
+<block name="main">
     <header style=" background: url(__ROOT__/Public/Home/img/bc.png);background-size: 100%">
         <div class="my">
             <div class="my_left">
@@ -99,7 +99,7 @@
                 <a href="{:U('Follow/myFollow')}">
                     关注
                 </a>
-                <br><span linkto="{:U('Follow/myFollow')}" id="follow_num" class="color2">0</span>
+                <br><span linkto="{:U('Follow/myFollow')}" id="follow_num">0</span>
             </div>
             <div class="my_item">
                 <hr style="width: 0.5px;height: 50px;margin: 10% 0px 0px 50%;background-color: #cacaca">
@@ -108,7 +108,7 @@
                 <a href="{:U('Collect/myCollect')}">
                     收藏
                 </a>
-                <br><span linkto="{:U('Collect/myCollect')}" id="collect_num" class="color2">0</span>
+                <br><span linkto="{:U('Collect/myCollect')}" id="collect_num">0</span>
             </div>
         </div>
     </header>
@@ -145,7 +145,7 @@
     <a href="{:U('Index/index_release0')}">
         <div class="leftright">
             <div class="left">
-                我的库存
+                我的发布
             </div>
             <div class="right">
                 <img src="__ROOT__/Public/Home/img/h_more.png"/>

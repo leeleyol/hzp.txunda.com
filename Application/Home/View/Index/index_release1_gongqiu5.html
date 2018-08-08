@@ -222,14 +222,12 @@
     function saveData() {
         var goods_id = $(".active").parents(".goods-item").attr("goods_id");
         var goods_name = $(".active").parents(".goods-item").find(".goods_name").text();
-
         $(supply_info).each(function (index, item) {
             if(item.id == id){
                 item.goods_id = goods_id
                 item.goods_name = goods_name
             }
         });
-
         localStorage.provideData = JSON.stringify(provideData)
     }
 </script>
