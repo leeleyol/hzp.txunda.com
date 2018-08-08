@@ -47,6 +47,7 @@
             line-height: 40px;
             margin-left: 10px;
             flex: 1;
+            border-radius: 6px;
         }
 
         .distance_top i {
@@ -100,34 +101,42 @@
             height: 40px;
             line-height: 40px;
             background-color: #ff4c82;
-            border-radius: 5px;
+            border-radius: 6px;
             color: white;
         }
-
+        .footbut .input{
+            height: 40px;
+            line-height: 40px;
+        }
         .commit-item {
             border-top: 1px solid rgba(246, 246, 246, 1);
             padding-top: 5px;
         }
-
         .reply-time{
             padding-right: 10px;
         }
-
         .reply {
             float: right;
         }
-
         .fineLine2 {
             border-bottom: none;
         }
-
         .line {
             border-bottom: 1px solid rgba(246, 246, 246, 1);
             margin-bottom: 5px;
         }
-
         .hide {
             display: none;
+        }
+        .distance_buttom{
+            padding-bottom: 10px;
+        }
+        .icon_name{
+            border-radius: 50%;
+        }
+        .icon_del{
+            width: 18px;
+            height: 18px;
         }
     </style>
     <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
@@ -277,7 +286,7 @@
                     var replyList = item.reply_list
                     $(".commit-list").append('<div class="commit-item" id="' + item.id + '" from_mid="' + item.from_mid + '">' +
                         '            <div class="">' +
-                        '                <img src="' + item.head_pic + '"  class="icon_name paddingl_1" >' +
+                        '                <img style="margin-left: 15px" src="' + item.head_pic + '"  class="icon_name" >' +
                         '                <span class="reply-nickname fontsize2">' + item.nickname + '</span>' +
                         '                <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">' + item.comment + '</p>' +
                         '                <p class="fontsize4 padding_b color3 fineLine2 reply-time">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +

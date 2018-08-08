@@ -13,6 +13,7 @@
             height: 100%;
         }
         .tz-list{
+            height: auto;
             padding-bottom: 60px;
             background-color: rgba(246, 246, 246, 1);;
         }
@@ -43,8 +44,11 @@
             top: 15px;
             width: 5px;
             height: 5px;
-
         }
+        .mengban{
+            background: url(__ROOT__/Public/Home/img/jianbian.png);background-size: 100%;text-align: right
+        }
+
     </style>
 </block>
 <block name="header_script">
@@ -54,7 +58,6 @@
     <header >
         <div class="header_left">
         </div>
-
         <div class="header_middle color1">
             兴趣圈
         </div>
@@ -137,7 +140,7 @@
                             '<div class="inter_list">' +
                             '<img src="'+item.pic+'">' +
                             '<p class="color3 fontsize3">'+item.type_name+'</p>' +
-                            '<div class="mengban" style="text-align: right">' +
+                            '<div class="mengban">' +
                             item.num + '人参与&nbsp;' +
                             '</div>' +
                             '</div>' +
@@ -164,7 +167,7 @@
                 }else {
                     var list = res.data.post_list;
                     $(list).each(function (index, item) {
-                        $(".tz-list").append('<div class="distance tz-item" style="min-height: 280px" id="'+item.id+'">' +
+                        $(".tz-list").append('<div class="distance tz-item"  id="'+item.id+'">' +
                             '            <div class="distance_top">' +
                             '                <img style="border-radius: 50%" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 14px">'+timestampFormat(item.create_time)+'</span>' +
                             '            </div>' +

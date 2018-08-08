@@ -192,13 +192,20 @@ article{
 }
 /*供求信息*/
 .gongqiu{
-    height: 40px;line-height:40px;width: 100%;padding: 0px 10px;box-sizing: border-box;border-bottom: 1px solid #dedede
+    height: 40px;
+    line-height:40px;
+    width: 100%;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #dedede
 }
 .gongqiu span:first-child{
     float: left;color: #333
 }
 .gongqiu span:last-child{
-    float: right;color: #999;font-size: 15px
+    float: right;
+    color: #999;
+    font-size: 15px
 }
 .more{
     float: right;
@@ -243,8 +250,8 @@ article{
     line-height: 1.4em;
 }
 .section_item{
-    font-size: 16px;
-    margin-right: 10px;
+    font-size: 14px;
+    /*margin-right: 10px;*/
     margin-left: 15px;
 }
 /*父容器去掉滚动条*/
@@ -252,12 +259,13 @@ article{
     display: none;
 }
 .section_item .rongqi{
-    width: 135px;
-    height: 180px;
+    width: 90px;
+    height: 155px;
+    padding-top: 10px;
     border-radius: 8px 8px 8px 8px;
 }
 .section_item .rongqi p,.section_buttom p{
-    padding-top: 5px;
+    /*padding-top: 5px;*/
     line-height: 1.8em;
     /*color: #999999;*/
 }
@@ -265,8 +273,8 @@ article{
 /*尽在咫尺*/
 .distance{
     background-color: white;
-    height: 300px;
-    /*padding-bottom: 10px;*/
+    height: auto;
+    padding-bottom: 10px;
 }
 .distance p{
     padding: 10px 10px;
@@ -309,6 +317,7 @@ article{
     margin-top: 10px;
     justify-content:space-between;
     background-color: white;
+
 }
 .distance_buttom_1 span{
     color: #0f90fe;
@@ -462,12 +471,14 @@ footer .footer_item a{
 
 .mengban{
     position: relative;
+
     /*z-index: 1;*/
     top: -123px;
     color:white;
     height: 20px;
     line-height: 20px;
     font-size: 13px;
+
     background-color: #c0c0be;
     width: 100px  ;
     text-align: right  ;

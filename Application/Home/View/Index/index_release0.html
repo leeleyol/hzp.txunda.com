@@ -13,7 +13,7 @@
     <script src="__ROOT__/Public/Home/js/network.js"></script>
     <script src="__ROOT__/Public/Home/js/util.js"></script>
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
-    <title>我的发布</title>
+    <title>我的库存</title>
     <style>
         body,html{
             height: 100%;
@@ -42,8 +42,9 @@
         }
         .list_1{
             margin-right: 0px;
-            width: 60px;
-            padding: 5px;
+            width: 55px;
+            padding: 2px;
+            box-sizing: border-box;
         }
         .list_2{
             margin-right: 0px;
@@ -57,6 +58,7 @@
         }
         .list_22{
             height: 100%;
+            width: 40px;
         }
         .height{
             height: 40px;
@@ -290,6 +292,22 @@
         .gq-list{
             padding-bottom: 50px;
         }
+        .goodsName{
+            height:40px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden
+        }
+        #hear li:nth-of-type(3) {
+            width: 34%;
+            float: right;
+        }
+        #hear li:nth-of-type(2) {
+            width: 30%;
+            float: right;
+            margin-right: 10px;
+        }
     </style>
 
 </head>
@@ -300,7 +318,7 @@
                 <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
             </div>
             <div class="header_middle"  >
-                我的发布
+                我的库存
             </div>
             <div class="header_right"></div>
         </header>
@@ -371,7 +389,7 @@
                 <div class="inter-box2-cont  ">
                     <p class=" fenlei fontsize2">添加分类</p>
                     <input type="text" class="text fontsize3 type-content" placeholder="输入要添加分类的名称">
-                    <p class="color6 fontsize3 duanluo"></p>
+                    <p class="color6 fontsize3 duanluo">添加商品分类的名称，对商品进行描述</p>
                 </div>
                 <div class="tianjia">
                     <div class="tianjia1">
@@ -393,7 +411,7 @@
                     <a class="weui-cell weui-cell_access cuxian select-type">
                         <div class="weui-cell__bd  ">
                             <span class="zuo fontsize11">选择分类 </span>
-                            <input  class="zhong color3 fontsize11 type_name" type="text" placeholder="请选择分类" />
+                            <input  class="zhong fontsize11 type_name" type="text" placeholder="请选择分类" />
                             <input type="hidden" class="goods_type_id">
                         </div>
                         <div class="weui-cell__ft"></div>
@@ -454,7 +472,7 @@
                         </div>
                     </div>
                     <div class="img">
-                        <div class="weui-uploader__input-box" style="margin-left: 15px">
+                        <div class="weui-uploader__input-box">
 
                         </div>
                     </div>
@@ -545,11 +563,11 @@
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
-                '                            <div class="list_2  ">' +
+                '                            <div class="list_2" style="height: 40px">' +
                 '                                <div class="list_21" >' +
                 '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
-                '                                <div >'+item.goods_name+'</div>' +
+                '                                <div class="goodsName">'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
@@ -1047,11 +1065,10 @@
                     ,time: 2 //2秒后自动关闭
                 });
             }else {
-                console.log(77777777777)
+
                 $(res.data.supply_info).each(function (index, item) {
                     var timestamp1 = new Date().getTime();
                     item.id = timestamp1
-                    console.log(item.id)
                 })
 
                 //编辑供货

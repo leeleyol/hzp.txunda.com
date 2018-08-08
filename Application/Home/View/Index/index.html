@@ -28,11 +28,12 @@
         }
         .goods-name{
             margin-top: 5px;
-            height: 15px;
-            line-height: 15px;
+            height: 40px;
+            padding-top: 5px;
+            line-height: 1.4em;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 2;
             overflow: hidden;
         }
         .rongqi{
@@ -44,8 +45,8 @@
             bottom: 0;
         }
         .rongqi img{
-            width: 135px;
-            height: 135px;
+            width: 110px;
+            height: 90px;
         }
         .reply-operate{
             overflow: hidden;
@@ -60,9 +61,16 @@
         .provide-item{
             margin-top: 10px;
         }
-.distance{
-    height: 280px;
-}
+        .more a{
+            color: #999999;
+            font-size: 15px;
+            position: absolute;
+            width: 40px;right: 5px
+        }
+        .top span,.gongqiu span:first-child{
+            color: #666666;
+            font-size: 16px;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -84,7 +92,7 @@
         <div class="search">
             <div class="search_a">
                 <a href="{:U('Index/search')}">
-                    <img src="__ROOT__/Public/Home/img/search.png" style="margin-top: 7px;"/>
+                    <img src="__ROOT__/Public/Home/img/search.png" style="margin-top: 7px;left: 35%"/>
                     <input type="search" placeholder="搜索">
                 </a>
             </div>
@@ -125,7 +133,7 @@
             <div class="item">
                 <a href="{:U('Index/index_release0')}">
                     <img src="__ROOT__/Public/Home/img/fabu.png"  />
-                    <div>我的发布</div>
+                    <div>我的库存</div>
                 </a>
             </div>
         </div>
@@ -137,7 +145,7 @@
                     <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
                     <span>推荐VIP商家</span>
                     <img src="__ROOT__/Public/Home/img/double.png" class="icon-logo"/>
-                    <span class="more"><a href="{:U('Index/index_VIPbussiness')}" style="color: #999999;font-size: 15px">更多</a></span>
+                    <span class="more"><a href="{:U('Index/index_VIPbussiness')}" style="">更多</a></span>
                 </div>
                 <div class="mains">
                 </div>
@@ -145,7 +153,7 @@
             <!--供求信息-->
             <div class="gongqiu" >
                 <span>供求信息</span>
-                <span><a href="" class="color3">更多</a></span>
+                <span><a href="{:U('Index/index_informations')}" class="color3">更多</a></span>
             </div>
             <div class="provide-list">
             </div>
@@ -159,6 +167,7 @@
                 <div class="tz-list">
 
                 </div>
+                <div style="height: 50px;background-color: #f2f2f2"></div>
             </div>
         </article>
 
@@ -267,10 +276,10 @@
             var str = ""
             $(list).each(function (index, item) {
                 str += ' <div class="provide-item" supply_id="'+item.id+'" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
-                    '                    <div class="section_top ">' +
-                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
-                    item.description +
-                    '                    </div>' +
+                    // '                    <div class="section_top ">' +
+                    // '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    // item.description +
+                    // '                    </div>' +
                     '                    <div class="section">' +
                     (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
                     '                    </div>' +
@@ -282,7 +291,7 @@
                     '                    </div>' +
                     '                    <div class="paddingl_2 reply-operate">' +
                     '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
-                    '                        <label class="fontsize11"> '+item.nickname+'</label>' +
+                    '                        <label class="fontsize11  m-r5"> '+item.nickname+'</label>' +
                     '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
                     '                    </div>' +
                     '<div class="check-box"></div>'+
