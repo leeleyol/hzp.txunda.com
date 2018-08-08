@@ -260,11 +260,12 @@ article{
 }
 .section_item .rongqi{
     width: 90px;
-    height: 135px;
+    height: 155px;
+    padding-top: 10px;
     border-radius: 8px 8px 8px 8px;
 }
 .section_item .rongqi p,.section_buttom p{
-    padding-top: 5px;
+    /*padding-top: 5px;*/
     line-height: 1.8em;
     /*color: #999999;*/
 }

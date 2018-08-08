@@ -28,11 +28,12 @@
         }
         .goods-name{
             margin-top: 5px;
-            height: 15px;
-            line-height: 15px;
+            height: 40px;
+            padding-top: 5px;
+            line-height: 1.4em;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 2;
             overflow: hidden;
         }
         .rongqi{
@@ -44,7 +45,7 @@
             bottom: 0;
         }
         .rongqi img{
-            width: 90px;
+            width: 110px;
             height: 90px;
         }
         .reply-operate{
@@ -275,10 +276,10 @@
             var str = ""
             $(list).each(function (index, item) {
                 str += ' <div class="provide-item" supply_id="'+item.id+'" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
-                    '                    <div class="section_top ">' +
-                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
-                    item.description +
-                    '                    </div>' +
+                    // '                    <div class="section_top ">' +
+                    // '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    // item.description +
+                    // '                    </div>' +
                     '                    <div class="section">' +
                     (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
                     '                    </div>' +
