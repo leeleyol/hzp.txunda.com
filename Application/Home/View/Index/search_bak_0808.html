@@ -1,0 +1,391 @@
+<extend name="Public/base"/>
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        header {
+            background-color: white;
+        }
+
+        #hear {
+            background-color: white;
+        }
+
+        body, html {
+            max-height: 100%;
+            background-color: #F6F6F6;
+        }
+
+        button.reply {
+            background-color: #ffcb3e
+        }
+
+        .provide-list {
+            background-color: #f6f6f6;
+        }
+
+        .provide-item {
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .goods-name {
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+
+        .rongqi {
+            position: relative;
+        }
+
+        .rongqi span {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .rongqi img {
+            width: 135px;
+            height: 135px;
+        }
+
+        .reply-operate {
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .reply-operate > img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .provide-item {
+            margin-top: 10px;
+        }
+
+        .empty-show{
+            display: none;
+        }
+
+        .VIPbusiness{
+            background-color: white;
+        }
+    </style>
+</block>
+<block name="main">
+    <header>
+        <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png" width="30px" height="30px"></a>
+        <img src="__ROOT__/Public/Home/img/search.png" style="position:absolute;z-index: 1;width: 20px;height: 20px;
+         top: 19px;left: 60px;"/>
+        <input type="search" class="keyword" placeholder="搜索">
+        <span>
+             <a id="search" style="color: black;">搜索</a>
+        </span>
+    </header>
+
+    <div class="tab">
+        <ul id="hear">
+            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">
+                供求信息
+            </li>
+            <li> 商家</li>
+            <li> 帖子</li>
+        </ul>
+        <ul id="contentop">
+            <li class="action provide-list">
+                <div style="text-align:center;padding-top: 100px" class="empty-show">
+                    <img src="__ROOT__/Public/Home/img/emptyData.png" height="150" width="150"/>
+                    <br>
+                    <span style="color: #999999;font-size: 18px">没有搜索到～</span>
+                </div>
+            </li>
+            <li class="vip-list">
+                <div style="text-align:center;padding-top: 100px" class="empty-show">
+                    <img src="__ROOT__/Public/Home/img/emptyData.png" height="150" width="150"/>
+                    <br>
+                    <span style="color: #999999;font-size: 18px">没有搜索到～</span>
+                </div>
+            </li>
+            <li class="tz-list">
+                <div style="text-align:center;padding-top: 100px" class="empty-show">
+                    <img src="__ROOT__/Public/Home/img/emptyData.png" height="150" width="150"/>
+                    <br>
+                    <span style="color: #999999;font-size: 18px">没有搜索到～</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</block>
+<block name="script">
+    <script>
+        <!--选项卡-->
+        $(function () {
+            bindHandler()
+        });
+
+        var page0 = 0, page1 = 0, page2 = 0, pageIndex = 0;
+        var layderIndex;
+        function bindHandler() {
+            $("#hear li").click(function () {
+                $(this).css({
+                    borderBottom: "2px solid #FF4C82",
+                    color: "#FF4C82"
+                }).siblings().css({
+                    borderBottom: "none",
+                    color: "#000000"
+                });
+                $(this).addClass("action").siblings().removeClass("action");
+                var index = $(this).index();
+                page = 0;
+                pageIndex = index;
+                $("#contentop li").eq(index).css("display", "block").siblings().css("display", "none");
+            });
+
+            $("#search").click(function () {
+                var keyword = $(".keyword").val()
+                page0 = 0, page1 = 0, page2 = 0;
+                if (pageIndex == 0) {
+                    $(".provide-item").remove()
+                    searchSupply(keyword)
+                } else if (pageIndex == 1) {
+                    $(".vip-item").remove()
+                    searchMember(keyword)
+                } else if (pageIndex == 2) {
+                    $(".tz-item").remove()
+                    searchPost(keyword)
+                }
+            })
+
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                var keyword = $(".keyword").val()
+                if (pageIndex == 0) {
+                    searchSupply(keyword)
+                } else if (pageIndex == 1) {
+                    searchMember(keyword)
+                } else if (pageIndex == 2) {
+                    searchPost(keyword)
+                }
+            })
+
+
+
+            $(".provide-list").on("click",".provide-item", function () {
+                var supply_id = $(this).attr("supply_id");
+                window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+            })
+
+            $(".tz-list").on("click",".tz-item", function () {
+                var post_id = $(this).prop("id");
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + post_id
+            })
+        }
+
+        function searchSupply(keyword) {
+            page0 += 1;
+            requestUrl("{:U('Home/Index/searchSupply')}", {keyword: keyword, p: page0}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data
+                    $(".provide-list").append(supplyList(list))
+                    if(page0 == 1 && list.length == 0){
+                        page0 = 0
+                        $(".provide-list .empty-show").show()
+                    }else {
+                        $(".provide-list .empty-show").hide()
+                    }
+                }
+            });
+        }
+
+        function searchMember(keyword) {
+            page1 += 1;
+            requestUrl("{:U('Home/Index/searchMember')}", {keyword: keyword, p: page1}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".vip-list").append('<a href="{:U(\'Index/index_VIPbussiness_guanzhu\')}&member_id='+item.member_id+'" class="vip-item">' +
+                            '                <div class="VIPbusiness">' +
+                            '                    <div class="VIPbusiness_left">' +
+                            '                        <img src="'+item.head_pic_path+'" class="absolute" />' +
+                            '                        <img src="__ROOT__/Public/Home/img/VIP.png"  class="relation" />' +
+                            '                    </div>' +
+                            '                    <div class="VIPbusiness_middle">' +
+                            item.nickname +  '<input type="button" value="商家认证"><br>' +
+                            '                        <span>'+item.goods_num+'件商品 | '+item.need_num+'条供求</span>' +
+                            '                    </div>' +
+                            '                    <div class="VIPbusiness_right">' +
+                            '                        <span>'+item.attention_num+'人关注</span>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '                <div style="border-bottom: 1px solid #F6F6F6;margin-left: 10px"></div>' +
+                            '            </a>')
+                    })
+                    if(page1 == 1 && list.length == 0){
+                        page1 = 0
+                        $(".vip-list .empty-show").show()
+                    }else {
+                        $(".vip-list .empty-show").hide()
+                    }
+                }
+            });
+        }
+
+        function searchPost(keyword) {
+            page2 += 1;
+            requestUrl("{:U('Home/Index/searchPost')}", {keyword: keyword, p: page2}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    $(".tz-list").append(getTzList(list))
+
+                    if(page2 == 1 && list.length == 0){
+                        page2 = 0;
+                        $(".tz-list .empty-show").show()
+                    }else {
+                        $(".tz-list .empty-show").hide()
+                    }
+                }
+            });
+        }
+
+        function supplyList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += ' <div class="provide-item" supply_id="' + item.id + '">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section">' +
+                    (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic)) +
+                    '                    </div>' +
+                    '                    <div class="section_buttom">' +
+                    '                        <p>' +
+                    '                            <span class="color3">交易方式:</span><span class="color1">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
+                    '                            <span class="color8">位置:' + item.area_name + '</span>' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
+                    '                        <label class="fontsize11"> ' + item.nickname + '</label>' +
+                    '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                    '                    </div>' +
+                    '<div class="check-box"></div>' +
+                    '                </div>'
+            })
+            return str
+        }
+
+        function sectionItme(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi">' +
+                    '                                <img src="' + item.goods_pic_path + '"/>' +
+                    '                                <div class="goods-name">' + item.goods_name + '</div>' +
+                    '<span class="float_r color4">¥' + item.goods_price + '</span>' +
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function sectionItme2(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi2">' +
+                    '                                <img src="' + item + '"/>' +
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+        function getTzList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += '<div class="distance tz-item" id="'+item.id+'">' +
+                    '            <div class="distance_top">' +
+                    '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                    '            </div>' +
+                    '            <p>' +
+                    '                <span  class="biaoti">'+item.title+'</span><br>' +
+                    item.content+
+                    '            </p>' +
+                    '            <div class="" >' +
+                    '                <div class="section">' +
+                    imgList(item.pic_list)+
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="distance_buttom">' +
+                    '                <div class="distance_buttom_1">' +
+                    '                     <span>来自 '+item.type_name+'系列</span>' +
+                    '                </div>' +
+                    '                <div class="distance_buttom_2">' +
+                    '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                    '                    <span>'+item.view+'</span>' +
+                    '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                    '                    <span>'+item.comment_num+'</span>' +
+                    '                </div>' +
+                    '            </div>' +
+                    '        </div>'
+            })
+            return str
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                str +=  '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    '<img src="'+item+'"  /><br>' +
+                    '</div>' +
+                    '</div>'
+            })
+            return str
+        }
+    </script>
+</block>
+
+</html>

@@ -1,0 +1,211 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        body,html{
+            min-height: 100%;
+            padding-top: 1px;
+            box-sizing: border-box;
+
+        }
+        .header_left{
+            height: 100%;
+        }
+        .tz-list{
+            padding-bottom: 60px;
+            background-color: rgba(246, 246, 246, 1);;
+        }
+        .tz-item:not(:first-of-type){
+            margin-top: 15px;
+        }
+        .distance_top i{
+            font-style: normal;
+            margin: 0 0 0 5px;
+            width: 90px;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .distance_top > *{
+            vertical-align: middle;
+        }
+        .mengban{
+            text-align: center;
+        }
+
+        .xiaoxi{
+            right: 10px;
+        }
+        .xiaoxi-dot{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 5px;
+            height: 5px;
+
+        }
+    </style>
+</block>
+<block name="header_script">
+    <script src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+</block>
+<block name="main">
+    <header >
+        <div class="header_left">
+        </div>
+
+        <div class="header_middle color1">
+            兴趣圈
+        </div>
+        <div class="header_right">
+            <img src="__ROOT__/Public/Home/img/h_information.png" class="xiaoxi" linkto="{:U('Msg/index')}"/>
+            <img src="__ROOT__/Public/Home/img/dot.png" class="xiaoxi-dot"/>
+         </div>
+    </header>
+    <div class="fineLine"></div>
+    <div class="inter">
+
+    </div>
+    <div class="coarseLline"></div>
+    <div class="tz-list">
+
+    </div>
+
+    <!--尾部-->
+    <footer>
+        <div class="footer_item">
+            <a href="{:U('Index/index')}">
+                <img src="__ROOT__/Public/Home/img/home_0.png"  />
+                <div >首页</div>
+            </a>
+        </div>
+        <div class="footer_item">
+            <a href="{:U('Interest/interestIndex')}">
+                <img src="__ROOT__/Public/Home/img/empty_1.png" />
+                <div class="active ">兴趣圈</div>
+            </a>
+        </div>
+        <div class="footer_item">
+            <a href="{:U('Member/memberCenter')}">
+                <img src="__ROOT__/Public/Home/img/my0.png"  />
+                <div>我的</div>
+            </a>
+        </div>
+    </footer>
+</block>
+
+
+<block name="script">
+    <script>
+        $(function () {
+            getType();
+            getList();
+            bindHandler()
+        })
+        var layderIndex;
+        function bindHandler() {
+            $(".inter").on("click",".inter_item",function () {
+                window.location.href = "{:U('Interest/interest_fenlei1')}" + "&type_id=" + $(this).attr("type_id") +"&typeName=" + $(this).find("p").text();
+            });
+            $(".tz-list").on("click",".tz-item",function () {
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+            })
+
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getList();
+            })
+        }
+
+        function getType() {
+            requestUrl("{:U('Home/Post/typeList')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".inter").append('<div class="inter_item" type_id="'+item.type_id+'">' +
+                            '<div class="inter_list">' +
+                            '<img src="'+item.pic+'">' +
+                            '<p class="color3 fontsize3">'+item.type_name+'</p>' +
+                            '<div class="mengban">' +
+                            item.num + '人参与&nbsp;' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>')
+                    })
+                }
+            });
+        }
+
+        var page = 0;
+        function getList() {
+            page += 1
+            requestUrl("{:U('Home/Post/index')}",{p:page,m_id:m_id},function(res){
+                layer.close(layderIndex)
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data.post_list;
+                    $(list).each(function (index, item) {
+                        $(".tz-list").append('<div class="distance tz-item" id="'+item.id+'">' +
+                            '            <div class="distance_top">' +
+                            '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                            '            </div>' +
+                            '            <p>' +
+                            '                <span  class="biaoti">'+item.title+'</span><br>' +
+                                                item.content+
+                            '            </p>' +
+                            '            <div class="" >' +
+                            '                <div class="section">' +
+                                                    imgList(item.pic_list)+
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="distance_buttom">' +
+                            '                <div class="distance_buttom_1">' +
+                            '                     <span>来自 '+item.type_name+'系列</span>' +
+                            '                </div>' +
+                            '                <div class="distance_buttom_2">' +
+                            '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                            '                    <span>'+item.view+'</span>' +
+                            '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                            '                    <span>'+item.comment_num+'</span>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>');
+                    })
+
+                }
+            });
+        }
+        
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                str +=  '<div class="section_item">' +
+                '<div class="rongqi2" >' +
+                '<img src="'+item+'"  /><br>' +
+                '</div>' +
+                '</div>'
+            })
+            return str
+        }
+        
+    </script>
+</block>

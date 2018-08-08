@@ -1,0 +1,182 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <style>
+        .addbank_right{
+            position: absolute; z-index: 1;
+            right: 10px;height: 30px;line-height: 15px
+        }
+        .addbank_right img{
+            width: 20px;
+            height: 20px;
+        }
+        button{
+            background-color: rgba(255, 76, 130, 1);
+            border-radius: 10px 10px 10px 10px;
+            color: white;
+            height:40px;
+            width: 90%;
+            margin: 30px 5% 0px 5%;
+            position: fixed;
+            bottom: 0px;
+            margin-bottom: 20px;
+        }
+    </style>
+</block>
+<block name="main">
+<div class="bc3">
+    <header class="head">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            添加银行卡
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <p class="textcen fontsize2 color3 padding1  headtop">信息加密处理，仅限于银行验证</p>
+    <div class="addbank">
+        <div class="addbank_item marginl  bank_real_name">
+            <label class="fontsize2 wd">持卡人</label>
+            <input class="fontsize2 color3" type="text" placeholder="持卡人姓名">
+        </div>
+        <div class="addbank_item marginl bank_number">
+            <span class="fontsize2 wd">卡 号</span>
+            <input class="fontsize2 color3" type="text" placeholder="银行卡卡号">
+        </div>
+        <a href="{:U('Member/supportBank')}" >
+            <div class="addbank_item bank_icon_id">
+                <span class="fontsize2 wd paddingl_2">卡类型</span>
+                <input class="fontsize2 color3" type="text"   placeholder="开户行" readonly>
+                <span class="addbank_right" style="">
+                   <img src="__ROOT__/Public/Home/img/h_more.png" >
+               </span>
+            </div>
+        </a>
+        <div class="addbank_item marginl id_card">
+            <span class="fontsize2 wd">身份证号</span>
+            <input class="fontsize2 color3" type="text" placeholder="持卡人身份证号">
+        </div>
+        <div class="addbank_item marginl bank_mobile">
+            <span class="fontsize2 wd">手机号</span>
+            <input class="fontsize2 color3" type="text" placeholder="银行预留手机号">
+        </div>
+    </div>
+    <a href="#">
+        <button class="fontsize2 addCart">添 加</button>
+    </a>
+</div>
+</block>
+
+<block name="script">
+    <script>
+        $(function () {
+            getBankInfo();
+            bindHandler();
+        })
+
+        function bindHandler() {
+            $(".header_left").click(function () {
+                history.go(-1)
+            });
+
+            //添加银行卡
+            $(".addCart").click(function () {
+                localStorage.add_bank_ico_id = "";
+                localStorage.add_bank_ico_name = "";
+
+                //验证姓名
+                var  st0 = $(".bank_real_name input").val().trim();
+                //验证卡号
+                var st1 = cartNumberCheck($(".bank_number input").val().trim());
+                //验证银行
+                var st2 = $(".bank_icon_id input").attr("add_bank_ico_id");
+                //验证身份证
+                var st3 = IdentityCodeValid($(".id_card input").val().trim())
+                //验证手机
+                var st4 = checkPhone($(".bank_mobile input").val().trim());
+
+                if(!st0){
+                    layer.open({
+                        content: "请填写姓名"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }else if(!st1){
+                    layer.open({
+                        content: "请填写正确的卡号"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }else if(!st2){
+                    layer.open({
+                        content: "请选择银行"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }else if(!st3){
+                    layer.open({
+                        content: "请填写正确的身份证号"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }else if(!st4){
+                    layer.open({
+                        content: "请填写正确手机号"
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false
+                }
+
+                addCart({
+                    m_id:m_id,
+                    bank_real_name:$(".bank_real_name input").val().trim(),
+                    bank_number:$(".bank_number input").val().trim(),
+                    id_card:$(".id_card input").val().trim(),
+                    bank_icon_id:$(".bank_icon_id input").attr("add_bank_ico_id"),
+                    bank_mobile:$(".bank_mobile input").val().trim()
+                })
+            })
+        }
+
+        //获取银行
+        function getBankInfo() {
+            var add_bank_ico_id = localStorage.add_bank_ico_id;
+            var add_bank_ico_name = localStorage.add_bank_ico_name;
+            if(add_bank_ico_name){
+                $(".bank_icon_id").find("input").val(add_bank_ico_name).attr({"add_bank_ico_id":add_bank_ico_id})
+            }
+        }
+
+
+        function addCart(param) {
+            requestUrl("{:U('Home/Member/bindBank')}",param,function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    history.go(-1)
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+
+                }
+            });
+        }
+    </script>
+</block>

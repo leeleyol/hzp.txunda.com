@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>填写预购单</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
+    <style>
+        .input {
+            width: 86px;
+        }
+
+        img {
+            max-width: 55px;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<header>
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+    </div>
+    <div class="header_middle" style="color: black">
+        填写预购单
+    </div>
+    <div class="header_right"></div>
+</header>
+
+<table class="table">
+    <tr>
+        <th colspan="2" style=" border-right:0px">商品名称</th>
+        <th width="25%">库存</th>
+        <th width="25%">预购数量</th>
+    </tr>
+
+
+</table>
+<div class="bussiness_bottom">
+    <div class="bottom_num ">
+        <span class="color1 fontsize2">选择商品款式 :</span>
+        <span class="color4 fontsize2"></span>
+
+    </div>
+    <div class="bottom_submit">
+        <button>
+            <a class="color2 fontsize2">
+                &nbsp;提 交&nbsp;
+            </a>
+        </button>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        bindHandler();
+        getParam()
+        initData();
+        renderHtml()
+    });
+
+    var selected_arr = [];
+
+    function initData() {
+        selected_arr = JSON.parse(localStorage.selected_arr)
+    }
+
+    function renderHtml() {
+        $(selected_arr).each(function (index, item) {
+            $(".table").append('<tr class="goods-item">' +
+                '            <td style="padding-left: 10px; border-right:0px">' +
+                '                <img src="' + item.goods_pic_path + '" />' +
+                '            </td>' +
+                '            <td style="text-align: left">' + item.goods_name + '</td>' +
+                '            <td >' + item.stock + item.stock_unit + '</td>' +
+                '            <td stock="' + item.stock + '"><input type="number" placeholder="输入预购数量" class="input" onkeyup="clearNoNum(this)"></td>' +
+                '        </tr>')
+        })
+
+        $(".bottom_num span:last-of-type").text(selected_arr.length)
+    }
+
+    function clearNoNum(obj) {
+
+        var value;
+        if (obj.value.length == 1) {
+            value = obj.value.replace(/[^1-9]/g, '')
+        } else {
+            value = obj.value.replace(/\D/g, '')
+        }
+        if(parseInt(value) > parseInt($(obj).parent().attr("stock"))){
+            value = $(obj).parent().attr("stock")
+        }
+        
+        obj.value = value
+    }
+
+    function bindHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        });
+        
+        $(".bottom_submit").click(function () {
+            var is_break = false
+            $(".goods-item").each(function (index, item) {
+                if($(this).find("input").val()){
+                    selected_arr[index].number = $(this).find("input").val()
+                }else {
+                    is_break = true
+                }
+            })
+
+            if(is_break){
+                layer.open({
+                    content: "请填写完整预购数量"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+
+            window.location.href = "{:U('Index/index_VIPbussiness_good4')}&member_id=" + member_id + "&selected_arr=" + encodeURIComponent(JSON.stringify(selected_arr));
+        })
+    }
+
+    var member_id;
+    function getParam() {
+        member_id = getUrlParam("member_id")
+
+    }
+</script>

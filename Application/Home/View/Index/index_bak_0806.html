@@ -1,0 +1,445 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/swiper.min.css">
+    <style>
+        .swiper-container{
+            height: 180px;
+        }
+        .swiper-wrapper img{
+            width: 100%;
+            height: 180px;
+        }
+        .main{
+            width: auto;
+        }
+
+        button.reply{
+            background-color: #ffcb3e
+        }
+
+
+        .provide-list{
+            background-color: #f6f6f6;
+        }
+        .provide-item{
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+        .goods-name{
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .rongqi{
+            position: relative;
+        }
+        .rongqi span{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .rongqi img{
+            width: 135px;
+            height: 135px;
+        }
+        .reply-operate{
+            overflow: hidden;
+            padding:0 10px;
+        }
+
+        .reply-operate > img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .provide-item{
+            margin-top: 10px;
+        }
+
+    </style>
+</block>
+<block name="header_script">
+    <script src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+</block>
+<block name="main">
+    <div class="container">
+        <!--头部-->
+        <header style="background-color: rgba(57, 58, 63, 1);color: white">
+            <div class="header_left">
+                <img src="__ROOT__/Public/Home/img/w_back.png" />
+            </div>
+            <div class="header_middle" style="color: white">
+                优进
+            </div>
+            <div class="header_right"></div>
+        </header>
+
+        <div class="search">
+            <div class="search_a">
+                <a href="{:U('Index/search')}">
+                    <img src="__ROOT__/Public/Home/img/search.png" />
+                    <input type="search" placeholder="搜索">
+                </a>
+            </div>
+            <div class="search_b">
+                <a href="{:U('Msg/index')}"  >
+                    <img src="__ROOT__/Public/Home/img/h_information.png"/>
+                </a>
+            </div>
+        </div>
+        <!--轮播图-->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="product">
+            <div class="item">
+                <a href="{:U('Index/index_VIPbussiness')}">
+                    <img src="__ROOT__/Public/Home/img/CIP.png"  />
+                    <div> VIP商家</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{:U('Index/index_informations')}">
+                    <img src="__ROOT__/Public/Home/img/give.png"  />
+                    <div>供求信息</div>
+                </a>
+            </div>
+            <div class="item">
+                <a class="go-indenfity">
+                    <img src="__ROOT__/Public/Home/img/become.png"  />
+                    <div>成为商家</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{:U('Index/index_release0')}">
+                    <img src="__ROOT__/Public/Home/img/fabu.png"  />
+                    <div>我的发布</div>
+                </a>
+            </div>
+        </div>
+        <!--主体内容-->
+        <article>
+            <!--推荐VIP商家-->
+            <div class="artcle_1">
+                <div class="top">
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span>推荐VIP商家</span>
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span class="more"><a href="{:U('Index/index_VIPbussiness')}" style="   color: #999999;">更多</a></span>
+                </div>
+
+                <div class="mains">
+
+                </div>
+
+            </div>
+
+            <!--供求信息-->
+            <div class="provide-list">
+
+            </div>
+
+            <!--尽在咫尺 （帖子）-->
+            <div class="artcle_1">
+                <div class="top">
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                    <span>尽在咫尺</span>
+                    <img src="__ROOT__/Public/Home/img/double.png" />
+                </div>
+                <div class="tz-list">
+
+                </div>
+            </div>
+            <br>
+            <br>
+        </article>
+
+        <!--尾部-->
+        <footer>
+            <div class="footer_item">
+                <a href="{:U('Index/index')}">
+                    <img src="__ROOT__/Public/Home/img/home_1.png"  />
+                    <div class="active ">首页</div>
+                </a>
+            </div>
+            <div class="footer_item">
+                <a href="{:U('Interest/interestIndex')}">
+                    <img src="__ROOT__/Public/Home/img/empty_0.png" />
+                    <div>兴趣圈</div>
+                </a>
+            </div>
+            <div class="footer_item">
+                <a href="{:U('Member/memberCenter')}">
+                    <img src="__ROOT__/Public/Home/img/my0.png"  />
+                    <div>我的</div>
+                </a>
+            </div>
+        </footer>
+    </div>
+</block>
+<block name="script">
+    <script>
+
+        $(function () {
+            bindHandler()
+            getInfo()
+            getData()
+        })
+
+
+        var indenType, approveType;
+
+        function getInfo() {
+            requestUrl("{:U('Member/ajaxMemberCenter')}", {m_id: m_id}, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    alert(res.message);
+                } else {
+
+                    indenType = res.data.type;
+                    approveType = res.data.merchant_approve
+                }
+            });
+        }
+
+        function getData() {
+            requestUrl("{:U('Home/Index/getIndexData')}",{},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    //轮播图
+                    var advert = res.data.advert;
+                    //商家列表
+                    var merchant_list = res.data.merchant_list
+                    //帖子
+                    var post_list = res.data.post_list
+                    //供求
+                    var supply_list = res.data.supply_list
+
+                    $(advert).each(function (index, item) {
+                        $(".swiper-wrapper").append('<div class="swiper-slide"><img src="'+item.ad_pic_path+'"></div>')
+                    })
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination: {
+                            el: '.swiper-pagination',
+                        },
+                        autoplay: {
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        },
+                    });
+
+                    $(merchant_list).each(function (index, item) {
+                        $(".mains").append(' <div class="main" member_id="'+item.m_id+'">' +
+                            '                        <div class="list">' +
+                            '                            <img src="'+item.head_pic_path+'"  />' +
+                            '                            <p>'+item.nickname+'<br><span style="font-size: 10px;color: #999999">'+item.attention_num+'人关注</span></p>' +
+                            '                        </div>' +
+                            '                    </div>')
+                    })
+
+                    $(".provide-list").append(supplyList(supply_list))
+
+                    $(".tz-list").append(getTzList(post_list))
+                }
+            });
+        }
+
+
+        function supplyList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += ' <div class="provide-item" supply_id="'+item.id+'" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section">' +
+                    (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
+                    '                    </div>' +
+                    '                    <div class="section_buttom">' +
+                    '                        <p>' +
+                    '                            <span class="color3">交易方式:</span><span class="color1">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
+                    '                            <span class="color8">位置:'+item.area_name+'</span>' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
+                    '                        <label class="fontsize11"> '+item.nickname+'</label>' +
+                    '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
+                    '                    </div>' +
+                    '<div class="check-box"></div>'+
+                    '                </div>'
+            })
+            return str
+        }
+
+        function sectionItme(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi">' +
+                    '                                <img src="'+item.goods_pic_path+'"/>'+
+                    '                                <div class="goods-name">'+item.goods_name+'</div>' +
+                    '<span class="float_r color4">¥'+item.goods_price+'</span>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function sectionItme2(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi2">' +
+                    '                                <img src="'+item+'"/>'+
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+
+        function getTzList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += '<div class="distance tz-item" id="'+item.id+'">' +
+                    '            <div class="distance_top">' +
+                    '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                    '            </div>' +
+                    '            <p>' +
+                    '                <span  class="biaoti">'+item.title+'</span><br>' +
+                    item.content+
+                    '            </p>' +
+                    '            <div class="" >' +
+                    '                <div class="section">' +
+                    imgList(item.pic_list)+
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="distance_buttom">' +
+                    '                <div class="distance_buttom_1">' +
+                    '                     <span>来自 '+item.type_name+'系列</span>' +
+                    '                </div>' +
+                    '                <div class="distance_buttom_2">' +
+                    '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                    '                    <span>'+item.view+'</span>' +
+                    '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                    '                    <span>'+item.comment_num+'</span>' +
+                    '                </div>' +
+                    '            </div>' +
+                    '        </div>'
+            })
+            return str
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                str +=  '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    '<img src="'+item+'"  /><br>' +
+                    '</div>' +
+                    '</div>'
+            })
+            return str
+        }
+
+        function bindHandler(){
+            $(".tab_menu ul li").click(function() {
+                $(this).addClass("on").siblings().removeClass("on"); //切换选中的按钮高亮状态
+                var index = $(this).index(); //获取被按下按钮的索引值，需要注意index是从0开始的
+                $(".tab_box > div").eq(index).show().siblings().hide(); //在按钮选中时在下面显示相应的内容，同时隐藏不需要的框架内容
+            });
+
+            $(".go-indenfity").click(function () {
+                //普通会员
+                if (indenType == 0) {
+                    //未审核
+                    if (approveType == 0) {
+                        window.location.href = "{:U('Member/my_card')}"
+                        //待审核
+                    } else if (approveType == 1) {
+                        window.location.href = "{:U('Member/my_card_ing')}"
+                        //已通过
+                    } else if (approveType == 2) {
+                        window.location.href = "{:U('Member/my_card_success')}"
+                        //已拒绝
+                    } else if (approveType == 3) {
+                        window.location.href = "{:U('Member/my_card_fail')}"
+                    }
+                    //普通商家或vip商家
+                } else {
+                    window.location.href = "{:U('Member/my_card_success_VIP')}"
+                }
+            })
+
+            $(".mains").on("click",".main",function () {
+                var member_id = $(this).attr("member_id");
+                window.location.href = "{:U('Index/index_VIPbussiness_guanzhu')}&member_id=" + member_id
+            })
+
+            $(".provide-list").on("click",".provide-item", function () {
+                var supply_id = $(this).attr("supply_id");
+                var type = $(this).attr("type")
+                var userId = $(this).attr("userid")
+                var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+                var typeName = []
+                var goods_list = []
+                $(supply_info).each(function (index, item) {
+                    if(typeName.indexOf(item.goods_type_name) == -1){
+                        typeName.push(item.goods_type_name)
+                    }
+                });
+                $(typeName).each(function (index, item) {
+                    var type_item = {
+                        type_name:item,
+                        goods_list:[]
+                    }
+                    goods_list.push(type_item)
+                })
+                $(supply_info).each(function (index, item) {
+                    $(goods_list).each(function (index, item1) {
+                        if(item1.type_name == item.goods_type_name){
+                            item1.goods_list.push(item)
+                        }
+                    })
+                })
+                if(type  == 1){
+                    window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
+                }else {
+                    window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                }
+            })
+
+            $(".tz-list").on("click",".tz-item", function () {
+                var post_id = $(this).prop("id");
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + post_id
+            })
+        }
+    </script>
+</block>

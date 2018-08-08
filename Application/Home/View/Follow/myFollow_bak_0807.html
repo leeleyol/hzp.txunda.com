@@ -1,0 +1,160 @@
+<extend name="Public/base"/>
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <style>
+        .attention {
+            margin-top: 12px;
+            background-color: #ffffff;
+            border-radius: 40px 40px 40px 40px;
+            color: #999999;
+            border: 1px solid #999999;
+            font-size: 12px;
+            width: 50px;
+            height: 25px;
+        }
+
+        .VIPbusiness_middle{
+            margin-left: 5px;
+            width: calc(60% - 5px);
+        }
+
+        input{
+            margin-left: 5px;
+        }
+    </style>
+</block>
+<block name="main">
+    <header>
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+        </div>
+        <div class="header_middle color1">
+            我的关注
+        </div>
+    </header>
+    <div class="coarseLline"></div>
+    <div class="tab">
+        <ul id="hear">
+            <li class="action" style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">
+                VIP商家
+            </li>
+            <li> 商家</li>
+            <li> 用户</li>
+        </ul>
+        <ul id="contentop">
+            <li class="action">
+                <div style="border-top: 10px solid #F6F6F6;" class="vip-buss">
+
+                </div>
+            </li>
+            <li>
+                <div style="border-top: 10px solid #F6F6F6;" class="normal-buss">
+
+                </div>
+            </li>
+            <li>
+                <div style="border-top: 10px solid #F6F6F6;" class="normal-user">
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</block>
+<block name="script">
+    <script>
+        <!--选项卡-->
+        $(function () {
+            bindHandler();
+            getList(pageIndex);
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getList(pageIndex);
+            })
+        });
+
+        var page = 0,layderIndex;
+        function getList(type) {
+            page += 1;
+            requestUrl("{:U('Home/Attention/myAttention')}", {p: page, type: (2- type)}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    var $listBox;
+                    if(pageIndex == 0){
+                        $listBox =  $(".vip-buss")
+                    }else if(pageIndex == 1){
+                        $listBox =  $(".normal-buss")
+                    }else {
+                        $listBox =  $(".normal-user")
+                    }
+
+                    $(list).each(function (index, item) {
+                        $listBox.append('<a member_id="' + item.member_id + '">' +
+                            '<div class="VIPbusiness">' +
+                            '<div class="VIPbusiness_left">' +
+                            '<img src="'+item.head_pic_path+'" class="absolute" />' +
+                            (pageIndex == 0 ? '<img src="__ROOT__/Public/Home/img/VIP.png"  class="relation" />' :"") +
+                            '</div>' +
+                            '<div class="VIPbusiness_middle">' +
+                            item.nickname + (pageIndex == 0 ? '<input type="button" value="商家认证"><br>' : '<br>') +
+                            '<span>'+item.attention_num+'人关注 | '+item.goods_num+'件商品 | '+item.need_num+'条供求</span>' +
+                            '</div>' +
+                            '<div class="VIPbusiness_right">' +
+                            '<input class="attention" type="button" value="已关注">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div style="border-bottom: 1px solid #F6F6F6;margin-left: 10px"></div>'+
+                            '</a>'
+                        )
+                    })
+                }
+            });
+        }
+
+        var pageIndex = 0;
+        function bindHandler() {
+
+            $(".vip-buss").on("click","a", function () {
+                window.location.href = "{:U('Index/index_VIPbussiness_guanzhu')}&member_id=" + $(this).attr("member_id")
+            })
+
+            $(".normal-buss").on("click","a", function () {
+                window.location.href = "{:U('Interest/interest_details3')}&member_id=" + $(this).attr("member_id")
+            })
+
+            $(".normal-user").on("click","a", function () {
+                window.location.href = "{:U('Interest/interest_details3')}&member_id=" + $(this).attr("member_id")
+            })
+
+            //切换tabbar
+            $("#hear li ").click(function () {
+                $(this).css({
+                    borderBottom: "2px solid #FF4C82",
+                    color: "#FF4C82"
+                }).siblings().css({
+                    borderBottom: "none",
+                    color: "#000000"
+                });
+
+                $(this).addClass("action").siblings().removeClass("action");
+                var index = $(this).index();
+                $("#contentop li").eq(index).css("display", "block").siblings().css("display", "none");
+                $(".vip-buss, .normal-buss, .normal-user").html("");
+                pageIndex = $(this).index();
+                page = 0;
+                getList(pageIndex)
+            });
+        }
+    </script>
+</block>

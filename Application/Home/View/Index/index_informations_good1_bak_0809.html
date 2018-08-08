@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>商品展示</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
+    <style>
+        .lists {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            border-bottom: 1px solid #f6f6f6;
+            box-sizing: border-box;
+        }
+        .lists::-webkit-scrollbar {
+            display: none;
+        }
+        .list{
+            border-right: 1px solid #f6f6f6;
+        }
+        .list_2,.list_3{
+            margin-right: 0px;
+            width: 90px;
+            padding: 5px;
+        }
+        .list_1{
+            margin-right: 0px;
+            width: 60px;
+            padding: 5px;
+        }
+        .list_2{
+            margin-right: 0px;
+            width: 160px;
+            padding: 5px;
+        }
+        .list_21{
+            height: 40px;
+            float: left;
+            padding: 0px 5px
+        }
+        .list_22{
+            height: 100%;
+        }
+        .height{
+            height: 40px;
+            line-height: 40px
+        }
+        .operate > img:first-of-type{
+            display: none;
+        }
+
+        .checked > img:last-of-type{
+            display: none!important;
+        }
+
+        .checked > img:first-of-type{
+            display: inline-block!important;
+        }
+
+        .disable-color button{
+            background-color: #ddd;
+
+        }
+        .disable-color{
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bc3">
+<!--头部-->
+<header class="head" >
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+    </div>
+    <div class="header_middle">
+        商品展示
+    </div>
+    <div class="header_right"></div>
+</header>
+
+    <div class="lists bc2 fontsize3 headtop coarseLline">
+        <div class="list">
+            <div class="list_1 text-center">
+                操作
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_2 text-center">
+                商品名称
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center">
+                库存
+            </div>
+        </div>
+        <div class="list">
+            <div class="list_3 text-center">
+                货物状态
+            </div>
+        </div>
+    </div>
+
+    <div class="goods-list">
+
+    </div>
+
+    <br><br>
+    <div class="bussiness_bottom">
+        <div class="bottom_num ">
+            <span class="color1 fontsize2">选择商品款式 :</span>
+            <span class="color4 fontsize2">0</span>
+
+        </div>
+        <div class="bottom_submit">
+            <button >
+                <a  class="color2 fontsize2">
+                    前往报价
+                </a>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(function () {
+        getParam();
+        bindHandler();
+        if(supply_item){
+            initData()
+        }else {
+            getGoodsList();
+        }
+
+    });
+
+    function initData() {
+        renderHtml(supply_item)
+    }
+
+    function getGoodsList() {
+        requestUrl("{:U('Home/Goods/memberGoodsList')}",{member_id:member_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data;
+                renderHtml(list)
+            }
+        });
+    }
+
+    function renderHtml(list) {
+        $(list).each(function (index, item) {
+            $(".goods-list").append('<div class="weui-cell">' +
+                '                        <div class="weui-cell__bd fontsize3 color3">' +
+                '                            <p>'+item.type_name+'</p>' +
+                '                        </div>' +
+                '                    </div>' +
+                goodsList(item.goods_list,item)
+            )
+        })
+    }
+
+    var good_arr = []
+    function goodsList(list, obj) {
+        var str = "";
+        $(list).each(function (index, item) {
+            item.type_name = obj.type_name;
+            item.goods_type_id = obj.id;
+            good_arr.push(item);
+
+            str += '                    <div class="lists bc2 fontsize3 goods-item" goods_id="'+item.goods_id+'">' +
+                '                        <div class="list">' +
+                '                            <div class="list_1 text-center operate">' +
+                                                    '<img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del"/>' +
+                '                                   <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" />'+
+                '                            </div>' +
+                '                        </div>' +
+                '                        <div class="list">' +
+                '                            <div class="list_2  ">' +
+                '                                <div class="list_21" >' +
+                '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
+                '                                </div>' +
+                '                                <div >'+item.goods_name+'</div>' +
+                '                            </div>' +
+                '                        </div>' +
+                '                        <div class="list">' +
+                '                            <div class="list_3 text-center height">' +
+                item.stock +  item.stock_unit +
+                '                            </div>' +
+                '                        </div>' +
+                '                        <div class="list">' +
+                '                            <div class="list_3 text-center height" >' +
+                item.goods_status +
+                '                            </div>' +
+                '                        </div>' +
+                '                    </div>'
+        });
+        return str
+    }
+
+    function countChecked() {
+        var count = $(".checked").length;
+        return count
+    }
+
+    var member_id, supply_item;
+    function getParam() {
+        member_id = getUrlParam("userId")
+        if(member_id == m_id){
+            $('.bottom_submit').addClass('disable-color');
+        }
+        supply_item = JSON.parse(decodeURIComponent(getUrlParam("supply_item")))
+    }
+
+    function bindHandler() {
+        $(".goods-list").on("click", ".operate", function () {
+            $(this).toggleClass("checked");
+            $(".bottom_num span:last-of-type").text(countChecked())
+        });
+
+        $(".bottom_submit").click(function () {
+            if(!countChecked()){
+                layer.open({
+                    content: "请选择商品"
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            }else {
+                var selected_arr = [];
+                var checkedId = []
+                $(".checked").each(function () {
+                    checkedId.push($(this).parents(".goods-item").attr("goods_id"))
+                })
+
+                $(good_arr).each(function (index, item) {
+                    if(checkedId.indexOf(item.goods_id) > -1){
+                        selected_arr.push(item)
+                    }
+                });
+
+                localStorage.selected_arr = JSON.stringify(selected_arr)
+                window.location.href = "{:U('Index/index_VIPbussiness_good2')}&member_id=" + member_id;
+            }
+        });
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    }
+</script>

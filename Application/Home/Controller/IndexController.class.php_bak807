@@ -13,7 +13,7 @@ class IndexController extends BaseController{
      * 首页
      */
     public function index(){
-        /*if(!session('openid') && empty($_GET['code'])){
+        if(!session('openid') && empty($_GET['code'])){
             $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=http://hzp.txunda.com/index.php/Home/Index/index&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             Header("Location: $url");
             exit();
@@ -26,7 +26,7 @@ class IndexController extends BaseController{
                 $openId = $tools->GetOpenidFromMp($_GET['code']);
                 session('openid',$openId);
             }
-        }*/
+        }
 
         /*if($this->is_weixin())
         {
@@ -240,11 +240,6 @@ class IndexController extends BaseController{
     }
 
 
-
-    public function love(){
-        header("Content-type: text/html; charset=utf-8");
-        echo 'name：my girl❤ 爱好：羽毛球、游泳、运动、吃好吃的！！！喜欢吃的：辣的 最爱五花肉 还有各种肉 冰的  喜欢的颜色：绿色 最爱墨绿色 蓝色哇 不喜欢吃的：香蕉 芝麻 花生。。。 搜集中 其他：小懒头。';
-    }
 
 
 

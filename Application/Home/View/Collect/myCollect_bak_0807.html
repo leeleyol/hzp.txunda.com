@@ -1,0 +1,532 @@
+<extend name="Public/base"/>
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        #hear li {
+            width: 50% !important;
+            text-align: center;
+        }
+
+        #hear {
+            background-color: #fff;
+        }
+
+        #hear li p {
+            display: inline-block;
+            width: 75%;
+        }
+
+        #contentop {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .edit {
+            position: relative;
+            left: 50px;
+        }
+
+        .edit .tz-item .check-box {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: -33px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .edit .tz-item .checked {
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+
+        .edit .provide-item .check-box {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: -33px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .edit .provide-item .checked {
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+
+        .tz-list {
+            background-color: rgba(246, 246, 246, 1);
+
+        }
+
+        .tz-item {
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: white;
+            border-top: 10px solid rgba(246, 246, 246, 1);
+            display: none;
+        }
+
+        .bottom-bar p {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .bottom-bar p:first-of-type {
+            font-size: 15px;
+            margin-left: 25px;
+            padding-left: 25px;
+            background-image: url("__ROOT__/Public/Home/img/empty0.png");
+            background-position: left center;
+            background-size: 20px;
+            background-repeat: no-repeat;
+        }
+
+        .bottom-bar p:first-of-type.checked {
+            background-image: url("__ROOT__/Public/Home/img/empty1.png");
+        }
+
+        .bottom-bar p:last-of-type {
+            float: right;
+            background-color: red;
+            width: 130px;
+            text-align: center;
+            color: #fff;
+        }
+
+        button.reply {
+            background-color: #ffcb3e
+        }
+
+        .provide-item {
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .goods-name {
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+
+        .rongqi {
+            position: relative;
+        }
+
+        .rongqi span {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .rongqi img {
+            width: 135px;
+            height: 135px;
+        }
+
+        .reply-operate {
+            overflow: hidden;
+            padding-right: 10px;
+        }
+
+        .reply-operate > p {
+            float: right;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            color: #aaa;
+            margin-top: 4px;
+            margin-right: 6px;
+            padding-left: 20px;
+            background-size: 16px auto;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+
+        .reply-operate > p.reply-preview {
+            background-image: url("__ROOT__/Public/Home/img/eye.png");
+        }
+
+        .reply-operate > p.reply-del {
+            background-image: url("__ROOT__/Public/Home/img/del.png");
+        }
+
+        .reply-operate > p.reply-edit {
+            background-image: url("__ROOT__/Public/Home/img/write.png");
+        }
+
+        .reply-operate > p.reply-refresh {
+            background-image: url("__ROOT__/Public/Home/img/shuaxin.png");
+        }
+
+        .provide-item {
+            margin-top: 10px;
+        }
+
+    </style>
+</block>
+<block name="main">
+    <header>
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+        </div>
+        <div class="header_middle color1">
+            我的收藏
+        </div>
+        <div class="header_right" id="operate">
+            编辑
+        </div>
+    </header>
+
+    <div class="tab">
+        <ul id="hear">
+            <li class="action">
+                <p style="border-bottom: 2px solid 	#FF4C82;height: 43px;color:	#FF4C82 ">供求信息</p>
+            </li>
+            <li><p>帖子</p></li>
+        </ul>
+        <ul id="contentop">
+            <li class="action buss-list">
+
+            </li>
+            <li class="tz-list">
+
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="bottom-bar">
+        <p class="checked-all">全选</p>
+        <p class="comfirm">确定删除</p>
+    </div>
+</block>
+<block name="script">
+    <script>
+        <!--选项卡-->
+        $(function () {
+            //绑定事件
+            bindHandler();
+            getTZList(pageIndex)
+        });
+
+        var page = 0, layderIndex;
+
+        function getTZList(type) {
+            page += 1;
+            var url = ""
+            if (type == 0) {
+                url = "{:U('Home/Collect/myCollectSupply')}"
+            } else {
+                url = "{:U('Home/Collect/myCollectPost')}"
+            }
+
+            requestUrl(url, {p: page}, function (res) {
+                layer.close(layderIndex)
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var list = res.data;
+                    var $listBox;
+                    if (pageIndex == 0) {
+                        $listBox = $(".buss-list");
+                        $listBox.append(supplyList(list))
+                    } else if (pageIndex == 1) {
+                        $listBox = $(".tz-list")
+                        $listBox.append(tzlIST(list))
+                    }
+
+
+                }
+            });
+        }
+
+        function supplyList(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += ' <div class="provide-item" col_id="' + item.col_id + '" supply_id="' + item.supply_id + '" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section">' +
+                    (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic)) +
+                    '                    </div>' +
+                    '                    <div class="section_buttom">' +
+                    '                        <p>' +
+                    '                            <span class="color3">交易方式:</span><span class="color1">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
+                    '                            <span class="color8">位置:' + item.area_name + '</span>' +
+                    '                        </p>' +
+                    '                    </div>' +
+                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
+                    '                        <label class="fontsize11"> ' + item.nickname + '</label>' +
+                    '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                    '                    </div>' +
+                    '<div class="check-box"></div>' +
+                    '                </div>'
+            })
+            return str
+        }
+
+        function sectionItme(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi">' +
+                    '                                <img src="' + item.goods_pic_path + '"/>' +
+                    '                                <div class="goods-name">' + item.goods_name + '</div>' +
+                    '<span class="float_r color4">¥' + item.goods_price + '</span>' +
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function sectionItme2(list) {
+            var str = "";
+            $(list).each(function (index, item) {
+                str += '                        <div class="section_item">' +
+                    '                            <div class="rongqi2">' +
+                    '                                <img src="' + item + '"/>' +
+                    '                            </div>' +
+                    '                        </div>'
+            });
+
+            return str;
+        }
+
+        function tzlIST(list) {
+            var str = ""
+            $(list).each(function (index, item) {
+                str += '<div class="distance tz-item" id="' + item.post_id + '" col_id="' + item.col_id + '">' +
+                    '            <div class="distance_top">' +
+                    '                <img src="' + item.head_pic + '"><i>' + item.nickname + '</i><span>' + timestampFormat(item.create_time) + '</span>' +
+                    '            </div>' +
+                    '            <p>' +
+                    '                <span  class="biaoti">' + item.title + '</span><br>' +
+                    item.content +
+                    '            </p>' +
+                    '            <div class="" >' +
+                    '                <div class="section">' +
+                    imgList(item.pic_list) +
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="distance_buttom">' +
+                    '                <div class="distance_buttom_1">' +
+                    '                     <span>来自 ' + item.type_name + '系列</span>' +
+                    '                </div>' +
+                    '                <div class="distance_buttom_2">' +
+                    '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                    '                    <span>' + item.view + '</span>' +
+                    '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                    '                    <span>' + item.comment_num + '</span>' +
+                    '                </div>' +
+                    '            </div>' +
+                    '<div class="check-box"></div>' +
+                    '        </div>'
+            })
+
+            return str
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
+
+                str += '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    imgstr +
+                    '</div>' +
+                    '</div>'
+            });
+            return str
+        }
+
+        function delCollect(col_id) {
+            requestUrl("{:U('Home/Collect/delMoreCollect')}", {col_id: col_id}, function (res) {
+
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    layer.open({
+                        content: res.message
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    reset()
+                }
+            });
+        }
+
+        var pageIndex = 0, editing = false;
+
+        function bindHandler() {
+            $("#hear li ").click(function () {
+                $(this).find('p').css({
+                    borderBottom: "2px solid #FF4C82",
+                    color: "#FF4C82"
+                }).parent().siblings().find("p").css({
+                    borderBottom: "none",
+                    color: "#000000"
+                });
+
+                $(this).addClass("action").siblings().removeClass("action");
+                var index = $(this).index();
+                pageIndex = $(this).index();
+                $("#contentop li").eq(index).css("display", "block").siblings().css("display", "none");
+
+                //重置
+                reset()
+            });
+
+            //编辑\完成
+            $("#operate").click(function () {
+                if (pageIndex == 0) {
+                    $(".buss-list").toggleClass("edit")
+                } else {
+                    $(".tz-list").toggleClass("edit")
+                }
+                $(".bottom-bar").toggle()
+
+                if ($(".buss-list, .tz-list").hasClass("edit")) {
+                    $(this).text("完成");
+                    editing = true
+                } else {
+                    $(this).text("编辑");
+                    editing = false
+                }
+            });
+            //操作单个选项
+            $(".tz-list").on("click", ".tz-item", function () {
+                if (editing) {
+                    $(this).find(".check-box").toggleClass("checked");
+                    countChecked()
+                } else {
+                    window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+                }
+            });
+
+            //操作单个选项
+            $(".buss-list").on("click", ".provide-item", function () {
+                if (editing) {
+                    $(this).find(".check-box").toggleClass("checked");
+                    countChecked()
+                } else {
+                    var supply_id = $(this).attr("supply_id");
+                    var type = $(this).attr("type")
+                    var userId = $(this).attr("userid")
+                    var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+                    var typeName = []
+                    var goods_list = []
+                    $(supply_info).each(function (index, item) {
+                        if(typeName.indexOf(item.goods_type_name) == -1){
+                            typeName.push(item.goods_type_name)
+                        }
+                    });
+                    $(typeName).each(function (index, item) {
+                        var type_item = {
+                            type_name:item,
+                            goods_list:[]
+                        }
+                        goods_list.push(type_item)
+                    })
+                    $(supply_info).each(function (index, item) {
+                        $(goods_list).each(function (index, item1) {
+                            if(item1.type_name == item.goods_type_name){
+                                item1.goods_list.push(item)
+                            }
+                        })
+                    })
+                    if(type  == 1){
+                        window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
+                    }else {
+                        window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+                    }
+                }
+            });
+
+            //全选\取消全选
+            $(".bottom-bar p:first-of-type").click(function () {
+                $(this).toggleClass("checked")
+                console.log($(this).hasClass('checked'))
+                if ($(this).hasClass('checked')) {
+                    $(".check-box").addClass("checked")
+                } else {
+                    $(".check-box").removeClass("checked")
+                }
+            });
+
+            $(".comfirm").click(function () {
+                var lenght = $(".check-box.checked").length
+                if (!lenght) {
+                    layer.open({
+                        content: "请选择删除项"
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                } else {
+                    var col_id = []
+                    $(".check-box.checked").each(function () {
+                        col_id.push($(this).parents(".tz-item, .provide-item").attr('col_id'))
+                    })
+                    delCollect(col_id.join(","))
+                }
+            })
+
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getTZList(pageIndex)
+            })
+        }
+
+        function reset() {
+            $(".buss-list , .tz-list").html("").removeClass("edit");
+            $("#operate").text('编辑');
+            $(".bottom-bar").hide().find("p:first-of-type").removeClass("checked")
+            page = 0;
+            editing = false;
+            getTZList(pageIndex)
+        }
+
+        function countChecked() {
+            var lenght = $(".check-box.checked").length
+            if (lenght == $(".check-box").length) {
+                $(".bottom-bar p:first-of-type").addClass("checked")
+            } else {
+                $(".bottom-bar p:first-of-type").removeClass("checked")
+            }
+        }
+    </script>
+</block>

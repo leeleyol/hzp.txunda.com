@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>供求信息</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
+    <style>
+        #hear li:nth-of-type(1) {
+            margin-left: 50px;
+        }
+
+        #hear li:nth-of-type(2) {
+            margin-right: 50px;
+        }
+
+        .distance {
+            height: 320px;
+        }
+
+        .weui-dialog {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            right: 0px;
+            -webkit-transform: translate(-30%, -9%);
+            transform: translate(-30%, -9%);
+            background-color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .box_2 {
+            width: 80%;
+            height: 100%;
+        }
+
+        .tianjia {
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            bottom: 0px;
+        }
+
+        .tianjia1 {
+            width: 30%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+
+            background-color: #feebe8;
+
+        }
+
+        .tianjia2 {
+            width: 50%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            background-color: #f53619;
+
+        }
+
+        .weui-cell:before {
+            border-top: 0px solid #e5e5e5;
+
+        }
+
+        .hezi {
+            margin: 10px 10px 20px 10px;
+            background-color: #f6f6f6;
+            height: 36px;
+            line-height: 14px;
+            border-radius: 8px 8px 8px 8px;
+        }
+        .de-tips{
+            padding: 0 15px;
+        }
+        .fl{
+            border-bottom: 1px solid  rgba(246, 246, 246, 1) ;
+        }
+
+        button.reply {
+            background-color: #ffcb3e
+        }
+
+        .provide-item {
+            background-color: white;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .goods-name {
+            margin-top: 5px;
+            height: 15px;
+            line-height: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+
+        .rongqi {
+            position: relative;
+        }
+
+        .rongqi span {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .rongqi img {
+            width: 135px;
+            height: 135px;
+        }
+
+        .reply-operate {
+            overflow: hidden;
+            padding-right: 10px;
+        }
+
+        .reply-operate > p {
+            float: right;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            color: #aaa;
+            margin-top: 4px;
+            margin-right: 6px;
+            padding-left: 20px;
+            background-size: 16px auto;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+        .time input{
+            width: 100%;
+            background-color: transparent;
+        }
+        .ma_expect_date_picker > .weui-mask{
+            z-index: 5100;
+        }
+
+        .ma_expect_date_picker .weui-picker{
+            z-index: 5101;
+        }
+
+        .ma_expect_date_picker1 > .weui-mask{
+            z-index: 5100;
+        }
+
+        .ma_expect_date_picker1 .weui-picker{
+            z-index: 5101;
+        }
+
+        .zongheshaixuan_item1 {
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+        .zongheshaixuan_item2 {
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<header>
+    <div class="header_left">
+        <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+    </div>
+    <div class="header_middle" style="color: black">
+        供求信息
+    </div>
+    <div class="header_right"></div>
+</header>
+
+<ul id="hear">
+    <li class="action" style="border-bottom: 2px solid  #FF4C82;  height: 43px;color:	#FF4C82 ;left: 20px">
+        供货信息
+    </li>
+    <li>求购信息</li>
+</ul>
+
+<ul id="contentop">
+    <li class="action">
+        <div class="zongheshaixuan">
+            <div class="zongheshaixuan_item1">
+                <font color="black">综合</font>
+            </div>
+            <div class="zongheshaixuan_item">
+                <font color="#999999" class="shaixuan">筛选</font>
+                <img src="__ROOT__/Public/Home/img/shaixuan.png" class="icon_del"/>
+            </div>
+        </div>
+
+        <div class="provide-list g-list">
+
+        </div>
+
+    </li>
+    <li>
+        <!--求购信息-->
+        <div class="zongheshaixuan">
+            <div class="zongheshaixuan_item2">
+                <font color="black">综合</font>
+            </div>
+            <div class="zongheshaixuan_item">
+                <font color="#999999" class="shaixuan">筛选</font>
+                <img src="__ROOT__/Public/Home/img/shaixuan.png" class="icon_del"/>
+            </div>
+        </div>
+        <div class="provide-list q-list">
+
+        </div>
+    </li>
+</ul>
+
+<!-- 弹框1 start -->
+<div style="display:none " class="inter-box2 Bomb-box">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog inter-box2-dialog ">
+        <div class="box_2" style="">
+            <div class="inter-box2-cont  ">
+                <p class="fontsize2 color3 text-left paddingl_1 padding_tb">时间段搜索</p>
+                <div class="hezi">
+                    <a class="weui-cell weui-cell_access start-time time" >
+                        <div class="weui-cell__bd">
+                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置开始搜索时间"/>
+                        </div>
+                        <div class="weui-cell__ft">
+                        </div>
+                    </a>
+                </div>
+                <div class="hezi">
+                    <a class="weui-cell weui-cell_access end-time time">
+                        <div class="weui-cell__bd">
+                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置结束搜索时间"/>
+                        </div>
+                        <div class="weui-cell__ft">
+                        </div>
+                    </a>
+                </div>
+                <div class="fineLine"></div>
+                <div class="weui-cell weui-cell_switch text-left">
+                    <div class="weui-cell__bd color3 fontsize3">显示匿名用户信息</div>
+                    <div class="weui-cell__ft">
+                        <label for="switchCP" class="weui-switch-cp">
+                            <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                            <div class="weui-switch-cp__box"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="tianjia">
+                <div class="tianjia1 reset-time">
+                    <label class="fontsize2  hidden inter-box2-cancel fontsize2 color6">重置</label>
+                </div>
+                <div class="tianjia2 search">
+                    <label class="inter-box2-cancel show fontsize2 color2">搜索</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+
+    $(function () {
+
+        bindHandler()
+        //供
+        getTZList(1)
+        //求
+        getTZList(2)
+    });
+
+    var pageIndex = 0, page0 = 0, page1 = 0;
+    var layderIndex;
+    function bindHandler(){
+        $("#hear li ").click(function () {
+            $(this).css({
+                borderBottom: "2px solid #FF4C82",
+                color: "#FF4C82"
+            }).siblings().css({
+                borderBottom: "none",
+                color: "#000000"
+            });
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            pageIndex = index;
+            $("#contentop > li").eq(index).css("display", "block").siblings().css("display", "none");
+        });
+
+        $(".zongheshaixuan_item1").click(function () {
+            page0 = 0;
+            $(".g-list .provide-item").remove();
+            //供
+            getTZList(1)
+        });
+
+        $(".zongheshaixuan_item2").click(function () {
+            page1 = 0;
+            $(".q-list .provide-item").remove();
+            //供
+            getTZList(2)
+        });
+
+        $(".provide-list").on("click",".provide-item", function () {
+            var supply_id = $(this).attr("supply_id");
+            var type = $(this).attr("type")
+            var userId = $(this).attr("userid")
+            var supply_info = JSON.parse(decodeURIComponent($(this).attr("supply_item"))).supply_info
+            var typeName = []
+            var goods_list = []
+            $(supply_info).each(function (index, item) {
+                if(typeName.indexOf(item.goods_type_name) == -1){
+                    typeName.push(item.goods_type_name)
+                }
+            });
+            $(typeName).each(function (index, item) {
+                var type_item = {
+                    type_name:item,
+                    goods_list:[]
+                }
+                goods_list.push(type_item)
+            })
+            $(supply_info).each(function (index, item) {
+                $(goods_list).each(function (index, item1) {
+                    if(item1.type_name == item.goods_type_name){
+                        item1.goods_list.push(item)
+                    }
+                })
+            })
+            if(type  == 1){
+                window.location.href = "{:U('Index/index_informations_good1')}&pb_id=" + supply_id +"&userId=" + userId + "&supply_item=" + encodeURIComponent(JSON.stringify(goods_list))
+            }else {
+                window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
+            }
+        })
+
+        $('.weui-mask').click(function () {
+            var ref = $(this);
+            var target = ref.parent('.Bomb-box');
+            target.hide();
+        });
+
+        $('.shaixuan').click(function () {
+            $('.inter-box2').show();
+        });
+
+        $(".start-time").click(function () {
+            var dt = new Date();
+            var df= [dt.getFullYear(), (dt.getMonth() + 1), dt.getDate()];
+
+            var value=$.trim($(".start-time input").val());
+            if(value!="")
+            {
+                var arrays = value.split("-");
+                df= [parseInt(arrays[0]), parseInt(arrays[1]), parseInt(arrays[2])];
+            }
+
+            weui.datePicker({
+                id:(new Date()).valueOf(),
+                className: 'ma_expect_date_picker',
+                start: 2000,
+                end: dt.getFullYear()+20,
+                defaultValue:df,
+                onConfirm: function (result) {
+                    $(".start-time input").val(result[0].value + "-" + result[1].value + "-" + result[2].value)
+                }
+            });
+        })
+
+        $(".end-time").click(function () {
+            var dt = new Date();
+            var df = [dt.getFullYear(), (dt.getMonth() + 1), dt.getDate()];
+
+            var value = $.trim($(".end-time input").val());
+            if (value != "") {
+                var arrays = value.split("-");
+                df = [parseInt(arrays[0]), parseInt(arrays[1]), parseInt(arrays[2])];
+            }
+
+            weui.datePicker({
+                id:(new Date()).valueOf(),
+                className: 'ma_expect_date_picker1',
+                start: 2000,
+                end: dt.getFullYear() + 2,
+                defaultValue: df,
+                onConfirm: function (result) {
+                    $(".end-time input").val(result[0].value + "-" + result[1].value + "-" + result[2].value)
+                }
+            });
+        })
+        //重置
+        $(".reset-time").click(function () {
+            $(".start-time input").val('')
+            $(".end-time input").val('')
+        })
+
+
+        var start_time1, end_time1, is_hidename1,
+            start_time2, end_time2, is_hidename2;
+        $(".search").click(function () {
+            if($(".end-time input").val() >= $(".start-time input").val() && ($(".end-time input").val() && $(".start-time input").val())){
+                var start_time = parseInt(new Date($(".start-time input").val()).getTime()) / 1000
+                var end_time = parseInt(new Date($(".end-time input").val()).getTime()) /1000
+
+
+                if(start_time == end_time && start_time && end_time){
+                    end_time += 86300
+                }
+
+                var is_hidename = $("#switchCP").prop("checked") ? "1":"2";
+                layderIndex = layer.open({type: 2});
+                if(pageIndex == 0){
+                    page0 = 0;
+                    $(".g-list .provide-item").remove();
+                    start_time1 = start_time; end_time1 = end_time; is_hidename1 = is_hidename
+                    getTZList(1, start_time, end_time, is_hidename)
+                }else {
+                    page1 = 0;
+                    $(".q-list .provide-item").remove();
+                    start_time2 = start_time; end_time2 = end_time; is_hidename2 = is_hidename
+                    getTZList(2, start_time, end_time, is_hidename)
+                }
+                $('.inter-box2').hide();
+            }else {
+                layer.open({
+                    content: "结束时间不能小于起始时间"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }
+        })
+
+
+        //监听滑动到底部，然后加载分页
+        handlerScrollBottom(function () {
+            layderIndex = layer.open({type: 2});
+            if(pageIndex == 0){
+                getTZList(1, start_time1, end_time1, is_hidename1)
+            }else {
+                getTZList(2, start_time2, end_time2, is_hidename2)
+            }
+        })
+    }
+
+    function getTZList(type, start_time, end_time, is_hidename) {
+        var page ;
+        if(type == 1){
+            page0 += 1
+            page = page0
+        }else {
+            page1 += 1
+            page = page1
+        }
+
+        requestUrl("{:U('Home/Supply/memberSupplyList')}", {p: page,type,start_time,end_time,is_hidename}, function (res) {
+            layer.close(layderIndex)
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                var list = res.data;
+                var $listBox;
+                if (type == 1) {
+                    $listBox = $(".g-list");
+                    $listBox.append(supplyList(list))
+                } else if (type == 2) {
+                    $listBox = $(".q-list")
+                    $listBox.append(supplyList(list))
+                }
+            }
+        });
+    }
+
+    function supplyList(list) {
+        var str = ""
+        $(list).each(function (index, item) {
+            str += ' <div class="provide-item" supply_id="' + item.id + '" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
+                '                    <div class="section_top ">' +
+                '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
+                item.description +
+                '                    </div>' +
+                '                    <div class="section">' +
+                (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic)) +
+                '                    </div>' +
+                '                    <div class="section_buttom">' +
+                '                        <p>' +
+                '                            <span class="color3">交易方式:</span><span class="color1">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
+                '                            <span class="color8">位置:' + item.area_name + '</span>' +
+                '                        </p>' +
+                '                    </div>' +
+                '                    <div class="paddingl_2 reply-operate">' +
+                '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
+                '                        <label class="fontsize11"> ' + (item.is_hidename == 1 ? "匿名" : item.nickname) + '</label>' +
+                '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                '                    </div>' +
+                '<div class="check-box"></div>' +
+                '                </div>'
+        });
+        return str
+    }
+
+    function sectionItme(list) {
+        var str = "";
+        $(list).each(function (index, item) {
+            str += '                        <div class="section_item">' +
+                '                            <div class="rongqi">' +
+                '                                <img src="' + item.goods_pic_path + '"/>' +
+                '                                <div class="goods-name">' + item.goods_name + '</div>' +
+                '<span class="float_r color4">¥' + item.goods_price + '</span>' +
+                '                            </div>' +
+                '                        </div>'
+        });
+
+        return str;
+    }
+
+    function sectionItme2(list) {
+        var str = "";
+        $(list).each(function (index, item) {
+            str += '                        <div class="section_item">' +
+                '                            <div class="rongqi2">' +
+                '                                <img src="' + item + '"/>' +
+                '                            </div>' +
+                '                        </div>'
+        });
+
+        return str;
+    }
+</script>
+
+
+</html>

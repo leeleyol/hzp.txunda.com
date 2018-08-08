@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>风帆 UII UII</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
+    <style>
+        .VIPbusiness_left {
+            float: left;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .VIPbusiness_left .absolute {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+        }
+        .VIPbusiness_left .relation {
+            position: relative;
+            top: 18px;
+            left: 14px;
+            width: 30px;
+            height: 30px;
+        }
+        .footer{
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            padding: 5px 15px;
+            height: 40px;
+            line-height: 40px;
+        }
+        .footer .text{
+            background-color: #f6f6f6;
+            width: 65%;
+            height: 40px;
+            margin-left: 0%;
+            line-height: 40px;
+            z-index: 10;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-radius: 4px 4px 4px 4px;
+        }
+        .button{
+            width: 20%;
+            height: 35px;
+            line-height: 23px;
+            border-radius: 8px 8px 8px 8px;
+            margin: 0px 15px 10px 0px ;
+            padding: 5px 10px;
+        }
+        .vip{
+            float: right;margin-right: -15px
+        }
+        .wc{
+            border: 1px solid #ff3f79;
+            padding: 5px 0px;border-radius: 8px 8px 8px 8px;
+        }
+
+        .op-st-r{
+            position: relative;
+            right: 68px;
+            bottom: 4px;
+        }
+
+        .content-box{
+            display: inline-block;
+        }
+
+        .chat_2{
+            text-align: right;
+        }
+        .paddingr_2{
+            padding-right: 6px;
+        }
+
+        .content-box{
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="bc3">
+    <!--头部-->
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a ><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            风帆 UII UII
+        </div>
+        <div class="header_right"></div>
+    </header>
+
+    <div class="headtop coarseLline textcontent ">
+        <!--<div class="chat-item">
+            <p class="textcen text-center">
+                <span class="service-time-label">昨天 15:00</span>
+            </p>
+            <div class="float_r paddingr_1">
+                <div class="VIPbusiness_left imgs vip" >
+                    <img src="__ROOT__/Public/Home/img/name.png" class="absolute">
+                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">
+                </div>
+                <div class="chat_2 " style="float: left ">
+                    <p class="fontsize2 color3 float_r paddingr_1" >资深老饕</p><br>
+                    <div class="fontsize2 c_1 bc5 color2" style="width: 200px;">
+                        <p>您可以去看我家的商品展示，选好商品填写预购单，点击提交！我就知道您需要哪些商品了。</p>
+                        <p>我跟财务沟通好，就给您发送报价！</p>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="chat-item">
+            <div class="chat_left">
+                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
+                <div class="chat_l">
+                    <p class="fontsize2 color3">风帆 UII UII</p>
+                    <div class="c_1 bc2 fontsize2">
+                        <p class="c_2  bc2 color1 fontsize2" style="width: 200px" >好的!我知道了,我去看看</p>
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="chat-item">
+            <p class="textcen text-center">
+                <span class="service-time-label">09:00</span>
+            </p>
+            <div class="chat_left  ">
+                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
+                <div class="chat_l"  >
+                    <p class="fontsize2 color3">风帆 UII UII</p>
+                    <div class="c_1 bc2 fontsize2 " style="width: 200px;">
+                        <p class="c_2  bc2 color1 fontsize3" >风帆 UII UII的预购报价单<br>
+                            <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="chat-item">
+            <div class="chat_left">
+                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
+                <div class="chat_l">
+                    <p class="fontsize2 color3">风帆 UII UII</p>
+                    <div class="c_1 bc2 fontsize2">
+                        <p class="c_2  bc2 color1 fontsize2" style="width: 200px" >受累看看，大概多少钱！</p>
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="chat-item">
+            <div class="float_r paddingr_1">
+                <div class="VIPbusiness_left imgs vip" >
+                    <img src="__ROOT__/Public/Home/img/name.png" class="absolute">
+                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">
+                </div>
+                <div class="chat_2 " style="float: left ">
+                    <p class="fontsize2 color3 float_r paddingr_1" >资深老饕</p><br>
+                    <p class="c_1  bc2 color1 fontsize2" >风帆 UII UII的预购单<br>
+                        <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">
+                    </p>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div style="clear: both"></div>
+            <p class="textcen text-center">
+                <span class="service-time-label">买家同意了你的报价</span>
+            </p>
+        </div>-->
+        <!--TODO-->
+       <!-- <div class="phone bc2">
+            <div class="p_list1 fontsize2 color3">
+                <div class="p1" style="display: flex">
+                    点击确认完成交易，系统将自动扣除相应的
+                    库存数量！
+                </div>
+            </div>
+            <div class="p_list2 text-center">
+                <button class="fontsize2 bc2 color6 wc">交易完成</button>
+            </div>
+            <div style="clear: both"></div>
+        </div>-->
+    </div>
+
+    <br><br><br>
+    <div class="footer bc1">
+        <input type="text" class="text fontsize2 color3" placeholder="看对眼了就留言，问问更多细节">
+        <button class="button bc5 color2 fontsize2 submit">发送</button>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        getParam();
+        getChatList();
+        bindHandler()
+    });
+
+    var from_mid;
+    function getParam() {
+        from_mid = getUrlParam("from_mid")
+    }
+
+    var page = 0;
+    function getChatList() {
+        page += 1;
+        requestUrl("{:U('Home/Chat/getChatList')}",{from_mid,p:page},function(res){
+            layer.close(layderIndex)
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var DATA = res.data;
+                var self = DATA.self;
+                var from_member = DATA.from_member
+                var list = DATA.list
+                renderHtml(list, self, from_member)
+
+                if(page == 1){
+                    var h = $(document).height()-$(window).height();
+                    $(document).scrollTop(h);
+                }
+            }
+        });
+    }
+
+    function renderHtml(list, self, from_member) {
+        $(list).each(function (index, item) {
+            if(item.m_id == m_id){
+                $(".textcontent").prepend(selfDom(item,self))
+            }else {
+                $(".textcontent").prepend(hisDom(item,from_member))
+            }
+        })
+    }
+
+    function selfDom(item,self) {
+        var str = ""
+        if(item.type == 1){
+            str = '<div class="chat-item">' +
+                '            <p class="textcen text-center">' +
+                '                <span class="service-time-label">'+timestampFormat(item.create_time)+'</span>' +
+                '            </p>' +
+                '            <div class="float_r paddingr_1 chat-right">' +
+                '                <div class="VIPbusiness_left imgs vip" >' +
+                '                    <img src="'+self.head_pic_path+'" class="absolute">' +
+                '                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">' +
+                '                </div>' +
+                '                <div class="chat_2 " style="float: left ">' +
+                '                    <p class="fontsize2 color3 float_r paddingr_2" >'+self.nickname+'</p><br>' +
+                '                    <div class="fontsize2 c_1 bc5 color2 content-box">' +
+                                        item.content +
+                '                    </div>' +
+                '                </div>' +
+                '                <div style="clear: both"></div>' +
+                '            </div>' +
+                '            <div style="clear: both"></div>' +
+                '        </div>'
+        }else if(item.type == 2){
+            str = '<div class="chat-item">' +
+                '            <p class="textcen text-center">' +
+                '                <span class="service-time-label">'+timestampFormat(item.create_time)+'</span>' +
+                '            </p>' +
+                '            <div class="float_r paddingr_1 chat-right">' +
+                '                <div class="VIPbusiness_left imgs vip" >' +
+                '                    <img src="'+self.head_pic_path+'" class="absolute">' +
+                '                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">' +
+                '                </div>' +
+                '                <div class="chat_2 " style="float: left ">' +
+                '                    <p class="fontsize2 color3 float_r paddingr_2" >'+self.nickname+'</p><br>' +
+                '                    <p class="c_1  bc2 color1 fontsize2 content-box order-chat" chat_id="'+item.id+'" status="'+item.status+'">'+item.content+'<br>' +
+                '                        <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">' +
+                '                    </p>' +
+                '                </div>' +
+                '                <div style="clear: both"></div>' +
+                '            </div>' +
+                '            <div style="clear: both"></div>' +
+                // (item.buy_status == 1 || item.buy_status == 2 ? '<p class="textcen text-center"> <span class="service-time-label">'+(item.buy_status == 1 ? "买家同意了你的报价":"买家拒绝了你的报价")+'</span></p>':'') +
+                '        </div>'
+        }
+        return str
+    }
+
+    function hisDom(item,from_member) {
+        var str = "";
+        if(item.type == 1){
+            str = '<div class="chat-item">' +
+                '            <p class="textcen text-center">' +
+                '                <span class="service-time-label">'+timestampFormat(item.create_time)+'</span>' +
+                '            </p>' +
+                '            <div class="chat_left">' +
+                '                <div class="VIPbusiness_left imgs vip" >' +
+                '                    <img src="'+from_member.head_pic_path+'" class="absolute">' +
+                '                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">' +
+                '                </div>' +
+                '                <div class="chat_l">' +
+                '                    <p class="fontsize2 color3">'+from_member.nickname+'</p>' +
+                '                    <div class="c_1 bc2 fontsize2 content-box">' +
+                '                        <p class="c_2  bc2 color1 fontsize2 content-box" >'+item.content+'</p>' +
+                '                    </div>' +
+                '                </div>' +
+                '            </div>' +
+                '            <div style="clear: both"></div>' +
+                '        </div>'
+        }else {
+            str = '<div class="chat-item">' +
+                '            <p class="textcen text-center">' +
+                '                <span class="service-time-label">'+timestampFormat(item.create_time)+'</span>' +
+                '            </p>' +
+                '            <div class="chat_left  ">' +
+                '                <div class="VIPbusiness_left imgs vip" >' +
+                '                    <img src="'+from_member.head_pic_path+'" class="absolute">' +
+                '                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">' +
+                '                </div>' +
+                '                <div class="chat_l"  >' +
+                '                    <p class="fontsize2 color3">'+from_member.nickname+'</p>' +
+                '                    <div class="c_1 bc2 fontsize2 content-box">' +
+                '                        <p class="c_2  bc2 color1 fontsize3 content-box order-chat" chat_id="'+item.id+'" status="'+item.status+'">'+item.content+'<br>' +
+                '                            <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">' +
+                '                        </p>' +
+                '                    </div>' +
+                '                </div>' +
+                '            </div>' +
+                '            <div style="clear: both"></div>' +
+                (item.remark ? '<p class="textcen text-center"> <span class="service-time-label">'+(item.buy_status == 1 ? "买家同意了你的报价":"买家拒绝了你的报价")+'</span></p>':'') +
+                '        </div>'
+        }
+        return str
+    }
+
+    function uploadChat(content) {
+        requestUrl("{:U('Home/Chat/addChat')}",{from_mid:from_mid,type:1,content:content},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+
+            }
+        });
+    }
+
+    var layderIndex
+    function bindHandler() {
+        $(".submit").click(function () {
+            if($(this).siblings("input").val().trim()){
+                uploadChat($(this).siblings("input").val().trim())
+            }else {
+                layer.open({
+                    content: "请输入内容"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+        });
+
+        handlerScrollTop(function () {
+            layderIndex = layer.open({type: 2});
+            getChatList()
+        });
+
+        $(".textcontent").on("click",".order-chat", function () {
+            window.location.href = "{:U('Index/index_VIPbussiness_good4')}&chat_id=" + $(this).attr("chat_id")
+        });
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+    }
+</script>

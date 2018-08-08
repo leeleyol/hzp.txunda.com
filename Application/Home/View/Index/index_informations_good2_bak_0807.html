@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <title>供求详情</title>
+    <style>
+        .section_top{
+            padding: 10px 15px 0px 15px;
+        }
+        .tupian{
+            margin: 0px 15px  10px 15px;
+        }
+        .tu{
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .footbut{
+            height: 40px;
+            line-height:17px;
+            width: 94%;
+            left: 3%;
+            padding: 5px 0px;
+            display: flex;
+            z-index: 11;
+        }
+         .button{
+             height: 40px;
+             line-height: 40px;
+             margin-left: 10px;
+             flex: 1;
+             background-color: #ff4c82;
+         }
+        button.reply{
+            background-color: #ffcb3e
+        }
+
+        .disable-color{
+            pointer-events: none;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            供求详情
+        </div>
+        <div class="header_right"></div>
+    </header>
+
+    <div class="section_top  headtop coarseLline description">
+        <button></button>
+        <span></span>
+    </div>
+    <div class="section_buttom  ">
+        <p class="color3">交易方式: <span class="color1 trade-way"></span></p>
+        <span class="fontsize3 color8 area"></span>
+        <!--<span class="fontsize3 float_r color6">匿名发布</span>-->
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p class="color3 fontsize4">
+                <img src="__ROOT__/Public/Home/img/niming.png" class="head_pic icon_del">
+                <span class="color1 nickname">匿名</span>
+                <span class="create-time"></span>
+            </p>
+        </div>
+    </div>
+    <div class="tupian">
+    </div>
+    <br><br>
+
+    <div class="footbut bc2">
+        <div class="float_l">
+            <img src="__ROOT__/Public/Home/img/shoucang0.png" class="is_collect icon_del">
+            <p class="fontsize5">收藏</p>
+        </div>
+        <button class="color2 bc5 fontsize3 button chat">对他留言</button>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        bindeHandler()
+        getDetail()
+    })
+
+    var pb_id = getUrlParam("pb_id");
+    var member_id;
+    function getDetail() {
+        requestUrl("{:U('Home/Supply/supplyInfo')}",{id:pb_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var detail = res.data;
+                member_id = res.data.m_id;
+
+                if(member_id == m_id){
+                    $(".chat").addClass("disable-color")
+                }
+
+                if(detail.type == 1){
+                    $(".description button").text("供")
+                }else {
+                    $(".description button").text("求").addClass("reply")
+                }
+                $(".description span").text(detail.description);
+
+
+                var str = ""
+                detail.is_extract == 1 ? str += "买家自提,":""
+                detail.is_md == 1 ? str += "商家配送,":""
+                detail.is_sf == 1 ? str += "顺丰包邮,":""
+                detail.is_bp == 1 ? str += "买家支付邮费,":""
+                $(".trade-way").text(str)
+
+                $(".area").text("位置:" + detail.area_name)
+
+                if(detail.is_hidename != 1){
+                    $(".head_pic").prop({"src":detail.head_pic_path})
+                    $(".nickname").text(detail.nickname)
+                }
+                $(".create-time").text(getDate(detail.create_time,"年月日"))
+
+                var pic = [];
+                if(detail.type == 1){
+                    $(detail.supply_info).each(function (index, item) {
+                        pic.push(item.goods_pic_path)
+                    })
+                }else {
+                    $(detail.pic_obj).each(function (index, item) {
+                        pic.push(item.picture_path)
+                    })
+                }
+
+                $(".tupian").html("")
+                $(pic).each(function (index, item) {
+                    $(".tupian").append(' <img src="'+item+'" class="tu">')
+                })
+
+                $(".is_collect").prop({"src":detail.is_collect ? "__ROOT__/Public/Home/img/shoucang.png":"__ROOT__/Public/Home/img/shoucang0.png"}).attr({"is_collect":detail.is_collect})
+            }
+        });
+    }
+
+    function bindeHandler() {
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+        //shoucang0.png
+
+        $(".is_collect").click(function () {
+            if($(this).attr("is_collect") == 0){
+                addCollect()
+            }else {
+                delCollect()
+            }
+        })
+
+        $(".chat").click(function () {
+            window.location.href = "{:U('Index/index_VIPbussiness_good7')}&from_mid=" + member_id
+        })
+    }
+    function addCollect() {
+        requestUrl("{:U('Home/Collect/addCollect')}",{object_type:1,object_id:pb_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                getDetail()
+            }
+        });
+    }
+
+    function delCollect() {
+        requestUrl("{:U('Home/Collect/delCollect')}",{object_type:1,object_id:pb_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                getDetail()
+            }
+        });
+    }
+</script>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <title>Mac OS X</title>
+    <style>
+        body,html{
+            min-height: 100%;
+            background-color: #eee;
+            box-sizing: border-box;
+        }
+        header{
+            border-bottom: 1px solid  rgba(246, 246, 246, 1) ;
+        }
+        header .header_middle{
+            width: 55%;
+        }
+        header .header_right{
+            width: 20%;
+        }
+        .tz-list{
+            padding-top: 45px;
+        }
+        .tz-item{
+            margin-top: 15px;
+            height: auto;
+            padding-bottom: 10px;
+        }
+        .distance_top i{
+            font-style: normal;
+            margin: 0 0 0 5px;
+            width: 90px;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .distance_top > *{
+            vertical-align: middle;
+        }
+
+        .section_item .rongqi2 video {
+            height: 130px;
+            width: 147px;
+        }
+    </style>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <img src="__ROOT__/Public/Home/img/b_back.png" />
+        </div>
+        <div class="header_middle color1">
+
+        </div>
+        <div class="header_right">
+            <span class="fontsize4 color6 faitie">我要发帖</span>
+        </div>
+    </header>
+    <div class="tz-list">
+
+    </div>
+
+    <div style="display: none" class="custom-classname Bomb-box">
+        <div class="weui-mask weui-animate-fade-in"></div>
+        <div class="weui-actionsheet weui-animate-slide-up">
+            <div class="weui-actionsheet__menu">
+                <div class="weui-actionsheet__cell image">
+                    <a>
+                        图片<p class="fontsize4 color3"></p>
+                    </a>
+                </div>
+                <div class="weui-actionsheet__cell video">
+                   <a>
+                       视屏
+                   </a>
+                </div>
+            </div> <div class="weui-actionsheet__action">
+            <div class="weui-actionsheet__cell ">取消</div>
+        </div>
+        </div>
+    </div>
+    <script>
+        var type_id,layderIndex;
+        $(function () {
+            getBaseInfo();
+            bindHandler();
+            getList();
+        })
+
+        function getBaseInfo() {
+            type_id = getUrlParam("type_id");
+            typeName = getUrlParam("typeName");
+
+            $(".header_middle").text(typeName)
+        }
+
+        function bindHandler(){
+            $('.weui-mask').click(function(){
+                var ref=$(this);
+                var target=ref.parent('.Bomb-box');
+                target.hide();
+            });
+
+            $(".image").click(function () {
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=image&type_id="+type_id
+            });
+
+            $(".video").click(function () {
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=video&type_id="+type_id
+            });
+
+            $('.faitie').click(function(){
+                $('.custom-classname').show();
+                //window.location.href = "{:U('Interest/interest_fenlei2')}"
+            });
+
+            $('.weui-actionsheet__cell').click(function(){
+                $('.custom-classname').hide();
+            });
+
+            $(".header_left").click(function () {
+                history.go(-1)
+            });
+            
+            $(".tz-list").on("click",".tz-item",function () {
+                window.location.href = "{:U('Interest/interest_details1')}&post_id=" + $(this).prop("id")
+            })
+            
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getList();
+            })
+        }
+
+
+        var page = 0;
+        function getList() {
+            page += 1
+            requestUrl("{:U('Home/Post/selectTypePost')}",{p:page,m_id:m_id,type_id:type_id},function(res){
+                layer.close(layderIndex)
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".tz-list").append('<div class="distance tz-item" id="'+item.id+'">' +
+                            '            <div class="distance_top">' +
+                            '                <img src="'+item.head_pic+'"><i>'+item.nickname+'</i><span>'+timestampFormat(item.create_time)+'</span>' +
+                            '            </div>' +
+                            '            <p>' +
+                            '                <span  class="biaoti">'+item.title+'</span><br>' +
+                                            item.content+
+                            '            </p>' +
+                            '            <div class="" >' +
+                            '                <div class="section">' +
+                            imgList(item.pic_list)+
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="distance_buttom">' +
+                            '                <div class="distance_buttom_1">' +
+                            '                     <span>来自 '+item.type_name+'系列</span>' +
+                            '                </div>' +
+                            '                <div class="distance_buttom_2">' +
+                            '                    <img src="__ROOT__/Public/Home/img/eye.png" />' +
+                            '                    <span>'+item.view+'</span>' +
+                            '                    <img src="__ROOT__/Public/Home/img/z_information.png" />' +
+                            '                    <span>'+item.comment_num+'</span>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>');
+                    })
+
+                }
+            });
+        }
+
+        function imgList(pic_list) {
+            var str = "";
+            $(pic_list).each(function (index, item) {
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='"+item+"'></video>":'<img src="'+item+'"  /><br>';
+
+                str +=  '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    imgstr+
+                    '</div>' +
+                    '</div>'
+            })
+            return str
+        }
+    </script>
+</body>
+</html>
