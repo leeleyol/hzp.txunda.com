@@ -80,5 +80,5 @@ return array(
     'URL_PATHINFO_DEPR'    => '/', //PATHINFO URL分割符
 
     //api路径
-    'API_URL' => 'http://'.$_SERVER['HTTP_HOST'],
+    'API_URL' => 'http://hzp.txunda.com/',
 );

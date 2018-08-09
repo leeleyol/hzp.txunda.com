@@ -338,7 +338,7 @@ footer{
     background-color: white;
     display: flex;
     flex-direction: row;
-    z-index: 3;
+    z-index: 1300;
     width: 100%;
     position: fixed;
     bottom: 0px;
