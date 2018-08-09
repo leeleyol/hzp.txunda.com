@@ -80,6 +80,9 @@ footer .footer_item a{
     text-decoration: none;
     color: #999999;
     font-size: 14px;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 .active{
     color: #ff4c82;
