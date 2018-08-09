@@ -232,10 +232,6 @@ class GoodsController extends BaseController{
     public function addGoodsImage(){
         $resourceUrl = '';
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['image'], $result)){
-<<<<<<< HEAD
-
-=======
->>>>>>> 52ee5c39dfaf625c50cd23acad6df848b2f558db
             $type = $result[2];
             $new_file = 'Uploads/Goods/'.date('Y').'-'.date('m').'-'.date('d').'/';
             if ( !file_exists ( $new_file )) {
