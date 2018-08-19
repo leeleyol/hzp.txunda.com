@@ -3,30 +3,29 @@
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
     <style>
+        body{
+            background-color: white;
+        }
         #hear li {
             width: 50% !important;
             text-align: center;
         }
-
         #hear {
             background-color: #fff;
+            border-bottom:5px solid #F6F6F6;
         }
-
         #hear li p {
             display: inline-block;
             width: 75%;
         }
-
         #contentop {
             width: 100%;
             overflow: hidden;
         }
-
         .edit {
             position: relative;
             left: 50px;
         }
-
         .edit .tz-item .check-box {
             width: 20px;
             height: 20px;
@@ -38,11 +37,9 @@
             background-size: 100%;
             background-repeat: no-repeat;
         }
-
         .edit .tz-item .checked {
             background-image: url("__ROOT__/Public/Home/img/empty1.png");
         }
-
         .edit .provide-item .check-box {
             width: 20px;
             height: 20px;
@@ -54,21 +51,16 @@
             background-size: 100%;
             background-repeat: no-repeat;
         }
-
         .edit .provide-item .checked {
             background-image: url("__ROOT__/Public/Home/img/empty1.png");
         }
-
         .tz-list {
             background-color: rgba(246, 246, 246, 1);
-
         }
-
         .tz-item {
             margin-top: 10px;
             position: relative;
         }
-
         .bottom-bar {
             position: fixed;
             bottom: 0;
@@ -80,12 +72,10 @@
             border-top: 10px solid rgba(246, 246, 246, 1);
             display: none;
         }
-
         .bottom-bar p {
             display: inline-block;
             overflow: hidden;
         }
-
         .bottom-bar p:first-of-type {
             font-size: 15px;
             margin-left: 25px;
@@ -95,11 +85,9 @@
             background-size: 20px;
             background-repeat: no-repeat;
         }
-
         .bottom-bar p:first-of-type.checked {
             background-image: url("__ROOT__/Public/Home/img/empty1.png");
         }
-
         .bottom-bar p:last-of-type {
             float: right;
             background-color: red;
@@ -114,7 +102,7 @@
 
         .provide-item {
             background-color: white;
-            margin-top: 10px;
+            /*margin-top: 10px;*/
             position: relative;
         }
 
@@ -179,7 +167,7 @@
         }
 
         .provide-item {
-            margin-top: 10px;
+            /*margin-top: 10px;*/
         }
 
     </style>
@@ -286,8 +274,8 @@
                     '                    </div>' +
                     '                    <div class="paddingl_2 reply-operate">' +
                     '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
-                    '                        <label class="fontsize11"> ' + item.nickname + '</label>' +
-                    '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                    '                        <label class="fontsize55"> ' + item.nickname + '</label>' +
+                    '                        <span class="font-size11 color3">' + timestampFormat(item.create_time) + '</span>' +
                     '                    </div>' +
                     '<div class="check-box"></div>' +
                     '                </div>'+

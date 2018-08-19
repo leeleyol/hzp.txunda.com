@@ -15,10 +15,17 @@
     <style>
         .input {
             width: 86px;
+            text-alig:center;
         }
 
         img {
             max-width: 55px;
+        }
+        .table{
+            background-color: white;
+        }
+        tr th{
+            background-color: white;
         }
     </style>
 </head>
@@ -36,7 +43,7 @@
 
 <table class="table">
     <tr>
-        <th colspan="2" style=" border-right:0px">商品名称</th>
+        <th colspan="2" style="border-right:0px">商品名称</th>
         <th width="25%">库存</th>
         <th width="25%">预购数量</th>
     </tr>
@@ -45,13 +52,13 @@
 </table>
 <div class="bussiness_bottom">
     <div class="bottom_num ">
-        <span class="color1 fontsize2">选择商品款式 :</span>
-        <span class="color4 fontsize2"></span>
+        <span class="color1 fontsize55">选择商品款式 :</span>
+        <span class="color4 fontsize55"></span>
 
     </div>
     <div class="bottom_submit">
         <button>
-            <a class="color2 fontsize2">
+            <a class="color2 fontsize55">
                 &nbsp;提 交&nbsp;
             </a>
         </button>
@@ -80,9 +87,9 @@
                 '            <td style="padding-left: 10px; border-right:0px">' +
                 '                <img src="' + item.goods_pic_path + '" />' +
                 '            </td>' +
-                '            <td style="text-align: left;height:38px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden">' + item.goods_name + '</td>' +
+                '            <td style="text-align: left;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;line-height: 1.7em;">' + item.goods_name + '</td>' +
                 '            <td >' + item.stock + item.stock_unit + '</td>' +
-                '            <td stock="' + item.stock + '"><input type="number" placeholder="输入预购数量" class="input" onkeyup="clearNoNum(this)"></td>' +
+                '            <td stock="' + item.stock + '"><input type="number" placeholder="输入预购数量" class="input" onkeyup="clearNoNum(this)" style="text-align: center"></td>' +
                 '        </tr>')
         })
 

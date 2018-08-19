@@ -31,10 +31,6 @@
         .distance_top > *{
             vertical-align: middle;
         }
-        .mengban{
-            text-align: center;
-        }
-
         .xiaoxi{
             right: 10px;
         }
@@ -46,9 +42,23 @@
             height: 5px;
         }
         .mengban{
-            background: url(__ROOT__/Public/Home/img/jianbian.png);background-size: 100%;text-align: right
+            background: url(__ROOT__/Public/Home/img/jianbian.png);background-size: 100%;
+            text-align: right;
+            font-size: 12px;
+            right: -1px;
+            margin-top: 2px;
         }
-
+        /*.section_item{*/
+            /*overflow-y:hidden ;*/
+        /*}*/
+        /*去掉点击上去的灰色背景*/
+        a,a:hover,a:active,a:visited,a:link,a:focus{
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-tap-highlight-color: transparent;
+            outline:none;
+            background: none;
+            text-decoration: none;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -139,7 +149,7 @@
                         $(".inter").append('<div class="inter_item" type_id="'+item.type_id+'">' +
                             '<div class="inter_list">' +
                             '<img src="'+item.pic+'">' +
-                            '<p class="color3 fontsize3">'+item.type_name+'</p>' +
+                            '<p class="color33 fontsize3">'+item.type_name+'</p>' +
                             '<div class="mengban">' +
                             item.num + '人参与&nbsp;' +
                             '</div>' +
@@ -169,7 +179,7 @@
                     $(list).each(function (index, item) {
                         $(".tz-list").append('<div class="distance tz-item"  id="'+item.id+'">' +
                             '            <div class="distance_top">' +
-                            '                <img style="border-radius: 50%" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 14px">'+timestampFormat(item.create_time)+'</span>' +
+                            '                <img style="border-radius: 50%" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 11px">'+timestampFormat(item.create_time)+'</span>' +
                             '            </div>' +
                             '            <p>' +
                             '                <span  class="biaoti">'+item.title+'</span><br>' +

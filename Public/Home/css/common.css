@@ -27,13 +27,16 @@ i{
 }
 /*字体颜色样式*/
 .color1{
-    color: black;
+    color: #333;
 }
 .color2{
     color: white;
 }
 .color3{
     color: #999999;
+}
+.color33{
+    color: #666666;
 }
 .color4{
     color: #fb3232;
@@ -66,11 +69,20 @@ i{
 .fontsize5{
     font-size: 12px;
 }
+.fontsize55{
+    font-size: 13px;
+}
 .fontsize11{
     font-size: 15px;
 }
 .fontsize12{
     font-size: 22px;
+}
+.font-size11{
+    font-size: 11px;
+}
+.font-size10{
+    font-size: 10px !important;
 }
 .bc1{
     background-color: black;
@@ -102,6 +114,10 @@ i{
 .icon_eye{
     width: 15px;
    height: 15px;
+}
+.icon_shaixuan{
+    width: 16px;
+    height: 16px;
 }
 .icon_refresh{
     width: 30px;
@@ -144,12 +160,13 @@ i{
     z-index: 1;
     right: 15px;
     top: 80px;
-    background-color: rgba(239, 90, 84, 1);
+    background-color: white;
     border-radius: 40px 40px 40px 40px;
-    color: #ffffff;
-    font-size: 14px;
+    color: #666666;
+    font-size: 12px;
     padding: 0 10px;
     height: 25px;
+    border: 1px solid #666666;
 
 }
 .paddingl_1{
@@ -210,35 +227,35 @@ i{
     width: 75%;
     margin: auto;
 }
-
 .jituan label{
-
     color: black;
     line-height: 1.6em;
-    font-size: 15px;
+    font-size: 13px;
 }
 .jituan span{
     color: #999999;
-    font-size: 14px;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px 0px;
 }
 .jituan input{
-    background-color:white;
+    background-color: white;
     border: 1px solid #ff4c82;
-    height: 20px;
-    color:#ff4c82;
-    width: 60px;
-    font-size: 13px;
+    height: 18px;
+    color: #ff4c82;
+    width: 58px;
+    font-size: 10px;
     border-radius: 8px 8px 8px 8px;
 }
 .jituan p{
-    font-size: 14px;
-    color: #333333;
+    font-size: 12px;
+    color: #666666;
 }
 
 /*商家认证*/
 .bussiness_renzheng label{
-  color: black;
-    font-size: 18px;
+  color: #333333;
+    font-size: 16px;
 }
 .bussiness_renzheng input{
     background-color:white;
@@ -251,10 +268,9 @@ i{
 }
 .bussiness_renzheng p{
     line-height: 1.6em;
-    color: #ffffff;
+    color: #ffc0cf;
     font-size: 14px;
 }
-
 /*粗线样式*/
 .coarseLline{
     border-top:10px solid  rgba(246, 246, 246, 1);
@@ -278,12 +294,13 @@ i{
 .leftright{
     height: 40px;
     line-height: 40px;
-    padding: 0px 5px 0px 15px
+    padding: 0px 5px 0px 15px;
+    background: white;
 }
 .leftright .left{
     float: left;
-    font-size: 16px;
-    color: black;
+    font-size: 14px !important;
+    color: #333333;
 }
 .leftright .left img{
     width: 30px;height: 30px;
@@ -294,7 +311,7 @@ i{
 .leftright .right{
     float: right;
     color: #999999;
-    font-size: 16px;
+    font-size: 14px;
 }
 .leftright .right img{
     width: 25px;
@@ -310,19 +327,20 @@ i{
 .table tr{
     vertical-align: middle;
     text-align: center;
+    color: #666666;
 }
 .table th{
     background-color: rgba(246, 246, 246, 1);
     height: 40px;
     border-right:0px;
     color: #999999;
-    font-size: 15px;
+    font-size: 12px;
 }
 .table td{
     border-bottom:1px solid rgba(246, 246, 246, 1);
     border-right:1px solid rgba(246, 246, 246, 1);
     padding:5px;
-    font-size: 14px;
+    font-size: 12px;
 
 }
 .table tr td img{
@@ -334,11 +352,12 @@ i{
 .system{
     width: 100%;
     display: flex;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     font-size: 14px;overflow-x: hidden;
     padding-bottom: 10px;
     border-bottom: 1px solid #F6F6F6;
-    margin-left: 10px;
+    background: white;
+    /*margin-left: 10px;*/
 }
 .system img{
     /*width: 40px;*/
@@ -358,11 +377,11 @@ i{
     padding-top: 10px;
 }
 .system_right font{
-    font-size: 16px;
+    font-size: 14px;
 }
 .system_right p{
     color: #999999;
-    font-size: 15px;
+    font-size: 13px;
     overflow: hidden;  /*溢出隐藏*/
     text-overflow: ellipsis; /*以省略号...显示*/
     white-space: nowrap;  /*强制不换行*/
@@ -370,7 +389,7 @@ i{
 .system_right font span{
     float: right;
     color: #999999;
-    font-size: 15px;
+    font-size: 11px;
     margin-right: 10px;
 }
 
@@ -404,22 +423,22 @@ i{
     background-color: white;
 }
  .welcome .system_biaoti{
-     font-size: 16px;
+     font-size: 14px;
      color: black;
      padding: 10px 15px;
      box-sizing: border-box;
      height: 35px;
-     line-height: 35x;
+     line-height: 35px;
  }
  .welcome .system_weibu{
      float: right;
      text-align: right;
-     font-size: 14px;
+     font-size: 13px;
      color:#666666;
 
  }
 .welcome > div{
-    color: #666666;
+    color: #999999;
     font-size: 15px;
     line-height: 1.5em;
     margin: 10px 15px;
@@ -436,13 +455,13 @@ i{
     /*margin-left: 20px;*/
     /*margin-right: 20px;*/
 }
-#hear{width: 100%;height: 44px;line-height: 45px; border-bottom:10px solid rgba(246, 246, 246, 1);  }
+#hear{width: 100%;height: 44px;line-height: 45px; border-bottom:1px solid rgba(246, 246, 246, 1);background: white}
 #hear a{font-weight: normal;color: black;}
 
-#hear li{text-align: center;width:35%;float: left;height: 45px;list-style: none;font-size: 16px}
+#hear li{text-align: center;width:35%;float: left;height: 45px;list-style: none;font-size: 13px}
 #hear li:nth-of-type(1){width: 30%;float: left; }
 #hear li:nth-of-type(2){width: 30%;float: right; }
-#contentop li{ width:100%; display: none;  margin-top: 3px;}
+#contentop li{ width:100%; display: none;}
 #contentop .action{ display: block;}
 #contentop .Buy div:nth-of-type(1){text-align: left; }
 #contentop .Buy div:nth-of-type(2){float: right;}
@@ -477,17 +496,19 @@ i{
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid rgba(246, 246, 246, 1);
-    font-size: 16px;
-
+    font-size: 12px;
+    background: white;
 }
 .zongheshaixuan_item{
     width: 50%;
     float: left;
     text-align: center;
 }
-.zongheshaixuan>.zongheshaixuan_item>a>img{
-    width: 15px;
-    height: 15px;
+.zongheshaixuan>.zongheshaixuan_item>img{
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    border-radius: 0;
 }
 
 

@@ -1,11 +1,11 @@
 /*app*/
 @charset "utf-8";
-*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none;}
+*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none; font-family: 'pingFangSC-Medium';}
 img{vertical-align:middle;-ms-interpolation-mode:bicubic;max-width: 100%}
 p{margin: 0px;}
 input::-ms-clear{display:none}
 input::-ms-reveal{display:none}
-button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"microsoft yahei"}
+button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"pingFangSC-Medium"}
 button,input[type=button],input[type=text],input[type=reset],input[type=submit]{-webkit-appearance:none;display:initial;cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
 input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
 button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
@@ -73,13 +73,13 @@ footer .footer_item{
     margin:5px 0;
 }
 .footer_item div{
-    font-size: 14px;
+    font-size: 10px;
     line-height: 10px;
 }
 footer .footer_item a{
     text-decoration: none;
-    color: #999999;
-    font-size: 14px;
+    color: #999999 !important;
+    font-size: 10px;
 }
 .active{
     color: #ff4c82;
@@ -89,20 +89,19 @@ footer .footer_item a{
 /*身份认证*/
 
 .cards{
-
     background-color: #fffcdb;
     margin: 10px 5%;
     padding: 5px 10px;
 }
 .cards .cards_duanluo p{
-
-    text-indent:2em
+    text-indent:2em;
+    color: #666666;
 }
 
 .juli{
     margin:50px 0px 20px 0px;
     text-align: center;
-    font-size:16px;
+    font-size:14px;
     height: 35px;
     line-height: 35px;
 }
@@ -118,7 +117,7 @@ a button{
     color: white;
     height:40px;
     width:94%;
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 3%;
 }
 .red{
@@ -126,7 +125,7 @@ a button{
 }
 form{
     padding:10px 0px 10px 10px;
-    font-size: 16px;
+    font-size: 13px;
 }
 .boss{
     padding: 10px 0px;
@@ -315,6 +314,7 @@ form{
 .banks img{
     width: 40px;
     height: 40px;
+    margin-right: 20px !important;
 }
 .tixian{
     width: 86%;

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <title>填写商家认证</title>
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .buttom0{
+            border-bottom: 0px;
+            padding-bottom: 0px
+        }
+        .upload-file{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .upload-file .file{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .upload-file .delete{
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: -8px;
+            right: -8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="head">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle color1">
+            填写商家认证
+        </div>
+    </header>
+    <div class="coarseLline headtop"></div>
+    <form method="" action="">
+        <div class="boss realname">
+            <label>真实姓名<span class="red">*</span></label>
+            <input type="text" placeholder="请输入真实姓名">
+        </div>
+        <div class="boss mobile">
+            <label>联系电话<span class="red">*</span></label>
+            <input type="text" placeholder="请输入联系电话">
+        </div>
+        <div class="boss cartId">
+            <label>身份证号<span class="red">*</span></label>
+            <input type="text" placeholder="请输入身份证号">
+        </div>
+        <div class="boss buttom0 address" >
+            <label>公司地址<span class="red">*</span></label>
+            <input type="text" placeholder="请输入公司地址">
+        </div>
+    </form>
+    <div class="up fontsize3">上传身份照</div>
+    <p class="upload_top fontsize3">
+        对焦使身份证上面字体和照片清晰可见
+    </p>
+    <div class="upload">
+        <div class="upload_item ">
+            <img src="__ROOT__/Public/Home/img/card1.png" />
+        </div>
+        <div class="upload_item select-img" id="license">
+            <img src="__ROOT__/Public/Home/img/card11.png" />
+        </div>
+    </div>
+    <div class="upload">
+        <div class="upload_item ">
+            <img src="__ROOT__/Public/Home/img/card2.png" />
+        </div>
+        <div class="upload_item select-img" id="positive">
+            <img src="__ROOT__/Public/Home/img/card22.png" />
+        </div>
+    </div>
+    <div class="upload">
+        <div class="upload_item ">
+            <img src="__ROOT__/Public/Home/img/card3.png" />
+        </div>
+        <div class="upload_item select-img" id="negative">
+            <img src="__ROOT__/Public/Home/img/card33.png" />
+        </div>
+    </div>
+    <div class="tishi">
+         <div class="fontsize2 fo">
+             温馨提示<p class="fontsize3">这是一段温馨提示</p>
+         </div>
+        <a>
+            <button class="submit">提交</button>
+        </a>
+        <br><br>
+    </div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        bindHandler()
+    });
+    
+    function bindHandler() {
+
+        $(".header_left").click(function () {
+            history.go(-1)
+        })
+        $("#license").fileInit({
+            "filetype":"image",
+            "onchange": function (base64,file,_targetthis) {
+                uploadPic(file,_targetthis)
+            }
+        });
+        $("#positive").fileInit({
+            "filetype":"image",
+            "onchange": function (base64,file,_targetthis) {
+                uploadPic(file,_targetthis)
+            }
+        });
+        $("#negative").fileInit({
+            "filetype":"image",
+            "onchange": function (base64,file,_targetthis) {
+                uploadPic(file,_targetthis)
+            }
+        });
+
+        $(".upload").on("click",".delete",function () {
+            $(this).parent().remove()
+        });
+
+
+        $(".submit").click(function () {
+            //验证姓名
+            var  st0 = $(".realname input").val().trim();
+            //验证手机
+            var st1 = checkPhone($(".mobile input").val().trim());
+            //验证身份证
+            var st2 = IdentityCodeValid($(".cartId input").val().trim())
+            //验证公司地址
+            var  st3 = $(".address input").val().trim();
+            //营业执照
+            var  st4 = $("#license .upload-file").size();
+            //身份证正面
+            var  st5 = $("#positive .upload-file").size();
+            //身份证反面
+            var  st6 = $("#negative .upload-file").size();
+
+            if(!st0){
+                layer.open({
+                    content: "请填写姓名"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st1){
+                layer.open({
+                    content: "请填写正确的手机号"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st2){
+                layer.open({
+                    content: "请填写正确的身份证号"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st3){
+                layer.open({
+                    content: "请填写公司地址"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st4){
+                layer.open({
+                    content: "请填上传营业执照"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st5){
+                layer.open({
+                    content: "请填上传身份证正面"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }else if(!st6){
+                layer.open({
+                    content: "请填上传身份证反面"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+            uploadData()
+        })
+    }
+    
+    
+    function uploadData() {
+        var data = {}
+        //验证姓名
+        data.realname = $(".realname input").val().trim();
+        //验证手机
+        data.phone = $(".mobile input").val().trim();
+        //验证身份证
+        data.id_card_number = $(".cartId input").val().trim();
+        //验证公司地址
+        data.company_address = $(".address input").val().trim();
+        //营业执照
+        data.business_license = $("#license .upload-file").attr("picture_id");
+        //身份证正面
+        data.front_id_card = $("#positive .upload-file").attr("picture_id");
+        //身份证反面
+        data.back_id_card = $("#negative .upload-file").attr("picture_id");
+        data.m_id = m_id
+        requestUrl("{:U('Home/Member/merchantApply')}", data, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                alert(res.message);
+            } else {
+                window.location.href = "{:U('Member/my_card_ing')}"
+            }
+        });
+    }
+    
+    function uploadPic(file,_targetthis) {
+        var formdata = new FormData();
+        formdata.append("picture", file);
+        formdata.append("type", "1");
+        uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                alert(res.message);
+            } else {
+                $(_targetthis).append('<div class="upload-file" picture_id="'+res.data.picture.picture_id+'">' +
+                    '                <img src="'+res.data.picture.picture_path+'" class="file" alt="">' +
+                    '                <img src="__ROOT__/Public/Home/img/delete_img.png"  class="delete" alt="">' +
+                    '            </div>')
+            }
+        });
+    }
+</script>

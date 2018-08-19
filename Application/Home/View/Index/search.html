@@ -83,8 +83,12 @@
 <block name="main">
     <header>
         <a href="index.html"><img src="__ROOT__/Public/Home/img/b_back.png" width="30px" height="30px"></a>
-        <img src="__ROOT__/Public/Home/img/search.png" style="position:absolute;z-index: 1;width: 20px;height: 20px;
-         top: 19px;left: 60px;"/>
+        <img src="__ROOT__/Public/Home/img/search.png" style="    position: absolute;
+    z-index: 1;
+    width: 18px;
+    height: 18px;
+    top: 18px;
+    left: 62px;"/>
         <input type="search" class="keyword" placeholder="搜索">
         <span>
              <a id="search" style="color: black;">搜索</a>
@@ -300,14 +304,14 @@
                     '                    </div>' +
                     '                    <div class="section_buttom">' +
                     '                        <p>' +
-                    '                            <span class="color3">交易方式:</span><span class="color1">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
+                    '                            <span class="color3">交易方式:</span><span class="color33">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
                     '                            <span class="color8">位置:' + item.area_name + '</span>' +
                     '                        </p>' +
                     '                    </div>' +
                     '                    <div class="paddingl_2 reply-operate">' +
                     '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
-                    '                        <label class="fontsize11"> ' + item.nickname + '</label>' +
-                    '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                    '                        <label class="fontsize55"> ' + item.nickname + '</label>' +
+                    '                        <span class="font-size11 color3">' + timestampFormat(item.create_time) + '</span>' +
                     '                    </div>' +
                     '<div class="check-box"></div>' +
                     '                </div>'

@@ -1,11 +1,22 @@
 <extend name="Public/base" />
 <block name="style">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/loginpwd.css">
+    <style>
+        .username input{
+            font-size: 14px;
+            background: transparent;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        body{
+            background: white;
+        }
+    </style>
 </block>
 <block name="main">
 <header>
     <div class="header_left">
-        <a href="login.html"><img src="__ROOT__/Public/Home/img/w_back.png" /></a>
+        <a href="javascript:history.go(-1);"><img src="__ROOT__/Public/Home/img/w_back.png" /></a>
     </div>
     <div class="header_middle">
         忘记密码
@@ -31,7 +42,6 @@
         <input type="password" placeholder="请再次输入密码" id="re_password">
     </div>
     <div class="juli"></div>
-
     <button type="button" id="do_forget">提 交</button>
 </form>
 </block>

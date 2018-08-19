@@ -1,0 +1,104 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <style>
+        button{
+            background-color: rgba(255, 76, 130, 1);
+            border-radius: 10px 10px 10px 10px;
+            color: white;
+            height:40px;
+            width:90%;
+            font-size: 18px;
+            margin-top: 50px;
+            margin-left: 5%;
+            box-shadow: 0px 0px 4px #ff6898;
+        }
+
+        button a{
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</block>
+<block name="main">
+
+    <header style="background-color: white; ">
+        <div class="header_left">
+            <a href="{:U('Member/memberCenter')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            设置
+        </div>
+        <div class="header_right"></div>
+    </header>
+
+    <div class="coarseLline"></div>
+    <a href="{:U('Set/modAccountOne')}">
+        <div class="leftright">
+            <div class="left">
+                修改绑定手机号
+            </div>
+            <div class="right">
+                <span id="account"></span>
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+        <div class="fineLine"></div>
+    </a>
+
+    <a href="{:U('Set/modPasswordOne')}">
+        <div class="leftright">
+            <div class="left">
+                修改登录密码
+            </div>
+            <div class="right">
+                <img src="__ROOT__/Public/Home/img/h_more.png" />
+            </div>
+        </div>
+        <div class="fineLine"></div>
+    </a>
+
+    <div class="coarseLline"></div>
+
+    <div class="leftright">
+        <div class="left">
+            联系客服
+        </div>
+        <div class="right">
+            <span id="service_phone"></span>
+            <img src="__ROOT__/Public/Home/img/h_more.png" />
+        </div>
+    </div>
+    <div class="fineLine"></div>
+    <button  class="logout">
+        <a href="javascript:void(0)">
+            退出登录
+        </a>
+    </button>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            var m_id = localStorage.getItem('m_id');
+            m_id = m_id?m_id:0;
+            requestUrl("{:U('Set/ajaxSetIndex')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    alert(res.message);
+                }else {
+                    $('#account').text(res.data.account);
+                    $('#service_phone').text(res.data.service_phone);
+                }
+            });
+        });
+
+        //退出登录
+        $('.logout').click(function(){
+            localStorage.removeItem('m_id');
+            window.location.href = "{:U('Login/login')}";
+        });
+    </script>
+</block>

@@ -14,6 +14,9 @@
     <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
     <script src="__ROOT__/Public/Home/js/weui.min.js"></script>
     <style>
+        body{
+            background-color: white;
+        }
         #hear li:nth-of-type(1) {
             margin-left: 50px;
         }
@@ -93,35 +96,42 @@
 
         .provide-item {
             background-color: white;
-            margin-top: 10px;
+            /*margin-top: 10px;*/
             position: relative;
         }
-
-        .goods-name {
+        /*修改*/
+        .goods-name{
             margin-top: 5px;
-            height: 15px;
-            line-height: 15px;
+            line-height: 1.4em;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 3;
             overflow: hidden;
+            color: #666666;
         }
-
+        /*修改*/
+        .section_item .rongqi{
+            width: 106px;
+            height: 190px !important;
+        }
+        /*修改*/
+        .section_buttom{
+            padding: 5px 10px 10px 0px;
+            margin-left: 10px;
+        }
         .rongqi {
             position: relative;
         }
-
         .rongqi span {
             position: absolute;
             right: 0;
             bottom: 0;
         }
-
+        /*修改*/
         .rongqi img {
-            width: 110px;
-            height: 90px;
+            width: 105px;
+            height: 110px;
         }
-
         .reply-operate {
             overflow: hidden;
             padding-right: 10px;
@@ -165,10 +175,19 @@
             float: left;
             text-align: center;
         }
+        .zongheshaixuan_item1 font{
+            color: #666666;
+        }
+        .zongheshaixuan_item font{
+            color: #999999;
+        }
         .zongheshaixuan_item2 {
             width: 50%;
             float: left;
             text-align: center;
+        }
+        .zongheshaixuan_item2 font{
+            color: #666666;
         }
         .icon_name{
             border-radius: 50%;
@@ -198,10 +217,10 @@
     <li class="action">
         <div class="zongheshaixuan">
             <div class="zongheshaixuan_item1">
-                <font color="black">综合</font>
+                <font>综合</font>
             </div>
             <div class="zongheshaixuan_item">
-                <font color="#999999" class="shaixuan">筛选</font>
+                <font class="shaixuan">筛选</font>
                 <img src="__ROOT__/Public/Home/img/shaixuan.png" class="icon_del"/>
             </div>
         </div>
@@ -234,11 +253,11 @@
     <div class="weui-dialog inter-box2-dialog ">
         <div class="box_2" style="">
             <div class="inter-box2-cont  ">
-                <p class="fontsize2 color3 text-left paddingl_1 padding_tb">时间段搜索</p>
+                <p class="fontsize5 color3 text-left paddingl_1 padding_tb">时间段搜索</p>
                 <div class="hezi">
                     <a class="weui-cell weui-cell_access start-time time" >
                         <div class="weui-cell__bd">
-                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置开始搜索时间"/>
+                            <input class="text-left fontsize5" type="text" readonly="readonly" placeholder="设置开始搜索时间"/>
                         </div>
                         <div class="weui-cell__ft">
                         </div>
@@ -247,7 +266,7 @@
                 <div class="hezi">
                     <a class="weui-cell weui-cell_access end-time time">
                         <div class="weui-cell__bd">
-                            <input class="text-left fontsize3" type="text" readonly="readonly" placeholder="设置结束搜索时间"/>
+                            <input class="text-left fontsize5" type="text" readonly="readonly" placeholder="设置结束搜索时间"/>
                         </div>
                         <div class="weui-cell__ft">
                         </div>
@@ -255,7 +274,7 @@
                 </div>
                 <div class="fineLine"></div>
                 <div class="weui-cell weui-cell_switch text-left">
-                    <div class="weui-cell__bd color3 fontsize3">显示匿名用户信息</div>
+                    <div class="weui-cell__bd color3 fontsize5">显示匿名用户信息</div>
                     <div class="weui-cell__ft">
                         <label for="switchCP" class="weui-switch-cp">
                             <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
@@ -266,10 +285,10 @@
             </div>
             <div class="tianjia">
                 <div class="tianjia1 reset-time">
-                    <label class="fontsize2  hidden inter-box2-cancel fontsize2 color6">重置</label>
+                    <label class="fontsize2  hidden inter-box2-cancel fontsize5 color6">重置</label>
                 </div>
                 <div class="tianjia2 search">
-                    <label class="inter-box2-cancel show fontsize2 color2">搜索</label>
+                    <label class="inter-box2-cancel show fontsize5 color2 text-center">搜索</label>
                 </div>
             </div>
         </div>
@@ -504,19 +523,19 @@
                 '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
                 item.description +
                 '                    </div>' +
-                '                    <div class="section">' +
+                '                    <div class="section" style="height: 200px">' +
                 (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic)) +
                 '                    </div>' +
                 '                    <div class="section_buttom">' +
                 '                        <p>' +
-                '                            <span class="color3">交易方式:</span><span class="color1">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
-                '                            <span class="color8">位置:' + item.area_name + '</span>' +
+                '                            <span class="color3">交易方式：</span><span class="color33">' + (item.is_extract == 1 ? "卖家自提、" : "") + (item.is_md == 1 ? "商家配送、" : "") + (item.is_sf == 1 ? "顺风快递、" : "") + (item.is_bp == 1 ? "买家支付邮费" : "") + '</span><br>' +
+                '                            <span class="color8">位置：' + item.area_name + '</span>' +
                 '                        </p>' +
                 '                    </div>' +
                 '                    <div class="paddingl_2 reply-operate">' +
                 '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
-                '                        <label class="fontsize11"> ' + (item.is_hidename == 1 ? "匿名" : item.nickname) + '</label>' +
-                '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
+                '                        <label class="fontsize55 color33"> ' + (item.is_hidename == 1 ? "匿名" : item.nickname) + '</label>' +
+                '                        <span class="font-size11 color3">' + timestampFormat(item.create_time) + '</span>' +
                 '                    </div>' +
                 '<div class="check-box"></div>' +
                 '                </div>'+
