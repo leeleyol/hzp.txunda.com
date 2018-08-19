@@ -232,9 +232,8 @@ class GoodsController extends BaseController{
     public function addGoodsImage(){
         $resourceUrl = '';
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $_POST['image'], $result)){
-            var_dump($result);
             $type = $result[2];
-            $new_file = '/Uploads/Goods/'.date('Y').'-'.date('m').'-'.date('d').'/';
+            $new_file = 'Uploads/Goods/'.date('Y').'-'.date('m').'-'.date('d').'/';
             if ( !file_exists ( $new_file )) {
                 mkdir ( "$new_file", 0777, true );
             }
@@ -244,9 +243,9 @@ class GoodsController extends BaseController{
                 $resourceUrl .= $new_file;
             }
         }
-        $data['path'] = $resourceUrl;
-        $data['type'] = $type;
-        $data['savename'] = $name.$type;
+        $data['path'] = '/'.$resourceUrl;
+        $data['ext'] = $type;
+        $data['savename'] = $name.'.'.$type;
         $data['create_time'] = time();
         $id = M('File')->add($data);
         apiResponse('1','成功',['id'=>$id]);
