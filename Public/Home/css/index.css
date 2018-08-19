@@ -1,16 +1,17 @@
 /*app*/
 @charset "utf-8";
-*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none;}
+*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none; font-family: 'pingFangSC-Medium'; }
 img{vertical-align:middle;-ms-interpolation-mode:bicubic;max-width: 100%}
 p{margin: 0px;}
 input::-ms-clear{display:none}
 input::-ms-reveal{display:none}
-button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"microsoft yahei"}
+button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"pingFangSC-Medium"}
 button,input[type=button],input[type=text],input[type=reset],input[type=submit]{-webkit-appearance:none;display:initial;cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
 input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
 button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
 .btn.active, .btn:active,.btn.focus, .btn:focus, .btn:hover {background-image: none;-webkit-box-shadow:none; box-shadow: none;color: #FFFFff;
 }
+
 /*首页*/
 .container{
     width: 100%;
@@ -39,7 +40,7 @@ header .header_middle{
     float: left;
     width: 60%;
     text-align: center;
-    font-size:18px;
+    font-size:14px;
     color: black;
 }
 header .header_right{
@@ -47,7 +48,7 @@ header .header_right{
     width: 10%;
     text-align: right;
     padding-right: 15px;
-    font-size: 16px;
+    font-size: 12px;
 }
 header .header_right a{
     color: white;
@@ -57,17 +58,18 @@ header .header_right a{
 /*搜索*/
 .search{
     display: flex;
-    height: 43px;
-    line-height: 43px;
-    padding: 0 15px;
-    margin-bottom: 10px;
+    height: 38px;
+    line-height: 38px;
+    /* padding: 0 15px; */
+    margin-bottom: 5px;
+    padding-left: 10px;
 }
 .search .search_a{
     width: 94%;
     /*background-color: cyan;*/
 }
 .search .search_b{
-    width: 10%;
+    width: 8%;
     float: right;
     text-align: right;
 }
@@ -75,9 +77,9 @@ header .header_right a{
 .search .search_a a img{
     position: absolute;
     left: 30%;
-    top:58px;
-    width: 20px;
-    height: 20px;
+    top: 53px;
+    width: 18px;
+    height: 18px;
 }
 .search input{
     text-align: center;
@@ -86,7 +88,7 @@ header .header_right a{
     margin-top: 4px;
     background-color: rgba(246, 246, 246, 1);
     border-radius: 43px 43px 43px 43px;
-    font-size: 14px;
+    font-size: 12px !important;
     color: #333333;
 }
 .s{
@@ -95,8 +97,12 @@ header .header_right a{
     height: 30px;
 }
 .biaoti{
-    font-size: 16px;
+    font-size: 13px;
     color: black;
+}
+.wenzi{
+    font-size: 12px;
+    color: #8c8c8c !important;
 }
 /*消息和点关系*/
 .xiaoxi{
@@ -116,29 +122,30 @@ header .header_right a{
 
 }
 .icon-logo{
-    width: 18px;
-    height: 18px;
+    width: 12px;
+    height: 12px;
 }
 /*产品*/
 .product{
     width: 100%;
-    margin: 10px 0px;
+    padding: 10px 0px;
     display: flex;
+    background: white;
 }
 .product .item{
     width: 25%;
     text-align: center;
-    height:85px;
+    height:65px;
 }
 
 .product .item img{
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     margin-bottom: 5px;
 }
-.product .item div{
-    font-size: 14px;
-    color: #333333;
+.product .item a div{
+    font-size: 10px;
+    color: #505050;;
 }
 /*主体内容*/
 article{
@@ -147,13 +154,12 @@ article{
 /*推荐VIP商家*/
 .artcle_1{
     background-color: #f6f6f6;
-    height: 200px;
+    height: 175px;
 }
 .artcle_1 .top{
     text-align: center;
     overflow: hidden;
-    margin: 5px 0;
-    padding-top: 1px;
+    /*padding: 5px 0;*/
     height: 40px;
     line-height: 40px;
 }
@@ -163,7 +169,7 @@ article{
     display: flex;
 }
 .main{
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     width: 100%;
     margin-left: 10px;
 }
@@ -171,15 +177,14 @@ article{
     display: none;
 }
 .main .list{
-    width: 90px;
+    width: 75px;
     text-align: center;
-    padding-bottom: 10px;
     background-color: white;
-    padding-top: 15px;
+    padding: 15px 5px 10px 5px;
 }
 .main .list img{
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 .main .list p{
@@ -197,7 +202,8 @@ article{
     width: 100%;
     padding: 0px 10px;
     box-sizing: border-box;
-    border-bottom: 1px solid #dedede
+    border-bottom: 1px solid #dedede;
+    background: white;
 }
 .gongqiu span:first-child{
     float: left;color: #333
@@ -222,17 +228,18 @@ article{
     display: flex;
 }
 .section_top{
-    font-size: 16px;
-    padding: 5px 15px;
+    font-size: 12px;
+    padding: 5px 15px 0px 15px;
 }
 .section_top button{
-    background-color:#ff4c82;
-    color:white;
-    height: 20px;
-    width:20px;
-    font-size: 16px;
-    border-radius:4px;
+    background-color: #ff4c82;
+    color: white;
+    height: 16px;
+    width: 16px;
+    font-size: 11px;
+    border-radius: 4px;
     margin-right: 5px;
+    line-height: 16px;
 }
 .paddingl_2{
     height: 40px;
@@ -240,18 +247,18 @@ article{
 }
 .section_buttom{
     padding: 5px 15px 5px 0px;
-    margin-left: 10px;
-    font-size: 16px;
+    padding-left: 14px;
+    font-size: 11px;
     border-bottom: 1px solid #e6e6e6;
+    background: white;
 }
 .section_buttom p{
     color: #999999;
-    font-size: 15px;
+    font-size: 11px;
     line-height: 1.4em;
 }
 .section_item{
-    font-size: 14px;
-    /*margin-right: 10px;*/
+    font-size: 11px;
     margin-left: 15px;
 }
 /*父容器去掉滚动条*/
@@ -260,38 +267,41 @@ article{
 }
 .section_item .rongqi{
     width: 90px;
-    height: 155px;
+    height: 180px;
     padding-top: 10px;
     border-radius: 8px 8px 8px 8px;
 }
+
 .section_item .rongqi p,.section_buttom p{
     /*padding-top: 5px;*/
-    line-height: 1.8em;
+    line-height: 1.6em;
     /*color: #999999;*/
+    margin: 3px 0px;
 }
 
 /*尽在咫尺*/
 .distance{
     background-color: white;
     height: auto;
-    padding-bottom: 10px;
+    padding-bottom:5px;
 }
 .distance p{
-    padding: 10px 10px;
-    line-height: 1.4em;
-    font-size: 15px;
+    padding: 5px 10px;
+    line-height: 1.6em;
+    font-size: 13px;
     color: #999999;
 }
 .distance_top{
     border-bottom: 1px solid #F6F6F6;
     padding: 10px 10px 10px 0px;
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 13px;
 }
 .distance_top img{
     width: 25px;
     height: 25px;
     border-radius: 50%;
+    padding-right: 3px;
 }
 .distance_top p{
     color: black;
@@ -299,33 +309,33 @@ article{
 }
 .distance_top span{
     color: #999999;
-    font-size: 14px;
+    font-size: 11px;
     padding-left: 5px;
 }
 .section_item .rongqi2{
-    width: 150px;
-    height: 130px;
+    width: 110px;
+    height: 110px;
     border-radius: 8px 8px 8px 8px;
+    padding-top: 5px;
 }
 .section_item .rongqi2 img{
-    height:130px;
-    width:147px
+    height:110px;
+    width:110px
 }
 .distance_buttom{
     padding:0px 10px;
     display: flex;
-    margin-top: 10px;
     justify-content:space-between;
     background-color: white;
 
 }
 .distance_buttom_1 span{
     color: #0f90fe;
-    font-size: 14px;
+    font-size: 12px;
 }
 .distance_buttom_2 span{
     color: #999999;
-    font-size: 14px;
+    font-size: 10px;
 }
 .distance_buttom_2 img{
     width: 20px;
@@ -338,7 +348,7 @@ footer{
     background-color: white;
     display: flex;
     flex-direction: row;
-    z-index: 1300;
+    z-index: 3;
     width: 100%;
     position: fixed;
     bottom: 0px;
@@ -358,22 +368,17 @@ footer .footer_item{
     margin:5px 0;
 }
 .footer_item div{
-    font-size: 14px;
+    font-size: 11px;
     line-height: 10px;
 }
 footer .footer_item a{
     text-decoration: none;
-    color: #999999;
-    font-size: 14px;
-    width: 100%;
-    height: 100%;
-    display: block;
+    color: #999999 !important;
+    font-size: 10px;
 }
 .active{
     color: #ff4c82;
 }
-
-
 /*VIP商家*/
 .VIPbusiness{
     padding: 10px;
@@ -394,8 +399,8 @@ footer .footer_item a{
 }
 .VIPbusiness_left .relation{
     position: relative;
-    top: 25px;
-    left: 18px;
+    top: 30px;
+    left: 20px;
     width: 35px;
     height: 32px;
 }
@@ -405,7 +410,7 @@ footer .footer_item a{
     float: left;
     color: black;
     line-height: 1.6em;
-    font-size: 15px;
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -413,23 +418,24 @@ footer .footer_item a{
 }
 .VIPbusiness_middle span{
     color: #999999;
-    font-size: 14px;
+    font-size: 12px;
 }
 .VIPbusiness_middle input{
     margin-left: 5px;
     margin-top: -5px;
-    background-color:white;
+    background-color: white;
     border: 1px solid #ff4c82;
-    color:#ff4c82;
-    height: 20px;
-    width: 60px;
-    font-size: 14px;
+    color: #ff4c82;
+    height: 18px;
+    width: 58px;
+    font-size: 10px;
     border-radius: 8px 8px 8px 8px;
+    line-height: 18px;
 }
 .VIPbusiness_right{
     width: 25%;
     float: right;
-    font-size: 14px;
+    font-size: 12px;
     color: #ff4e82;
     text-align: right;
 }
@@ -440,6 +446,7 @@ footer .footer_item a{
     /*width: 70%;*/
     margin: auto;
     text-align: center;
+    background: white;
 }
 
 
@@ -448,6 +455,7 @@ footer .footer_item a{
     width: 100%;
     display: flex;
     overflow-x: auto;
+    background: white;
 }
 .inter_item{
     width: 100%;

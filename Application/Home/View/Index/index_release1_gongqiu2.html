@@ -37,6 +37,9 @@
             height: 40px;
             line-height: 40px;
         }
+        .weui-cell__bd,.weui-label{
+            font-size: 13px;
+        }
     </style>
 </head>
 <body class="bc3">
@@ -58,7 +61,7 @@
     </div>
 
     <a class="tj">
-        <input type="button" value="添加" class="color6 bc2 fontsize2">
+        <input type="button" value="添加" class="color6 bc2 fontsize3">
     </a>
 </body>
 </html>
@@ -77,7 +80,7 @@
         $(supply_info).each(function (index, item) {
             $(".trade-list").append('<div class="shangpin bc2 trade-item" id="'+item.id+'" goods_id="'+item.goods_id+'">' +
                 '            <a class="weui-cell weui-cell_access set-goods">' +
-                '                <div class="weui-cell__bd fontsize2">' +
+                '                <div class="weui-cell__bd fontsize3">' +
                 '                    <span class="width">商品选择</span>' +
                 '                    <span class="color3 goods_name">'+(item.goods_name ? item.goods_name :"请商品选择")+'</span>' +
                 '                    <img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del">' +
@@ -85,8 +88,8 @@
                 '                <div class="weui-cell__ft"></div>' +
                 '            </a>' +
                 '            <div class="weui-cell">' +
-                '                <div class="weui-cell__hd"><label class="weui-label fontsize2">零售价格</label></div>' +
-                '                <div class="weui-cell__bd fontsize2">' +
+                '                <div class="weui-cell__hd"><label class="weui-label fontsize3">零售价格</label></div>' +
+                '                <div class="weui-cell__bd fontsize3">' +
                 '                    <input onkeyup="clearNoNum(this)" class="weui-input goods_price" type="number" value="'+item.goods_price+'" pattern="[0-9]*" placeholder="请输入零售价格">' +
                 '                </div>' +
                 '            </div>' +

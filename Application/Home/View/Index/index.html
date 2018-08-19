@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/swiper.min.css">
     <style>
         .swiper-container{
-            height: 180px;
+            height: 160px;
         }
         .swiper-wrapper img{
             width: 100%;
@@ -23,18 +23,23 @@
         }
         .provide-item{
             background-color: white;
-            margin-top: 10px;
             position: relative;
+            margin-top: 10px;
         }
+        /*修改*/
         .goods-name{
             margin-top: 5px;
-            height: 40px;
-            padding-top: 5px;
             line-height: 1.4em;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             overflow: hidden;
+            color: #666666;
+        }
+        /*修改*/
+        .section_item .rongqi{
+            width: 106px;
+            height: 185px !important;
         }
         .rongqi{
             position: relative;
@@ -43,33 +48,59 @@
             position: absolute;
             right: 0;
             bottom: 0;
+            font-weight: 600;
         }
+        /*修改*/
         .rongqi img{
             width: 110px;
-            height: 90px;
+            height: 110px;
         }
         .reply-operate{
             overflow: hidden;
             padding:0 10px;
         }
-
         .reply-operate > img{
             width: 30px;
             height: 30px;
             border-radius: 50%;
         }
-        .provide-item{
-            margin-top: 10px;
-        }
         .more a{
             color: #999999;
-            font-size: 15px;
+            font-size: 11px;
             position: absolute;
             width: 40px;right: 5px
         }
         .top span,.gongqiu span:first-child{
             color: #666666;
-            font-size: 16px;
+            font-size: 13px;
+            /*font-weight: bold;*/
+        }
+        /*修改*/
+        /*.section{*/
+            /*height: 195px;*/
+        /*}*/
+        .section_buttom{
+            padding: 5px 10px 10px 0px;
+            margin-left: 10px;
+        }
+        .ellipsis{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: normal;
+        }
+        .provide-list .provide-item:first-of-type{
+            margin-top: 0px;
+        }
+        .section_item{
+            overflow-y:hidden ;
+        }
+        /*去掉点击上去的灰色背景*/
+        a,a:hover,a:active,a:visited,a:link,a:focus{
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-tap-highlight-color: transparent;
+            outline:none;
+            background: none;
+            text-decoration: none;
         }
     </style>
 </block>
@@ -79,20 +110,20 @@
 <block name="main">
     <div class="container">
         <!--头部-->
-        <header style="background-color: rgba(57, 58, 63, 1);color: white">
-            <div class="header_left">
-                <img src="__ROOT__/Public/Home/img/w_back.png" />
-            </div>
-            <div class="header_middle" style="color: white">
-                优进
-            </div>
-            <div class="header_right"></div>
-        </header>
+        <!--<header style="background-color: rgba(57, 58, 63, 1);color: white">-->
+            <!--<div class="header_left">-->
+                <!--<img src="__ROOT__/Public/Home/img/w_back.png" />-->
+            <!--</div>-->
+            <!--<div class="header_middle" style="color: white">-->
+                <!--优进-->
+            <!--</div>-->
+            <!--<div class="header_right"></div>-->
+        <!--</header>-->
 
         <div class="search">
             <div class="search_a">
                 <a href="{:U('Index/search')}">
-                    <img src="__ROOT__/Public/Home/img/search.png" style="margin-top: 7px;left: 35%"/>
+                    <img src="__ROOT__/Public/Home/img/search.png" style="margin-top: -40px;left: 35%;"/>
                     <input type="search" placeholder="搜索">
                 </a>
             </div>
@@ -153,7 +184,7 @@
             <!--供求信息-->
             <div class="gongqiu" >
                 <span>供求信息</span>
-                <span><a href="{:U('Index/index_informations')}" class="color3">更多</a></span>
+                <span><a href="{:U('Index/index_informations')}" class="color3 font-size11">更多</a></span>
             </div>
             <div class="provide-list">
             </div>
@@ -259,7 +290,7 @@
                         $(".mains").append(' <div class="main"  member_id="'+item.m_id+'">' +
                             '                        <div class="list" >' +
                             '                            <img style="margin-bottom: 10px" src="'+item.head_pic_path+'"  />' +
-                            '                            <p style="font-size: 15px">'+item.nickname+'<br><span style="font-size: 14px;color: #999999;">'+item.attention_num+'人关注</span></p>' +
+                            '                            <p class="ellipsis" style="font-size: 12px">'+item.nickname+'<br><span style="font-size: 10px;color: #999999;">'+item.attention_num+'人关注</span></p>' +
                             '                        </div>' +
                             '                    </div>')
                     })
@@ -276,23 +307,23 @@
             var str = ""
             $(list).each(function (index, item) {
                 str += ' <div class="provide-item" supply_id="'+item.id+'" type="'+item.type+'" userId="'+item.m_id+'" supply_item="'+encodeURIComponent(JSON.stringify(item))+'">' +
-                    // '                    <div class="section_top ">' +
-                    // '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
-                    // item.description +
-                    // '                    </div>' +
-                    '                    <div class="section">' +
+                    '                    <div class="section_top ">' +
+                    '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
+                    item.description +
+                    '                    </div>' +
+                    '                    <div class="section" style="height: 195px;">' +
                     (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
                     '                    </div>' +
                     '                    <div class="section_buttom">' +
                     '                        <p>' +
-                    '                            <span class="color3">交易方式:</span><span class="color1">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
-                    '                            <span class="color8">位置:'+item.area_name+'</span>' +
+                    '                            <span class="color3">交易方式：</span><span class="color33">'+(item.is_extract == 1?"卖家自提、":"")+(item.is_md == 1?"商家配送、":"")+(item.is_sf == 1?"顺风快递、":"")+(item.is_bp == 1?"买家支付邮费":"")+'</span><br>' +
+                    '                            <span class="color8">位置：'+item.area_name+'</span>' +
                     '                        </p>' +
                     '                    </div>' +
                     '                    <div class="paddingl_2 reply-operate">' +
                     '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
-                    '                        <label class="fontsize11  m-r5"> '+item.nickname+'</label>' +
-                    '                        <span class="fontsize3 color3">'+timestampFormat(item.create_time)+'</span>' +
+                    '                        <label class="fontsize5  m-r5 color33"> '+item.nickname+'</label>' +
+                    '                        <span class="color3 font-size10">'+timestampFormat(item.create_time)+'</span>' +
                     '                    </div>' +
                     '<div class="check-box"></div>'+
                     '                </div>'
@@ -303,7 +334,7 @@
         function sectionItme(list) {
             var str = "";
             $(list).each(function (index, item) {
-                str += '                        <div class="section_item">' +
+                str += '                        <div class="section_item" style="height: 195px;">' +
                     '                            <div class="rongqi">' +
                     '                                <img src="'+item.goods_pic_path+'"/>'+
                     '                                <div class="goods-name">'+item.goods_name+'</div>' +
@@ -334,18 +365,18 @@
             $(list).each(function (index, item) {
                 str += '<div class="distance tz-item" id="'+item.id+'">' +
                     '            <div class="distance_top">' +
-                    '                <img style="margin-right: 10px" class="b-b" src="'+item.head_pic+'"><i>'+item.nickname+'</i><span style="font-size: 14px">'+timestampFormat(item.create_time)+'</span>' +
+                    '                <img style="margin-right: 5px" class="b-b" src="'+item.head_pic+'"><i class="">'+item.nickname+'</i><span style="font-size: 10px">'+timestampFormat(item.create_time)+'</span>' +
                     '            </div>' +
                     '            <p>' +
                     '                <span  class="biaoti">'+item.title+'</span><br>' +
-                    item.content+
+                    '<span class="wenzi">' +item.content+'</span>'+
                     '            </p>' +
                     '            <div class="" >' +
                     '                <div class="section">' +
                     imgList(item.pic_list)+
                     '                </div>' +
                     '            </div>' +
-                    '            <div class="distance_buttom" style="margin-top: 10px">' +
+                    '            <div class="distance_buttom" style="margin-top: 5px">' +
                     '                <div class="distance_buttom_1">' +
                     '                     <span>来自 '+item.type_name+'系列</span>' +
                     '                </div>' +

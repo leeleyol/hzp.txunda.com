@@ -1,0 +1,341 @@
+/*app*/
+@charset "utf-8";
+*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none;}
+img{vertical-align:middle;-ms-interpolation-mode:bicubic;max-width: 100%}
+p{margin: 0px;}
+input::-ms-clear{display:none}
+input::-ms-reveal{display:none}
+button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"microsoft yahei"}
+button,input[type=button],input[type=text],input[type=reset],input[type=submit]{-webkit-appearance:none;display:initial;cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
+input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+.btn.active, .btn:active,.btn.focus, .btn:focus, .btn:hover {background-image: none;-webkit-box-shadow:none; box-shadow: none;color: #FFFFff;
+}
+
+/*我的*/
+
+header{
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    /*color: white;*/
+    background-color: #FF4C82;
+}
+header .header_left{
+    float: left;
+    width: 20%;
+    text-align: left;
+}
+header .header_left img{
+    width: 30px;
+    height: 30px;
+}
+header .header_middle{
+    float: left;
+    width: 60%;
+    text-align: center;
+    font-size:18px;
+    /*color: white;*/
+}
+header .header_right{
+    float: right;
+    width: 16%;
+    font-size: 16px;
+
+}
+header .header_right a{
+    /*color: white;*/
+    margin-right:5%;
+}
+
+
+/*尾部*/
+footer{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    height: 50px;
+    border-top: 1px solid  #acacac;
+}
+footer .footer_item{
+    width: 33.333%;
+    height: 100%;
+    text-align: center;
+    float: left;
+}
+.footer_item img{
+    width: 23px;
+    height: 25px;
+    margin:5px 0;
+}
+.footer_item div{
+    font-size: 14px;
+    line-height: 10px;
+}
+footer .footer_item a{
+    text-decoration: none;
+    color: #999999;
+    font-size: 14px;
+}
+.active{
+    color: #ff4c82;
+}
+
+
+/*身份认证*/
+
+.cards{
+
+    background-color: #fffcdb;
+    margin: 10px 5%;
+    padding: 5px 10px;
+}
+.cards .cards_duanluo p{
+
+    text-indent:2em
+}
+
+.juli{
+    margin:50px 0px 20px 0px;
+    text-align: center;
+    font-size:16px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.juli > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+a button{
+    background-color: rgba(255, 76, 130, 1);
+    border-radius: 6px 6px 6px 6px;
+    color: white;
+    height:40px;
+    width:94%;
+    font-size: 16px;
+    margin-left: 3%;
+}
+.red{
+    color: red;
+}
+form{
+    padding:10px 0px 10px 10px;
+    font-size: 16px;
+}
+.boss{
+    padding: 10px 0px;
+    border-bottom: 1px solid #d2d2d2 ;
+
+}
+.boss input{
+    width: 60%;
+}
+.up{
+    background-color: #f6f6f6;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #999999;
+    padding-left: 15px;
+}
+ .upload_top{
+    text-align: center;
+    padding: 30px 0px;
+    color: #333333;
+}
+ .upload{
+     display: flex;
+     margin: 0px 15px;
+ }
+.upload_item{
+    width:50% ;
+    margin:0px 10px 10px 0px;
+    position: relative;
+    overflow: visible;
+}
+.upload_item input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.upload_item img{
+    width: 150px;
+    height: 150px;
+}
+.tishi{
+    background-color: #f6f6f6;
+    width: 100%;
+}
+.tishi .fo{
+    padding: 10px 0px 50px 15px;
+    line-height: 1.6em;
+}
+.bc4{
+    background-color: #f6f6f6;
+}
+.renzheng{
+    color: #333333;
+    text-align: center;
+    padding: 140px 0px 50px 0px;
+
+}
+.renzheng img{
+    width: 80px ;
+    height:80px;
+    padding-bottom: 30px;
+}
+.margintop{
+    margin-top: 120px;
+}
+.marginbottom{
+   position: fixed;
+    bottom: 0px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+/*我的余额*/
+.balance{
+    width: 100%;
+    background-color: #ff4c82;
+    text-align: center;
+    padding: 30px 0px;
+    line-height: 1.0em;
+}
+.balance img{
+    width: 40px;
+    height: 40px;
+}
+.block{
+    margin: 10px 15px;
+
+    display: flex;
+}
+.block .block_item{
+    width: 50%;
+    text-align: center;
+    padding: 20px 0px;
+}
+.block_h{
+    border-right:1px solid #d6d6d6;
+    margin-bottom:10px;
+}
+.block_b{
+    border-bottom: 1px solid #d6d6d6;
+}
+.block .block_item a img{
+    width: 50px;
+    height: 50px;
+}
+.details{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    line-height: 0.8em;
+    border-bottom: 1px solid #d6d6d6;
+    margin: 5px 0px 5px 15px;
+    padding:0px 15px 5px 0px;
+}
+.bank{
+    width: 86%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+}
+.bank_flex{
+    display: flex;
+    justify-content: flex-start;
+}
+.bank_flex img{
+    width: 30px;
+    height: 30px;
+    padding-right: 5px;
+}
+.textrig{
+    text-align: right;
+}
+.textcen {
+    text-align: center;
+}
+.padding1{
+    padding: 10px 0px;
+}
+.rela{
+    position: relative;
+}
+.abs{
+    position: absolute;
+    background-color: #cccccc;
+    top: 0px;
+    right: 1px;
+    text-align: center;
+    -webkit-border-radius: 0px 5px 0px 5px;
+    -moz-border-radius: 05px 5px 0px 5px;
+    border-radius: 0px 5px 0px 5px;
+   vertical-align: middle;
+    height: 20px;
+    line-height: 14px;
+    padding: 3px;
+}
+.size1{
+    width: 15px;
+    height: 15px;
+}
+.addbank{
+    background-color: white;
+    /*padding-left: 15px;*/
+}
+.addbank .addbank_item,.addbank_item a{
+    padding: 10px 0px;
+    border-bottom: 1px solid  #F6F6F6;
+    display: flex;
+    justify-content: flex-start
+}
+.wd{
+    width:80px;
+}
+.changxian{
+    border-bottom: 1px solid   rgba(246, 246, 246, 1);
+}
+.banks{
+  border-bottom: 1px solid rgba(246, 246, 246, 1);
+  margin-left: 15px;
+    padding: 15px 15px 15px 0px;
+}
+.banks img{
+    width: 40px;
+    height: 40px;
+}
+.tixian{
+    width: 86%;
+    margin: auto;
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px 0px 10px 10px;
+}
+.tixian_item{
+    border-bottom: 1px solid rgba(246, 246, 246, 1);
+    margin-left: 10px;
+    padding-bottom: 16px;
+}
+.tixian_wu{
+    border-bottom: 0px;
+    margin-top: 10px;
+}
+.tixian_item img{
+    width: 25px;
+    height: 25px;
+    float: right;
+    line-height: 30px;
+   /*padding-top: 10px;*/
+}

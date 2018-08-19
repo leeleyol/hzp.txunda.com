@@ -31,6 +31,7 @@
             display: flex;
             border-bottom: 1px solid #f6f6f6;
             box-sizing: border-box;
+            font-size: 12px;
         }
         .lists::-webkit-scrollbar {
             display: none;
@@ -386,22 +387,22 @@
                 <li class="action ">
                     <div class="lists bc2">
                         <div class="list">
-                            <div class="list_1 text-center fontsize2">
+                            <div class="list_1 text-center fontsize3">
                                 操作
                             </div>
                         </div>
                         <div class="list">
-                            <div class="list_2 text-center fontsize2">
+                            <div class="list_2 text-center fontsize3">
                                 商品名称
                             </div>
                         </div>
                         <div class="list">
-                            <div class="list_3 text-center fontsize2">
+                            <div class="list_3 text-center fontsize3">
                                 库存
                             </div>
                         </div>
                         <div class="list">
-                            <div class="list_3 text-center fontsize2">
+                            <div class="list_3 text-center fontsize3">
                                 货物状态
                             </div>
                         </div>
@@ -429,8 +430,8 @@
                             <span class="color3 fontsize1">您还没有发布商品哦</span>
                         </div>
                         <div class="footbut bc2">
-                            <input type="button" class="but_1 bc4 color2 fontsize2 add-type" value="添加分类"/>
-                            <input type="button" class="but_1 bc5 color2 fontsize2 add-goods" value="发布商品"/>
+                            <input type="button" class="but_1 bc4 color2 fontsize5 add-type" value="添加分类"/>
+                            <input type="button" class="but_1 bc5 color2 fontsize5 add-goods" value="发布商品"/>
                         </div>
                     </div>
                 </li>
@@ -439,7 +440,7 @@
                 </li>
                 <li class="gq-list">
                     <a class="footer add-reply">
-                        <input type="button" value="发布" class="color2 bc5 fontsize2">
+                        <input type="button" value="发布" class="color2 bc5 fontsize3">
                     </a>
                 </li>
             </ul>
@@ -449,16 +450,16 @@
             <div class="weui-mask"></div>
             <div class="weui-dialog inter-box2-dialog ">
                 <div class="inter-box2-cont  ">
-                    <p class=" fenlei fontsize2">添加分类</p>
-                    <input type="text" class="text fontsize3 type-content" placeholder="输入要添加分类的名称">
-                    <p class="color6 fontsize3 duanluo">添加商品分类的名称，对商品进行描述</p>
+                    <p class=" fenlei fontsize5">添加分类</p>
+                    <input type="text" class="text fontsize5 type-content" placeholder="输入要添加分类的名称">
+                    <p class="color6 fontsize5 duanluo text-center">添加商品分类的名称，对商品进行描述</p>
                 </div>
                 <div class="tianjia">
                     <div class="tianjia1">
-                        <label class="fontsize2 hidden inter-box1-cancel fontsize2"  >取消</label>
+                        <label class="fontsize2 hidden inter-box1-cancel fontsize5"  >取消</label>
                     </div>
                     <div class="tianjia2">
-                        <label class="inter-box1-add show fontsize2">添加</label>
+                        <label class="inter-box1-add show fontsize5">添加</label>
                     </div>
                 </div>
             </div>
@@ -469,68 +470,68 @@
             <div class="weui-mask"></div>
             <div class="weui-dialog-2 inter-box2-dialog ">
                 <div class="inter-box2-cont">
-                    <p class=" fenlei cuxian fontsize2">添加商品</p>
+                    <p class=" fenlei cuxian fontsize3">添加商品</p>
                     <a class="weui-cell weui-cell_access cuxian select-type">
                         <div class="weui-cell__bd  ">
-                            <span class="zuo fontsize11">选择分类 </span>
-                            <input  class="zhong fontsize11 type_name" type="text" placeholder="请选择分类" />
+                            <span class="zuo fontsize5">选择分类 </span>
+                            <input  class="zhong fontsize5 type_name" type="text" placeholder="请选择分类" />
                             <input type="hidden" class="goods_type_id">
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
-                            <label class="weui-label zuo fontsize11">商品名称</label>
+                            <label class="weui-label zuo fontsize5">商品名称</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5">
                             <input type="hidden" class="goods_id">
-                            <input class="weui-input fontsize11 goods_name" type="text"  placeholder="请输入商品名称">
+                            <input class="weui-input fontsize5 goods_name" type="text"  placeholder="请输入商品名称">
                         </div>
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
-                            <label class="weui-label zuo fontsize2">条形码</label>
+                            <label class="weui-label zuo fontsize5">条形码</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5">
                             <input class="weui-input bar_code" type="text"  placeholder="请输入条形码">
                         </div>
                     </div>
                     <div class="weui-cell">
-                        <div class="weui-cell__hd fontsize2">
+                        <div class="weui-cell__hd fontsize5">
                             <label class="weui-label zuo ">产地</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5">
                             <input class="weui-input product_from" type="text"  placeholder="请输入产地">
                         </div>
                     </div>
                     <div class="weui-cell">
-                        <div class="weui-cell__hd fontsize2">
+                        <div class="weui-cell__hd fontsize5">
                             <label class="weui-label zuo ">货物状态</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5">
                             <input class="weui-input goods_status" type="text"  placeholder="请输入货物状态">
                         </div>
                     </div>
-                    <p class="bc3 shezhi color3 fontsize2">库存设置</p>
+                    <p class="bc3 shezhi color3 fontsize5">库存设置</p>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
-                            <label class="weui-label zuo fontsize2">库存单位</label>
+                            <label class="weui-label zuo fontsize5">库存单位</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5>
                             <input class="weui-input  stock_unit" type="text"  placeholder="请输入库存单位">
                         </div>
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
-                            <label class="weui-label zuo fontsize2">库存数量</label>
+                            <label class="weui-label zuo fontsize5">库存数量</label>
                         </div>
-                        <div class="weui-cell__bd fontsize2">
+                        <div class="weui-cell__bd fontsize5">
                             <input class="weui-input  stock" type="text"  placeholder="请输入库存数量">
                         </div>
                     </div>
-                    <div class="weui-cell fontsize2">
+                    <div class="weui-cell fontsize5">
                         <div class="weui-cell__hd">
-                            <label class="weui-label zuo fontsize2">商品展示</label>
+                            <label class="weui-label zuo fontsize5">商品展示</label>
                         </div>
                     </div>
                     <div class="img">
@@ -541,10 +542,10 @@
                 </div>
                 <div class="tianjia">
                     <div class="tianjia1 inter-box2-cancel">
-                        <label class="fontsize2"  >取消</label>
+                        <label class="fontsize5"  >取消</label>
                     </div>
                     <div class="tianjia2 inter-box2-add">
-                        <label class="show fontsize2">添加</label>
+                        <label class="show fontsize5">添加</label>
                     </div>
                 </div>
             </div>
@@ -615,7 +616,7 @@
                 $(".goods-list").html("")
                 $(list).each(function (index, item) {
                     $(".goods-list").append('<div class="weui-cell">' +
-                        '                        <div class="weui-cell__bd fontsize3 color3">' +
+                        '                        <div class="weui-cell__bd fontsize5 color3">' +
                         '                            <p>'+item.type_name+'</p>' +
                         '                        </div>' +
                         '                    </div>' +

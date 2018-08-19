@@ -1,0 +1,195 @@
+/*app*/
+@charset "utf-8";
+*{margin:0;padding:0;outline:0 none;border:0 none;-webkit-text-size-adjust:none;}
+img{vertical-align:middle;-ms-interpolation-mode:bicubic;max-width: 100%}
+p{margin: 0px;}
+input::-ms-clear{display:none}
+input::-ms-reveal{display:none}
+button,input,select,textarea{font-size:100%;vertical-align:middle;outline:0;font-family:"microsoft yahei"}
+button,input[type=button],input[type=text],input[type=reset],input[type=submit]{-webkit-appearance:none;display:initial;cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
+input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+.btn.active, .btn:active,.btn.focus, .btn:focus, .btn:hover {background-image: none;-webkit-box-shadow:none; box-shadow: none;color: #FFFFff;
+}
+/*通用样式*/
+*{text-decoration: none;margin: 0;padding: 0;list-style: none; }
+a{
+    text-decoration: none;
+}
+header{
+    height: 50px;
+    line-height: 50px
+}
+header input{
+    background-color: rgba(246, 246, 246, 1);
+    border-radius: 43px 43px 43px 43px;
+    font-size: 16px;
+    color: #333333;
+    padding-left: 40px;
+    margin-left: 10px;
+    height: 30px;
+    width: 65%;
+}
+header span{
+    float: right;
+    padding-right: 20px;
+    font-size: 16px;
+    /*margin-top: 1px*/
+}
+
+/*index_search页面样式*/
+.history{
+    margin-top: 20px;
+    padding: 0 20px;
+}
+.history button{
+    padding: 5px 20px;
+    margin-top: 10px;
+    margin-right: 15px;
+    color: #999999;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 18px;
+}
+
+/*index_search_0页面样式*/
+/*选项卡*/
+.tab{
+    /*width: 100%;*/
+    /*margin-left: 20px;*/
+    /*margin-right: 20px;*/
+}
+#hear{width: 100%;height: 44px;line-height: 45px; }
+#hear a{font-weight: normal;color: black;}
+#hear li{text-align: center;width:35%;float: left;height: 45px; cursor:pointer;font-size: 16px}
+#hear li:nth-of-type(1){width: 30%;float: left;margin-left: 10px}
+#hear li:nth-of-type(2){width: 33%;float: left;}
+#hear li:nth-of-type(3){width: 30%;float: right; }
+#contentop li{ width:100%; display: none;  margin-top: 3px;}
+#contentop .action{ display: block;}
+#contentop .Buy div:nth-of-type(1){text-align: left; }
+#contentop .Buy div:nth-of-type(2){float: right;}
+
+/*index_search_1页面样式*/
+.sections{
+    /*border-top: 10px solid #F6F6F6;*/
+    width: 100%;
+    padding-bottom: 10px;
+}
+.section{
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+}
+.section_top{
+    font-size: 16px;
+    padding: 10px;
+}
+.section_top button{
+    background-color:#ff4c82;
+    color:white;
+    height: 22px;
+    width: 21px;
+    font-size: 16px;
+    border-radius: 8px 8px 8px 8px;
+}
+.section_buttom{
+    padding: 10px;
+    font-size: 16px;
+}
+
+.section_item{
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+/*父容器去掉滚动条*/
+.section::-webkit-scrollbar {
+    display: none;
+}
+.section_item .rongqi{
+    width: 135px;
+    height: 180px;
+    border-radius: 8px 8px 8px 8px;
+}
+.section_item .rongqi p,.section_buttom p{
+    padding-top: 5px;
+    line-height: 1.4em;
+}
+
+
+/*商家*/
+.home1{
+    /*border-top: 10px solid #F6F6F6;*/
+    width: 100%;
+}
+
+.bussiness{
+    margin: 10px 10px 0px 10px;
+    display: flex;
+    font-size: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F6F6F6;
+}
+.bussiness_item1{
+    width: 50px;
+
+}
+.bussiness_item2{
+    width:68%;
+}
+.bussiness_item2 input{
+    background-color:white;
+    border: 1px solid #ff4c82;
+    color:#ff4c82;
+    height: 22px;
+    width: 75px;
+    font-size: 14px;
+    border-radius: 8px 8px 8px 8px;
+}
+.bussiness_item2 p{
+    line-height: 1.6em;
+    color: #6f6f6f;
+}
+.bussiness_item3{
+    width: 25%;
+
+}
+.bussiness_item3 span{
+    color: #ff4980;
+    font-size: 13px;
+}
+
+/*帖子*/
+.system{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    font-size: 14px;overflow-x: hidden;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F6F6F6;
+}
+.system_left{
+    width: 20%;
+    padding-left: 10px;
+}
+.system_right{
+    padding-right: 10px;
+    width:80%;
+}
+.system_right font{
+    font-size: 16px;
+
+}
+.system_right p{
+    color: #999999;
+    font-size: 14px;
+    overflow: hidden;  /*溢出隐藏*/
+    text-overflow: ellipsis; /*以省略号...显示*/
+    white-space: nowrap;  /*强制不换行*/
+}
+.system_right font span{
+    float: right;
+    color: #999999;
+    font-size: 14px;
+    margin-right: 10px;
+}

@@ -20,7 +20,7 @@
         }
         #hear{ border:0px;   height: 46px;  line-height: 45px;  position: absolute;  top: 10px;  left: 111px; }
         #hear a{font-weight: normal;color: black; }
-        #hear li{text-align: center;width:35%;float: left;height: 45px; cursor:pointer;font-size: 16px}
+        #hear li{text-align: center;width:35%;float: left;height: 45px; cursor:pointer;font-size: 13px}
         #hear .li1{  border:1px solid 	#FF4C82; background-color: #ffedf2;    height: 31px;  line-height: 30px;;color:	#FF4C82 ;list-style-type:none;  }
         #hear .li2{border: 2px solid 	#f6f6f6;    height: 31px;  line-height: 30px;list-style-type:none;color:#9c9c9c}
         #hear li:nth-of-type(1){width: 18%;float: left;margin-left: 10px}
@@ -103,32 +103,32 @@
 
     <div class="weui-cell  headtop coarseLline  bc2" >
         <div class="weui-cell__bd  ">
-            <span class="zuo fontsize11 padl" >选择分类 <br><br></span>
+            <span class="zuo fontsize3 padl" >选择分类 <br><br></span>
             <span class="tab">
                 <ul id="hear">
-                    <li class="li1" >供货</li>
+                    <li class="li1 " >供货</li>
                     <li class="li2" >求购 </li>
                 </ul>
                 <ul id="contentop">
                     <li class="action  coarseLline">
                         <a class="weui-cell weui-cell_access " href="{:U('Index/index_release1_gongqiu3')}" >
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize11 padl padr1 " >交易方式 </span>
-                                <span class="zhong color3 fontsize11 set-provide-trade-way">请设置交易方式</span>
+                                <span class="zuo fontsize3 padl padr1 " >交易方式 </span>
+                                <span class="zhong color3 fontsize3 set-provide-trade-way">请设置交易方式</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
                          <a class="weui-cell weui-cell_access" href="{:U('Index/index_release1_gongqiu4')}">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize11 padl padr2">位置</span>
-                                <span class="zhong color3 fontsize11 set-provide-area">请设置所在位置</span>
+                                <span class="zuo fontsize3 padl padr2">位置</span>
+                                <span class="zhong color3 fontsize3 set-provide-area">请设置所在位置</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
                          <a class="weui-cell weui-cell_access coarseLline " href="{:U('Index/index_release1_gongqiu2')}">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize11 padl zuo">设置展示商品 </span>
-                                <span class="zhong color3 fontsize11 set-provide-goods-show">设置展示商品</span>
+                                <span class="zuo fontsize3 padl zuo">设置展示商品 </span>
+                                <span class="zhong color3 fontsize3 set-provide-goods-show">设置展示商品</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
@@ -137,7 +137,7 @@
                             <textarea class="weui-media-box__desc provie-description" placeholder="填写一段标题，或者对商品的细节描述~"></textarea>
                         </div>
                         <a class="footer">
-                                <input type="button" value="发布" class="color2 bc5 fontsize2 submit-provide">
+                                <input type="button" value="发布" class="color2 bc5 fontsize3 submit-provide">
                         </a>
                     </li>
 
@@ -147,15 +147,15 @@
                     <li class="coarseLline">
                          <a class="weui-cell weui-cell_access " href="{:U('Index/index_release1_gongqiu3')}&type=2">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize11 padl padr1 " >交易方式 </span>
-                                <span class="zhong color3 fontsize11 set-buy-trade-way">请设置交易方式</span>
+                                <span class="zuo fontsize3 padl padr1 " >交易方式 </span>
+                                <span class="zhong color3 fontsize3 set-buy-trade-way">请设置交易方式</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
                          <a class="weui-cell weui-cell_access" href="{:U('Index/index_release1_gongqiu4')}&type=2">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize11 padl padr2">位置 </span>
-                                <span class="zhong color3 fontsize11 set-buy-area">请设置所在位置</span>
+                                <span class="zuo fontsize3 padl padr2">位置 </span>
+                                <span class="zhong color3 fontsize3 set-buy-area">请设置所在位置</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
@@ -171,7 +171,7 @@
                             </div>
                         </div>
                         <div class="weui-cell weui-cell_switch coarseLline">
-                            <div class="weui-cell__bd padl fontsize2">是否匿名发布</div>
+                            <div class="weui-cell__bd padl fontsize3">是否匿名发布</div>
                             <div class="weui-cell__ft is_hidename" is_hidename="1">
                                 <label for="switchCP" class="weui-switch-cp">
                                     <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
@@ -181,7 +181,7 @@
                         </div>
 
                          <a class="footer">
-                                <input type="button" value="发布" class="color2 bc5 fontsize2 submit-buy">
+                                <input type="button" value="发布" class="color2 bc5 fontsize3 submit-buy">
                         </a>
                     </li>
                 </ul>

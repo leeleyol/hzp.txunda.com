@@ -1,0 +1,61 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+</block>
+<block name="main">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/addBank')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            选择银行卡类型
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="changxian headtop"></div>
+    <div class="support-list">
+
+    </div>
+</block>
+
+<block name="script">
+    <script>
+        $(function () {
+            getList();
+            bindHandler();
+        })
+            
+        function bindHandler() {
+            $(".support-list").on("click",".banks",function () {
+                localStorage.add_bank_ico_id = $(this).attr("bank_icon_id");
+                localStorage.add_bank_ico_name = $(this).find("label").text()
+                history.go(-1)
+            })
+        }
+        //获取银行列表
+        function getList() {
+            requestUrl("{:U('Home/Member/supportBankList')}",{m_id:m_id},function(res){
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".support-list").append('<div class="banks" bank_icon_id="'+item.bank_icon_id+'">' +
+                            '        <img src="'+item.bank_icon+'"/>' +
+                            '        <label class="fontsize2">'+item.bank_name+'</label>' +
+                            '    </div>')
+                    })
+                }
+            });
+        }
+    </script>
+</block>

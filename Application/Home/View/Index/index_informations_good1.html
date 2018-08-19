@@ -20,6 +20,7 @@
             display: flex;
             border-bottom: 1px solid #f6f6f6;
             box-sizing: border-box;
+            color:#666666 !important;
         }
         .lists::-webkit-scrollbar {
             display: none;
@@ -27,10 +28,12 @@
         .list{
             border-right: 1px solid #f6f6f6;
         }
+        /*修改*/
         .list_2,.list_3{
             margin-right: 0px;
             width: 90px;
-            padding: 5px;
+            padding: 3px;
+            box-sizing: border-box;
         }
         .list_1{
             margin-right: 0px;
@@ -75,6 +78,17 @@
         .list_2 div:last-child{
 
         }
+        /*新增*/
+        .h51{
+            height: 51px;
+        }
+        .lh51{
+            line-height: 51px;
+        }
+        .ellipsis{
+            display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="bc3">
@@ -89,7 +103,7 @@
     <div class="header_right"></div>
 </header>
 
-    <div class="lists bc2 fontsize3 headtop coarseLline">
+    <div class="lists bc2 fontsize5 headtop coarseLline">
         <div class="list">
             <div class="list_1 text-center">
                 操作
@@ -119,13 +133,13 @@
     <br><br>
     <div class="bussiness_bottom">
         <div class="bottom_num ">
-            <span class="color1 fontsize2">选择商品款式 :</span>
-            <span class="color4 fontsize2">0</span>
+            <span class="color1 fontsize55">选择商品款式 :</span>
+            <span class="color4 fontsize55">0</span>
 
         </div>
         <div class="bottom_submit">
             <button >
-                <a  class="color2 fontsize2">
+                <a  class="color2 fontsize5">
                     前往报价
                 </a>
             </button>
@@ -187,28 +201,28 @@
             item.goods_type_id = obj.id;
             good_arr.push(item);
 
-            str += '                    <div class="lists bc2 fontsize3 goods-item" goods_id="'+item.goods_id+'">' +
+            str += '                    <div class="lists bc2 fontsize5 goods-item" goods_id="'+item.goods_id+'">' +
                 '                        <div class="list">' +
-                '                            <div class="list_1 text-center operate " style="height: 40px;line-height: 40px">' +
+                '                            <div class="list_1 text-center operate " style="height: 45px;line-height: 45px">' +
                                                     '<img src="__ROOT__/Public/Home/img/empty1.png" class="icon_del"/>' +
                 '                                   <img src="__ROOT__/Public/Home/img/empty0.png" class="icon_del" />'+
                 '                            </div>' +
                 '                        </div>' +
-                '                        <div class="list" style="height:40px;text-overflow: ellipsis">' +
-                '                            <div class="list_2" style="height: 40px">' +
+                '                        <div class="list h51">' +
+                '                            <div class="list_2">' +
                 '                                <div class="list_21" >' +
                 '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
-                '                                <div style="height:40px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden">'+item.goods_name+'</div>' +
+                '                                <div class="ellipsis">'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
-                '                            <div class="list_3 text-center height">' +
+                '                            <div class="list_3 text-center lh51">' +
                 item.stock +  item.stock_unit +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
-                '                            <div class="list_3 text-center height" >' +
+                '                            <div class="list_3 text-center lh51" >' +
                 item.goods_status +
                 '                            </div>' +
                 '                        </div>' +

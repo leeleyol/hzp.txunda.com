@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
+    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
+    <script src="__ROOT__/Public/Home/js/network.js?v=1"></script>
+    <script src="__ROOT__/Public/Home/js/util.js"></script>
+    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+    <title>设置所在位置</title>
+    <style>
+        .shangpin{
+            margin: 10px 15px;
+        }
+        .width {
+            padding-right: 38px;
+        }
+        .re{
+            position: absolute;
+            top: -10px;
+            left: -10px;
+        }
+        .tj{
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            z-index: 10;
+        }
+        .tj input{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body class="bc3">
+    <header class="head" style="background-color: white;">
+        <div class="header_left">
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle" style="color: black">
+            设置交易方式
+        </div>
+        <div class="header_right color6 save">保存</div>
+    </header>
+    <div class="headtop coarseLline fontsize4 color3 textcen  padding_tb ">
+        <p>从库存中选择商品，进行展示和价钱</p>
+        <p>说明（最多展示五件商品）</p>
+    </div>
+    <div class="trade-list">
+
+    </div>
+
+    <a class="tj">
+        <input type="button" value="添加" class="color6 bc2 fontsize2">
+    </a>
+</body>
+</html>
+
+<script>
+    $(function () {
+        bindHandler();
+        initData();
+    });
+
+    var supply_info, provideData;
+    function initData() {
+        provideData = JSON.parse(localStorage.provideData);
+        supply_info = provideData.supply_info;
+
+        $(supply_info).each(function (index, item) {
+            $(".trade-list").append('<div class="shangpin bc2 trade-item" id="'+item.id+'" goods_id="'+item.goods_id+'">' +
+                '            <a class="weui-cell weui-cell_access set-goods">' +
+                '                <div class="weui-cell__bd fontsize2">' +
+                '                    <span class="width">商品选择</span>' +
+                '                    <span class="color3 goods_name">'+(item.goods_name ? item.goods_name :"请商品选择")+'</span>' +
+                '                    <img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del">' +
+                '                </div>' +
+                '                <div class="weui-cell__ft"></div>' +
+                '            </a>' +
+                '            <div class="weui-cell">' +
+                '                <div class="weui-cell__hd"><label class="weui-label fontsize2">零售价格</label></div>' +
+                '                <div class="weui-cell__bd fontsize2">' +
+                '                    <input onkeyup="clearNoNum(this)" class="weui-input goods_price" type="number" value="'+item.goods_price+'" pattern="[0-9]*" placeholder="请输入零售价格">' +
+                '                </div>' +
+                '            </div>' +
+                '        </div>');
+        })
+    }
+
+    function bindHandler(){
+        $(".header_left").click(function () {
+            history.go(-1)
+        });
+
+        //保存
+        $(".save").click(function () {
+            var is_break = false;
+            $(supply_info).each(function (index, item) {
+                var goods_id = item.goods_id = $("#" + item.id).attr("goods_id");
+                var goods_price = item.goods_price = $("#" + item.id).find(".goods_price").val().trim();
+                if(!goods_id || !goods_price){
+                    is_break = true
+                }
+            });
+
+            if(is_break){
+                layer.open({
+                    content: "请填写完整信息"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+            saveData();
+            history.go(-1)
+        });
+
+        $(".trade-list").on("click",".set-goods",function (event) {
+            saveData()
+            window.location.href = "{:U('Index/index_release1_gongqiu5')}&id=" + $(this).parents(".trade-item").prop("id")
+        });
+
+        //添加
+        $(".tj").click(function () {
+            if($(".trade-item").length == 5){
+                layer.open({
+                    content: "已达到添加上限"
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+                return false
+            }
+
+            var timestamp1 = new Date().getTime();
+            $(".trade-list").append('<div class="shangpin bc2 trade-item" id="'+timestamp1+'" goods_id="">' +
+                '            <a class="weui-cell weui-cell_access set-goods">' +
+                '                <div class="weui-cell__bd fontsize2">' +
+                '                    <span class="width">商品选择</span>' +
+                '                    <span class="color3 goods_name">请选择商品</span>' +
+                '                    <img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del">' +
+                '                </div>' +
+                '                <div class="weui-cell__ft"></div>' +
+                '            </a>' +
+                '            <div class="weui-cell">' +
+                '                <div class="weui-cell__hd"><label class="weui-label fontsize2">零售价格</label></div>' +
+                '                <div class="weui-cell__bd fontsize2">' +
+                '                    <input onkeyup="clearNoNum(this)" class="weui-input goods_price" type="number" pattern="[0-9]*" placeholder="请输入零售价格">' +
+                '                </div>' +
+                '            </div>' +
+                '        </div>');
+            supply_info.push({"id":timestamp1, "goods_id": "", "goods_name": "", "goods_price": ""});
+        });
+
+        $(".trade-list").on("click",".icon_del",function (event) {
+            event.stopPropagation();
+            var timestamp1 = $(this).parents('.trade-item').prop("id");
+            removeByValue(supply_info,timestamp1 )
+            $(this).parents('.trade-item').remove()
+        });
+    }
+
+    function saveData() {
+        $(supply_info).each(function (index, item) {
+            item.goods_id = $("#" + item.id).attr("goods_id");
+            item.goods_name = $("#" + item.id).find(".goods_name").text();
+            item.goods_price = $("#" + item.id).find(".goods_price").val().trim();
+        });
+        localStorage.provideData = JSON.stringify(provideData)
+    }
+
+    function removeByValue(arr, val) {
+        for(var i=0; i<arr.length; i++) {
+            if(arr[i].id == val) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    function clearNoNum(obj){
+        obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数
+        if(obj.value.indexOf(".")< 0 && obj.value !=""){
+            obj.value= parseFloat(obj.value);
+        }
+    }
+</script>

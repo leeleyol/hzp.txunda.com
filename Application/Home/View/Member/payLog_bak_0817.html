@@ -1,0 +1,70 @@
+<extend name="Public/base" />
+<block name="style">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
+</block>
+<block name="main">
+    <header class="head">
+        <div class="header_left">
+            <a href="{:U('Member/myWalletIndex')}"><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+        </div>
+        <div class="header_middle"  >
+            账户明细
+        </div>
+        <div class="header_right"></div>
+    </header>
+    <div class="coarseLline headtop"></div>
+    <div class="details-box">
+
+    </div>
+</block>
+
+<block name="script">
+    <script>
+        var page = 0, layderIndex
+        $(function () {
+            getList();
+            //监听滑动到底部，然后加载分页
+            handlerScrollBottom(function () {
+                layderIndex = layer.open({type: 2});
+                getList();
+            })
+        })
+
+        function getList() {
+            var m_id = localStorage.getItem('m_id');
+            m_id = m_id?m_id:0;
+            page += 1;
+            requestUrl("{:U('Home/Member/getPayLog')}",{m_id:m_id,p:page},function(res){
+                layer.close(layderIndex)
+                if(res.code == -1){
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                }else if(res.code == 0){
+                    layderIndex = layer.open({
+                        content: res.message
+                        ,skin: 'msg'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                }else {
+                    var list = res.data;
+                    $(list).each(function (index, item) {
+                        $(".details-box").append('<div class="details padding_tb">' +
+                            '            <div class="datails_item">' +
+                            '                <div class="fontsize3 marginb1">'+item.desc+'</div>' +
+                            '                <div class="fontsize5 color3">'+getDate(item.create_time, "YY/MM/DD HH:MM")+'</div>' +
+                            '            </div>' +
+                            '            <div class="datails_item">' +
+                            '                <div class="fontsize2 '+(item.symbol == 1 ? "color3":"color5")+'">'+(item.symbol == 1 ? "-":"+")+item.money+'</div>' +
+                            '            </div>' +
+                            '        </div>')
+
+                    })
+                }
+            });
+        }
+
+
+    </script>
+</block>

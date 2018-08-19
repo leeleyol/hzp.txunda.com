@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
     <style>
+        body{
+            background-color: white;
+        }
         .addbank_right{
             position: absolute; z-index: 1;
             right: 10px;height: 30px;line-height: 15px
@@ -33,43 +36,43 @@
 <div class="bc3">
     <header class="head">
         <div class="header_left">
-            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
+            <a><img src="__ROOT__/Public/Home/img/b_back.png" class="back"/></a>
         </div>
         <div class="header_middle"  >
             添加银行卡
         </div>
         <div class="header_right"></div>
     </header>
-    <p class="textcen fontsize2 color3 padding1  headtop">信息加密处理，仅限于银行验证</p>
+    <p class="textcen fontsize3 color3 padding1  headtop">信息加密处理，仅限于银行验证</p>
     <div class="addbank">
         <div class="addbank_item marginl  bank_real_name">
-            <label class="fontsize2 wd">持卡人</label>
-            <input class="fontsize2 color3" type="text" placeholder="持卡人姓名">
+            <label class="fontsize3 wd">持卡人</label>
+            <input class="fontsize3 color3" type="text" placeholder="持卡人姓名">
         </div>
         <div class="addbank_item marginl bank_number">
-            <span class="fontsize2 wd">卡 号</span>
-            <input class="fontsize2 color3" type="text" placeholder="银行卡卡号">
+            <span class="fontsize3 wd">卡 号</span>
+            <input class="fontsize3 color3" type="text" placeholder="银行卡卡号">
         </div>
         <a href="{:U('Member/supportBank')}" >
             <div class="addbank_item bank_icon_id">
-                <span class="fontsize2 wd paddingl_2">卡类型</span>
-                <input class="fontsize2 color3" type="text"   placeholder="开户行" readonly>
+                <span class="fontsize3 wd paddingl_2">卡类型</span>
+                <input class="fontsize3 color3" type="text"   placeholder="开户行" readonly>
                 <span class="addbank_right" style="">
                    <img src="__ROOT__/Public/Home/img/h_more.png" >
                </span>
             </div>
         </a>
         <div class="addbank_item marginl id_card">
-            <span class="fontsize2 wd">身份证号</span>
-            <input class="fontsize2 color3" type="text" placeholder="持卡人身份证号">
+            <span class="fontsize3 wd">身份证号</span>
+            <input class="fontsize3 color3" type="text" placeholder="持卡人身份证号">
         </div>
         <div class="addbank_item marginl bank_mobile">
-            <span class="fontsize2 wd">手机号</span>
-            <input class="fontsize2 color3" type="text" placeholder="银行预留手机号">
+            <span class="fontsize3 wd">手机号</span>
+            <input class="fontsize3 color3" type="text" placeholder="银行预留手机号">
         </div>
     </div>
     <a href="#">
-        <button class="fontsize2 addCart">添 加</button>
+        <button class="fontsize3 addCart">添 加</button>
     </a>
 </div>
 </block>

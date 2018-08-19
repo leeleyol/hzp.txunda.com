@@ -89,7 +89,7 @@
             border-radius: 3px;
             box-sizing: border-box;
             padding: 0 5px;
-            font-size: 14px;
+            font-size: 12px;
             height: 40px;
         }
 
@@ -103,6 +103,7 @@
             background-color: #ff4c82;
             border-radius: 6px;
             color: white;
+            font-size: 13px;
         }
         .footbut .input{
             height: 40px;
@@ -129,7 +130,10 @@
             display: none;
         }
         .distance_buttom{
-            padding-bottom: 10px;
+            border-top: 1px solid #ededed;
+            margin-top: 8px;
+            margin-left: 15px;
+            padding: 10px 15px 10px 0px;
         }
         .icon_name{
             border-radius: 50%;
@@ -137,6 +141,12 @@
         .icon_del{
             width: 18px;
             height: 18px;
+        }
+        .b-b{
+            border-radius: 0px !important;
+        }
+        body{
+            background: white;
         }
     </style>
     <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
@@ -157,7 +167,7 @@
 <div class="headtop coarseLline detail-box">
 
 </div>
-<div class="coarseLline paddingl_1 padding_tb fontsize2 color3 comment-count"></div>
+<div class="coarseLline paddingl_1 padding_tb fontsize5 color3 comment-count"></div>
 <div class="commit-list">
 
 </div>
@@ -166,10 +176,10 @@
 <br><br>
 <div class="footbut bc2 operate">
     <div class="float_l">
-        <img src="__ROOT__/Public/Home/img/shoucang0.png" class="is_collect icon_del">
-        <p class="fontsize5">收藏</p>
+        <img src="__ROOT__/Public/Home/img/shoucang0.png" class="is_collect icon_del b-b">
+        <p class="font-size11" style="font-size: 10px">收藏</p>
     </div>
-    <button class="color2 bc5 fontsize3 button something-say">我要评论</button>
+    <button class="color2 bc5 fontsize5 button something-say">我要评论</button>
 </div>
 
 <div class="footbut bc2 leave-input hide">
@@ -287,9 +297,9 @@
                     $(".commit-list").append('<div class="commit-item" id="' + item.id + '" from_mid="' + item.from_mid + '">' +
                         '            <div class="">' +
                         '                <img style="margin-left: 15px" src="' + item.head_pic + '"  class="icon_name" >' +
-                        '                <span class="reply-nickname fontsize2">' + item.nickname + '</span>' +
+                        '                <span class="reply-nickname fontsize3">' + item.nickname + '</span>' +
                         '                <p class="fontsize3 paddingl_1 paddingl_3 padding_tb  ">' + item.comment + '</p>' +
-                        '                <p class="fontsize4 padding_b color3 fineLine2 reply-time">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +
+                        '                <p class="fontsize55 padding_b color3 fineLine2 reply-time">' + timestampFormat(item.create_time) + '<span class="reply">回复</span></p>' +
                         '            </div>' +
                         getreplyList(replyList,item) +
                         '        </div>')
@@ -304,9 +314,9 @@
                 str += '          <div class="paddingl_3 reply-item ">' +
                     '                <p class="line"></p>' +
                     '                <img src="'+item.head_pic+'"  class="icon_name  " >' +
-                    '                <span class="  fontsize2 color3">'+item.nickname+'</span>' +
+                    '                <span class="fontsize3 color3">'+item.nickname+'</span>' +
                     '                <p class="fontsize3 paddingl_4 padding_b paddingr_1">回复@'+comment.nickname+'：'+item.reply_content+'</p>' +
-                    '                <p class="fontsize4 paddingl_4 padding_b color3 ">' + timestampFormat(item.create_time) + '</p>' +
+                    '                <p class="fontsize55 paddingl_4 padding_b color3 ">' + timestampFormat(item.create_time) + '</p>' +
                     '                </div>';
         });
         return str
@@ -330,7 +340,7 @@
                     '        </div>' +
                     '        <p class="fontsize2 padding_tb paddingr_1 paddingl_1">' +
                     '            <span  class="biaoti">' + detail.title + '</span><br>' +
-                    detail.content +
+                    '<span class="wenzi">' +detail.content+'</span>'+
                     '        </p>' +
                     '        <div class="paddingl_1 paddingr_1 show-img">' +
                     imgList(detail.pic_list) +
