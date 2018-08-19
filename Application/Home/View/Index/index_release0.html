@@ -42,6 +42,9 @@
             margin-right: 0px;
             width: 90px;
             padding: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .list_1{
             margin-right: 0px;
@@ -402,6 +405,16 @@
                                 货物状态
                             </div>
                         </div>
+                        <div class="list">
+                            <div class="list_3 text-center fontsize2">
+                                产地
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="list_2 text-center fontsize2">
+                                条形码
+                            </div>
+                        </div>
                     </div>
 
 
@@ -645,6 +658,16 @@
                 '                        <div class="list">' +
                 '                            <div class="list_3 text-center height" >' +
                                                 item.goods_status +
+                '                            </div>' +
+                '                        </div>' +
+                '                        <div class="list">' +
+                '                            <div class="list_3 text-center height" >' +
+                                                item.product_from +
+                '                            </div>' +
+                '                        </div>' +
+                '                        <div class="list">' +
+                '                            <div class="list_2 text-center height" >' +
+                                                 item.bar_code +
                 '                            </div>' +
                 '                        </div>' +
                 '                    </div>'
