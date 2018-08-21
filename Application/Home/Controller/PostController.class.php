@@ -94,6 +94,72 @@ class PostController extends BaseController{
     }
 
 
+    /**
+     * 用户修改帖
+     * 传递参数的方式：post
+     * 需要传递的参数：
+     * 用户id m_id
+     * type_id 分类id
+     * title 标题
+     * content 内容
+     * pic 图片
+     */
+    public function editPost(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['title'],'condition'=>'','error_msg'=>'标题参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['content'],'condition'=>'','error_msg'=>'内容参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['type_id'],'condition'=>'','error_msg'=>'分类参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['id'],'condition'=>'','error_msg'=>'id参数错误')
+        );
+        $where['id'] = $_POST['id'];
+        check_param($param);//检查参数
+        $data = [
+            'title'=>$request['title'],
+            'content'=>$request['content'],
+            'pic'=>$request['pic'] ? $request['pic'] : '',
+            'create_time'=>time(),
+            'type_id'=>$request['type_id'],
+        ];
+        $res = M('Post')->where($where)->data($data)->save();
+        if($res){
+            apiResponse('1','编辑成功');
+        }else{
+            apiResponse('0','编辑失败');
+        }
+    }
+
+    /**
+     * 用户发帖
+     * 传递参数的方式：post
+     * 需要传递的参数：
+     * 用户id m_id
+     * type_id 分类id
+     * title 标题
+     * content 内容
+     * pic 图片
+     */
+    public function delPost(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['id'],'condition'=>'','error_msg'=>'id参数错误')
+        );
+        $where['id'] = $_POST['id'];
+        check_param($param);//检查参数
+        $data = [
+            'status'=>9,
+        ];
+        $res = M('Post')->where($where)->data($data)->save();
+        if($res){
+            apiResponse('1','删除成功');
+        }else{
+            apiResponse('0','删除失败');
+        }
+    }
 
     /**
      *  社区首页
@@ -258,6 +324,7 @@ class PostController extends BaseController{
         }
 
     }
+
 
 
 
