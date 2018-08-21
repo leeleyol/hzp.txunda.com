@@ -125,6 +125,7 @@ class CollectController extends BaseController
             ->where($where)
             ->field('c.id col_id,p.id post_id,p.title,p.type_id,p.content,p.pic,p.view,p.comment_num,p.create_time,p.m_id,m.nickname,m.head_pic,pt.type_name')
             ->page($request['p'].',10')
+            ->order('c.create_time desc')
             ->select();
         if(empty($list)){
             $message =$request['p']==1?'暂无记录':'无更多记录';
@@ -161,6 +162,7 @@ class CollectController extends BaseController
             ->where($where)
             ->field('c.id col_id,s.id supply_id,s.area_name,s.pic,s.description,s.type,s.m_id,s.supply_info,s.create_time,s.is_extract,s.create_time,s.is_md,s.is_sf,s.is_bp,s.is_hidename,m.nickname,m.head_pic')
             ->page($request['p'].',10')
+            ->order('c.create_time desc')
             ->select();
         if(empty($list)){
             $message =$request['p']==1?'暂无记录':'无更多记录';
