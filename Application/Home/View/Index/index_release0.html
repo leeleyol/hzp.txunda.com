@@ -398,17 +398,7 @@
                         </div>
                         <div class="list">
                             <div class="list_3 text-center fontsize3">
-                                库存
-                            </div>
-                        </div>
-                        <div class="list">
-                            <div class="list_3 text-center fontsize3">
-                                货物状态
-                            </div>
-                        </div>
-                        <div class="list">
-                            <div class="list_3 text-center fontsize2">
-                                产地
+                                数量
                             </div>
                         </div>
                         <div class="list">
@@ -657,16 +647,6 @@
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
-                '                            <div class="list_3 text-center height" >' +
-                                                item.goods_status +
-                '                            </div>' +
-                '                        </div>' +
-                '                        <div class="list">' +
-                '                            <div class="list_3 text-center height" >' +
-                                                item.product_from +
-                '                            </div>' +
-                '                        </div>' +
-                '                        <div class="list">' +
                 '                            <div class="list_2 text-center height" >' +
                                                  item.bar_code +
                 '                            </div>' +
@@ -755,7 +735,9 @@
                 });
             }else {
                 var list = res.data
+                console.log(list)
                 $(list).each(function (index, item) {
+
                     $(".gq-list").append(' <div class="provide-item"  userId="'+item.m_id+'" type="'+item.type+'" pb_id="'+item.id+'">' +
                         '                    <div class="section_top ">' +
                         '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
