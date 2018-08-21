@@ -706,3 +706,18 @@ function isCanPost($m_id){
     return true;
 }
 
+
+function returnSupplyImageTwo($image){
+    $imageArr = explode(',',$image);
+    if(count($imageArr)>1){
+        foreach($imageArr as $k=>$v){
+            $path = M('file')->where(['id'=>$v])->getField('path');
+            $imageUrl[] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+        }
+    }elseif($image){
+        $path = M('file')->where(['id'=>$image])->getField('path');
+        $imageUrl[] = $path?C('API_URL').$path:C('API_URL').'/Uploads/Member/default.png';
+    }
+    return $imageUrl?$imageUrl:[];
+}
+
