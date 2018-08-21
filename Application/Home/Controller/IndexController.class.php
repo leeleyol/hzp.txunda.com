@@ -101,7 +101,7 @@ class IndexController extends BaseController{
             }
             $supply_list[$k]['supply_info'] = $index;
             $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
-            $supply_list[$k]['pic'] = $v['pic']?returnImage($v['pic'],''):[];
+            $supply_list[$k]['pic'] = $v['pic']?returnSupplyImageTwo($v['pic'],''):[];
             unset($index);unset($info);
         }
         $data['supply_list'] = $supply_list;
@@ -157,7 +157,7 @@ class IndexController extends BaseController{
             }
             $supply_list[$k]['supply_info'] = $index;
             $supply_list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
-            $supply_list[$k]['pic'] = $v['pic']?returnImage($v['pic']):[];
+            $supply_list[$k]['pic'] = $v['pic']?returnSupplyImageTwo($v['pic']):[];
             unset($index);unset($info);
         }
         if(!$supply_list){
