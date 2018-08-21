@@ -500,6 +500,9 @@ class MemberController extends BaseController{
         $m_id = $this->member_obj->checkToken();
         $this->member_obj->errorTokenMsg($m_id);
         //将用户ID  订单编号  转入金额  转账形式  创建时间新增到Recharge表
+
+        $type = $_POST['type'] ? $_POST['type']:1;
+        $data['type'] = $type;
         $data['m_id']        = $_POST['m_id'];
         $data['order_sn']    = date('YmdHi').rand(100,999);
         $data['money']       = $_POST['money'];
@@ -525,7 +528,7 @@ class MemberController extends BaseController{
             $input->SetTime_start(date("YmdHis"));
             $input->SetTime_expire(date("YmdHis", time() + 600));
             $input->SetGoods_tag("test");
-            $input->SetNotify_url("http://hzp.txunda.com/index.php/Home/Member/weiXinNotify");
+            $input->SetNotify_url("http://hzp.txunda.com/index.php/Home/Member/weiXinNotify?type=".$type);
             $input->SetTrade_type("JSAPI");
             $input->SetOpenid($openId);
             $order = \WxPayApi::unifiedOrder($input);
@@ -555,28 +558,32 @@ class MemberController extends BaseController{
             $data['update_time'] = time();
             $data['status']      = 1;
             M('Recharge')->where($where)->data($data)->save();
-
-            //添加用户余额
-            unset($where);
-            $where['id'] = $recharge_info['m_id'];
-            $member_info = M('Member')->where($where)->field('vip_end_time')->find();
-            if($member_info['vip_end_time'] > time()){
-                M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>$member_info['vip_end_time']+$recharge_info['month']*30*86400])->save();
-            }else{
-                M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>time()+$recharge_info['month']*30*86400])->save();
-            }
-
-            //添加账单明细
             unset($data);
             $data['type'] = 1;
             $data['m_id']   = $recharge_info['m_id'];
             $data['title']       = '微信';
-            $data['content']     = '充值会员';
             $data['symbol']      = 0;
             $data['money']       = $recharge_info['money'];
             $data['create_time'] = time();
+            if($recharge_info['type'] ==1){
+                //添加用户过期时间
+                unset($where);
+                $where['id'] = $recharge_info['m_id'];
+                $member_info = M('Member')->where($where)->field('vip_end_time')->find();
+                if($member_info['vip_end_time'] > time()){
+                    M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>$member_info['vip_end_time']+$recharge_info['month']*30*86400])->save();
+                }else{
+                    M('Member')->where($where)->data(['type'=>'2','vip_end_time'=>time()+$recharge_info['month']*30*86400])->save();
+                }
+                $data['content']     = '充值会员';
+            }elseif($recharge_info['type'] ==2){
+                M('Member')->where(['id'=>$recharge_info['m_id']])->setInc('refresh_num',1);
+
+                $data['content']     = '充值刷新次数';
+            }
+
+            //添加账单明细
             M('PayLog')->data($data)->add();
-            //修改用户会员结束时间
 
         }
     }

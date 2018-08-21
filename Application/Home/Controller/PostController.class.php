@@ -110,6 +110,7 @@ class PostController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
         );
         check_param($param);//检查参数
+        $this->reduceFreshNum($m_id);
         $where['p.status'] = 1;
         $order = 'p.create_time desc';
         $result['post_list'] = $this->getData($where,$request['p'],$order);
@@ -143,6 +144,7 @@ class PostController extends BaseController{
             array('check_type'=>'is_null','parameter' => $request['p'],'condition'=>'','error_msg'=>'分页参数错误'),
             array('check_type'=>'is_null','parameter' => $request['type_id'],'condition'=>'','error_msg'=>'分类id参数错误'),
         );
+        $this->reduceFreshNum($m_id);
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
 
@@ -452,6 +454,10 @@ class PostController extends BaseController{
             apiResponse('1','失败');
         }
 
+    }
+
+    public function reduceFreshNum($m_id){
+        M('Member')->where(['id'=>$m_id])->setDec('refresh_num',1);
     }
 
 
