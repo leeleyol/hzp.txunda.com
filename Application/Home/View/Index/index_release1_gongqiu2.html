@@ -76,7 +76,7 @@
     function initData() {
         provideData = JSON.parse(localStorage.provideData);
         supply_info = provideData.supply_info;
-
+        console.log(supply_info)
         $(supply_info).each(function (index, item) {
             $(".trade-list").append('<div class="shangpin bc2 trade-item" id="'+item.id+'" goods_id="'+item.goods_id+'">' +
                 '            <a class="weui-cell weui-cell_access set-goods">' +
