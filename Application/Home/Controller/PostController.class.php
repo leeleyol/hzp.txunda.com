@@ -84,6 +84,7 @@ class PostController extends BaseController{
             'pic'=>$request['pic'] ? $request['pic'] : '',
             'create_time'=>time(),
             'type_id'=>$request['type_id'],
+            'type'=>$request['type']
         ];
         $res = M('Post')->data($data)->add();
         if($res){
@@ -122,6 +123,7 @@ class PostController extends BaseController{
             'pic'=>$request['pic'] ? $request['pic'] : '',
             'create_time'=>time(),
             'type_id'=>$request['type_id'],
+            'type'=>$request['type']
         ];
         $res = M('Post')->where($where)->data($data)->save();
         if($res){
