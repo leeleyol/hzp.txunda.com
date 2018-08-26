@@ -277,4 +277,27 @@ class SupplyController extends BaseController{
         }
     }
 
+
+    //刷新供求
+    public function refresh(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type' => 'is_null', 'parameter' => $request['id'], 'condition' => '', 'error_msg' => '供求id参数错误'),
+        );
+        check_param($param);//检查参数
+        $refresh_num = M('Member')->where(['id' => $m_id, ])->getField('refresh_num');
+        if($refresh_num<=0){
+            apiResponse('0','刷新失败');
+        }
+        $reduce = M('Member')->where(['id' => $m_id, ])->setDec('refresh_num',1);
+        if ($reduce) {
+            M('Supply')->where(['m_id' => $m_id, 'id' => $request['id']])->data(['update_time'=>time()])->save();
+            apiResponse('1', '刷新成功');
+        } else {
+            apiResponse('0', '刷新失败');
+        }
+    }
+
 }
