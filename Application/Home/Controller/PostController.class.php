@@ -352,6 +352,7 @@ class PostController extends BaseController{
         $where['p.id'] = $_POST['post_id'];
         $where['p.status'] = 1;
         $info = $this->getData($where,0,'p.create_time desc');
+        $info['pic_obj'] = $info['pic']?returnSupplyImage($info['pic']):[];
         $data = $info[0];
         M('Post')->where(['id'=>$_POST['post_id']])->setInc('view',1);
         if($m_id){
