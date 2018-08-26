@@ -300,4 +300,17 @@ class SupplyController extends BaseController{
         }
     }
 
+
+    public function refreshNum(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type' => 'is_null', 'parameter' => $request['id'], 'condition' => '', 'error_msg' => '供求id参数错误'),
+        );
+        check_param($param);//检查参数
+        $refresh_num = M('Member')->where(['id' => $m_id, ])->getField('refresh_num');
+        apiResponse('1','返回成功',['id'=>$refresh_num]);
+    }
+
 }
