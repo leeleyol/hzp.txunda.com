@@ -45,7 +45,7 @@ class MemberController extends BaseController{
         }
         $member_info = M('Member')
             ->where(array('id'=>$m_id,'status'=>array('neq',9)))
-            ->field('id as m_id,type,account,head_pic,nickname,intro,balance,vip_end_time')
+            ->field('id as m_id,type,account,head_pic,nickname,intro,balance,vip_end_time,refresh_num')
             ->find();
         if(empty($member_info)){
             apiResponse('-1','登录失效，请重新登录');
