@@ -289,11 +289,11 @@ class SupplyController extends BaseController{
         check_param($param);//检查参数
         $refresh_num = M('Member')->where(['id' => $m_id ])->getField('refresh_num');
         if($refresh_num<=0){
-            apiResponse('0','刷新失败');
+            apiResponse('0','刷新次数不够');
         }
         $reduce = M('Member')->where(['id' => $m_id ])->setDec('refresh_num',1);
         if ($reduce) {
-            M('Supply')->where(['m_id' => $m_id, 'id' => $request['id']])->data(['update_time'=>time()])->save();
+            M('Supply')->where(['m_id' => $m_id, 'id' => $request['id']])->data(['create_time'=>time()])->save();
             apiResponse('1', '刷新成功');
         } else {
             apiResponse('0', '刷新失败');

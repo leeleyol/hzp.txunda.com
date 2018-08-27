@@ -508,6 +508,7 @@ class MemberController extends BaseController{
         $data['money']       = $_POST['money'];
         $data['month'] = $_POST['month'];
         $data['create_time'] = time();
+        $data['supply_id'] = $_POST['id'] ? $_POST['id']:0;
         $result = M('Recharge') -> add($data);
         //查询新增状态
         if($result){
@@ -577,11 +578,9 @@ class MemberController extends BaseController{
                 }
                 $data['content']     = '充值会员';
             }elseif($recharge_info['type'] ==2){
-                M('Member')->where(['id'=>$recharge_info['m_id']])->setInc('refresh_num',1);
-
+                M('Supply')->where(['id'=>$recharge_info['supply_id']])->data(['create_time'=>time()])->save();
                 $data['content']     = '充值刷新次数';
             }
-
             //添加账单明细
             M('PayLog')->data($data)->add();
 
