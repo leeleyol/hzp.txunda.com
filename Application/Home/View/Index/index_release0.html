@@ -439,6 +439,10 @@
             border-radius: 5px;
             margin: 10px auto;
         }
+        .rongqi2 video{
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
 </head>
@@ -646,6 +650,29 @@
     </div>
     <div id="pre_img" class="pre_img"></div>
 </div>
+
+<!--弹窗1-->
+<div class="inter-box2 Bomb-box refresh-toast hide">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog inter-box2-dialog ">
+        <div class="inter-box2-cont  ">
+            <p class=" fenlei fontsize2">刷新供求信息</p>
+            <img src="__ROOT__/Public/Home/img/refresh.png" class="icon_refresh padding1"/>
+            <div class="refresh-tips">
+
+            </div>
+
+        </div>
+        <div class="tianjia">
+            <div class="tianjia1">
+                <label class="fontsize2  inter-box2-cancel-refresh fontsize2">取消</label>
+            </div>
+            <div class="tianjia2">
+                <label class="inter-box2-refresh fontsize2">刷新</label>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <script>
@@ -661,8 +688,6 @@
         getSupplyList()
         //帖子列表
         getTieZiList()
-
-
     });
 
     function rotateImg(d) {
@@ -757,7 +782,7 @@
                 var list = res.data;
                 $(".tz-list").empty()
                 $(list).each(function (index, item) {
-                    $(".tz-list").append('<div class="distance tz-item" id="' + item.id + '">' +
+                    $(".tz-list").append('<div class="distance tz-item" type="'+item.type+'" type_id="'+item.type_id+'" id="' + item.id + '">' +
                         '            <div class="distance_top">' +
                         '                <img src="' + item.head_pic + '"><i>' + item.nickname + '</i><span>' + timestampFormat(item.create_time) + '</span>' +
                         '            </div>' +
@@ -958,8 +983,7 @@
         var val = ["goods_type_id", "type_name", "goods_name", "bar_code", "product_from", "goods_status", "stock", "stock_unit", "goods_pic"];
         $(val).each(function (index, item) {
             $("." + item).val("").text("")
-        });
-
+        })
         $(".show-img").parent().remove();
         $(".weui-uploader__input-box").show()
     }
@@ -1037,7 +1061,6 @@
                 , btn: ['确定', '取消']
                 , yes: function (index) {
                     layer.close(index);
-
                     deleteTz(tzId)
                 }
             });
@@ -1045,7 +1068,14 @@
 
         $(".tz-list").on("click", ".edit-tz", function (e) {
             e.stopPropagation();
-
+            var type_id = $(this).parents('.tz-item').attr('type_id')
+            var type = $(this).parents('.tz-item').attr('type')
+            var id = $(this).parents('.tz-item').prop('id')
+            if(type == 1){
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=image&type="+type + "&type_id=" + type_id + "&id=" + id
+            }else {
+                window.location.href = "{:U('Interest/interest_fenlei2')}&filetype=video&type="+type + "&type_id=" + type_id + "&id=" + id
+            }
         })
 
 
@@ -1290,6 +1320,141 @@
                 window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + pb_id
             }
         })
+        
+        //刷新供求
+        $(".gq-list").on("click", ".reply-refresh", function () {
+            var pb_id = $(this).parents(".provide-item").attr("pb_id")
+            getrefreshNum(pb_id)
+        })
+        //刷新供求
+        $('.inter-box2-refresh').parent().click(function () {
+            var refreshNum = $(this).find('.inter-box2-refresh').attr('refreshnum')
+            var pb_id =   $(this).find('.inter-box2-refresh').attr('pb_id')
+            if(refreshNum > 0){
+                refresh(pb_id)
+            }else {
+                pay()
+            }
+        })
+
+        //取消刷新供求
+        $('.inter-box2-cancel-refresh').parent().click(function () {
+            $('.weui-mask').click()
+        })
+    }
+
+    var refreshNum = 0
+    function getrefreshNum(pb_id) {
+        requestUrl("{:U('Home/Supply/refreshNum')}", {}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                refreshNum = res.data.id
+                $(".inter-box2-refresh").attr({"refreshNum":refreshNum, "pb_id":pb_id})
+                if(refreshNum > 0){
+                    $(".refresh-tips").html(' <p class="textcen fontsize2 ">' +
+                        '                    您当前有<span class="color4">'+refreshNum+'次</span>免费刷新机会' +
+                        '                </p>' +
+                        '                <p class="textcen fontsize2">' +
+                        '                    是否刷新?' +
+                        '                </p>')
+
+                    $(".inter-box2-refresh").text('刷新')
+                }else {
+                    $(".refresh-tips").html(' <p class="textcen fontsize2 ">' +
+                        '                    您当前没有刷新机会了' +
+                        '                </p>' +
+                        '                <p class="textcen fontsize2">' +
+                        '                 支付<span class="color4">1元</span>可刷新一次' +
+                        '                </p>')
+                    $(".inter-box2-refresh").text('立即支付')
+                }
+
+                $(".refresh-toast").show()
+            }
+        });
+    }
+
+
+    function refresh(pb_id) {
+        requestUrl("{:U('Home/Supply/refresh')}", {id: pb_id}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                $('.weui-mask').click()
+            }
+        });
+    }
+
+    var jsApiParameters = '';
+    function jsApiCall()
+    {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            jsApiParameters,
+            function(res){
+                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                    alert("支付成功");
+                    window.location.href="{:U('Member/memberCenter')}";;
+
+                }else {
+                    alert("支付失败");
+                }
+            });
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
+    }
+
+    function pay(pb_id) {
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"Home/Member/addRechargeOrder",
+            data:{
+                month:0,
+                money:1,
+                m_id: m_id
+            },success:function(data){
+                if(data.code == "success"){
+                    jsApiParameters = JSON.parse(data['data']['jsApiParameters']);
+                    callpay();
+                }else {
+                    layer.open({
+                        content: '网络异常'
+                        , skin: 'msg'
+                        , time: 2 //2秒后自动关闭
+                    });
+                }
+            },error: function (xhr, status, error) {
+                console.log("ajax请求失败---status:" + status + "    error:" + error);
+            }
+        })
     }
 
     function editSupply(pb_id) {
@@ -1378,7 +1543,5 @@
             }
         });
     }
-
-
 </script>
 </html>

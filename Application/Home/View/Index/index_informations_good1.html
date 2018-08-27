@@ -230,12 +230,10 @@
         });
         return str
     }
-
     function countChecked() {
         var count = $(".checked").length;
         return count
     }
-
     var member_id, supply_item;
     function getParam() {
         member_id = getUrlParam("userId")
@@ -244,7 +242,6 @@
         }
         supply_item = JSON.parse(decodeURIComponent(getUrlParam("supply_item")))
     }
-
     function bindHandler() {
         $(".goods-list").on("click", ".operate", function () {
             $(this).toggleClass("checked");
@@ -275,7 +272,6 @@
                 window.location.href = "{:U('Index/index_VIPbussiness_good2')}&member_id=" + member_id;
             }
         });
-
         $(".header_left").click(function () {
             history.go(-1)
         })

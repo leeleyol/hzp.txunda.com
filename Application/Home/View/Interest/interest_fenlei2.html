@@ -112,7 +112,7 @@
             "onchange": function (base64,file,_targetthis) {
                 uploadPic(file,_targetthis)
             }
-        });
+        })
 
         $(".header_left").click(function () {
             history.go(-1)
@@ -172,12 +172,28 @@
             data["content"] = content;
             data["pic"] = fileIdstr;
             data["type_id"] = type_id;
+            if(type == 1){
+                data["type"] = 1;
+            }else {
+                data["type"] = 2;
+            }
+
+            if(id){
+                data[id] = id
+            }
+
             uploaddata(data)
         })
     }
     
     function uploaddata(data) {
-        requestUrl("{:U('Home/Post/addPost')}", data, function (res) {
+        var url = ''
+        if(id){
+            url = "{:U('Home/Post/addPost')}"
+        }else {
+            url = "{:U('Home/Post/addPost')}"
+        }
+        requestUrl(url, data, function (res) {
             if (res.code == -1) {
                 localStorage.removeItem('m_id');
                 window.location.href = "{:U('Login/login')}";
@@ -193,7 +209,6 @@
         var formdata = new FormData();
         formdata.append("picture", file);
         formdata.append("type", "2");
-
         if(file.type.indexOf("image") > -1){
             uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
                 if (res.code == -1) {
@@ -225,10 +240,52 @@
         }
     }
 
-    var filetype,type_id;
+    function getDetail(id) {
+        var data = {
+            post_id:id
+        }
+        requestUrl("{:U('Home/Post/postInfo')}", data, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                alert(res.message);
+            } else {
+                var data  = res.data
+                $(".weui-media-box__title").val(data.title);
+                $('textarea').val(data.content);
+                $(".weui-media-box__desc p span:first-of-type").text(data.content.length)
+
+                var pic_obj = data.pic_obj
+                if(type == 1){
+                    $(pic_obj).each(function (index, item) {
+                        $(".weui-media-box__info").prepend('<li class="weui-uploader__file">' +
+                            '<video controls="controls" class="show-img" src="'+item.picture_path+'" file_id="'+item.picture_id+'" />' +
+                            '<img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del" id="click" />' +
+                            '</li>')
+                    })
+                }else {
+                    $(pic_obj).each(function (index, item) {
+                        $(".weui-media-box__info").prepend('<li class="weui-uploader__file">' +
+                            '<video controls="controls" class="show-img" src="'+item.picture_path+'" file_id="'+item.picture_id+'" />' +
+                            '<img src="__ROOT__/Public/Home/img/jian.png" class="re icon_del" id="click" />' +
+                            '</li>')
+                    })
+                }
+            }
+        });
+    }
+
+    var filetype,type_id, id, type;
     function getParam() {
         filetype = getUrlParam("filetype");
         type_id = getUrlParam("type_id")
+        id = getUrlParam("id")
+        type = getUrlParam("type")
+        console.log(id)
+        if(id){
+            getDetail(id)
+        }
     }
 </script>
 </html>
