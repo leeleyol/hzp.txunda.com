@@ -84,11 +84,11 @@
     function renderHtml() {
         $(selected_arr).each(function (index, item) {
             $(".table").append('<tr class="goods-item">' +
-                '            <td style="padding-left: 10px; border-right:0px">' +
+                '            <td style="padding-left: 10px; border-right:1px solid rgba(246, 246, 246, 1)">' +
                 '                <img src="' + item.goods_pic_path + '" />' +
                 '            </td>' +
-                '            <td style="text-align: left;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;line-height: 1.7em;">' + item.goods_name + '</td>' +
-                '            <td >' + item.stock + item.stock_unit + '</td>' +
+                '            <td>' + item.goods_name + '</td>' +
+                '            <td>' + item.stock + item.stock_unit + '</td>' +
                 '            <td stock="' + item.stock + '"><input type="number" placeholder="输入预购数量" class="input" onkeyup="clearNoNum(this)" style="text-align: center"></td>' +
                 '        </tr>')
         })
@@ -135,8 +135,42 @@
                 return false
             }
 
-            window.location.href = "{:U('Index/index_VIPbussiness_good4')}&member_id=" + member_id + "&selected_arr=" + encodeURIComponent(JSON.stringify(selected_arr));
+            var content = []
+            $(selected_arr).each(function (index, item) {
+                var obj = {};
+                obj["goods_id"] = item["goods_id"];
+                obj["goods_name"] = item["goods_name"];
+                obj["number"] = item["number"];
+                content.push(obj)
+            })
+            uploadChat(JSON.stringify(content))
+
+            //window.location.href = "{:U('Index/index_VIPbussiness_good4')}&member_id=" + member_id + "&selected_arr=" + encodeURIComponent(JSON.stringify(selected_arr));
         })
+    }
+
+
+    function uploadChat(content) {
+        requestUrl("{:U('Home/Chat/addChat')}", {from_mid: member_id, type: 2, content: content}, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+
+                history.go(-3)
+            }
+        });
     }
 
     var member_id;
