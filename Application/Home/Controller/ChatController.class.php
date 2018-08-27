@@ -188,6 +188,51 @@ class ChatController extends BaseController{
         }
     }
 
+
+
+
+    /*
+     * 商家更新报价单
+     *
+     * */
+    public function merchantUpdate(){
+        $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['content'],'condition'=>'','error_msg'=>'内容参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['chat_id'],'condition'=>'','error_msg'=>'留言id参数错误'),
+            array('check_type'=>'is_null','parameter' => $request['status'],'condition'=>'','error_msg'=>'审核状态参数错误'),
+        );
+        check_param($param);//检查参数
+        $where['id'] = $_POST['chat_id'];
+        $info = M('Chat')->where($where)->find();
+        $data = [
+            'm_id'=>$m_id,
+            'type'=>2,
+            'content'=>'更新报价单',
+            'create_time'=>time(),
+            'from_mid'=>$request['m_id'],
+            'buy_id'=>$info['buy_id']
+        ];
+        $res = M('Chat')->data($data)->add();
+        if($res){
+                $data1 = [
+                    'm_id'=>$m_id,
+                    'type'=>2,
+                    'buy_info'=>$_POST['content'],
+                    'create_time'=>time(),
+                    'supply_id'=>$info['supply_id'] ,
+                    'from_mid'=>$request['m_id'],
+                    'status'=>3
+                ];
+                $res1 = M('Buy')->where(['id'=>$info['buy_id']])->data($data1)->save();
+            apiResponse('1','发布成功');
+        }else{
+            apiResponse('0','发布失败');
+        }
+    }
+
     
 
 
