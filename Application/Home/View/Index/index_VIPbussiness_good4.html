@@ -107,19 +107,19 @@
         bindHandler()
     });
 
-    function renderHtml(selected_arr) {
+    function renderHtml(selected_arr, from_mid) {
         $(".goods-item").remove()
         $(selected_arr).each(function (index, item) {
             $(".table").append('<tr class="goods-item"  " goods_id="' + item.goods_id + '" goods_name="' + item.goods_name + '" number="' + item.number + '">' +
-                '            <td style="padding-left: 10px; border-right:0px;width: 50px">' +
+                '            <td style="padding-left: 10px; border-right:1px solid rgba(246, 246, 246, 1);width: 50px">' +
                 '                <img  src="' + item.goods_pic_path + '" />' +
                 '            </td>' +
-                '            <td style="text-align: left;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;line-height: 1.7em;">' + item.goods_name + '</td>' +
+                '            <td >' + item.goods_name + '</td>' +
                 '            <td >' + item.number + item.stock_unit + '</td>' +
                 '            <td ><input type="number" placeholder="输入报价金额" class="input" onkeyup="clearNoNum(this)"  value="' + item.buy_price + '" style="text-align: center"></td>' +
                 '        </tr>')
 
-            if (item.buy_price) {
+            if (item.buy_price || from_mid != m_id) {
                 $("input").attr("disabled", "disabled");
             }
         });
@@ -127,16 +127,12 @@
         $(".bottom_num span:last-of-type").text(selected_arr.length)
     }
 
-    var member_id, selected_arr, chat_id;
+    var member_id, chat_id;
     function getParam() {
         member_id = getUrlParam("member_id");
         chat_id = getUrlParam("chat_id");
         if (chat_id) {
             getchatInfo()
-        } else {
-            $(".add-price").show()
-            selected_arr = JSON.parse(decodeURIComponent(getUrlParam("selected_arr")));
-            renderHtml(selected_arr)
         }
     }
 
@@ -210,27 +206,29 @@
                     , time: 2 //2秒后自动关闭
                 });
             } else {
-                renderHtml(res.data.content)
+                renderHtml(res.data.content, res.data.from_mid)
                 var status = res.data.buy_status;
-
-
                 if(status == 0){
+                    //卖家
                     if(res.data.from_mid == m_id){
-                        $(".reject-price,.agree-price").show();
+                        $(".add-price").show()
+                    //买家
                     }else {
-                        $(".reject-price").show().addClass('disable-color').find("a").text("等待卖家同意").end();
+                        $(".reject-price").show().addClass('disable-color').find("a").text("等待卖家报价").end();
                     }
                 }else if(status == 1){
-                    $(".reject-price").show().addClass('disable-color').find("a").text("卖家已同意报价").end();
+                    $(".reject-price").show().addClass('disable-color').find("a").text("买家已同意报价").end();
                 }else if(status == 2){
-                    $(".reject-price").show().addClass('disable-color').find("a").text("卖家已拒绝报价").end();
+                    $(".reject-price").show().addClass('disable-color').find("a").text("买家已拒绝报价").end();
+                }else if(status == 3){
+                    $(".reject-price,.agree-price").show();
                 }
             }
         });
     }
 
     function uploadChat(content) {
-        requestUrl("{:U('Home/Chat/addChat')}", {from_mid: member_id, type: 2, content: content}, function (res) {
+        requestUrl("{:U('Home/Chat/merchantUpdate')}", {from_mid: m_id, type: 2, chat_id:chat_id,content: content, status:3}, function (res) {
             if (res.code == -1) {
                 localStorage.removeItem('m_id');
                 window.location.href = "{:U('Login/login')}";
