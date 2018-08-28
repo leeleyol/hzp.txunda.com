@@ -13,7 +13,7 @@ class IndexController extends BaseController{
      * 首页
      */
     public function index(){
-        /*if(!session('openid') && empty($_GET['code'])){
+        if(!session('openid') && empty($_GET['code'])){
             $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=http://hzp.txunda.com/index.php/Home/Index/index&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             Header("Location: $url");
             exit();
@@ -26,7 +26,7 @@ class IndexController extends BaseController{
                 $openId = $tools->GetOpenidFromMp($_GET['code']);
                 session('openid',$openId);
             }
-        }*/
+        }
 
         /*if($this->is_weixin())
         {
