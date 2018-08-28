@@ -1333,7 +1333,7 @@
             if(refreshNum > 0){
                 refresh(pb_id)
             }else {
-                pay()
+                pay(pb_id)
             }
         })
 
@@ -1439,9 +1439,10 @@
             data:{
                 month:0,
                 money:1,
-                m_id: m_id
+                m_id: m_id,
+                id:pb_id
             },success:function(data){
-                if(data.code == "success"){
+                if(data.code == 0){
                     jsApiParameters = JSON.parse(data['data']['jsApiParameters']);
                     callpay();
                 }else {
