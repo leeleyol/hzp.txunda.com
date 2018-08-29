@@ -68,6 +68,7 @@ class ChatController extends BaseController{
                     'create_time'=>time(),
                     'supply_id'=>$request['supply_id'] ? $request['supply_id'] :0,
                     'from_mid'=>$request['from_mid'],
+                    'status'=>3
                 ];
                 $res1 = M('Buy')->data($data1)->add();
                 M('Chat')->where(['id'=>$res])->data(['buy_id'=>$res1])->save();
@@ -212,7 +213,7 @@ class ChatController extends BaseController{
             'type'=>2,
             'content'=>'更新报价单',
             'create_time'=>time(),
-            'from_mid'=>$request['m_id'],
+            'from_mid'=>$info['m_id'],
             'buy_id'=>$info['buy_id']
         ];
         $res = M('Chat')->data($data)->add();
