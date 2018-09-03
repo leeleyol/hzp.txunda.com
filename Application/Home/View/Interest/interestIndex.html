@@ -192,7 +192,7 @@
                             '            </p>' +
                             '            <div class="" >' +
                             '                <div class="section">' +
-                                                    imgList(item.pic_list)+
+                                                    imgList(item.pic_list, item.type)+
                             '                </div>' +
                             '            </div>' +
                             '            <div class="distance_buttom" >' +
@@ -213,10 +213,10 @@
             });
         }
         
-        function imgList(pic_list) {
+        function imgList(pic_list, type) {
             var str = "";
             $(pic_list).each(function (index, item) {
-                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
+                var imgstr = type == 2 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
 
                 str += '<div class="section_item">' +
                     '<div class="rongqi2" >' +
