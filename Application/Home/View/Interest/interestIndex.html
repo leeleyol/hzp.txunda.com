@@ -48,6 +48,11 @@
             right: -1px;
             margin-top: 2px;
         }
+
+        .rongqi2 video{
+            width: 100%;
+            height: 100%;
+        }
         /*.section_item{*/
             /*overflow-y:hidden ;*/
         /*}*/
@@ -211,11 +216,13 @@
         function imgList(pic_list) {
             var str = "";
             $(pic_list).each(function (index, item) {
-                str +=  '<div class="section_item">' +
-                '<div class="rongqi2" >' +
-                '<img src="'+item+'"  /><br>' +
-                '</div>' +
-                '</div>'
+                var imgstr = item.indexOf(".mp4") > -1 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
+
+                str += '<div class="section_item">' +
+                    '<div class="rongqi2" >' +
+                    imgstr +
+                    '</div>' +
+                    '</div>'
             })
             return str
         }
