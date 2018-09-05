@@ -416,9 +416,7 @@ class MemberController extends BaseController{
             apiResponse('0','修改个人资料失败');
         }
     }
-
-
-
+    
     /*
      * 我的进货记录
      *

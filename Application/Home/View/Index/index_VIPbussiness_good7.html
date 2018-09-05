@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
-    <title>风帆 UII UII</title>
+    <title></title>
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
@@ -95,108 +95,12 @@
         <div class="header_left">
             <a ><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
         </div>
-        <div class="header_middle" style="color: black">
-            风帆 UII UII
-        </div>
+        <div class="header_middle" style="color: black"></div>
         <div class="header_right"></div>
     </header>
 
     <div class="headtop coarseLline textcontent ">
-        <!--<div class="chat-item">
-            <p class="textcen text-center">
-                <span class="service-time-label">昨天 15:00</span>
-            </p>
-            <div class="float_r paddingr_1">
-                <div class="VIPbusiness_left imgs vip" >
-                    <img src="__ROOT__/Public/Home/img/name.png" class="absolute">
-                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">
-                </div>
-                <div class="chat_2 " style="float: left ">
-                    <p class="fontsize2 color3 float_r paddingr_1" >资深老饕</p><br>
-                    <div class="fontsize2 c_1 bc5 color2" style="width: 200px;">
-                        <p>您可以去看我家的商品展示，选好商品填写预购单，点击提交！我就知道您需要哪些商品了。</p>
-                        <p>我跟财务沟通好，就给您发送报价！</p>
-                    </div>
-                </div>
-                <div style="clear: both"></div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-        <div class="chat-item">
-            <div class="chat_left">
-                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
-                <div class="chat_l">
-                    <p class="fontsize2 color3">风帆 UII UII</p>
-                    <div class="c_1 bc2 fontsize2">
-                        <p class="c_2  bc2 color1 fontsize2" style="width: 200px" >好的!我知道了,我去看看</p>
-                    </div>
-                </div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
 
-        <div class="chat-item">
-            <p class="textcen text-center">
-                <span class="service-time-label">09:00</span>
-            </p>
-            <div class="chat_left  ">
-                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
-                <div class="chat_l"  >
-                    <p class="fontsize2 color3">风帆 UII UII</p>
-                    <div class="c_1 bc2 fontsize2 " style="width: 200px;">
-                        <p class="c_2  bc2 color1 fontsize3" >风帆 UII UII的预购报价单<br>
-                            <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-
-        <div class="chat-item">
-            <div class="chat_left">
-                <img src="__ROOT__/Public/Home/img/name11.png" class="imgs">
-                <div class="chat_l">
-                    <p class="fontsize2 color3">风帆 UII UII</p>
-                    <div class="c_1 bc2 fontsize2">
-                        <p class="c_2  bc2 color1 fontsize2" style="width: 200px" >受累看看，大概多少钱！</p>
-                    </div>
-                </div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-        <div class="chat-item">
-            <div class="float_r paddingr_1">
-                <div class="VIPbusiness_left imgs vip" >
-                    <img src="__ROOT__/Public/Home/img/name.png" class="absolute">
-                    <img src="__ROOT__/Public/Home/img/VIP.png" class="relation">
-                </div>
-                <div class="chat_2 " style="float: left ">
-                    <p class="fontsize2 color3 float_r paddingr_1" >资深老饕</p><br>
-                    <p class="c_1  bc2 color1 fontsize2" >风帆 UII UII的预购单<br>
-                        <img src="__ROOT__/Public/Home/img/lianjie.png" class="icon_lianjie">
-                    </p>
-                </div>
-                <div style="clear: both"></div>
-            </div>
-            <div style="clear: both"></div>
-            <p class="textcen text-center">
-                <span class="service-time-label">买家同意了你的报价</span>
-            </p>
-        </div>-->
-        <!--TODO-->
-       <!-- <div class="phone bc2">
-            <div class="p_list1 fontsize2 color3">
-                <div class="p1" style="display: flex">
-                    点击确认完成交易，系统将自动扣除相应的
-                    库存数量！
-                </div>
-            </div>
-            <div class="p_list2 text-center">
-                <button class="fontsize2 bc2 color6 wc">交易完成</button>
-            </div>
-            <div style="clear: both"></div>
-        </div>-->
     </div>
 
     <br><br><br>
@@ -239,7 +143,7 @@
                 var from_member = DATA.from_member
                 var list = DATA.list
                 renderHtml(list, self, from_member)
-
+                $(".header_middle").text(from_member.nickname)
                 if(page == 1){
                     var h = $(document).height()-$(window).height();
                     $(document).scrollTop(h);
@@ -387,11 +291,11 @@
         handlerScrollTop(function () {
             layderIndex = layer.open({type: 2});
             getChatList()
-        });
+        })
 
         $(".textcontent").on("click",".order-chat", function () {
             window.location.href = "{:U('Index/index_VIPbussiness_good4')}&chat_id=" + $(this).attr("chat_id")
-        });
+        })
 
         $(".header_left").click(function () {
             history.go(-1)
