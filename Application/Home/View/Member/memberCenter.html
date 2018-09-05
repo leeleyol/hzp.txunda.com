@@ -247,6 +247,9 @@
                 } else if (res.code == 0) {
                     alert(res.message);
                 } else {
+
+                    var no_read_msg = res.data.no_read_msg
+
                     $('#nickname').text(res.data.nickname);
                     $('#intro').text(res.data.intro);
                     $('#head_pic').attr('src', res.data.head_pic_path);

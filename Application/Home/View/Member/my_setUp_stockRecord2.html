@@ -21,7 +21,7 @@
     <div class="coarseLline headtop "></div>
 <!--详情记录-->
     <div class="leftright" style="">
-        <div class="left" class="seller-info">
+        <div class="left seller-info">
             <span style="color: #999999;" >卖家信息:</span><img src=""><span ></span>
         </div>
         <div class="right"></div>
@@ -102,8 +102,8 @@
             } else {
                 var list = res.data.buy;
                 var from_member = res.data.from_member
-
-                $(".seller-info img").prop({'src': from_member.head_pic_path})
+                console.log(from_member)
+                $(".seller-info img").attr({'src': from_member.head_pic_path})
                 $(".seller-info span:last-of-type").text(from_member.nickname)
                 $(".trade-time").text( getDate(list.update_time, 'YY/MM/DD HH:MM'))
 
