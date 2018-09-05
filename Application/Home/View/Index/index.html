@@ -103,6 +103,15 @@
             background: none;
             text-decoration: none;
         }
+
+        .xiaoxi-dot{
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            width: 5px;
+            height: 5px;
+            display: none;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -110,17 +119,6 @@
 </block>
 <block name="main">
     <div class="container">
-        <!--头部-->
-        <!--<header style="background-color: rgba(57, 58, 63, 1);color: white">-->
-            <!--<div class="header_left">-->
-                <!--<img src="__ROOT__/Public/Home/img/w_back.png" />-->
-            <!--</div>-->
-            <!--<div class="header_middle" style="color: white">-->
-                <!--优进-->
-            <!--</div>-->
-            <!--<div class="header_right"></div>-->
-        <!--</header>-->
-
         <div class="search">
             <div class="search_a">
                 <a href="{:U('Index/search')}">
@@ -129,8 +127,9 @@
                 </a>
             </div>
             <div class="search_b">
-                <a href="{:U('Msg/index')}"  >
+                <a href="{:U('Msg/index')}"  style="position: relative">
                     <img src="__ROOT__/Public/Home/img/h_information.png"/>
+                    <img src="__ROOT__/Public/Home/img/dot.png" class="xiaoxi-dot"/>
                 </a>
             </div>
         </div>
@@ -246,7 +245,10 @@
                 } else if (res.code == 0) {
                     alert(res.message);
                 } else {
-
+                    var no_read_msg = res.data.no_read_msg
+                    if(no_read_msg > 0){
+                        $(".xiaoxi-dot").show()
+                    }
                     indenType = res.data.type;
                     approveType = res.data.merchant_approve
                 }

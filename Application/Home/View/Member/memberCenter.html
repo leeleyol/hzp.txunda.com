@@ -64,6 +64,14 @@
             background: none !important;
             text-decoration: none !important;
         }
+        .my .my_right .xiaoxi-dot{
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 5px;
+            height: 5px;
+            display: none;
+        }
     </style>
 </block>
 <block name="main" >
@@ -76,13 +84,15 @@
                 <span style="font-size: 15px;color: white">我 的</span>
             </div>
             <div class="my_right" linkto="{:U('Msg/index')}">
-                <img src="__ROOT__/Public/Home/img/w_information.png"/>
+                <a style="position: relative">
+                    <img src="__ROOT__/Public/Home/img/w_information.png"/>
+                    <img src="__ROOT__/Public/Home/img/dot.png" class="xiaoxi-dot"/>
+                </a>
             </div>
         </div>
         <div class="my" linkto="{:U('Member/memberBaseData')}">
             <div class="my_left">
                 <img id="head_pic" src="__ROOT__/Public/Home/img/remind.png"/>
-
             </div>
             <div class="my_middle">
                 <div class="bussiness_renzheng">
@@ -247,9 +257,10 @@
                 } else if (res.code == 0) {
                     alert(res.message);
                 } else {
-
                     var no_read_msg = res.data.no_read_msg
-
+                    if(no_read_msg > 0){
+                        $(".xiaoxi-dot").show()
+                    }
                     $('#nickname').text(res.data.nickname);
                     $('#intro').text(res.data.intro);
                     $('#head_pic').attr('src', res.data.head_pic_path);

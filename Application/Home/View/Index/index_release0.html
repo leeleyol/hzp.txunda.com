@@ -822,7 +822,7 @@
     }
 
     function imgList(pic_list, type) {
-        var str = "";
+        var str = ""
         $(pic_list).each(function (index, item) {
             var imgstr = type == 2 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
             str += '<div class="section_item">' +

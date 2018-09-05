@@ -64,6 +64,9 @@
             background: none;
             text-decoration: none;
         }
+        .xiaoxi-dot{
+            display: none;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -119,6 +122,7 @@
         $(function () {
             getType();
             getList();
+            getInfo()
             bindHandler()
         })
         var layderIndex;
@@ -226,6 +230,22 @@
             })
             return str
         }
-        
+
+        function getInfo() {
+            requestUrl("{:U('Member/ajaxMemberCenter')}", {m_id: m_id}, function (res) {
+                if (res.code == -1) {
+                    localStorage.removeItem('m_id');
+                    window.location.href = "{:U('Login/login')}";
+                } else if (res.code == 0) {
+                    alert(res.message);
+                } else {
+                    var no_read_msg = res.data.no_read_msg
+                    if(no_read_msg > 0){
+                        $(".xiaoxi-dot").show()
+                    }
+
+                }
+            });
+        }
     </script>
 </block>
