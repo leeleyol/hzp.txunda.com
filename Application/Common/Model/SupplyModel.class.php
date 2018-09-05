@@ -46,9 +46,9 @@ class SupplyModel extends Model{
 
     public function getList($where,$page){
         if($page){
-            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->page($page.',10')->select();
+            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->page($page.',10')->order('s.create_time desc')->select();
         }else{
-            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->limit(3)->select();
+            $data = $this->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->limit(3)->order('s.create_time desc')->select();
 
         }
         return $data?$data:[];
