@@ -157,7 +157,7 @@ class SupplyController extends BaseController{
         $info  = json_decode($supply_info['supply_info'],true);
         $index = [];
         foreach ($info as $k=>$v){
-            $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic')->find();
+            $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic,g.bar_code')->find();
             $index[$k]['goods_id'] = $v['goods_id'];
             $index[$k]['goods_type_name'] = $goods_info['type_name'];
             $index[$k]['goods_type_id'] = $goods_info['goods_type_id'];
@@ -167,6 +167,7 @@ class SupplyController extends BaseController{
             $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
             $index[$k]['goods_status'] = $goods_info['goods_status'];
             $index[$k]['goods_price'] = $v['goods_price'];
+            $index[$k]['bar_code'] = $v['bar_code'];
         }
         $supply_info['supply_info'] = $index;
         if($m_id){
