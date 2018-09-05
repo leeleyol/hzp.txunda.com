@@ -57,6 +57,7 @@ class MemberController extends BaseController{
         $member_info['merchant_approve'] = $member_status?$member_status['merchant_approve']:"0";
         $member_info['refuse_content'] = $member_status?$member_status['refuse_content']:"";
 
+        $member_info['no_read_msg'] = D('Msg')->isHaveMsg($m_id);
         apiResponse('1','请求成功',$member_info);
 
     }
