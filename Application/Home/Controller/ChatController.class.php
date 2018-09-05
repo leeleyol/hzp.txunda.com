@@ -183,6 +183,14 @@ class ChatController extends BaseController{
             $save_data['status'] = $request['status'];
             $save_data['update_time'] = time();
             M('Buy')->where(['id'=>$info['buy_id']])->data($save_data)->save();
+            if($request['status']==1){
+                //减少数量
+                $buy_info = M('Buy')->where(['id'=>$info['buy_id']])->data($save_data)->find();
+                $buy_info = json_decode($buy_info['info'],true);
+                foreach ($buy_info as $value){
+                    M('Goods')->where(['id'=>$value['goods_id']])->setDec('stock',$value['number']);
+                }
+            }
             apiResponse('1','审核成功');
         }else{
             apiResponse('0','审核失败');

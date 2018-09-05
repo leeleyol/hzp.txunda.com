@@ -379,8 +379,9 @@ class MemberController extends BaseController{
         check_param($param);//检查参数
         $info = M('Member')->where($where)->field('id as m_id,nickname,head_pic,attention_num,intro,type')->find();
         $info['head_pic_path'] = returnImage($info['head_pic']);
-        $info['goods_num'] = getMemberGoodsNum($info['m_id']);;
-        $info['need_num'] = getMemberSupplyNum($info['m_id']);;
+        $info['goods_num'] = getMemberGoodsNum($info['m_id']);
+        $info['need_num'] = getMemberSupplyNum($info['m_id']);
+        $info['no_read_msg'] = D('Msg')->isHaveMsg($info['m_id']);
         if($m_id){
             $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['member_id'],'m_id'=>$m_id])->find()?1:0;
         }else{
@@ -481,6 +482,8 @@ class MemberController extends BaseController{
         apiResponse('1','成功',$result);
     }
 
+
+    
 
 
     /**
