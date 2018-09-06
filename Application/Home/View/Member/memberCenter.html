@@ -250,7 +250,7 @@
         var indenType, approveType;
 
         function getInfo() {
-            requestUrl("{:U('Member/ajaxMemberCenter')}", {m_id: m_id}, function (res) {
+            requestUrl("{:U('Member/memberInfo')}", {member_id: m_id}, function (res) {
                 if (res.code == -1) {
                     localStorage.removeItem('m_id');
                     window.location.href = "{:U('Login/login')}";

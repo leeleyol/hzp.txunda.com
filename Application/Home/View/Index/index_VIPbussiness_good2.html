@@ -151,7 +151,7 @@
 
 
     function uploadChat(content) {
-        requestUrl("{:U('Home/Chat/addChat')}", {from_mid: member_id, type: 2, content: content}, function (res) {
+        requestUrl("{:U('Home/Chat/addChat')}", {from_mid: member_id, type: 2, content: content,is_first:1}, function (res) {
             if (res.code == -1) {
                 localStorage.removeItem('m_id');
                 window.location.href = "{:U('Login/login')}";

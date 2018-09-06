@@ -371,6 +371,7 @@ class MemberController extends BaseController{
      * */
     public function memberInfo(){
         $m_id = $this->member_obj->checkToken();
+        $this->member_obj->errorTokenMsg($m_id);
         $request = I('post.');
         $param = array(
             array('check_type'=>'is_null','parameter' => $request['member_id'],'condition'=>'','error_msg'=>'商家id参数错误'),
@@ -383,6 +384,10 @@ class MemberController extends BaseController{
         $info['goods_num'] = getMemberGoodsNum($info['m_id']);
         $info['need_num'] = getMemberSupplyNum($info['m_id']);
         $info['no_read_msg'] = D('Msg')->isHaveMsg($info['m_id']);
+
+        $member_status = M('MemberInfo')->where(['m_id'=>$m_id])->field('merchant_approve,refuse_content')->find();
+        $info['merchant_approve'] = $member_status?$member_status['merchant_approve']:"0";
+        $info['refuse_content'] = $member_status?$member_status['refuse_content']:"";
         if($m_id){
             $info['is_attention'] = M('Attention')->where(['object_id'=>$_POST['member_id'],'m_id'=>$m_id])->find()?1:0;
         }else{

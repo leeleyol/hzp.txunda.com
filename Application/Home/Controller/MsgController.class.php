@@ -50,11 +50,21 @@ class MsgController extends BaseController{
         $chat[0]['nickname'] = "";
         $chat[0]['content'] = "";
         $chat[0]['is_read'] = "0";*/
-        $chat = M('Chat')->alias('c')->join('db_member m on m.id=c.from_mid','LEFT')->where(['c.m_id'=>$m_id])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('from_mid')->select();
+
+        $chat = M('Chat')->alias('c')->join('db_member m on m.id=c.from_mid  ','LEFT')->where(['c.m_id'=>$m_id,'is_first'=>1])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('from_mid')->select();
+        $chat1 = M('Chat')->alias('c')->join('db_member m on m.id=c.m_id  ','LEFT')->where(['c.from_mid'=>$m_id,'is_first'=>1])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('m_id')->select();
+        $chat2 = array_merge($chat,$chat1);
+        foreach ($chat2 as $k=>$v){
+            $chat2[$k]['from_head_pic'] = returnImage($v['head_pic']);
+        }
+        $result_data['chat_list'] = $chat2;
+
+        /*$string = "c.m_id = $m_id OR from_mid = $m_id";
+        $chat = M('Chat')->alias('c')->join('db_member m on m.id=c.from_mid  ','LEFT')->where(['_string'=>$string,'is_first'=>1])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('from_mid')->select();
         foreach ($chat as $k=>$v){
             $chat[$k]['from_head_pic'] = returnImage($v['head_pic']);
-        }
-        $result_data['chat_list'] = $chat;
+        }*/
+        $result_data['chat_list'] = $chat2;
         apiResponse('1','请求成功',$result_data);
     }
 
