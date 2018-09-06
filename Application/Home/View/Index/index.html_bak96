@@ -241,6 +241,7 @@
 
 
         var indenType, approveType;
+
         function getInfo() {
             requestUrl("{:U('Member/ajaxMemberCenter')}", {m_id: m_id}, function (res) {
                 if (res.code == -1) {
@@ -256,7 +257,7 @@
                     indenType = res.data.type;
                     approveType = res.data.merchant_approve
                 }
-            })
+            });
         }
 
         function getData() {
@@ -318,7 +319,7 @@
                     '                        <button class="'+(item.type == 2 ? "reply" :"")+'">'+(item.type == 2 ? "求" :"供")+'</button>' +
                     item.description +
                     '                    </div>' +
-                    '                    <div class="section">' +
+                    '                    <div class="section" style="height: 195px;">' +
                     (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic))+
                     '                    </div>' +
                     '                    <div class="section_buttom">' +
@@ -395,7 +396,7 @@
                     '                </div>' +
                     '            </div>' +
                     '        </div>' +
-                    '<div style="border: 5px solid #f2f2f2;"></div>'
+                    '<div style="border: 5px solid #F6F6F6"></div>'
             })
             return str
         }
