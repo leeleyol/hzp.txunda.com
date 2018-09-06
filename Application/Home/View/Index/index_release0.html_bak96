@@ -49,7 +49,7 @@
             width: 90px;
             padding: 5px;
             overflow: hidden;
-            /*white-space: nowrap;*/
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
 
@@ -374,12 +374,11 @@
         }
 
         .goodsName {
-            /*height: 40px;*/
+            height: 40px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
-            overflow: hidden;
-            margin-top: 3px;
+            overflow: hidden
         }
 
         #hear li:nth-of-type(3) {
@@ -444,17 +443,6 @@
         .rongqi2 video{
             width: 100%;
             height: 100%;
-        }
-        .paddingl_2{
-            height: 30px;
-            line-height: 30px;
-        }
-        .rongqi{
-            width: 110px;
-        }
-        .rongqi img{
-            width: 110px;
-            height: 110px;
         }
     </style>
 
@@ -598,23 +586,15 @@
                     </div>
                 </div>
                 <p class="bc3 shezhi color3 fontsize5">库存设置</p>
-                <!--<div class="weui-cell">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<label class="weui-label zuo fontsize5">库存单位</label>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd fontsize5>-->
-                            <!--<input class=" weui-input stock_unit-->
-                    <!--" type="text" placeholder="请输入库存单位">-->
-                <!--</div>-->
                 <div class="weui-cell">
                     <div class="weui-cell__hd">
                         <label class="weui-label zuo fontsize5">库存单位</label>
                     </div>
-                    <div class="weui-cell__bd fontsize5">
-                        <input class="weui-input  stock_unit" type="text" placeholder="请输入库存单位">
-                    </div>
+                    <div class="weui-cell__bd fontsize5>
+                            <input class=" weui-input stock_unit
+                    " type="text" placeholder="请输入库存单位">
                 </div>
-            <!--</div>-->
+            </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd">
                     <label class="weui-label zuo fontsize5">库存数量</label>
@@ -889,7 +869,7 @@
                         '                    <div class="paddingl_2 reply-operate">' +
                         // '                        <img src="__ROOT__/Public/Home/img/name.png" class="icon_name"/>' +
                         // '                        <label class="fontsize11"> 飞机笔超级集团</label>' +
-                        '                        <span class="fontsize5 color3">' + timestampFormat(item.create_time) + '</span>' +
+                        '                        <span class="fontsize3 color3">' + timestampFormat(item.create_time) + '</span>' +
                         '<p class="reply-refresh">刷新</p>' +
                         '<p class="reply-edit">编辑</p>' +
                         '<p class="reply-del">删除</p>' +
