@@ -62,6 +62,20 @@ class MsgController extends BaseController{
         foreach ($chat2 as $k=>$v){
             $chat2[$k]['from_head_pic'] = returnImage($v['head_pic']);
         }
+
+        $sort = array(
+            'direction' => 'SORT_DESC', //排序顺序标志 SORT_DESC 降序；SORT_ASC 升序
+            'field'     => 'create_time',       //排序字段
+        );
+        $arrSort = array();
+        foreach($chat2 AS $uniqid => $row){
+            foreach($row AS $key=>$value){
+                $arrSort[$key][$uniqid] = $value;
+            }
+        }
+        if($sort['direction']){
+            array_multisort($arrSort[$sort['field']], constant($sort['direction']), $chat2);
+        }
         $result_data['chat_list'] = $chat2;
 
         /*$string = "c.m_id = $m_id OR from_mid = $m_id";
