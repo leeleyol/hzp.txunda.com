@@ -11,6 +11,8 @@
 
     <title>发布供求</title>
     <style>
+
+
         #hear {
             border: 0px;
             height: 46px;
@@ -400,7 +402,7 @@
                 msg = "请输入描述信息"
             }
             if (msg) {
-                layer.open({content: msg, skin: 'msg', time: 1200});
+                layer.open({content: msg, skin: 'msg', time: 2});
                 return false
             }
             provideData.supply_info = JSON.stringify(provideData.supply_info)
