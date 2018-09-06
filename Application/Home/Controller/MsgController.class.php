@@ -52,7 +52,12 @@ class MsgController extends BaseController{
         $chat[0]['is_read'] = "0";*/
 
         $chat = M('Chat')->alias('c')->join('db_member m on m.id=c.from_mid  ','LEFT')->where(['c.m_id'=>$m_id,'is_first'=>1])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('from_mid')->select();
+
         $chat1 = M('Chat')->alias('c')->join('db_member m on m.id=c.m_id  ','LEFT')->where(['c.from_mid'=>$m_id,'is_first'=>1])->field('c.*,m.head_pic,m.nickname,m.type from_m_type')->group('m_id')->select();
+
+        foreach($chat1 as $k1=>$v1){
+            $chat1[$k1]['from_mid'] = $v1['m_id'];
+        }
         $chat2 = array_merge($chat,$chat1);
         foreach ($chat2 as $k=>$v){
             $chat2[$k]['from_head_pic'] = returnImage($v['head_pic']);
@@ -64,7 +69,16 @@ class MsgController extends BaseController{
         foreach ($chat as $k=>$v){
             $chat[$k]['from_head_pic'] = returnImage($v['head_pic']);
         }*/
-        $result_data['chat_list'] = $chat2;
+
+       /* $sql = "(SELECT c.*,m.head_pic,m.nickname,m.type from_m_type FROM db_chat c LEFT JOIN db_member m on m.id=c.from_mid  WHERE c.m_id = ".$m_id." AND `is_first` = 1 GROUP BY from_mid ) OR ( SELECT c.*,m.head_pic,m.nickname,m.type from_m_type FROM db_chat c LEFT JOIN db_member m on m.id=c.m_id WHERE c.from_mid =". $m_id." AND `is_first` = 1 GROUP BY m_id)";
+        $data = M()->query($sql);
+        foreach ($chat2 as $k=>$v){
+            $chat2[$k]['from_head_pic'] = returnImage($v['head_pic']);
+            if($v['from_mid']==$m_id){
+                $data[$k]['from_mid'] = $v['m_id'];
+            }
+        }
+        $result_data['chat_list'] = $data;*/
         apiResponse('1','请求成功',$result_data);
     }
 
