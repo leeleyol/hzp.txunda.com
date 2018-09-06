@@ -469,6 +469,13 @@
         })
 
 
+        $(".provide-list").on('click',".gotomemberdetail", function (event) {
+            event.stopPropagation();
+            var member_id = $(this).parents('.provide-item').attr('userid')
+            window.location.href = "{:U('Index/index_VIPbussiness_guanzhu')}&member_id=" + member_id
+        })
+
+
         //监听滑动到底部，然后加载分页
         handlerScrollBottom(function () {
             layderIndex = layer.open({type: 2});
@@ -532,7 +539,7 @@
                 '                            <span class="color8">位置：' + item.area_name + '</span>' +
                 '                        </p>' +
                 '                    </div>' +
-                '                    <div class="paddingl_2 reply-operate">' +
+                '                    <div class="paddingl_2 reply-operate gotomemberdetail">' +
                 '                        <img src="' + item.head_pic_path + '" class="icon_name"/>' +
                 '                        <label class="fontsize55 color33"> ' + (item.is_hidename == 1 ? "匿名" : item.nickname) + '</label>' +
                 '                        <span class="font-size11 color3">' + timestampFormat(item.create_time) + '</span>' +

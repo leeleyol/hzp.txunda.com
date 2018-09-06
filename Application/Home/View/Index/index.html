@@ -327,7 +327,7 @@
                     '                            <span class="color8">位置：'+item.area_name+'</span>' +
                     '                        </p>' +
                     '                    </div>' +
-                    '                    <div class="paddingl_2 reply-operate">' +
+                    '                    <div class="paddingl_2 reply-operate gotomemberdetail">' +
                     '                        <img src="'+item.head_pic_path+'" class="icon_name"/>' +
                     '                        <label class="fontsize5  m-r5 color33"> '+item.nickname+'</label>' +
                     '                        <span class="color3 font-size10">'+timestampFormat(item.create_time)+'</span>' +
@@ -480,7 +480,11 @@
                     window.location.href = "{:U('Index/index_informations_good2')}&pb_id=" + supply_id
                 }
             })
-
+            $(".provide-list").on('click',".gotomemberdetail", function (event) {
+                event.stopPropagation();
+                var member_id = $(this).parents('.provide-item').attr('userid')
+                window.location.href = "{:U('Index/index_VIPbussiness_guanzhu')}&member_id=" + member_id
+            })
             $(".tz-list").on("click",".tz-item", function () {
                 var post_id = $(this).prop("id");
                 window.location.href = "{:U('Interest/interest_details1')}&post_id=" + post_id
