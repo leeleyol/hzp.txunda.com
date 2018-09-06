@@ -2,88 +2,150 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"  >
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/others.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/my.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/common.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/index.css">
     <link rel="stylesheet" href="__ROOT__/Public/Home/css/weui.css">
-    <script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
-    <script src="__ROOT__/Public/Home/js/linkto.js"></script>
-    <script src="__ROOT__/Public/Home/js/network.js"></script>
-    <script src="__ROOT__/Public/Home/js/util.js"></script>
-    <script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+
     <title>发布供求</title>
     <style>
-        *{
-            overflow-x: hidden;
+
+
+        #hear {
+            border: 0px;
+            height: 46px;
+            line-height: 45px;
+            position: absolute;
+            top: 10px;
+            left: 111px;
         }
-        #hear{ border:0px;   height: 46px;  line-height: 45px;  position: absolute;  top: 10px;  left: 111px; }
-        #hear a{font-weight: normal;color: black; }
-        #hear li{text-align: center;width:35%;float: left;height: 45px; cursor:pointer;font-size: 13px}
-        #hear .li1{  border:1px solid 	#FF4C82; background-color: #ffedf2;    height: 31px;  line-height: 30px;;color:	#FF4C82 ;list-style-type:none;  }
-        #hear .li2{border: 2px solid 	#f6f6f6;    height: 31px;  line-height: 30px;list-style-type:none;color:#9c9c9c}
-        #hear li:nth-of-type(1){width: 18%;float: left;margin-left: 10px}
-        #hear li:nth-of-type(2){width: 18%;float: left;}
-        #contentop li{ display: none;  margin-top: 3px;}
-        #contentop .action{ display: block;}
-        #contentop .Buy div:nth-of-type(1){text-align: left; }
-        #contentop .Buy div:nth-of-type(2){float: right;}
-        .weui-cell{
+
+        #hear a {
+            font-weight: normal;
+            color: black;
+        }
+
+        #hear li {
+            text-align: center;
+            width: 35%;
+            float: left;
+            height: 45px;
+            cursor: pointer;
+            font-size: 13px
+        }
+
+        #hear .li1 {
+            border: 1px solid #FF4C82;
+            background-color: #ffedf2;
+            height: 31px;
+            line-height: 30px;;
+            color: #FF4C82;
+            list-style-type: none;
+        }
+
+        #hear .li2 {
+            border: 2px solid #f6f6f6;
+            height: 31px;
+            line-height: 30px;
+            list-style-type: none;
+            color: #9c9c9c
+        }
+
+        #hear li:nth-of-type(1) {
+            width: 18%;
+            float: left;
+            margin-left: 10px
+        }
+
+        #hear li:nth-of-type(2) {
+            width: 18%;
+            float: left;
+        }
+
+        #contentop li {
+            display: none;
+            margin-top: 3px;
+        }
+
+        #contentop .action {
+            display: block;
+        }
+
+        #contentop .Buy div:nth-of-type(1) {
+            text-align: left;
+        }
+
+        #contentop .Buy div:nth-of-type(2) {
+            float: right;
+        }
+
+        .weui-cell {
             padding: 10px 0px;
         }
-        .padl{
-             padding-left: 15px;
-         }
-        .padr1{
+
+        .padl {
+            padding-left: 15px;
+        }
+
+        .padr1 {
             padding-right: 30px;
         }
-        .padr2{
-            padding-right:62px;
+
+        .padr2 {
+            padding-right: 62px;
         }
+
         textarea {
             width: 100%;
             height: 80px;
         }
 
-        .footer{
+        .footer {
             position: fixed;
             bottom: 0px;
             width: 100%;
             background-color: white;
             z-index: 10;
         }
-        .footer input{
+
+        .footer input {
             width: 90%;
             height: 40px;
             margin-left: 5%;
             line-height: 40px;
             z-index: 10;
             margin-top: 5px;
-            margin-bottom:5px;
+            margin-bottom: 5px;
         }
-       .weui-switch-cp__box {
+
+        .weui-switch-cp__box {
 
         }
+
         .weui-switch:checked, .weui-switch-cp__input:checked ~ .weui-switch-cp__box {
             border-color: #f53619;
             background-color: #f53619;
         }
-        .weui-uploader{
+
+        .weui-uploader {
             padding-top: 15px;
         }
 
-        .weui-uploader__file{
+        .weui-uploader__file {
             float: left;
             position: relative;
             overflow: visible;
             margin-right: 16px;
         }
-        .weui-uploader__file img.show-img{
+
+        .weui-uploader__file img.show-img {
             width: 100%;
             height: 100%;
         }
-        .icon_del{
+
+        .icon_del {
             position: absolute;
             top: -10px;
             right: -10px;
@@ -91,29 +153,29 @@
     </style>
 </head>
 <body class="bc3">
-    <header class="head"  >
-        <div class="header_left">
-            <a><img src="__ROOT__/Public/Home/img/b_back.png" /></a>
-        </div>
-        <div class="header_middle" >
-            发布供求
-        </div>
-        <div class="header_right"></div>
-    </header>
+<header class="head">
+    <div class="header_left">
+        <a><img src="__ROOT__/Public/Home/img/b_back.png"/></a>
+    </div>
+    <div class="header_middle">
+        发布供求
+    </div>
+    <div class="header_right"></div>
+</header>
 
-    <div class="weui-cell  headtop coarseLline  bc2" >
-        <div class="weui-cell__bd  ">
-            <span class="zuo fontsize3 padl" >选择分类 <br><br></span>
-            <span class="tab">
+<div class="weui-cell  headtop coarseLline  bc2">
+    <div class="weui-cell__bd  ">
+        <span class="zuo fontsize3 padl">选择分类 <br><br></span>
+        <span class="tab">
                 <ul id="hear">
-                    <li class="li1 " >供货</li>
-                    <li class="li2" >求购 </li>
+                    <li class="li1 ">供货</li>
+                    <li class="li2">求购 </li>
                 </ul>
                 <ul id="contentop">
                     <li class="action  coarseLline">
-                        <a class="weui-cell weui-cell_access " href="{:U('Index/index_release1_gongqiu3')}" >
+                        <a class="weui-cell weui-cell_access " href="{:U('Index/index_release1_gongqiu3')}">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize3 padl padr1 " >交易方式 </span>
+                                <span class="zuo fontsize3 padl padr1 ">交易方式 </span>
                                 <span class="zhong color3 fontsize3 set-provide-trade-way">请设置交易方式</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
@@ -125,7 +187,8 @@
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
                         </a>
-                         <a class="weui-cell weui-cell_access coarseLline " href="{:U('Index/index_release1_gongqiu2')}">
+                         <a class="weui-cell weui-cell_access coarseLline "
+                            href="{:U('Index/index_release1_gongqiu2')}">
                             <div class="weui-cell__bd  ">
                                 <span class="zuo fontsize3 padl zuo">设置展示商品 </span>
                                 <span class="zhong color3 fontsize3 set-provide-goods-show">设置展示商品</span>
@@ -134,10 +197,11 @@
                         </a>
 
                         <div class="weui-media-box weui-media-box_text">
-                            <textarea class="weui-media-box__desc provie-description" placeholder="填写一段标题，或者对商品的细节描述~"></textarea>
+                            <textarea class="weui-media-box__desc provie-description"
+                                      placeholder="填写一段标题，或者对商品的细节描述~"></textarea>
                         </div>
                         <a class="footer">
-                                <input type="button" value="发布" class="color2 bc5 fontsize3 submit-provide">
+                            <input type="button" value="发布" class="color2 bc5 fontsize3 submit-provide">
                         </a>
                     </li>
 
@@ -147,7 +211,7 @@
                     <li class="coarseLline">
                          <a class="weui-cell weui-cell_access " href="{:U('Index/index_release1_gongqiu3')}&type=2">
                             <div class="weui-cell__bd  ">
-                                <span class="zuo fontsize3 padl padr1 " >交易方式 </span>
+                                <span class="zuo fontsize3 padl padr1 ">交易方式 </span>
                                 <span class="zhong color3 fontsize3 set-buy-trade-way">请设置交易方式</span>
                             </div>
                             <div class="weui-cell__ft padr"> </div><span>&nbsp;&nbsp;</span>
@@ -161,7 +225,8 @@
                         </a>
 
                         <div class="weui-media-box weui-media-box_text coarseLline">
-                            <textarea class="weui-media-box__desc buy-description" placeholder="填写一段标题，或者对商品的细节描述"></textarea>
+                            <textarea class="weui-media-box__desc buy-description"
+                                      placeholder="填写一段标题，或者对商品的细节描述"></textarea>
                         </div>
                         <div class="weui-cell__bd  ">
                             <div class="weui-uploader weui-uploader__bd padl">
@@ -174,274 +239,295 @@
                             <div class="weui-cell__bd padl fontsize3">是否匿名发布</div>
                             <div class="weui-cell__ft is_hidename" is_hidename="1">
                                 <label for="switchCP" class="weui-switch-cp">
-                                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox"
+                                           checked="checked">
                                     <div class="weui-switch-cp__box"></div>
                                 </label>
                             </div>
                         </div>
 
                          <a class="footer">
-                                <input type="button" value="发布" class="color2 bc5 fontsize3 submit-buy">
+                             <input type="button" value="发布" class="color2 bc5 fontsize3 submit-buy">
                         </a>
                     </li>
                 </ul>
             </span>
-        </div>
     </div>
+</div>
+<script src="__ROOT__/Public/Home/js/jquery-2.1.4.min.js"></script>
+<script src="__ROOT__/Public/Home/js/linkto.js"></script>
+<script src="__ROOT__/Public/Home/js/network.js"></script>
+<script src="__ROOT__/Public/Home/js/util.js"></script>
+<script src="__ROOT__/Public/Static/layer/mobile/layer.js"></script>
+<script>
+    $(function () {
+        initData();
+        bindeHandler();
+    });
 
-    <script>
-        $(function(){
-            initData();
-            bindeHandler();
+    var is_set_provide_goods_show = false, is_set_provide_trade_way = false, is_set_provide_trade_area = false;
+    var provideData, supply_info;
+    var is_set_buy_trade_way = false, is_set_buy_trade_area = false;
+    var buyData;
+
+    function initData() {
+        //初始化供货json
+        if (!localStorage.provideData || localStorage.provideData == "undefined") {
+            provideData = {
+                description: "", //描述
+                type: 1, //类型 1供 2求
+                is_extract: "",//买家自提 1是 2否
+                is_md: "",//商家配送 1是 2否
+                is_sf: "",//顺丰 1是 2否
+                is_bp: "",//买家支付邮费 1是 2否
+                area_name: "",//地区名称
+                supply_info: [] //供求信息（type为1传递）
+            }
+            localStorage.provideData = JSON.stringify(provideData)
+        } else {
+            provideData = JSON.parse(localStorage.provideData);
+            supply_info = provideData.supply_info;
+            console.log(provideData)
+            /*判断是否设置商品展示*/
+            $(supply_info).each(function (index, item) {
+                if (!item.goods_id || !item.goods_price) {
+                    is_set_provide_goods_show = false;
+                    $(".set-provide-goods-show").text("设置展示商品")
+                    return false
+                } else {
+                    is_set_provide_goods_show = true
+                    $(".set-provide-goods-show").text("已设置")
+                }
+            });
+            /*判断是否设置交易方式 */
+            var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
+            $(checked_item).each(function (index, item) {
+                if (provideData[item] == 1) {
+                    is_set_provide_trade_way = true;
+                    $(".set-provide-trade-way").text("已设置")
+                    return false
+                }
+            });
+            /*判断是否设置所在位置*/
+            if (provideData.area_name) {
+                is_set_provide_trade_area = true
+                $(".set-provide-area").text(provideData.area_name)
+            }
+            $('.provie-description').val(provideData.description)
+        }
+
+        //初始化求购json
+        if (!localStorage.buyData || localStorage.buyData == "undefined") {
+            buyData = {
+                description: "", //描述
+                type: 2, //类型 1供 2求
+                is_extract: "",//买家自提 1是 2否
+                is_md: "",//商家配送 1是 2否
+                is_sf: "",//顺丰 1是 2否
+                is_bp: "",//买家支付邮费 1是 2否
+                area_name: "",
+                pic: "",
+                is_hidename: 1,
+                pic_obj: []
+            }
+            console.log(buyData)
+            localStorage.buyData = JSON.stringify(buyData)
+        } else {
+            buyData = JSON.parse(localStorage.buyData);
+            /*判断是否设置交易方式 */
+            var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
+            $(checked_item).each(function (index, item) {
+                if (buyData[item] == 1) {
+                    is_set_buy_trade_way = true;
+                    $(".set-buy-trade-way").text("已设置")
+                    return false
+                }
+            });
+
+            /*判断是否设置所在位置*/
+            if (buyData.area_name) {
+                is_set_buy_trade_area = true;
+                $(".set-buy-area").text(buyData.area_name)
+            }
+            $('.buy-description').val(buyData.description);
+            //图片
+            $(buyData.pic_obj).each(function (index, item) {
+                $(".weui-uploader").prepend('<div class="weui-uploader__file">' +
+                    '<img class="show-img" src="' + item.picture_path + '" />' +
+                    '<input type="hidden" class="goods_pic" value="' + item.picture_id + '">' +
+                    '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
+                    '</div>')
+            })
+            $("#switchCP").prop({"checked": buyData.is_hidename == 1 ? "checked" : ""})
+        }
+    }
+
+    localStorage.PageIndex = localStorage.PageIndex ? localStorage.PageIndex : "0"
+
+    function bindeHandler() {
+        $(".header_left").click(function () {
+            localStorage.provideData = "";
+            localStorage.buyData = "";
+            localStorage.PageIndex = "";
+            history.go(-1)
+        });
+        $("#hear li").click(function () {
+            $(this).css({
+                border: "1px solid #FF4C82",
+                color: "#FF4C82",
+                'background-color': '#ffedf2'
+            }).siblings().css({'background-color': 'white', border: "2px solid #f6f6f6", color: "#9c9c9c"});
+            $(this).addClass("action").siblings().removeClass("action");
+            var index = $(this).index();
+            localStorage.PageIndex = index;
+            $("#contentop li").eq(index).css("display", "block").siblings().css("display", "none");
         });
 
-        var is_set_provide_goods_show = false ,is_set_provide_trade_way = false ,is_set_provide_trade_area = false;
-        var provideData, supply_info;
-        var is_set_buy_trade_way = false ,is_set_buy_trade_area = false;
-        var buyData;
-
-        function initData() {
-            //初始化供货json
-            if(!localStorage.provideData || localStorage.provideData == "undefined"){
-                 provideData = {
-                    description:"", //描述
-                    type:1, //类型 1供 2求
-                    is_extract:"",//买家自提 1是 2否
-                    is_md:"",//商家配送 1是 2否
-                    is_sf:"",//顺丰 1是 2否
-                    is_bp:"",//买家支付邮费 1是 2否
-                    area_name:"",//地区名称
-                    supply_info:[] //供求信息（type为1传递）
-                }
-                localStorage.provideData = JSON.stringify(provideData)
-            }else {
-                provideData = JSON.parse(localStorage.provideData);
-                supply_info = provideData.supply_info;
-                console.log(provideData)
-                /*判断是否设置商品展示*/
-                $(supply_info).each(function (index, item) {
-                    if(!item.goods_id || ! item.goods_price ){
-                        is_set_provide_goods_show = false;
-                        $(".set-provide-goods-show").text("设置展示商品")
-                        return false
-                    }else {
-                        is_set_provide_goods_show = true
-                        $(".set-provide-goods-show").text("已设置")
-                    }
-                });
-                /*判断是否设置交易方式 */
-                var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
-                $(checked_item).each(function (index, item) {
-                    if (provideData[item] == 1) {
-                        is_set_provide_trade_way = true;
-                        $(".set-provide-trade-way").text("已设置")
-                        return false
-                    }
-                });
-                /*判断是否设置所在位置*/
-                if(provideData.area_name){
-                    is_set_provide_trade_area = true
-                    $(".set-provide-area").text(provideData.area_name)
-                }
-                $('.provie-description').val(provideData.description)
-            }
-
-            //初始化求购json
-            if(!localStorage.buyData || localStorage.buyData == "undefined"){
-                buyData = {
-                    description:"", //描述
-                    type:2, //类型 1供 2求
-                    is_extract:"",//买家自提 1是 2否
-                    is_md:"",//商家配送 1是 2否
-                    is_sf:"",//顺丰 1是 2否
-                    is_bp:"",//买家支付邮费 1是 2否
-                    area_name:"",
-                    pic:"",
-                    is_hidename:1,
-                    pic_obj:[]
-                }
-                console.log(buyData)
-                localStorage.buyData = JSON.stringify(buyData)
-            }else {
-                buyData = JSON.parse(localStorage.buyData);
-                /*判断是否设置交易方式 */
-                var checked_item = ["is_extract", "is_md", "is_sf", "is_bp"];
-                $(checked_item).each(function (index, item) {
-                    if (buyData[item] == 1) {
-                        is_set_buy_trade_way = true;
-                        $(".set-buy-trade-way").text("已设置")
-                        return false
-                    }
-                });
-
-                /*判断是否设置所在位置*/
-                if(buyData.area_name){
-                    is_set_buy_trade_area = true;
-                    $(".set-buy-area").text(buyData.area_name)
-                }
-                $('.buy-description').val(buyData.description);
-                //图片
-                $(buyData.pic_obj).each(function (index, item) {
-                    $(".weui-uploader").prepend('<div class="weui-uploader__file">' +
-                        '<img class="show-img" src="'+item.picture_path+'" />' +
-                        '<input type="hidden" class="goods_pic" value="'+item.picture_id+'">'+
-                        '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
-                        '</div>')
-                })
-                $("#switchCP").prop({"checked":buyData.is_hidename == 1?"checked":""})
-            }
+        if (localStorage.PageIndex == 0) {
+            $("#hear li:first-of-type").trigger("click");
+        } else {
+            $("#hear li:last-of-type").trigger("click");
         }
 
-        localStorage.PageIndex = localStorage.PageIndex ? localStorage.PageIndex:"0"
-        function bindeHandler() {
-            $(".header_left").click(function () {localStorage.provideData = ""; localStorage.buyData = ""; localStorage.PageIndex = "";history.go(-1)});
-            $("#hear li").click(function(){
-                $(this).css({border: "1px solid #FF4C82", color : "#FF4C82", 'background-color':'#ffedf2'}).siblings().css({'background-color':'white', border: "2px solid #f6f6f6", color:"#9c9c9c"});
-                $(this).addClass("action").siblings().removeClass("action");
-                var index = $(this).index();
-                localStorage.PageIndex = index;
-                $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
-            });
+        $(".submit-provide").click(function () {
 
-            if(localStorage.PageIndex == 0){
-                $("#hear li:first-of-type").trigger("click");
-            }else {
-                $("#hear li:last-of-type").trigger("click");
+            var msg = ""
+            if (!is_set_provide_goods_show) {
+                msg = "请设置商品展示"
+            } else if (!is_set_provide_trade_way) {
+                msg = "请设置交易方式"
+            } else if (!is_set_provide_trade_area) {
+                msg = "请设置所在位置"
+            } else if (!provideData.description.trim()) {
+                msg = "请输入描述信息"
+            }
+            if (msg) {
+                layer.open({content: msg, skin: 'msg', time: 2});
+                return false
+            }
+            provideData.supply_info = JSON.stringify(provideData.supply_info)
+
+            var url = ""
+            if (getUrlParam("edit") == "edit_provide") {
+                url = "{:U('Home/Supply/updateSupply')}"
+            } else {
+                url = "{:U('Home/Supply/addSupply')}"
+            }
+            uploadProvide(url, provideData)
+        });
+
+        $(".submit-buy").click(function () {
+            var msg = ""
+
+            if (!is_set_buy_trade_way) {
+                msg = "请设置交易方式"
+            } else if (!is_set_buy_trade_area) {
+                msg = "请设置所在位置"
+            } else if (!buyData.description.trim()) {
+                msg = "请输入描述信息"
+            } else if (buyData.pic_obj.length == 0) {
+                msg = "请输选择图片"
             }
 
-            $(".submit-provide").click(function () {
-                var msg = ""
-                if(!is_set_provide_goods_show){
-                    msg = "请设置商品展示"
-                }else if(!is_set_provide_trade_way){
-                    msg = "请设置交易方式"
-                }else if(!is_set_provide_trade_area){
-                    msg = "请设置所在位置"
-                }else if(!provideData.description.trim()){
-                    msg = "请输入描述信息"
-                }
+            if (msg) {
+                layer.open({content: msg, skin: 'msg', time: 2});
+                return false
+            }
 
-                if(msg){layer.open({content: msg,skin: 'msg',time: 2});return false}
-                provideData.supply_info = JSON.stringify(provideData.supply_info)
-
-                var url = ""
-                if(getUrlParam("edit") == "edit_provide"){
-                    url = "{:U('Home/Supply/updateSupply')}"
-                }else {
-                    url = "{:U('Home/Supply/addSupply')}"
-                }
-                uploadProvide(url,provideData)
-            });
-
-            $(".submit-buy").click(function () {
-                var msg = ""
-
-                if(!is_set_buy_trade_way){
-                    msg = "请设置交易方式"
-                }else if(!is_set_buy_trade_area){
-                    msg = "请设置所在位置"
-                }else if(!buyData.description.trim()){
-                    msg = "请输入描述信息"
-                }else if(buyData.pic_obj.length == 0){
-                    msg = "请输选择图片"
-                }
-
-                if(msg){layer.open({content: msg,skin: 'msg',time: 2});return false}
-
-                var pic = []
-                $(buyData.pic_obj).each(function (index, item) {
-                    pic.push(item.picture_id)
-                })
-                buyData.pic = pic.join(",");
-                delete buyData["pic_obj"];
-
-
-                var url = ""
-                if(getUrlParam("edit") == "edit_buy"){
-                    url = "{:U('Home/Supply/updateSupply')}"
-                }else {
-                    url = "{:U('Home/Supply/addSupply')}"
-                }
-                uploadProvide(url,buyData)
-            });
-
-            $('.provie-description').bind('input propertychange','textarea',function(){
-                provideData.description = $(this).val();
-                localStorage.provideData = JSON.stringify(provideData)
-            });
-
-            $('.buy-description').bind('input propertychange','textarea',function(){
-                buyData.description = $(this).val();
-                localStorage.buyData = JSON.stringify(buyData)
-            });
-
-            //选择图片
-            $(".weui-uploader__input-box").fileInit({
-                "filetype":"image",
-                "onchange": function (base64,file,_targetthis) {
-                    uploadPic(file,_targetthis)
-                }
-            });
-
-            //删除图片
-            $(".weui-uploader").on("click",".icon_del" ,function () {
-                var pic_id = $(this).siblings("input").val()
-                $(this).parent().remove();
-                $(buyData.pic_obj).each(function (index, item) {
-                    if(item.picture_id == pic_id){
-                        buyData.pic_obj.splice(index, 1);
-                    }
-                });
-                localStorage.buyData = JSON.stringify(buyData)
+            var pic = []
+            $(buyData.pic_obj).each(function (index, item) {
+                pic.push(item.picture_id)
             })
+            buyData.pic = pic.join(",");
+            delete buyData["pic_obj"];
 
-            $(".weui-switch-cp").click(function () {
-                buyData.is_hidename = $("#switchCP").prop("checked") ? "1":"2"
+
+            var url = ""
+            if (getUrlParam("edit") == "edit_buy") {
+                url = "{:U('Home/Supply/updateSupply')}"
+            } else {
+                url = "{:U('Home/Supply/addSupply')}"
+            }
+            uploadProvide(url, buyData)
+        });
+
+        $('.provie-description').bind('input propertychange', 'textarea', function () {
+            provideData.description = $(this).val();
+            localStorage.provideData = JSON.stringify(provideData)
+        });
+
+        $('.buy-description').bind('input propertychange', 'textarea', function () {
+            buyData.description = $(this).val();
+            localStorage.buyData = JSON.stringify(buyData)
+        });
+
+        //选择图片
+        $(".weui-uploader__input-box").fileInit({
+            "filetype": "image",
+            "onchange": function (base64, file, _targetthis) {
+                uploadPic(file, _targetthis)
+            }
+        });
+
+        //删除图片
+        $(".weui-uploader").on("click", ".icon_del", function () {
+            var pic_id = $(this).siblings("input").val()
+            $(this).parent().remove();
+            $(buyData.pic_obj).each(function (index, item) {
+                if (item.picture_id == pic_id) {
+                    buyData.pic_obj.splice(index, 1);
+                }
+            });
+            localStorage.buyData = JSON.stringify(buyData)
+        })
+
+        $(".weui-switch-cp").click(function () {
+            buyData.is_hidename = $("#switchCP").prop("checked") ? "1" : "2"
+            localStorage.buyData = JSON.stringify(buyData)
+        })
+    }
+
+    function uploadProvide(url, param) {
+        requestUrl(url, param, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                layer.open({
+                    content: res.message
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+            } else {
+                localStorage.provideData = "";
+                localStorage.buyData = ""
+                localStorage.PageIndex = "";
+                history.go(-1)
+            }
+        });
+    }
+
+    function uploadPic(file, _targetthis) {
+        var formdata = new FormData();
+        formdata.append("picture", file);
+        formdata.append("type", "4");
+        uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
+            if (res.code == -1) {
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            } else if (res.code == 0) {
+                alert(res.message);
+            } else {
+                buyData.pic_obj.push(res.data.picture)
+                $(_targetthis).parent().prepend('<div class="weui-uploader__file">' +
+                    '<img class="show-img" src="' + res.data.picture.picture_path + '" />' +
+                    '<input type="hidden" class="goods_pic" value="' + res.data.picture.picture_id + '">' +
+                    '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
+                    '</div>')
                 localStorage.buyData = JSON.stringify(buyData)
-            })
-        }
-
-        function uploadProvide(url, param) {
-            requestUrl(url, param, function (res) {
-                if (res.code == -1) {
-                    localStorage.removeItem('m_id');
-                    window.location.href = "{:U('Login/login')}";
-                } else if (res.code == 0) {
-                    layer.open({
-                        content: res.message
-                        ,skin: 'msg'
-                        ,time: 2 //2秒后自动关闭
-                    });
-                } else {
-                    localStorage.provideData = "";
-                    localStorage.buyData = ""
-                    localStorage.PageIndex = "";
-                    history.go(-1)
-                }
-            });
-        }
-
-        function uploadPic(file,_targetthis) {
-            var formdata = new FormData();
-            formdata.append("picture", file);
-            formdata.append("type", "4");
-            uploadfile("{:U('Home/Member/uploadImage')}", formdata, function (res) {
-                if (res.code == -1) {
-                    localStorage.removeItem('m_id');
-                    window.location.href = "{:U('Login/login')}";
-                } else if (res.code == 0) {
-                    alert(res.message);
-                } else {
-                    buyData.pic_obj.push(res.data.picture)
-                    $(_targetthis).parent().prepend('<div class="weui-uploader__file">' +
-                        '<img class="show-img" src="'+res.data.picture.picture_path+'" />' +
-                        '<input type="hidden" class="goods_pic" value="'+res.data.picture.picture_id+'">'+
-                        '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
-                        '</div>')
-                    localStorage.buyData = JSON.stringify(buyData)
-                }
-            });
-        }
-    </script>
+            }
+        });
+    }
+</script>
 </body>
 </html>
