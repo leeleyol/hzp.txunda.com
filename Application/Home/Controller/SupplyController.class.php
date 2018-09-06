@@ -167,7 +167,7 @@ class SupplyController extends BaseController{
             $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
             $index[$k]['goods_status'] = $goods_info['goods_status'];
             $index[$k]['goods_price'] = $v['goods_price'];
-            $index[$k]['bar_code'] = $v['bar_code'];
+            $index[$k]['bar_code'] = $goods_info['bar_code'];
         }
         $supply_info['supply_info'] = $index;
         if($m_id){
@@ -228,7 +228,7 @@ class SupplyController extends BaseController{
                 $index[$k1]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
                 $index[$k1]['goods_status'] = $goods_info['goods_status'];
                 $index[$k1]['goods_price'] = $v1['goods_price'];
-                $index[$k1]['bar_code'] = $v1['bar_code'];
+                $index[$k1]['bar_code'] = $goods_info['bar_code'];
             }
             $list[$k]['supply_info'] = $index;
             $list[$k]['head_pic_path'] = returnImage($v['head_pic'],'');
