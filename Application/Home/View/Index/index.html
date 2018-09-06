@@ -112,6 +112,11 @@
             height: 5px;
             display: none;
         }
+
+        .rongqi2 img, .rongqi2 video{
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </block>
 <block name="header_script">
@@ -376,7 +381,7 @@
                     '            </p>' +
                     '            <div class="" >' +
                     '                <div class="section">' +
-                    imgList(item.pic_list)+
+                    imgList(item.pic_list, item.type)+
                     '                </div>' +
                     '            </div>' +
                     '            <div class="distance_buttom" style="margin-top: 5px">' +
@@ -396,12 +401,14 @@
             return str
         }
 
-        function imgList(pic_list) {
+        function imgList(pic_list, type) {
             var str = "";
             $(pic_list).each(function (index, item) {
+                var imgstr = type == 2 ? "<video controls src='" + item + "'></video>" : '<img src="' + item + '"  /><br>';
+
                 str +=  '<div class="section_item">' +
                     '<div class="rongqi2" >' +
-                    '<img src="'+item+'"  /><br>' +
+                    imgstr +
                     '</div>' +
                     '</div>'
             })
