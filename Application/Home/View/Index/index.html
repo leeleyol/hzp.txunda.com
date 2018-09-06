@@ -241,7 +241,6 @@
 
 
         var indenType, approveType;
-
         function getInfo() {
             requestUrl("{:U('Member/ajaxMemberCenter')}", {m_id: m_id}, function (res) {
                 if (res.code == -1) {
@@ -257,7 +256,7 @@
                     indenType = res.data.type;
                     approveType = res.data.merchant_approve
                 }
-            });
+            })
         }
 
         function getData() {
