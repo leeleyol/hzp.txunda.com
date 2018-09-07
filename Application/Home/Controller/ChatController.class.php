@@ -58,7 +58,7 @@ class ChatController extends BaseController{
             'create_time'=>time(),
             'from_mid'=>$request['from_mid'],
             'is_first'=>$request['is_first'] ? $_POST['is_first'] : 0,
-            'is_buyer'=>1
+            'is_buyer'=>$m_id
         ];
         $res = M('Chat')->data($data)->add();
         if($res){
@@ -224,7 +224,8 @@ class ChatController extends BaseController{
             'content'=>'更新报价单',
             'create_time'=>time(),
             'from_mid'=>$info['m_id'],
-            'buy_id'=>$info['buy_id']
+            'buy_id'=>$info['buy_id'],
+            'is_buyer'=>$info['m_id']
         ];
         $res = M('Chat')->data($data)->add();
         if($res){
