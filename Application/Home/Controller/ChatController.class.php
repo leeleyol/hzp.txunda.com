@@ -69,7 +69,7 @@ class ChatController extends BaseController{
                     'create_time'=>time(),
                     'supply_id'=>$request['supply_id'] ? $request['supply_id'] :0,
                     'from_mid'=>$request['from_mid'],
-                    'status'=>3
+                    'status'=>0
                 ];
                 $res1 = M('Buy')->data($data1)->add();
                 M('Chat')->where(['id'=>$res])->data(['buy_id'=>$res1])->save();
