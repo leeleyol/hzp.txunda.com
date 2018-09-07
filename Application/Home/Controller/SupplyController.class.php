@@ -180,6 +180,49 @@ class SupplyController extends BaseController{
 
 
 
+    /*
+ * 查看供求详情
+ * */
+    public function supplyInfoV2(){
+        $m_id = $this->member_obj->checkToken();
+        $request = I('post.');
+        $param = array(
+            array('check_type'=>'is_null','parameter' => $request['id'],'condition'=>'','error_msg'=>'id参数错误'),
+        );
+        check_param($param);//检查参数
+        $where['s.id'] = $request['id'];
+        $where['s.status'] = 1;
+        $supply_info = M('Supply')->alias('s')->join('db_member m on m.id=s.m_id')->where($where)->field('s.*,m.nickname,m.head_pic')->find();
+        if(!$supply_info){
+            apiResponse('0','未查询到或已被删除');
+        }
+        $supply_info['pic_obj'] = $supply_info['pic']?returnSupplyImage($supply_info['pic']):[];
+        $supply_info['head_pic_path'] = returnImage($supply_info['head_pic']);
+        $info  = json_decode($supply_info['supply_info'],true);
+        $index = [];
+        foreach ($info as $k=>$v){
+            $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic,g.bar_code')->find();
+            $index[$k]['goods_id'] = $v['goods_id'];
+            $index[$k]['goods_type_name'] = $goods_info['type_name'];
+            $index[$k]['goods_type_id'] = $goods_info['goods_type_id'];
+            $index[$k]['goods_name'] = $goods_info['goods_name'];
+            $index[$k]['stock'] = $goods_info['stock'];
+            $index[$k]['stock_unit'] = $goods_info['stock_unit'];
+            $index[$k]['goods_pic_path'] = returnImage($goods_info['goods_pic']);
+            $index[$k]['goods_status'] = $goods_info['goods_status'];
+            $index[$k]['goods_price'] = $v['goods_price'];
+            $index[$k]['bar_code'] = $goods_info['bar_code'];
+        }
+        $supply_info['supply_info'] = $index;
+        if($m_id){
+            $supply_info['is_collect'] = M('Collect')->where(['object_type'=>1, 'object_id'=>$_POST['id'],'m_id'=>$m_id])->find()?1:0;
+        }else{
+            $supply_info['is_collect'] = 0;
+        }
+        apiResponse('1','获取供求详情成功',$supply_info);
+    }
+
+
 
 
     /*

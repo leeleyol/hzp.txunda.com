@@ -57,7 +57,8 @@ class ChatController extends BaseController{
             'content'=>$request['type']==1 ? $_POST['content'] : '报价单',
             'create_time'=>time(),
             'from_mid'=>$request['from_mid'],
-            'is_first'=>$request['is_first'] ? $_POST['is_first'] : 0
+            'is_first'=>$request['is_first'] ? $_POST['is_first'] : 0,
+            'is_buyer'=>1
         ];
         $res = M('Chat')->data($data)->add();
         if($res){
