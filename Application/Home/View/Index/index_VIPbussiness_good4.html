@@ -222,7 +222,7 @@
                     $(".reject-price").show().addClass('disable-color').find("a").text("买家已拒绝报价").end();
                 }else if(status == 3){
                     //卖家
-                    if(res.data.is_buyer != res.data.m_id){
+                    if(res.data.is_buyer != m_id){
                         $(".reject-price,.agree-price").hide()
                     }else {
                         $(".reject-price,.agree-price").show();
