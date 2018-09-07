@@ -159,7 +159,7 @@
     <a href="{:U('Index/index_release0')}">
         <div class="leftright">
             <div class="left">
-                我的发布
+                我的库存
             </div>
             <div class="right">
                 <img src="__ROOT__/Public/Home/img/h_more.png"/>

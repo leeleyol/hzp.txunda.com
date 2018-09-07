@@ -211,7 +211,7 @@
                 '                        <div class="list h51">' +
                 '                            <div class="list_2">' +
                 '                                <div class="list_21" >' +
-//                '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
+                '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
                 '                                <div class="ellipsis">'+item.goods_name+'</div>' +
                 '                            </div>' +

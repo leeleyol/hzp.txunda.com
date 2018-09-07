@@ -40,7 +40,6 @@ class MemberController extends BaseController{
      */
     public function ajaxMemberCenter(){
         $m_id = $_POST['m_id'];
-        var_dump($m_id);
         if(empty($m_id)){
             apiResponse('-1','登录失效，请重新登录');
         }

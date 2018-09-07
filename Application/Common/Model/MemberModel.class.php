@@ -74,7 +74,7 @@ class MemberModel extends Model{
      * token过期的时返回错误信息
      */
     function errorTokenMsg($m_id){
-        if($m_id==0){
+        if($m_id==1){
             apiResponse('-1','登录失效，请重新登录');
         }
     }

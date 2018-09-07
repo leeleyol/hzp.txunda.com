@@ -307,8 +307,6 @@ i{
 }
 .leftright .left img{
     width: 30px;height: 30px;
-    border-radius: 50%;
-    margin: 0 10px;
 }
 .leftright .left span{
     color: black;
