@@ -180,9 +180,6 @@ class SupplyController extends BaseController{
 
 
 
-    /*
- * 查看供求详情
- * */
     public function supplyInfoV2(){
         $m_id = $this->member_obj->checkToken();
         $request = I('post.');
@@ -196,11 +193,13 @@ class SupplyController extends BaseController{
         if(!$supply_info){
             apiResponse('0','未查询到或已被删除');
         }
+
+        $goods_list = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.m_id'=>$supply_info['m_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic,g.bar_code,g.id goods_id')->select();
         $supply_info['pic_obj'] = $supply_info['pic']?returnSupplyImage($supply_info['pic']):[];
         $supply_info['head_pic_path'] = returnImage($supply_info['head_pic']);
         $info  = json_decode($supply_info['supply_info'],true);
         $index = [];
-        foreach ($info as $k=>$v){
+        /*foreach ($info as $k=>$v){
             $goods_info = M('Goods')->alias('g')->join('db_goods_type gt on gt.id=g.goods_type_id','left')->where(['g.id'=>$v['goods_id']])->field('g.goods_name,g.goods_type_id,g.stock,g.stock_unit,g.goods_status,gt.type_name,g.goods_pic,g.bar_code')->find();
             $index[$k]['goods_id'] = $v['goods_id'];
             $index[$k]['goods_type_name'] = $goods_info['type_name'];
@@ -212,8 +211,21 @@ class SupplyController extends BaseController{
             $index[$k]['goods_status'] = $goods_info['goods_status'];
             $index[$k]['goods_price'] = $v['goods_price'];
             $index[$k]['bar_code'] = $goods_info['bar_code'];
+        }*/
+
+        foreach($info as $k1=>$v1){
+            $index[] = $v1['goods_id'];
         }
-        $supply_info['supply_info'] = $index;
+        foreach($goods_list as $k=>$v){
+            $goods_list[$k]['goods_pic_path'] = returnImage($v['goods_pic']);
+            if(in_array($index,$v['goods_id'])){
+                $goods_list[$k]['is_select'] = "1";
+            }else{
+                $goods_list[$k]['is_select'] = "0";
+            }
+        }
+
+        $supply_info['supply_info'] = $goods_list;
         if($m_id){
             $supply_info['is_collect'] = M('Collect')->where(['object_type'=>1, 'object_id'=>$_POST['id'],'m_id'=>$m_id])->find()?1:0;
         }else{
