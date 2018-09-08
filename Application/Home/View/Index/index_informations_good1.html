@@ -89,6 +89,10 @@
             display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;
             font-size: 12px;
         }
+
+        .red{
+            color: red!important;
+        }
     </style>
 </head>
 <body class="bc3">
@@ -151,20 +155,20 @@
     $(function () {
         getParam();
         bindHandler();
-        if(supply_item){
-            initData()
-        }else {
+        // if(supply_item){
+        //     initData()
+        // }else {
             getGoodsList();
-        }
-
+        // }
     });
 
     function initData() {
         renderHtml(supply_item)
+        console.log(supply_item)
     }
 
     function getGoodsList() {
-        requestUrl("{:U('Home/Goods/memberGoodsList')}",{member_id:member_id},function(res){
+        requestUrl("{:U('Home/Supply/supplyInfoV2')}",{id:pb_id},function(res){
             if(res.code == -1){
                 localStorage.removeItem('m_id');
                 window.location.href = "{:U('Login/login')}";
@@ -175,8 +179,20 @@
                     ,time: 2 //2秒后自动关闭
                 });
             }else {
-                var list = res.data;
-                renderHtml(list)
+                var list = res.data.supply_info;
+                var typeName = {}
+                var typelist = []
+                $(list).each(function (index, item) {
+                    if(!typeName[item.type_name]){
+                        typeName[item.type_name] = []
+                    }
+                    typeName[item.type_name].push(item)
+                })
+
+                for(var key in typeName){
+                    typelist.push({type_name:key, goods_list:typeName[key]})
+                }
+                renderHtml(typelist)
             }
         });
     }
@@ -213,7 +229,7 @@
                 '                                <div class="list_21" >' +
 //                '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
                 '                                </div>' +
-                '                                <div class="ellipsis">'+item.goods_name+'</div>' +
+                '                                <div class="ellipsis '+(item.is_select == 1 ? "red":"")+'">'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
                 '                        <div class="list">' +
@@ -236,13 +252,15 @@
         return count
     }
 
-    var member_id, supply_item;
+    var member_id, supply_item, pb_id;
     function getParam() {
         member_id = getUrlParam("userId")
+        pb_id = getUrlParam('pb_id')
         if(member_id == m_id){
             $('.bottom_submit').addClass('disable-color');
         }
         supply_item = JSON.parse(decodeURIComponent(getUrlParam("supply_item")))
+        console.log(supply_item)
     }
 
     function bindHandler() {

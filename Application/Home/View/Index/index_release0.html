@@ -383,7 +383,7 @@
         }
 
         #hear li:nth-of-type(3) {
-            width: 34%;
+            width: 33%;
             float: right;
         }
 
@@ -659,6 +659,8 @@
     <div class="type-list">
     </div>
 </div>
+
+
 <div class="img-preview">
     <div>
         <img id="cropp-img" src="" alt="">
@@ -1232,9 +1234,11 @@
         } else {
             $inputImage.prop('disabled', true).parent().addClass('disabled');
         }
+
         $("#hide-preivew").click(function () {
             $(".img-preview").hide()
         })
+
         //确定裁剪图片
         $("#upImgBtn").click(function () {
             var canvas = $("#cropp-img").cropper('getCroppedCanvas');
@@ -1248,14 +1252,13 @@
                     alert(res.message);
                 } else {
                     $(".weui-uploader__input-box").hide()
-
                     $(".weui-uploader__input-box").parent().prepend('<li class="weui-uploader__file">' +
                         '<img class="show-img" src="' + data + '" />' +
                         '<input type="hidden" class="goods_pic" value="' + res.data.id + '">' +
                         '<img  class="re icon_del" src="__ROOT__/Public/Home/img/jian.png" />' +
                         '</li>')
                 }
-            });
+            })
         })
 
         //点击选择分类
