@@ -248,6 +248,6 @@ class GoodsController extends BaseController{
         $data['savename'] = $name.'.'.$type;
         $data['create_time'] = time();
         $id = M('File')->add($data);
-        apiResponse('1','成功',['picture_id'=>$id,'ext'=>$type,'picture_path'=>C('API_URL').$data['path']]);
+        apiResponse('1','成功',['id'=>$id,'ext'=>$type,'picture_path'=>C('API_URL').$data['path']]);
     }
 }
