@@ -218,7 +218,7 @@ class SupplyController extends BaseController{
         }
         foreach($goods_list as $k=>$v){
             $goods_list[$k]['goods_pic_path'] = returnImage($v['goods_pic']);
-            if(in_array($index,$v['goods_id'])){
+            if(in_array($v['goods_id'],$index)){
                 $goods_list[$k]['is_select'] = "1";
             }else{
                 $goods_list[$k]['is_select'] = "0";
