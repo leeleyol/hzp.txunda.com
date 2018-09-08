@@ -155,16 +155,15 @@
     $(function () {
         getParam();
         bindHandler();
-        // if(supply_item){
-        //     initData()
-        // }else {
+        if(pb_id){
             getGoodsList();
-        // }
+        }else {
+           getMemberGoodsList()
+        }
     });
 
     function initData() {
         renderHtml(supply_item)
-        console.log(supply_item)
     }
 
     function getGoodsList() {
@@ -193,6 +192,25 @@
                     typelist.push({type_name:key, goods_list:typeName[key]})
                 }
                 renderHtml(typelist)
+            }
+        });
+    }
+
+    function getMemberGoodsList() {
+        requestUrl("{:U('Home/Goods/memberGoodsList')}",{member_id:member_id},function(res){
+            if(res.code == -1){
+                localStorage.removeItem('m_id');
+                window.location.href = "{:U('Login/login')}";
+            }else if(res.code == 0){
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else {
+                var list = res.data;
+
+                renderHtml(list)
             }
         });
     }
