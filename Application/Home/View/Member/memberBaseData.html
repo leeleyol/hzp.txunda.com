@@ -6,9 +6,7 @@
     <link href="http://cdn.bootcss.com/cropper/3.0.0/cropper.min.css" rel="stylesheet" type="text/css">
 
     <style>
-        *{
-            overflow: hidden;
-        }
+        
         header{
             background: white;
         }
@@ -271,7 +269,7 @@
                 }else if(res.code == 0){
                     alert(res.message);
                 }else {
-
+                    history.go(-1)
                 }
             });
         }
