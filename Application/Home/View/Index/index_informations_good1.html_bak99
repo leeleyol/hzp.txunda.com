@@ -21,7 +21,6 @@
             border-bottom: 1px solid #f6f6f6;
             box-sizing: border-box;
             color:#666666 !important;
-            /*height: 50px;*/
         }
         .lists::-webkit-scrollbar {
             display: none;
@@ -35,7 +34,6 @@
             width: 90px;
             padding: 3px;
             box-sizing: border-box;
-            /*margin-top: 8px;*/
         }
         .list_1{
             margin-right: 0px;
@@ -45,7 +43,7 @@
         .list_2{
             margin-right: 0px;
             width: 160px;
-            padding: 10px 5px 5px 5px;
+            padding: 5px;
         }
         .list_21{
             height: 40px;
@@ -95,9 +93,6 @@
         .red{
             color: red!important;
         }
-        .p-t8{
-            padding-top: 8px;
-        }
     </style>
 </head>
 <body class="bc3">
@@ -114,22 +109,22 @@
 
     <div class="lists bc2 fontsize5 headtop coarseLline">
         <div class="list">
-            <div class="list_1 text-center p-t8"  >
+            <div class="list_1 text-center">
                 操作
             </div>
         </div>
         <div class="list">
-            <div class="list_2 text-center p-t8" >
+            <div class="list_2 text-center">
                 商品名称
             </div>
         </div>
         <div class="list">
-            <div class="list_3 text-center p-t8">
+            <div class="list_3 text-center">
                 库存
             </div>
         </div>
         <div class="list">
-            <div class="list_3 text-center p-t8">
+            <div class="list_3 text-center">
                 货物状态
             </div>
         </div>
@@ -249,9 +244,9 @@
                 '                        </div>' +
                 '                        <div class="list h51">' +
                 '                            <div class="list_2">' +
-//                '                                <div class="list_21" >' +
+                '                                <div class="list_21" >' +
 //                '                                    <img src="'+item.goods_pic_path+'" class="list_22" />' +
-//                '                                </div>' +
+                '                                </div>' +
                 '                                <div class="ellipsis '+(item.is_select == 1 ? "red":"")+'">'+item.goods_name+'</div>' +
                 '                            </div>' +
                 '                        </div>' +
