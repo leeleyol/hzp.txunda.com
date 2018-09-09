@@ -51,13 +51,16 @@ class ChatController extends BaseController{
         );
         $where['m_id'] = $m_id;
         check_param($param);//检查参数
+        $from_mid = $request['from_mid'];
+        $find_string = "(m_id = $m_id AND from_mid = $from_mid) OR (m_id = $from_mid and from_mid = $m_id)";
+        $is_chat = M('Chat')->where(['_string'=>$find_string])->find();
         $data = [
             'm_id'=>$m_id,
             'type'=>$request['type'],
             'content'=>$request['type']==1 ? $_POST['content'] : '报价单',
             'create_time'=>time(),
             'from_mid'=>$request['from_mid'],
-            'is_first'=>$request['is_first'] ? $_POST['is_first'] : 0,
+            'is_first'=>$is_chat ? 0 : 1,
             'is_buyer'=>$m_id
         ];
         $res = M('Chat')->data($data)->add();

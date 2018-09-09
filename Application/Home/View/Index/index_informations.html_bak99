@@ -530,7 +530,7 @@
                 '                        <button class="' + (item.type == 2 ? "reply" : "") + '">' + (item.type == 2 ? "求" : "供") + '</button>' +
                 item.description +
                 '                    </div>' +
-                '                    <div class="section"  >' +
+                '                    <div class="section" style="height: 200px">' +
                 (item.type == 1 ? sectionItme(item.supply_info) : sectionItme2(item.pic)) +
                 '                    </div>' +
                 '                    <div class="section_buttom">' +

@@ -482,7 +482,7 @@
             <li class="action ">
                 <div class="lists bc2">
                     <div class="list">
-                        <div class="list_1 text-center fontsize3" style="padding-top: 6px">
+                        <div class="list_1 text-center fontsize3">
                             操作
                         </div>
                     </div>
@@ -767,9 +767,9 @@
                 '                        </div>' +
                 '                        <div class="list">' +
                 '                            <div class="list_2" style="height: 40px">' +
-//                '                                <div class="list_21" >' +
+                '                                <div class="list_21" >' +
 //                '                                    <img src="' + item.goods_pic_path + '" class="list_22" />' +
-//                '                                </div>' +
+                '                                </div>' +
                 '                                <div class="goodsName">' + item.goods_name + '</div>' +
                 '                            </div>' +
                 '                        </div>' +
