@@ -13,7 +13,7 @@ class IndexController extends BaseController{
      * 首页
      */
     public function index(){
-        /*if(!session('openid') && empty($_GET['code'])){
+        if(!session('openid') && empty($_GET['code'])){
             $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=http://hzp.txunda.com/index.php/Home/Index/index&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             Header("Location: $url");
             exit();
@@ -25,8 +25,23 @@ class IndexController extends BaseController{
                 $tools = new \jsApiPay();
                 $openId = $tools->GetOpenidFromMp($_GET['code']);
                 session('openid',$openId);
+                $userInfo = M('Member')->where(['openid'=>$openId])->find();
+                if($userInfo){
+                    session('m_id',$userInfo['id']);
+                }else{
+                    $data = [
+                        'openid'=>$openId,
+                        'type'=>0,
+                        'create_time'=>time(),
+                        'status'=>1
+                    ];
+                    $add_res = M('Member')->add($data);
+                    session('m_id',$add_res);
+                }
+
+
             }
-        }*/
+        }
 
         /*if($this->is_weixin())
         {
@@ -241,11 +256,70 @@ class IndexController extends BaseController{
 
 
 
-    public function love(){
-        header("Content-type: text/html; charset=utf-8");
-        echo 'name：my girl❤ 爱好：羽毛球、游泳、运动、吃好吃的！！！喜欢吃的：辣的 最爱五花肉 还有各种肉 冰的  喜欢的颜色：绿色 最爱墨绿色 蓝色哇 不喜欢吃的：香蕉 芝麻 花生。。。 搜集中 其他：小懒头。';
+
+    public function getOpenid() {
+        $appid = 'wx637f16d7e2ac1966';
+        $secret = '85d92a5517e28824d3091401cede1297';
+        $js_code = $_REQUEST['js_code'];
+        if(empty($js_code)) {
+            apiResponse(0, '缺少code');
+        }
+        $url = " https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$secret&js_code=$js_code&grant_type=authorization_code";
+
+        $openid = file_get_contents($url);
+        //var_dump($openid);die;
+        $openid=json_decode($openid);
+        $session_key = $openid->session_key;
+        $openid = $openid->openid;
+
+        //$openid = !empty($_REQUEST['openid']) ? $_REQUEST['openid'] : '';
+
+        //var_dump($openid);die;
+        if(empty($openid)) {
+            apiResponse(0, '缺少openid');
+        }
+        //apiResponse(1, '成功', $openid);
+        // 判断用户是否存在
+        $userInfo = M('User')->where(array('openid'=>$openid))->field('is_auth, id AS id')->find();
+       // var_dump($userInfo);die;
+        if($userInfo) {
+            apiResponse(1, '成功', $userInfo['id']);
+        }else { // 注册账户
+            // 上传头像
+            //$_file = array('abs_url'=>$_GET['head_pic'], 'create_time'=>time());
+            //$head_pic = M('File')->add($_file);
+
+            $data = array(
+                'openid'=>$openid,
+                'create_time' => time(),
+                'is_auth' => 0,
+                'status' => 1
+            );
+            $res = M('User')->add($data);
+            $user_id = M('User')->getLastInsID();
+            $userInfo = array(
+                'user_id' => $user_id,
+                'is_auth' => 0
+            );
+            if(!$res)  {
+
+            }else {
+                apiResponse(1, '成功', $userInfo['user_id']);
+            }
+
+        }
+       // echo $res;
     }
 
+
+    public function getSessionMid(){
+        if(session('m_id')){
+            $m_id = session('m_id');
+        }else{
+            $m_id = 0;
+        }
+        apiResponse('200','获取成功',$m_id);
+    }
 
 
 }
