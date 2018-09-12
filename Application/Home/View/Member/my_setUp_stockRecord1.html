@@ -57,7 +57,7 @@
     var p = 0
     function getList() {
         p += 1
-        var url = '/Home/Member/myBuy'
+        var url = "{:U('Member/myBuy')}"
         requestUrl(url, {p:p}, function (res) {
             layer.close(layderIndex)
             if (res.code == -1) {
