@@ -7,7 +7,7 @@ var m_id = localStorage.getItem('m_id') || 1;
 
 if(m_id == 1){
     $.ajax({
-        "url":'index.php?m=Home&c=Index&a=getSessionMid',
+        "url":'/Home/Index/getSessionMid',
         "data" : {},
         "async": false,
         "dataType" : 'json',
