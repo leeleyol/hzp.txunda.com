@@ -4,7 +4,19 @@ var u = navigator.userAgent;
 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 var m_id = localStorage.getItem('m_id') || 1;
-console.log(1)
+
+$.ajax({
+    "url":'index.php?m=Home&c=Index&a=getSessionMid',
+    "data" : {},
+    "dataType" : 'json',
+    "type" : 'post',
+    "success" : function(res){
+        m_id = m_id || res.data
+    }
+})
+
+
+
 ;(function($){
     $.fn.extend({
         "fileInit":function (options) {
