@@ -124,7 +124,7 @@
                 '            <td ><input type="number" placeholder="输入报价金额" class="input" onkeyup="clearNoNum(this)"  value="' + item.buy_price + '" style="text-align: center"></td>' +
                 '        </tr>')
 
-            if (item.buy_price || from_mid != m_id) {
+            if (from_mid != m_id) {
                 $("input").attr("disabled", "disabled");
             }
         });
