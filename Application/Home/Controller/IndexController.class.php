@@ -26,9 +26,16 @@ class IndexController extends BaseController{
                 Vendor('WxpayApi.WxPay#JsApiPay');
                 //①、获取用户openid
                 $tools = new \jsApiPay();
-                $openId = $tools->GetOpenidFromMp($_GET['code']);
+                $wx_data = $tools->GetOpenidFromMp($_GET['code']);
+                $openId = $wx_data['openid'];
                 session('openid',$openId);
                 $userInfo = M('Member')->where(['openid'=>$openId])->find();
+                if(!session('access_token')){
+                    $access_token = $wx_data['access_token'];
+                    $url1 = "https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openId&lang=zh_CN";
+                    $str1 = file_get_contents($url1);
+                    $str1 = json_decode($str1, true);
+                }
                 if($userInfo){
                     session('m_id',$userInfo['id']);
                 }else{
@@ -36,7 +43,8 @@ class IndexController extends BaseController{
                         'openid'=>$openId,
                         'type'=>0,
                         'create_time'=>time(),
-                        'status'=>1
+                        'status'=>1,
+                        'nickname'=>$str1['nickname']
                     ];
                     $add_res = M('Member')->add($data);
                     session('m_id',$add_res);
@@ -51,6 +59,12 @@ class IndexController extends BaseController{
         $this->display('index');
     }
 
+
+    public function indexTwo(){
+        $m_id = session('m_id');
+        var_dump($m_id);
+        //$this->display('index');
+    }
 
     /**
      * 获取微信授权信息并注册
