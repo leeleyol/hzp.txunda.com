@@ -39,8 +39,6 @@ class IndexController extends BaseController{
                     $add_res = M('Member')->add($data);
                     session('m_id',$add_res);
                 }
-
-
             }
         }
 

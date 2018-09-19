@@ -124,7 +124,7 @@
                 '            <td ><input type="number" placeholder="输入报价金额" class="input" onkeyup="clearNoNum(this)"  value="' + item.buy_price + '" style="text-align: center"></td>' +
                 '        </tr>')
 
-            if (item.buy_price || from_mid != m_id) {
+            if (from_mid != m_id) {
                 $("input").attr("disabled", "disabled");
             }
         });
@@ -215,10 +215,11 @@
                 renderHtml(res.data.content, res.data.from_mid)
                 var status = res.data.buy_status;
 
-                if (status == 0) {
+                if (status == 0 || status == 2) {
                     //卖家
                     if (res.data.is_buyer != m_id) {
                         $(".add-price").show()
+
                         //买家
                     } else {
                         $("input").prop({"placeholder":"等待卖家报价"})

@@ -4,7 +4,26 @@ var u = navigator.userAgent;
 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 var m_id = localStorage.getItem('m_id') || 1;
-console.log(1)
+
+if(m_id == 1){
+    $.ajax({
+        "url":'/Home/Index/getSessionMid',
+        "data" : {},
+        "async": false,
+        "dataType" : 'json',
+        "type" : 'post',
+        "success" : function(res){
+            if(res.data != 0){
+                m_id = res.data
+            }
+
+        }
+    })
+}
+
+
+
+
 ;(function($){
     $.fn.extend({
         "fileInit":function (options) {
