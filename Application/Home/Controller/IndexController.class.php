@@ -14,7 +14,8 @@ class IndexController extends BaseController{
      */
     public function index(){
         if(!session('openid') && empty($_GET['code'])){
-            $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=http://hzp.txunda.com/index.php/Home/Index/index&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            $url1 = urlencode("http://hzp.txunda.com/index.php/Home/Index/index");
+            $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc14df2cb856bd3f&redirect_uri=".$url1."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             Header("Location: $url");
             exit();
         }else{
